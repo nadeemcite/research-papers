@@ -7,6 +7,7 @@ waits for execution to complete, downloads the log, and checks for errors.
 
 import json, os, re, subprocess, sys, time
 from pathlib import Path
+from typing import Optional, Tuple, List
 
 REPO_PATH = Path("/Users/nadymini2/labs/research-notebooks")
 
@@ -100,7 +101,7 @@ def download_log(kernel_id: str, output_dir: Path) -> Path:
     raise FileNotFoundError(f"No log file found in {output_dir}")
 
 
-def check_log_for_errors(log_path: Path) -> list[str]:
+def check_log_for_errors(log_path: Path) -> List[str]:
     """Parse Kaggle log JSON lines and return list of error messages."""
     issues = []
     content = log_path.read_text()
@@ -124,7 +125,7 @@ def check_log_for_errors(log_path: Path) -> list[str]:
     return issues
 
 
-def validate(folder: Path, title: str | None = None) -> tuple[bool, list[str]]:
+def validate(folder: Path, title: Optional[str] = None) -> Tuple[bool, List[str]]:
     """Run Kaggle GPU validation. Returns (ok, issues)."""
     try:
         if title is None:
