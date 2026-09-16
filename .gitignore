@@ -3,3 +3,7 @@
 !.ignore/validator.py
 !.ignore/orchestrator.py
 
+# Kaggle validation artifacts (downloaded logs and cached datasets)
+.kaggle_output/
+kernel-metadata.json
+
