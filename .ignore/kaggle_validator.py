@@ -104,7 +104,7 @@ def push_kernel(folder: Path, title: str) -> str:
     return kernel_id
 
 
-def wait_for_kernel(kernel_id: str, max_wait_seconds: int = 1800, poll_interval: int = 20) -> str:
+def wait_for_kernel(kernel_id: str, max_wait_seconds: int = 5400, poll_interval: int = 20) -> str:
     """Poll Kaggle kernel status until complete or timeout. Returns final status."""
     print(f"Waiting for {kernel_id} to finish (max {max_wait_seconds}s)...")
     elapsed = 0
