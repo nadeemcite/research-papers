@@ -1,3 +1,4 @@
-/.ignore
-
+/.ignore/*
+!.ignore/validator.py
+!.ignore/orchestrator.py
 
