@@ -1,4 +1,5 @@
 /.ignore/*
+!.ignore/kaggle_validator.py
 !.ignore/validator.py
 !.ignore/orchestrator.py
 
