@@ -153,7 +153,7 @@ def run_cycle():
         spec_file = folder_path / ".notebook_spec.json"
         spec_file.write_text(json.dumps(spec, indent=2))
 
-        validate_notebook(folder_path)
+        validate_notebook(folder_path, title)
 
         # Commit and push the complete package
         git_commit_push(folder_path, sr_padded, title)
@@ -176,20 +176,20 @@ def run_cycle():
         raise
 
 
-def validate_notebook(folder_path: Path) -> None:
-    """Run the standalone validator on the generated notebook."""
-    validator = REPO_PATH / ".ignore" / "validator.py"
-    log(f"Running validator on {folder_path}")
+def validate_notebook(folder_path: Path, paper_title: str) -> None:
+    """Run the standalone Kaggle GPU validator on the generated notebook."""
+    validator = REPO_PATH / ".ignore" / "kaggle_validator.py"
+    log(f"Running Kaggle GPU validator on {folder_path}")
     result = subprocess.run(
-        ["python3", str(validator), str(folder_path)],
+        ["python3", str(validator), str(folder_path), "--title", paper_title],
         cwd=str(REPO_PATH),
         capture_output=True,
         text=True,
-        timeout=300,
+        timeout=2400,  # up to 40 minutes for push + GPU run + download
     )
     print(result.stdout, flush=True)
     if result.returncode != 0:
-        raise RuntimeError("Notebook validation failed — see issues above. Commit/push blocked.")
+        raise RuntimeError("Notebook validation failed on Kaggle GPU — see issues above. Commit/push blocked.")
 
 
 def log(msg):

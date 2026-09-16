@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+"""
+Kaggle GPU validator for the Paper-to-Code pipeline.
+Uploads solution.ipynb as a private Kaggle kernel with GPU enabled,
+waits for execution to complete, downloads the log, and checks for errors.
+"""
+
+import json, os, re, subprocess, sys, time
+from pathlib import Path
+
+REPO_PATH = Path("/Users/nadymini2/labs/research-notebooks")
+
+
+def set_kaggle_env():
+    """Ensure kaggle CLI is on PATH."""
+    kaggle_bin = Path.home() / "Library" / "Python" / "3.9" / "bin"
+    os.environ["PATH"] = f"{kaggle_bin}:{os.environ.get('PATH', '')}"
+
+
+def run_kaggle(args, timeout=60):
+    set_kaggle_env()
+    result = subprocess.run(
+        ["kaggle"] + args, capture_output=True, text=True, timeout=timeout
+    )
+    return result
+
+
+def make_kernel_metadata(folder: Path, title: str, notebook_file: str = "solution.ipynb"):
+    """Create kernel-metadata.json required by kaggle kernels push."""
+    # Kaggle slugs: lowercase, alphanumeric + hyphen, max 50 chars
+    slug = re.sub(r"[^a-z0-9-]", "", title.lower().replace(" ", "-").replace("_", "-"))
+    slug = slug.strip("-")[:50]
+    kernel_id = f"nadymsazad/{slug}"
+    meta = {
+        "id": kernel_id,
+        "title": title,
+        "code_file": notebook_file,
+        "language": "python",
+        "kernel_type": "notebook",
+        "is_private": "true",
+        "enable_gpu": "true",
+        "enable_internet": "true",
+        "dataset_sources": [],
+        "competition_sources": [],
+        "kernel_sources": []
+    }
+    return meta, kernel_id
+
+
+def push_kernel(folder: Path, title: str) -> str:
+    """Push the notebook folder as a Kaggle kernel. Returns kernel_id."""
+    nb_path = folder / "solution.ipynb"
+    if not nb_path.exists():
+        raise FileNotFoundError(f"solution.ipynb not found in {folder}")
+
+    # Kaggle expects kernel-metadata.json in the same dir as the notebook
+    meta, kernel_id = make_kernel_metadata(folder, title)
+    meta_path = folder / "kernel-metadata.json"
+    meta_path.write_text(json.dumps(meta, indent=2))
+
+    result = run_kaggle(["kernels", "push", "-p", str(folder)], timeout=120)
+    if result.returncode != 0:
+        raise RuntimeError(f"kaggle kernels push failed: {result.stdout} {result.stderr}")
+    print(result.stdout.strip())
+    return kernel_id
+
+
+def wait_for_kernel(kernel_id: str, max_wait_seconds: int = 1800, poll_interval: int = 20) -> str:
+    """Poll Kaggle kernel status until complete or timeout. Returns final status."""
+    print(f"Waiting for {kernel_id} to finish (max {max_wait_seconds}s)...")
+    elapsed = 0
+    while elapsed < max_wait_seconds:
+        result = run_kaggle(["kernels", "status", kernel_id], timeout=60)
+        status_line = result.stdout.strip()
+        print(f"  [{elapsed:4d}s] {status_line}")
+        if result.returncode == 0 and "COMPLETE" in status_line.upper():
+            return "COMPLETE"
+        if result.returncode == 0 and any(x in status_line.upper() for x in ["ERROR", "FAILED", "CANCEL"]):
+            return status_line
+        time.sleep(poll_interval)
+        elapsed += poll_interval
+    return "TIMEOUT"
+
+
+def download_log(kernel_id: str, output_dir: Path) -> Path:
+    """Download kernel log to output_dir. Returns log file path."""
+    result = run_kaggle(["kernels", "output", kernel_id, "-p", str(output_dir)], timeout=120)
+    if result.returncode != 0:
+        raise RuntimeError(f"kaggle kernels output failed: {result.stdout} {result.stderr}")
+    print(result.stdout.strip())
+    # log file name is based on kernel slug
+    slug = kernel_id.split("/")[-1]
+    log_file = output_dir / f"{slug}.log"
+    if log_file.exists():
+        return log_file
+    # fallback: any .log file
+    logs = list(output_dir.glob("*.log"))
+    if logs:
+        return logs[0]
+    raise FileNotFoundError(f"No log file found in {output_dir}")
+
+
+def check_log_for_errors(log_path: Path) -> list[str]:
+    """Parse Kaggle log JSON lines and return list of error messages."""
+    issues = []
+    content = log_path.read_text()
+    # Log is a JSON array of stream events
+    try:
+        events = json.loads(content)
+    except json.JSONDecodeError:
+        # Fallback: plain text scan
+        if "error" in content.lower():
+            issues.append("Log contains 'error' (plain text scan)")
+        return issues
+
+    for ev in events:
+        stream = ev.get("stream_name", "")
+        data = ev.get("data", "")
+        # Kernel-level error indicators
+        if stream == "stderr" and not any(w in data.lower() for w in ["warning", "debugger", "frozen modules", "pydevd"]):
+            # Genuine stderr that is not a common warning
+            if "error" in data.lower() or "exception" in data.lower() or "traceback" in data.lower():
+                issues.append(f"stderr: {data[:200]}")
+    return issues
+
+
+def validate(folder: Path, title: str | None = None) -> tuple[bool, list[str]]:
+    """Run Kaggle GPU validation. Returns (ok, issues)."""
+    try:
+        if title is None:
+            # Derive title from folder name
+            title = folder.name.replace("-", " ").replace("_", " ").title()
+
+        kernel_id = push_kernel(folder, title)
+        status = wait_for_kernel(kernel_id)
+
+        if status != "COMPLETE":
+            return False, [f"Kaggle kernel did not complete: {status}"]
+
+        output_dir = folder / ".kaggle_output"
+        output_dir.mkdir(exist_ok=True)
+        log_path = download_log(kernel_id, output_dir)
+        print(f"Log downloaded: {log_path}")
+
+        issues = check_log_for_errors(log_path)
+        return len(issues) == 0, issues
+
+    except Exception as e:
+        return False, [f"Kaggle validation exception: {e}"]
+
+
+def main():
+    import argparse, shutil
+    parser = argparse.ArgumentParser(description="Validate solution.ipynb on Kaggle GPU")
+    parser.add_argument("folder", help="Folder containing solution.ipynb")
+    parser.add_argument("--title", help="Kaggle kernel title (optional)")
+    args = parser.parse_args()
+
+    folder = Path(args.folder)
+    ok, issues = validate(folder, title=args.title)
+
+    for issue in issues:
+        print(f"[VALIDATION ISSUE] {issue}")
+
+    if ok:
+        print("[VALIDATION OK] solution.ipynb executed successfully on Kaggle GPU.")
+        return 0
+    else:
+        print("[VALIDATION FAILED] solution.ipynb has errors on Kaggle GPU.")
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
