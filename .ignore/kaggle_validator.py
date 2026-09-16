@@ -48,11 +48,49 @@ def make_kernel_metadata(folder: Path, title: str, notebook_file: str = "solutio
     return meta, kernel_id
 
 
+def inject_notebook_copy_cell(folder: Path):
+    """Add a final cell to solution.ipynb that copies the executed notebook
+    to /kaggle/working/ so it can be downloaded via kaggle kernels output."""
+    nb_path = folder / "solution.ipynb"
+    nb = json.loads(nb_path.read_text())
+
+    # Check if cell already exists
+    for cell in nb["cells"]:
+        if cell.get("cell_type") == "code" and "__notebook__.ipynb" in "".join(cell.get("source", [])):
+            return  # Already injected
+
+    copy_cell = {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# --- Auto-injected by kaggle_validator: save executed notebook with outputs ---\n",
+            "import shutil, os\n",
+            "# Kaggle internally stores the executed notebook as __notebook__.ipynb\n",
+            "if os.path.exists('/kaggle/working/__notebook__.ipynb'):\n",
+            "    shutil.copy('/kaggle/working/__notebook__.ipynb', '/kaggle/working/executed_solution.ipynb')\n",
+            "    print('Executed notebook saved to output folder.')\n",
+            "else:\n",
+            "    # Fallback: try alternative path\n",
+            "    import glob\n",
+            "    candidates = glob.glob('/kaggle/working/*.ipynb')\n",
+            "    print(f'Available notebooks in output: {candidates}')\n"
+        ]
+    }
+    nb["cells"].append(copy_cell)
+    nb_path.write_text(json.dumps(nb, indent=1))
+    print("Injected __notebook__.ipynb copy cell into solution.ipynb")
+
+
 def push_kernel(folder: Path, title: str) -> str:
     """Push the notebook folder as a Kaggle kernel. Returns kernel_id."""
     nb_path = folder / "solution.ipynb"
     if not nb_path.exists():
         raise FileNotFoundError(f"solution.ipynb not found in {folder}")
+
+    # Inject the notebook-copy cell before pushing
+    inject_notebook_copy_cell(folder)
 
     # Kaggle expects kernel-metadata.json in the same dir as the notebook
     meta, kernel_id = make_kernel_metadata(folder, title)
@@ -125,6 +163,19 @@ def check_log_for_errors(log_path: Path) -> List[str]:
     return issues
 
 
+def download_executed_notebook(kernel_id: str, output_dir: Path, solution_path: Path) -> bool:
+    """Download executed_solution.ipynb from Kaggle output and replace local solution.ipynb.
+    Returns True if replacement succeeded."""
+    executed_path = output_dir / "executed_solution.ipynb"
+    if executed_path.exists():
+        nb = json.loads(executed_path.read_text())
+        solution_path.write_text(json.dumps(nb, indent=1))
+        print(f"Replaced {solution_path.name} with executed version ({executed_path.stat().st_size} bytes)")
+        return True
+    print("executed_solution.ipynb not found in Kaggle output — keeping source-only notebook")
+    return False
+
+
 def validate(folder: Path, title: Optional[str] = None) -> Tuple[bool, List[str]]:
     """Run Kaggle GPU validation. Returns (ok, issues)."""
     try:
@@ -144,6 +195,11 @@ def validate(folder: Path, title: Optional[str] = None) -> Tuple[bool, List[str]
         print(f"Log downloaded: {log_path}")
 
         issues = check_log_for_errors(log_path)
+
+        # Replace local solution.ipynb with executed version (outputs included)
+        solution_path = folder / "solution.ipynb"
+        download_executed_notebook(kernel_id, output_dir, solution_path)
+
         return len(issues) == 0, issues
 
     except Exception as e:
