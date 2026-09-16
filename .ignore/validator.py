@@ -74,8 +74,11 @@ def check_no_error_outputs(nb: dict) -> list[str]:
     return issues
 
 
-def execute_notebook(nb_path: Path, timeout: int = 300) -> tuple[bool, list[str]]:
-    """Execute the notebook with jupyter nbconvert and return (ok, issues)."""
+def execute_notebook(nb_path: Path, timeout: int = 900) -> tuple[bool, list[str]]:
+    """Execute the notebook with jupyter nbconvert and return (ok, issues).
+    Default timeout raised to 900s (15 min) because training-heavy notebooks
+    (PyTorch on MNIST/Fashion-MNIST) can take several minutes to finish.
+    """
     issues = []
     nb_path = nb_path.resolve()
     cmd = [
