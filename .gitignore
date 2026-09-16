@@ -2,6 +2,7 @@
 !.ignore/kaggle_validator.py
 !.ignore/validator.py
 !.ignore/orchestrator.py
+!.ignore/cron_prompt.md
 
 # Kaggle validation artifacts (downloaded logs and cached datasets)
 .kaggle_output/
