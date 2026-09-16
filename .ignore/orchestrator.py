@@ -84,7 +84,18 @@ def git(args, cwd=REPO_PATH):
     return result.stdout.strip()
 
 
+def load_ssh_keys():
+    """Ensure both GitHub deploy keys are loaded in ssh-agent."""
+    keys = ["~/.ssh/nadyth.ssh", "~/.ssh/nadeem.ssh"]
+    for key in keys:
+        key_path = os.path.expanduser(key)
+        if os.path.exists(key_path):
+            # ssh-add is idempotent; ignore AlreadyInAgent errors
+            subprocess.run(["ssh-add", key_path], capture_output=True)
+
+
 def git_commit_push(folder_path, sr_padded, paper_title):
+    load_ssh_keys()
     folder_rel = folder_path.relative_to(REPO_PATH)
     # Stage the new folder
     git(["add", str(folder_rel / "README.md"), str(folder_rel / "solution.ipynb"),
@@ -95,7 +106,9 @@ def git_commit_push(folder_path, sr_padded, paper_title):
         git(["add", "README.md"])
     commit_msg = f"Add: {sr_padded} {paper_title}"
     git(["commit", "-m", commit_msg])
+    # Push to both remotes; if one fails, the whole operation fails and sheet reverts
     git(["push", "origin", "main"])
+    git(["push", "backup", "main"])
 
 
 # ─── Main trigger logic ───────────────────────────────────────────────────────
