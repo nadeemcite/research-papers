@@ -176,6 +176,22 @@ def download_executed_notebook(kernel_id: str, output_dir: Path, solution_path: 
     return False
 
 
+def make_kernel_public(folder: Path, title: str) -> bool:
+    """Re-push the kernel with is_private=false to make it public on Kaggle.
+    Call this only after validation has passed. Returns True if push succeeded."""
+    meta, kernel_id = make_kernel_metadata(folder, title)
+    meta["is_private"] = "false"
+    meta_path = folder / "kernel-metadata.json"
+    meta_path.write_text(json.dumps(meta, indent=2))
+
+    result = run_kaggle(["kernels", "push", "-p", str(folder)], timeout=120)
+    if result.returncode != 0:
+        print(f"WARNING: Failed to make kernel public: {result.stdout} {result.stderr}")
+        return False
+    print(f"Kernel {kernel_id} is now PUBLIC on Kaggle.")
+    return True
+
+
 def validate(folder: Path, title: Optional[str] = None) -> Tuple[bool, List[str]]:
     """Run Kaggle GPU validation. Returns (ok, issues)."""
     try:
@@ -199,6 +215,10 @@ def validate(folder: Path, title: Optional[str] = None) -> Tuple[bool, List[str]
         # Replace local solution.ipynb with executed version (outputs included)
         solution_path = folder / "solution.ipynb"
         download_executed_notebook(kernel_id, output_dir, solution_path)
+
+        # If validation passed, make the kernel public on Kaggle
+        if len(issues) == 0:
+            make_kernel_public(folder, title)
 
         return len(issues) == 0, issues
 

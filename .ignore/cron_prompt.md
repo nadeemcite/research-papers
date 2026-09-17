@@ -18,7 +18,7 @@ Your task every cycle (one row only):
    - CODE_ARCHITECTURE.md: section-by-section notebook breakdown, key functions/classes, data flow/shapes, deliberate simplifications vs full paper.
    - TALK.md: verifiable press/blog coverage, 3-5 interview Q&A, common misconceptions, real citations. Do NOT invent talks/quotes.
 7. Generate solution.ipynb in the folder based on the Code Template column. Keep it self-contained and Colab-runnable with pip-installable packages only. Include markdown headers. Do NOT execute it locally; leave it as source-only cells with empty outputs.
-8. Run /Users/nadymini2/labs/research-notebooks/.ignore/kaggle_validator.py <folder> --title "<Paper Title>" to validate on Kaggle GPU. This pushes the notebook, runs it on Kaggle, downloads the executed notebook with outputs, and replaces the local solution.ipynb. Wait for [VALIDATION OK]. If it fails, stop and revert the sheet row.
+8. Run /Users/nadymini2/labs/research-notebooks/.ignore/kaggle_validator.py <folder> --title "<Paper Title>" to validate on Kaggle GPU. This pushes the notebook as private, runs it on Kaggle, downloads the executed notebook with outputs, replaces the local solution.ipynb, and if validation passes automatically makes the kernel public on Kaggle. Wait for [VALIDATION OK]. If it fails, stop and revert the sheet row.
 9. Update the root README.md index table with the new paper row.
 10. Stage only the new folder (4 files + spec if present) and README.md. Commit with message "Add: <Sr padded> <Paper Title>". Use a RANDOM commit timestamp so the commit history looks organic and not tied to the cron schedule:
     a. Generate a random datetime within the last 12 hours from now:
