@@ -5,7 +5,9 @@
 
 ## What problem does it solve?
 
-Training modern machine-learning models means repeatedly adjusting thousands or millions of parameters using noisy gradients computed on mini-batches. Vanilla stochastic gradient descent (SGD) uses one global learning rate, so it takes forever on some parameters and overshoots on others. The paper asks: can each parameter get its own adaptive learning rate, while keeping memory tiny and the implementation simple? Adam answers yes by combining the idea of momentum with the per-parameter scaling ideas behind AdaGrad and RMSProp.
+Imagine you're blindfolded on a hilly trail and trying to find the lowest point in a valley. You feel the ground with your feet and take a step downhill. That's how neural networks learn — they feel the "slope" (gradient) and take a step. But the problem is: some parts of the hill are super steep and some are nearly flat. If you take the same-sized step everywhere, you'll overshoot on the steep parts and crawl on the flat parts. You need a smart way to take big steps on flat ground and tiny careful steps on steep ground.
+
+Adam solves this by giving each parameter its own personal step size that automatically adjusts. It's like hiking with a smart pedometer that remembers two things: which direction you've been heading (momentum) and how bumpy the ground has been (step size scaling). If the ground is consistently sloping one way, Adam takes confident steps. If the ground is bouncing up and down, Adam takes tiny careful steps so it doesn't fall over. And it has a special trick to avoid being too cautious at the very start when it hasn't seen enough of the trail yet. This made Adam the go-to "engine" for training almost every modern AI model.
 
 ## The core insight
 

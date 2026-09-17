@@ -5,7 +5,9 @@
 
 ## What problem does it solve?
 
-After AlexNet (2012) proved deep convolutional networks work for ImageNet, the open question was: **how should we make them better?** Wider filters? More parameters? Deeper nets? VGGNet answers by systematically pushing **depth** — using a stack of very small 3×3 convolutions instead of the larger filters common at the time. It showed that depth, not exotic new layers, was the simplest and most effective path to higher accuracy.
+Imagine you're building a tower out of blocks. You discover that using small, identical blocks stacked one on top of another makes a taller and sturdier tower than using a few big, fancy blocks. Before VGGNet, people building AI vision systems were using big, complicated blocks (large filters like 7×7 or 11×11) and wondering why their towers couldn't go very high without becoming unstable.
+
+VGGNet solves this by showing that stacking many small, simple 3×3 blocks — the same size block, over and over — lets you build a much deeper and smarter network than using a few large, complex blocks. It's like building with tiny Lego bricks instead of big chunks: you get more flexibility, more places to connect, and the whole structure is sturdier. Three small blocks stacked together can "see" the same area as one big block, but with fewer pieces and more flexibility. This simple idea — go deep with small, uniform blocks — became the recipe for almost every image-recognition AI that came after.
 
 ## The core insight
 

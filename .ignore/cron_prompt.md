@@ -14,7 +14,7 @@ Your task every cycle (one row only):
 4. IMMEDIATELY set that row's Status to "In progress" in the sheet before doing any other work.
 5. Create the folder: /Users/nadymini2/labs/research-notebooks/<SR padded to 3 digits>_<slug>. Slug rules: lowercase, spaces/punctuation to hyphens, strip non-alphanumeric, trim to ~40 chars without cutting a word.
 6. Research the paper via web_search/web_extract on the arXiv link and 2-3 relevant queries. Write these files inside the folder:
-   - README.md: one-paragraph summary, core idea, key method details relevant to the code, influence, arXiv link.
+   - README.md: one-paragraph summary, core idea, key method details relevant to the code, influence, arXiv link. MUST include a section titled "What problem does it solve" that explains in very simple language (like explaining to a 10-year-old) what exactly this research paper solves, using a real-life everyday example.
    - CODE_ARCHITECTURE.md: section-by-section notebook breakdown, key functions/classes, data flow/shapes, deliberate simplifications vs full paper.
    - TALK.md: verifiable press/blog coverage, 3-5 interview Q&A, common misconceptions, real citations. Do NOT invent talks/quotes.
 7. Generate solution.ipynb in the folder based on the Code Template column. Keep it self-contained and Colab-runnable with pip-installable packages only. Include markdown headers. Do NOT execute it locally; leave it as source-only cells with empty outputs.
