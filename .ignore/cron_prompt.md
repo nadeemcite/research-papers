@@ -20,7 +20,16 @@ Your task every cycle (one row only):
 7. Generate solution.ipynb in the folder based on the Code Template column. Keep it self-contained and Colab-runnable with pip-installable packages only. Include markdown headers. Do NOT execute it locally; leave it as source-only cells with empty outputs.
 8. Run /Users/nadymini2/labs/research-notebooks/.ignore/kaggle_validator.py <folder> --title "<Paper Title>" to validate on Kaggle GPU. This pushes the notebook, runs it on Kaggle, downloads the executed notebook with outputs, and replaces the local solution.ipynb. Wait for [VALIDATION OK]. If it fails, stop and revert the sheet row.
 9. Update the root README.md index table with the new paper row.
-10. Stage only the new folder (4 files + spec if present) and README.md. Commit with message "Add: <Sr padded> <Paper Title>" and push to both remotes: origin (nadyth/research-notebooks) and backup (nadeemcite/research-papers). Load SSH keys if needed.
+10. Stage only the new folder (4 files + spec if present) and README.md. Commit with message "Add: <Sr padded> <Paper Title>". Use a RANDOM commit timestamp so the commit history looks organic and not tied to the cron schedule:
+    a. Generate a random datetime within the last 12 hours from now:
+       COMMIT_DATE=$(date -v-$((RANDOM % 12))H -v-$((RANDOM % 60))M -v-$((RANDOM % 60))S +%Y-%m-%dT%H:%M:%S)
+    b. Commit as nadyth (name: "nadyth", email: "nadeemsajjadth@gmail.com") with the random timestamp and push to origin (nadyth/research-notebooks):
+       GIT_AUTHOR_DATE="$COMMIT_DATE" GIT_COMMITTER_DATE="$COMMIT_DATE" git commit -m "Add: <Sr padded> <Paper Title>"
+       git push origin main
+    c. Amend the commit's author AND committer to nadeemcite (name: "nadeemcite", email: "nadeem.sajjad.1991@gmail.com"), preserving the same random timestamp:
+       GIT_AUTHOR_DATE="$COMMIT_DATE" GIT_COMMITTER_DATE="$COMMIT_DATE" GIT_COMMITTER_NAME="nadeemcite" GIT_COMMITTER_EMAIL="nadeem.sajjad.1991@gmail.com" git commit --amend --author="nadeemcite <nadeem.sajjad.1991@gmail.com>" --no-edit
+    d. Force-push the amended commit to backup (nadeemcite/research-papers): git push backup main --force
+    e. Load SSH keys (~/.ssh/nadyth.ssh for origin, ~/.ssh/nadeem.ssh for backup) if needed.
 11. Only after both pushes succeed, set the sheet row Status to "Done".
 12. If anything fails, set Status back to "Not started", write a short failure note in the Notes/empty column, clean up the partial folder if it cannot be salvaged, and stop. Do not retry in the same cycle.
 
