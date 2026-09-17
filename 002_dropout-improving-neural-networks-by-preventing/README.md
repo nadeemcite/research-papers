@@ -6,6 +6,14 @@
 
 ---
 
+## What problem does it solve?
+
+Imagine you're studying for a big exam by memorizing the exact questions from your practice test instead of understanding the concepts. You ace the practice test, but on the real exam with new questions, you fail. That's called **overfitting** — your brain memorized instead of learned.
+
+Neural networks have the exact same problem. When you train a big neural network on a small amount of data, it memorizes the training examples instead of learning the general patterns. So it does great on the data it's seen, but badly on new data. Dropout solves this by randomly turning off about half the "brain cells" (neurons) every time the network looks at a new training example. It's like a soccer team where the coach randomly benches half the players at every practice — no player can rely on a specific teammate always being there, so every player has to learn to be good on their own. By the time the real game comes, the whole team is stronger because each player learned to handle many different situations independently.
+
+---
+
 ## Summary
 
 Large neural networks trained on small datasets have a chronic problem: they memorize the training examples instead of learning general rules, so they perform poorly on new test data. This is called **overfitting**. Hinton et al. proposed a surprisingly simple fix: during training, randomly drop out (set to zero) roughly half of the neurons in the network for every training example. Each update trains a different "thinned" sub-network, which forces the network to learn robust features that work in many different contexts rather than relying on specific co-adapted combinations of neurons.

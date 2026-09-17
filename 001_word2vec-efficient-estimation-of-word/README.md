@@ -6,6 +6,14 @@
 
 ---
 
+## What problem does it solve?
+
+Imagine you have a huge box of Lego pieces, and each piece is a word. If the pieces are all random shapes, you can't tell that "king" and "queen" are more related than "king" and "toaster." Before this paper, computers treated every word like a totally random Lego piece — just an ID number with no sense of which words are similar or different.
+
+Word2Vec solves this by turning each word into a list of numbers (a vector) so that words with similar meanings end up close together on a map. Think of it like arranging books on a shelf: books about cooking go together, books about space go together, and "king" and "queen" sit right next to each other while "king" and "toaster" are far apart. Even better, the directions between words carry meaning — the distance and direction from "king" to "queen" is the same as from "man" to "woman," because the vector learned that "king − man + woman ≈ queen." This let computers, for the first time, understand that words aren't just labels — they have relationships, and those relationships can be measured with math.
+
+---
+
 ## Summary
 
 Before Word2Vec, NLP systems treated words as atomic units — discrete indices in a vocabulary with no notion of similarity. "King" and "queen" were as different as "king" and "toaster." Neural language models existed but were too slow to train on billion-word datasets. Mikolov et al. proposed two lightweight architectures — **Continuous Bag-of-Words (CBOW)** and **Skip-gram** — that learn dense vector representations of words from raw text at unprecedented scale and speed. On a single machine, high-quality vectors could be trained from 1.6 billion words in under a day.
