@@ -4,6 +4,7 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 
 | Sr | Paper | Folder |
 |---|---|---|
+| 009 | Highway Networks | [009_highway-networks](009_highway-networks/) |
 | 008 | ResNet — Deep Residual Learning for Image Recognition | [008_resnet-deep-residual-learning-for-image](008_resnet-deep-residual-learning-for-image/) |
 | 001 | Word2Vec — Efficient Estimation of Word Representations in Vector Space | [001_word2vec-efficient-estimation-of-word](001_word2vec-efficient-estimation-of-word/) |
 | 002 | Dropout — Improving Neural Networks by Preventing Co-adaptation of Feature Detectors | [002_dropout-improving-neural-networks-by-preventing](002_dropout-improving-neural-networks-by-preventing/) |
