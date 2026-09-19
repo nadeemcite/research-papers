@@ -4,6 +4,7 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 
 | Sr | Paper | Folder |
 |---|---|---|
+| 014 | Show and Tell: A Neural Image Caption Generator | [014_show-and-tell-neural-image-caption-generator](014_show-and-tell-neural-image-caption-generator/) |
 | 013 | Learning Phrase Representations using RNN Encoder-Decoder (GRU) | [013_learning-phrase-representations-using-rnn](013_learning-phrase-representations-using-rnn/) |
 | 010 | A Neural Algorithm of Artistic Style (Neural Style Transfer) | [010_a-neural-algorithm-of-artistic-style](010_a-neural-algorithm-of-artistic-style/) |
 | 011 | Sequence to Sequence Learning with Neural Networks | [011_sequence-to-sequence-learning-with-neural-networks](011_sequence-to-sequence-learning-with-neural-networks/) |
