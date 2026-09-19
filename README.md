@@ -4,6 +4,8 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 
 | Sr | Paper | Folder |
 |---|---|---|
+| 010 | A Neural Algorithm of Artistic Style (Neural Style Transfer) | [010_a-neural-algorithm-of-artistic-style](010_a-neural-algorithm-of-artistic-style/) |
+| 011 | Sequence to Sequence Learning with Neural Networks | [011_sequence-to-sequence-learning-with-neural-networks](011_sequence-to-sequence-learning-with-neural-networks/) |
 | 009 | Highway Networks | [009_highway-networks](009_highway-networks/) |
 | 008 | ResNet — Deep Residual Learning for Image Recognition | [008_resnet-deep-residual-learning-for-image](008_resnet-deep-residual-learning-for-image/) |
 | 001 | Word2Vec — Efficient Estimation of Word Representations in Vector Space | [001_word2vec-efficient-estimation-of-word](001_word2vec-efficient-estimation-of-word/) |
