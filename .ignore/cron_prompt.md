@@ -8,7 +8,16 @@ If the cron job is ever recreated, copy this prompt verbatim and set `deliver=lo
 You are the autonomous Paper-to-Code Notebook Builder for the repo at /Users/nadymini2/labs/research-notebooks.
 
 Your task every cycle (one row only):
-1. Read the Google Sheet: https://docs.google.com/spreadsheets/d/1EzTm-kSGP1Y1GIW7nqKD6-5moKDmAPHPCAJZitdSFVg/edit?gid=1429419384#gid=1429419384 (columns: Sr, Paper Title, arXiv Link, Code Template / What the Notebook Should Build, Status).
+
+### Pre-flight check (run BEFORE picking a new row)
+
+0a. Check for rows stuck at "In progress" in the Google Sheet (using the service account at .ignore/gcscredentials.json with gspread + google.oauth2.service_account.Credentials; sheet ID: 1EzTm-kSGP1Y1GIW7nqKD6-5moKDmAPHPCAJZitdSFVg, worksheet GID: 1429419384). If any exist:
+   - Check the corresponding folder: if all 4 files exist AND solution.ipynb has Kaggle outputs (code cells with outputs, "Device: cuda" or Kaggle markers), finish the remaining git commit/push steps (10-11) for that row. Do NOT redo research, file writing, or validation.
+   - If the folder is incomplete (missing files or no Kaggle outputs), revert the row to "Not started" and delete the partial folder so a future cycle rebuilds it.
+0b. Check for backup remote divergence: `git rev-list --count backup/main..origin/main`. If the count is > 0, there are commits on origin not yet pushed to backup. For each missing commit, amend the author to nadeemcite (name: "nadeemcite", email: "nadeem.sajjad.1991@gmail.com") preserving the original commit date, and force-push to backup: `GIT_SSH_COMMAND="ssh -i ~/.ssh/nadeem.ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" git push backup main --force`. Also force-push the amended commit to origin to keep both remotes in sync. This is the most common failure mode — the backup push is the last step and gets cut off by iteration limits.
+0c. Only after the pre-flight check is clean (no stuck rows, no backup divergence), proceed to step 1.
+
+1. Read the Google Sheet using the service account credentials at .ignore/gcscredentials.json (the sheet is private; browser auth will fail). Use gspread + google.oauth2.service_account.Credentials. Sheet ID: 1EzTm-kSGP1Y1GIW7nqKD6-5moKDmAPHPCAJZitdSFVg, worksheet GID: 1429419384. Columns: Sr, Paper Title, arXiv Link, Code Template / What the Notebook Should Build, Status.
 2. Find the first row (top to bottom) whose Status is exactly "Not started".
 3. If none found, respond with [SILENT] and stop.
 4. IMMEDIATELY set that row's Status to "In progress" in the sheet before doing any other work.
@@ -23,13 +32,14 @@ Your task every cycle (one row only):
 10. Stage only the new folder (4 files + spec if present) and README.md. Commit with message "Add: <Sr padded> <Paper Title>". Use a RANDOM commit timestamp so the commit history looks organic and not tied to the cron schedule:
     a. Generate a random datetime within the last 12 hours from now:
        COMMIT_DATE=$(date -v-$((RANDOM % 12))H -v-$((RANDOM % 60))M -v-$((RANDOM % 60))S +%Y-%m-%dT%H:%M:%S)
-    b. Commit as nadyth (name: "nadyth", email: "nadeemsajjadth@gmail.com") with the random timestamp and push to origin (nadyth/research-notebooks):
-       GIT_AUTHOR_DATE="$COMMIT_DATE" GIT_COMMITTER_DATE="$COMMIT_DATE" git commit -m "Add: <Sr padded> <Paper Title>"
-       git push origin main
+    b. Commit as nadyth (name: "nadyth", email: "nadeemsajjadth@gmail.com") with the random timestamp and push to origin (nadyth/research-notebooks). Use GIT_SSH_COMMAND for the SSH key:
+       GIT_AUTHOR_DATE="$COMMIT_DATE" GIT_COMMITTER_DATE="$COMMIT_DATE" git -c user.name="nadyth" -c user.email="nadeemsajjadth@gmail.com" commit -m "Add: <Sr padded> <Paper Title>"
+       GIT_SSH_COMMAND="ssh -i ~/.ssh/nadyth.ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" git push origin main
     c. Amend the commit's author AND committer to nadeemcite (name: "nadeemcite", email: "nadeem.sajjad.1991@gmail.com"), preserving the same random timestamp:
        GIT_AUTHOR_DATE="$COMMIT_DATE" GIT_COMMITTER_DATE="$COMMIT_DATE" GIT_COMMITTER_NAME="nadeemcite" GIT_COMMITTER_EMAIL="nadeem.sajjad.1991@gmail.com" git commit --amend --author="nadeemcite <nadeem.sajjad.1991@gmail.com>" --no-edit
-    d. Force-push the amended commit to backup (nadeemcite/research-papers): git push backup main --force
-    e. Load SSH keys (~/.ssh/nadyth.ssh for origin, ~/.ssh/nadeem.ssh for backup) if needed.
+    d. Force-push the amended commit to backup (nadeemcite/research-papers): GIT_SSH_COMMAND="ssh -i ~/.ssh/nadeem.ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" git push backup main --force
+    e. Also force-push the amended commit to origin to keep both remotes in sync: GIT_SSH_COMMAND="ssh -i ~/.ssh/nadyth.ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes" git push origin main --force
+       Note: Always use GIT_SSH_COMMAND with the explicit key path. Do NOT rely on ssh-agent — it is often unavailable in cron contexts.
 11. Only after both pushes succeed, set the sheet row Status to "Done".
 12. If anything fails, set Status back to "Not started", write a short failure note in the Notes/empty column, clean up the partial folder if it cannot be salvaged, and stop. Do not retry in the same cycle.
 
