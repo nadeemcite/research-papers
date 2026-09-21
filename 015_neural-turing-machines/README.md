@@ -1,6 +1,7 @@
 # Neural Turing Machines
 
 **Paper:** Graves, A., Wayne, G., & Danihelka, I. (2014). Neural Turing Machines. arXiv:1410.5401 [cs.NE].  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-turing-machines)
 **Link:** https://arxiv.org/abs/1410.5401  
 **Authors:** Alex Graves, Greg Wayne, Ivo Danihelka (Google DeepMind, London)  
 **Published:** 20 October 2014 (v1); 10 December 2014 (v2)

@@ -5,6 +5,7 @@
 Pointer Networks, introduced by Oriol Vinyals, Meire Fortunato, and Navdeep Jaitly at Google and the University of California, Merced in 2015, propose a neural architecture that learns the conditional probability of an output sequence whose elements are discrete positions (indices) in the input sequence. The key innovation is repurposing the attention mechanism as a *pointer*: instead of using attention to blend encoder hidden states into a context vector (as in standard seq2seq with attention), the attention distribution directly selects an element of the input sequence as the output at each decoding step. This elegantly solves a fundamental limitation of sequence-to-sequence models — the output dictionary size is tied to the input length, which varies per example. Traditional seq2seq networks have a fixed output vocabulary and cannot handle problems where the set of possible outputs changes with each input. The paper demonstrates Pointer Networks on three combinatorial optimization problems: computing planar convex hulls, Delaunay triangulations, and the planar Travelling Salesman Problem (TSP), showing that the model trained purely on example input-output pairs can learn approximate solutions and generalize beyond the maximum input lengths seen during training. Published at NeurIPS 2015 (Advances in Neural Information Processing Systems 28).
 
 **arXiv link:** https://arxiv.org/abs/1506.03134
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pointer-networks)
 
 ## Core Idea
 

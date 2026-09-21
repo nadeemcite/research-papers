@@ -1,6 +1,7 @@
 # ResNet — Deep Residual Learning for Image Recognition
 
 **arXiv:** [https://arxiv.org/abs/1512.03385](https://arxiv.org/abs/1512.03385)
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
 
 **Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research)
 

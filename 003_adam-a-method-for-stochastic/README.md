@@ -2,6 +2,7 @@
 
 **Paper:** Kingma, D. P., & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR 2015.  
 **arXiv:** https://arxiv.org/abs/1412.6980
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/adam-a-method-for-stochastic-optimization)
 
 ## What problem does it solve?
 

@@ -2,6 +2,7 @@
 
 **Paper:** Simonyan, K., & Zisserman, A. (2015). *Very Deep Convolutional Networks for Large-Scale Image Recognition*. ICLR 2015.  
 **arXiv:** https://arxiv.org/abs/1409.1556
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/vggnet-very-deep-convolutional-networks)
 
 ## What problem does it solve?
 

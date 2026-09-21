@@ -2,6 +2,7 @@
 
 **Authors:** Kyunghyun Cho, Bart van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, Yoshua Bengio  
 **Published:** EMNLP 2014 (arXiv: 3 Jun 2014, last revised 3 Sep 2014)  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/gru-from-scratch-cho-2014)
 **arXiv:** https://arxiv.org/abs/1406.1078
 
 ## Summary

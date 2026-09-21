@@ -1,6 +1,7 @@
 # Dropout — Improving Neural Networks by Preventing Co-adaptation of Feature Detectors
 
 **Paper:** [arXiv:1207.0580](https://arxiv.org/abs/1207.0580)
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
 **Authors:** Geoffrey E. Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, Ruslan R. Salakhutdinov
 **Year:** 2012
 

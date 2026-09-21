@@ -2,6 +2,7 @@
 
 **Authors:** Oriol Vinyals, Alexander Toshev, Samy Bengio, Dumitru Erhan (Google)  
 **Published:** CVPR 2015 (arXiv: 18 Nov 2014, last revised 19 Apr 2015)  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/show-and-tell-a-neural-image-caption-generator)
 **arXiv:** https://arxiv.org/abs/1411.4555
 
 ## Summary
