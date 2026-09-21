@@ -4,6 +4,7 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 
 | Sr | Paper | Folder |
 |---|---|---|
+| 016 | Memory Networks | [016_memory-networks](016_memory-networks/) |
 | 015 | Neural Turing Machines | [015_neural-turing-machines](015_neural-turing-machines/) |
 | 018 | Pointer Networks | [018_pointer-networks](018_pointer-networks/) |
 | 014 | Show and Tell: A Neural Image Caption Generator | [014_show-and-tell-neural-image-caption-generator](014_show-and-tell-neural-image-caption-generator/) |
