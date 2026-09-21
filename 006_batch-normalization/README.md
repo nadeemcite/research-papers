@@ -2,6 +2,7 @@
 
 **Authors:** Sergey Ioffe, Christian Szegedy  
 **arXiv:** [1502.03167](https://arxiv.org/abs/1502.03167)  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/batch-normalization)
 **Published:** 11 Feb 2015 (revised 2 Mar 2015)
 
 Batch Normalization (BN) is a method that normalizes the inputs of every layer in a deep neural network so that, for each mini-batch during training, the activations have mean 0 and variance 1 before they enter the nonlinearity. Ioffe and Szegedy introduced BN to fight *internal covariate shift* — the phenomenon where the distribution of each layer’s inputs keeps changing as the parameters of all earlier layers are updated. By making normalization part of the network architecture and backpropagating through the mini-batch statistics, BN lets optimizers use much larger learning rates, relaxes the need for careful initialization, and often removes the need for Dropout. In their ImageNet experiments, a batch-normalized Inception variant reached the baseline accuracy with 14× fewer training steps and ultimately set a new state of the art (4.9% top-5 validation error with an ensemble).

@@ -1,6 +1,7 @@
 # Memory Networks
 
 **Paper:** Weston, J., Chopra, S., & Bordes, A. (2014). Memory Networks. arXiv:1410.3916 [cs.AI].  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/memory-networks)
 **Link:** https://arxiv.org/abs/1410.3916  
 **Authors:** Jason Weston, Sumit Chopra, Antoine Bordes (Facebook AI Research)  
 **Published:** 15 October 2014 (v1); 29 November 2015 (v11)

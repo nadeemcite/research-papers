@@ -2,6 +2,7 @@
 
 **Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research)  
 **arXiv:** [1502.01852](https://arxiv.org/abs/1502.01852)  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/delving-deep-into-rectifiers-he-init)
 **Published:** 6 February 2015
 
 ## One-paragraph summary

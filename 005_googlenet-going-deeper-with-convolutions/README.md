@@ -1,6 +1,7 @@
 # GoogLeNet — Going Deeper with Convolutions
 
 **Paper:** [Going Deeper with Convolutions](https://arxiv.org/abs/1409.4842)  
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/googlenet-going-deeper-with-convolutions)
 **Authors:** Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, Andrew Rabinovich  
 **Published:** arXiv, 17 Sep 2014; CVPR 2015  
 **arXiv:** https://arxiv.org/abs/1409.4842  

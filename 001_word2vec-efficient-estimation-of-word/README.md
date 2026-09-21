@@ -1,6 +1,7 @@
 # Word2Vec — Efficient Estimation of Word Representations in Vector Space
 
 **Paper:** [arXiv:1301.3781](https://arxiv.org/abs/1301.3781)
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/word2vec-word-representations)
 **Authors:** Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean (Google Inc.)
 **Year:** 2013
 

@@ -4,6 +4,7 @@
 **Authors:** Ilya Sutskever, Oriol Vinyals, Quoc V. Le  
 **Venue:** Advances in Neural Information Processing Systems (NeurIPS), 2014  
 **arXiv:** https://arxiv.org/abs/1409.3215
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
 
 ## One-paragraph summary
 

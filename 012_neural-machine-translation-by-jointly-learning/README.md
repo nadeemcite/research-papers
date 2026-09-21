@@ -4,6 +4,7 @@
 **Authors:** Dzmitry Bahdanau, Kyunghyun Cho, Yoshua Bengio  
 **Venue:** International Conference on Learning Representations (ICLR), 2015 (oral)  
 **arXiv:** https://arxiv.org/abs/1409.0473
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bahdanau-attention-neural-machine-translation)
 
 ## One-paragraph summary
 
