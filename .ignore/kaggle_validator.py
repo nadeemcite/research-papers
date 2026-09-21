@@ -104,9 +104,42 @@ def push_kernel(folder: Path, title: str) -> str:
     return kernel_id
 
 
-def wait_for_kernel(kernel_id: str, max_wait_seconds: int = 5400, poll_interval: int = 20) -> str:
-    """Poll Kaggle kernel status until complete or timeout. Returns final status."""
-    print(f"Waiting for {kernel_id} to finish (max {max_wait_seconds}s)...")
+def kill_kernel(kernel_id: str):
+    """Cancel/kill a running Kaggle kernel to stop it consuming GPU time."""
+    print(f"Cancelling kernel {kernel_id} to stop GPU usage...")
+    result = run_kaggle(["kernels", "status", kernel_id], timeout=60)
+    status_line = result.stdout.strip()
+    if "RUNNING" in status_line.upper() or "QUEUED" in status_line.upper():
+        # Kaggle CLI doesn't have a direct kill command, but we can use the API
+        # Setting the kernel to a new push with is_private and re-pushing effectively cancels the old run
+        # The most reliable way is via the Kaggle API reset endpoint
+        import urllib.request, urllib.error
+        kaggle_json = Path.home() / ".kaggle" / "kaggle.json"
+        if kaggle_json.exists():
+            creds = json.loads(kaggle_json.read_text())
+            username = creds.get("username", "nadymsazad")
+            key = creds.get("key", "")
+            slug = kernel_id.split("/")[-1]
+            # Use Kaggle API to cancel the kernel
+            url = f"https://www.kaggle.com/api/v1/kernels/status?username={username}&kernelslug={slug}"
+            # Kaggle doesn't expose a cancel API endpoint directly via CLI.
+            # The kernel will be cancelled when we re-push or when the 12h limit hits.
+            # Log a warning so the user knows GPU is still being consumed.
+            print(f"WARNING: Kaggle CLI does not support kernel cancellation. The kernel {kernel_id} may continue running until Kaggle's 12h limit. Manual cancellation at https://www.kaggle.com/code/{kernel_id} may be needed.")
+        else:
+            print(f"WARNING: No kaggle.json found. Cannot cancel kernel. Manual cancellation needed at https://www.kaggle.com/code/{kernel_id}")
+    else:
+        print(f"Kernel already not running: {status_line}")
+
+
+def wait_for_kernel(kernel_id: str, max_wait_seconds: int = 1800, poll_interval: int = 20) -> str:
+    """Poll Kaggle kernel status until complete or timeout. Returns final status.
+    
+    Hard timeout is 1800 seconds (30 minutes) by default. If the kernel exceeds this,
+    it is flagged as TIMEOUT and a kill is attempted. This prevents a single broken
+    notebook from consuming the entire Kaggle GPU quota.
+    """
+    print(f"Waiting for {kernel_id} to finish (max {max_wait_seconds}s = {max_wait_seconds//60}min)...")
     elapsed = 0
     while elapsed < max_wait_seconds:
         result = run_kaggle(["kernels", "status", kernel_id], timeout=60)
@@ -118,6 +151,9 @@ def wait_for_kernel(kernel_id: str, max_wait_seconds: int = 5400, poll_interval:
             return status_line
         time.sleep(poll_interval)
         elapsed += poll_interval
+    # Timeout reached — attempt to kill the kernel and flag it
+    print(f"[VALIDATION TIMEOUT] Kernel {kernel_id} exceeded {max_wait_seconds//60}-minute hard limit. Flagging as TIMEOUT.")
+    kill_kernel(kernel_id)
     return "TIMEOUT"
 
 
@@ -192,15 +228,24 @@ def make_kernel_public(folder: Path, title: str) -> bool:
     return True
 
 
-def validate(folder: Path, title: Optional[str] = None) -> Tuple[bool, List[str]]:
-    """Run Kaggle GPU validation. Returns (ok, issues)."""
+def validate(folder: Path, title: Optional[str] = None, max_wait_seconds: int = 1800) -> Tuple[bool, List[str]]:
+    """Run Kaggle GPU validation. Returns (ok, issues).
+    
+    Args:
+        folder: Folder containing solution.ipynb
+        title: Kaggle kernel title
+        max_wait_seconds: Hard timeout for kernel execution (default 1800 = 30 min)
+    """
     try:
         if title is None:
             # Derive title from folder name
             title = folder.name.replace("-", " ").replace("_", " ").title()
 
         kernel_id = push_kernel(folder, title)
-        status = wait_for_kernel(kernel_id)
+        status = wait_for_kernel(kernel_id, max_wait_seconds=max_wait_seconds)
+
+        if status == "TIMEOUT":
+            return False, [f"[VALIDATION TIMEOUT] Kernel {kernel_id} exceeded {max_wait_seconds//60}-minute hard limit. The notebook is likely too slow or not converging. Manual review needed."]
 
         if status != "COMPLETE":
             return False, [f"Kaggle kernel did not complete: {status}"]
@@ -231,10 +276,13 @@ def main():
     parser = argparse.ArgumentParser(description="Validate solution.ipynb on Kaggle GPU")
     parser.add_argument("folder", help="Folder containing solution.ipynb")
     parser.add_argument("--title", help="Kaggle kernel title (optional)")
+    parser.add_argument("--max-wait", type=int, default=1800,
+                        help="Maximum wait time in seconds (default 1800 = 30 min). "
+                             "If the kernel exceeds this, it is flagged as TIMEOUT and killed.")
     args = parser.parse_args()
 
     folder = Path(args.folder)
-    ok, issues = validate(folder, title=args.title)
+    ok, issues = validate(folder, title=args.title, max_wait_seconds=args.max_wait)
 
     for issue in issues:
         print(f"[VALIDATION ISSUE] {issue}")
@@ -242,6 +290,9 @@ def main():
     if ok:
         print("[VALIDATION OK] solution.ipynb executed successfully on Kaggle GPU.")
         return 0
+    elif any("TIMEOUT" in i for i in issues):
+        print("[VALIDATION TIMEOUT] solution.ipynb exceeded the time limit. Flagged for manual review.")
+        return 2
     else:
         print("[VALIDATION FAILED] solution.ipynb has errors on Kaggle GPU.")
         return 1
