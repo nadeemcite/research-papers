@@ -1,0 +1,23 @@
+# End-To-End Memory Networks
+
+**Paper:** Sukhbaatar, S., Szlam, A., Weston, J., & Fergus, R. (2015). End-To-End Memory Networks. arXiv:1503.08895 [cs.NE].  
+**Link:** https://arxiv.org/abs/1503.08895  
+**Authors:** Sainbayar Sukhbaatar (NYU), Arthur Szlam, Jason Weston, Rob Fergus (Facebook AI Research)  
+**Published:** 31 March 2015 (v1); 24 November 2015 (v5) — Accepted to NIPS 2015
+
+## Summary
+
+End-to-End Memory Networks (MemN2N) introduce a neural network with a recurrent attention model over a possibly large external memory that is trained end-to-end via backpropagation, removing the need for supervised labels indicating which memory slots are the supporting facts — the key limitation of the original Memory Networks (Weston et al., 2014). The architecture takes a set of input sentences stored in memory, a query, and produces an answer through multiple "hops" of soft attention over the memory. In each hop, the query (or intermediate state) is embedded and matched against every memory slot via inner product followed by a softmax, producing a probability vector over memories. The output of the hop is a weighted sum of output embeddings of the memory slots. This output is added to the input state and fed to the next hop, enabling multi-hop reasoning chains. The entire model — input embeddings, output embeddings, and prediction weights — is learned jointly by minimizing cross-entropy loss through standard gradient descent, with no intermediate supervision.
+
+The paper evaluates the model on the bAbI synthetic QA dataset (20 reasoning tasks) and language modeling (Penn TreeBank, Text8). Key architectural innovations include: (1) **position encoding (PE)** — an element-wise multiplication that encodes word order within sentences, unlike bag-of-words; (2) **temporal encoding** — learned vectors added to memory embeddings to encode the time/position of each sentence in the story; (3) **weight tying schemes** — adjacent (output embedding of one layer = input embedding of next) or layer-wise (RNN-like, shared embeddings across all hops); (4) **linear start (LS)** training — temporarily removing softmax during early training to avoid local minima; (5) **random noise (RN)** — injecting empty dummy memories to regularize the temporal encoding. On bAbI with 10k training examples, MemN2N with PE+LS+RN achieves 4.2% mean error across all 20 tasks, competitive with the strongly supervised MemNN (3.2%) and far better than weakly supervised baselines. On Penn TreeBank, it achieves perplexity comparable to LSTMs. The key finding is that multiple computational hops consistently improve performance across tasks.
+
+## What Problem Does It Solve
+
+Imagine you're reading a detective story: "The thief went to the kitchen. He picked up the knife. He went to the garden. He dropped the knife. The guard went to the garden." Then someone asks: "Where is the knife?" To answer, you need to connect the dots — the thief picked up the knife (hop 1), then went to the garden and dropped it (hop 2), so the knife is in the garden. Earlier AI systems called Memory Networks could do this, but they had a problem: they needed a teacher to explicitly point at the right sentences during training, saying "this sentence and this sentence are the clues." That's like needing someone to highlight the key evidence for you every time you read a mystery. The End-to-End Memory Network solves this by making the "looking through the notes" step smooth and differentiable — instead of picking one note at a time (which you can't train with gradients), it looks at ALL notes at once and gives each a soft attention weight. This means the whole system can learn from just "the answer is: garden" without anyone pointing at the clues, making it practical for real-world use.
+
+## Influence
+
+End-to-End Memory Networks was a landmark paper that bridged the gap between supervised memory networks and fully trainable attention models. Its key contribution — differentiable soft attention over an external memory bank with multiple hops — became a foundational building block for subsequent reasoning architectures. The multi-hop attention pattern directly influenced key-value memory networks (Miller et al., 2016), dynamic memory networks (Kumar et al., 2016), and can be seen as a conceptual precursor to the multi-layer attention mechanisms in Transformers (Vaswani et al., 2017). The paper's bAbI results demonstrated that end-to-end training could nearly match strongly supervised models, validating the soft attention paradigm. The open-source release (github.com/facebook/MemNN) made MemN2N one of the most reproduced and studied architectures of its era.
+
+## arXiv Link
+https://arxiv.org/abs/1503.08895
