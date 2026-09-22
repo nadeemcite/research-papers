@@ -24,10 +24,11 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 | 016 | Memory Networks | [016_memory-networks](https://github.com/nadyth/research-notebooks/tree/main/016_memory-networks) | [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/memory-networks) |
 | 017 | End-to-End Memory Networks | [017_end-to-end-memory-networks](https://github.com/nadyth/research-notebooks/tree/main/017_end-to-end-memory-networks) | [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/end-to-end-memory-networks) |
 | 018 | Pointer Networks | [018_pointer-networks](https://github.com/nadyth/research-notebooks/tree/main/018_pointer-networks) | [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pointer-networks) |
+| 019 | Convolutional Sequence to Sequence Learning | [019_convolutional-sequence-to-sequence-learning](https://github.com/nadyth/research-notebooks/tree/main/019_convolutional-sequence-to-sequence-learning) | [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/convolutional-sequence-to-sequence-learning) |
 
 ## Stats
 
-- **18 notebooks** published and validated on Kaggle GPU
+- **19 notebooks** published and validated on Kaggle GPU
 - All notebooks are public on Kaggle — click the badge to view and run interactively
 - Each package includes:
   - **README.md** — plain-language summary, key method details, influence
@@ -44,6 +45,6 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 
 ## Coverage
 
-Papers span the foundational ML/DL literature: optimization (Adam, Dropout, BatchNorm), CNNs (VGGNet, GoogLeNet, ResNet, Highway Networks), sequence models (Seq2Seq, Bahdanau Attention, GRU), generative models (Neural Style Transfer), memory-augmented networks (Neural Turing Machines, Memory Networks, End-to-End Memory Networks, Pointer Networks), and image captioning (Show and Tell).
+Papers span the foundational ML/DL literature: optimization (Adam, Dropout, BatchNorm), CNNs (VGGNet, GoogLeNet, ResNet, Highway Networks), sequence models (Seq2Seq, Bahdanau Attention, GRU, ConvS2S), generative models (Neural Style Transfer), memory-augmented networks (Neural Turing Machines, Memory Networks, End-to-End Memory Networks, Pointer Networks), and image captioning (Show and Tell).
 
 New notebooks are added regularly as I work through a curated reading list of 100 foundational papers.
