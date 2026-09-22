@@ -1,6 +1,6 @@
 # Research Notebooks
 
-A collection of from-scratch study-and-code packages for foundational machine-learning and deep-learning papers. Each notebook is built from the original paper, validated on Kaggle GPU, and published with full code, architecture notes, and a plain-language explanation.
+A collection of from-scratch study-and-code packages for foundational machine-learning and deep-learning papers. Each notebook is hand-written from the original paper, validated on Kaggle GPU, and published with full code, architecture notes, and a plain-language explanation.
 
 ## Notebooks
 
@@ -45,4 +45,4 @@ A collection of from-scratch study-and-code packages for foundational machine-le
 
 Papers span the foundational ML/DL literature: optimization (Adam, Dropout, BatchNorm), CNNs (VGGNet, GoogLeNet, ResNet, Highway Networks), sequence models (Seq2Seq, Bahdanau Attention, GRU), generative models (Neural Style Transfer), memory-augmented networks (Neural Turing Machines, Memory Networks, Pointer Networks), and image captioning (Show and Tell).
 
-More notebooks are being added automatically via a cron pipeline that processes papers from a curated list of 100 foundational papers.
+New notebooks are added regularly as I work through a curated reading list of 100 foundational papers.
