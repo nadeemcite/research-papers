@@ -4,3 +4,9 @@
 .kaggle_output/
 kernel-metadata.json
 
+
+# Local secrets
+.env
+
+# macOS Finder metadata
+.DS_Store
