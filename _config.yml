@@ -1,0 +1,29 @@
+title: 100 Papers That Changed AI
+description: Landmark ML papers reimplemented from scratch in PyTorch, with plain-English explainers and notebooks validated on Kaggle.
+url: https://nadeemcite.github.io
+baseurl: /research-papers
+author: nadeemcite
+lang: en
+
+theme: jekyll-theme-primer
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+
+relative_links:
+  enabled: true
+  collections: false
+
+titles_from_headings:
+  enabled: true
+  strip_title: false
+
+exclude:
+  - scripts/
+  - "**/.notebook_spec.json"
+  - .gitignore
