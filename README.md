@@ -146,6 +146,7 @@ This repo is also an experiment in what AI agents can build when the bar is *"it
 | 095 | 2021 | [LoRA: Low-Rank Adaptation of Large Language Models](095_lora-low-rank-adaptation/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lora-low-rank-adaptation) |
 | 096 | 2022 | [Training Language Models to Follow Instructions with Human Feedback (InstructGPT)](096_instructgpt-human-feedback/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback) |
 | 097 | 2022 | [Training Compute-Optimal Large Language Models (Chinchilla)](097_chinchilla-compute-optimal-scaling-laws/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/chinchilla-compute-optimal-scaling-laws) |
+| 098 | 2020 | [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (RAG)](098_retrieval-augmented-generation-rag/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/retrieval-augmented-generation-rag) |
 | 099 | 2022 | [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](099_flashattention-fast-memory-efficient-exact-attention/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/flashattention-io-aware-exact-attention) |
 
 ### Graph Representation Learning
