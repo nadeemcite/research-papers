@@ -41,7 +41,7 @@ The diversity of parallel exploration decorrelates updates — the same stabiliz
 ### Advantage Actor-Critic (A3C)
 
 The network outputs both:
-- **Policy (actor)**: π(a|s; θ) — probability distribution over actions
+- **Policy (actor)**: π(a\|s; θ) — probability distribution over actions
 - **Value (critic)**: V(s; θ_v) — estimated value of state s
 
 The **advantage** function measures how much better an action is than expected:
@@ -53,9 +53,9 @@ R = r₁ + γr₂ + γ²r₃ + ... + γ^(t+n-1) r_{t+n} + γ^n V(s_{t+n})
 ### Loss Function
 
 The total loss combines:
-- **Policy gradient** (actor): -log π(a_t|s_t) × A(s_t, a_t)
+- **Policy gradient** (actor): -log π(a_t\|s_t) × A(s_t, a_t)
 - **Value loss** (critic): (R - V(s_t))²
-- **Entropy regularization**: β × H(π(·|s_t)) — encourages exploration by penalizing overly confident policies
+- **Entropy regularization**: β × H(π(·\|s_t)) — encourages exploration by penalizing overly confident policies
 
 ```
 L_total = L_policy + c_v × L_value - β × H(π)

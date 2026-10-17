@@ -20,13 +20,13 @@ The key insight is that spectral graph convolutions — defined in the Fourier d
 
 ### Key Method Details
 
-- **Graph convolution layer:** H^(l+1) = σ(D̃⁻¹ᐟ² Ã D̃⁻¹ᐟ² H^(l) W^(l)). The matrix D̃⁻¹ᐟ² Ã D̃⁻¹ᐟ² is precomputed once; each forward pass is a sparse matrix multiplication — O(|E|·d) where |E| is the number of edges and d the feature dimension.
+- **Graph convolution layer:** H^(l+1) = σ(D̃⁻¹ᐟ² Ã D̃⁻¹ᐟ² H^(l) W^(l)). The matrix D̃⁻¹ᐟ² Ã D̃⁻¹ᐟ² is precomputed once; each forward pass is a sparse matrix multiplication — O(\|E\|·d) where \|E\| is the number of edges and d the feature dimension.
 - **Self-loop augmentation:** Ã = A + I ensures each node aggregates its own features along with its neighbors'. Without self-loops, a node's own representation would be overwritten by its neighbors' in every layer.
 - **Symmetric normalization:** D̃⁻¹ᐟ² Ã D̃⁻¹ᐟ² scales each neighbor's contribution by 1/√(deg(j)·deg(i)), preventing high-degree nodes from dominating and stabilizing training.
 - **Two-layer architecture:** The paper's best models use just two GCN layers (16 hidden units → C output classes). The receptive field is 2 hops — surprisingly effective because most label homophily is local.
 - **Semi-supervised cross-entropy:** Only labeled nodes contribute to the loss, but all nodes participate in forward propagation. The graph structure propagates information from labeled to unlabeled nodes.
 - **Toy graph dataset (Karate Club / synthetic):** We use Zachary's Karate Club graph (34 nodes, 2 communities) or a small synthetic community graph, with a tiny feature matrix, so the entire pipeline trains in seconds and visualizations are clear.
-- **Relation to spectral theory:** The full spectral convolution gθ ⋆ x = U gθ(Λ) Uᵀx requires O(N³) eigendecomposition. The Chebyshev approximation (Defferrard et al., 2016) reduces this to O(K|E|). Kipf & Welling further simplify to K=1 with a single parameter per filter, yielding the linear propagation rule above — the simplest possible spectral filter that still captures local structure.
+- **Relation to spectral theory:** The full spectral convolution gθ ⋆ x = U gθ(Λ) Uᵀx requires O(N³) eigendecomposition. The Chebyshev approximation (Defferrard et al., 2016) reduces this to O(K\|E\|). Kipf & Welling further simplify to K=1 with a single parameter per filter, yielding the linear propagation rule above — the simplest possible spectral filter that still captures local structure.
 
 ### What problem does it solve?
 

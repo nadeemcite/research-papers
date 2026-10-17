@@ -27,7 +27,7 @@ All PPO hyperparameters in one cell, matching the paper's conventions where appl
 ### 3. ActorCritic Network
 A single neural network with two heads:
 - **Shared trunk:** 2-layer MLP with tanh activations (64 hidden units each, matching the paper).
-- **Policy head (actor):** outputs logits over discrete actions → softmax distribution π(a|s).
+- **Policy head (actor):** outputs logits over discrete actions → softmax distribution π(a\|s).
 - **Value head (critic):** outputs a scalar V(s).
 - The paper notes that for the MuJoCo experiments, parameters were NOT shared between policy and value. We use a shared trunk for simplicity, which is the common practical variant and the one used in the Atari experiments (Table 5, where architecture follows A3C with shared layers).
 
@@ -73,7 +73,7 @@ The core algorithm (Algorithm 1 from the paper):
 During training, we record:
 - Mean of `L^CPI = E[r·Â]` (unclipped) per update
 - Mean of `L^CLIP = E[min(r·Â, clip(r,1−ε,1+ε)·Â)]` (clipped) per update
-- The fraction of samples where clipping was active (|r−1| > ε)
+- The fraction of samples where clipping was active (\|r−1\| > ε)
 
 These are plotted after training to show how clipping constrains the objective — when the policy tries to move too far, L^CLIP plateaus while L^CPI keeps increasing (for positive advantages) or keeps decreasing (for negative advantages).
 

@@ -54,7 +54,7 @@ nav_order: 1
 - Track losses for plotting
 
 ### 7. Visualization
-- Side-by-side grid: Input (edges) | Generated | Target (real shoes)
+- Side-by-side grid: Input (edges) \| Generated \| Target (real shoes)
 - Loss curves for G and D over epochs
 - Save sample outputs at intervals
 

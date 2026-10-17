@@ -41,7 +41,7 @@ These are reconstructed from the authors' published explanations, BAIR blog post
 
 **Q3: How does automatic temperature (α) tuning work?**
 
-> *A:* Instead of requiring the practitioner to set α (the entropy temperature) by hand — which is notoriously difficult — SAC treats α as a variable that is optimized during training. We define a target entropy (typically the negative of the action space dimension, i.e., −|A|) and adjust α so that the policy's actual entropy tracks this target. If the policy is too deterministic (entropy below target), α increases to push it toward more exploration. If it's too random (entropy above target), α decreases to focus more on reward. This makes SAC much less sensitive to hyperparameter tuning than its predecessors.
+> *A:* Instead of requiring the practitioner to set α (the entropy temperature) by hand — which is notoriously difficult — SAC treats α as a variable that is optimized during training. We define a target entropy (typically the negative of the action space dimension, i.e., −\|A\|) and adjust α so that the policy's actual entropy tracks this target. If the policy is too deterministic (entropy below target), α increases to push it toward more exploration. If it's too random (entropy above target), α decreases to focus more on reward. This makes SAC much less sensitive to hyperparameter tuning than its predecessors.
 
 **Q4: Why does SAC use twin Q-networks?**
 

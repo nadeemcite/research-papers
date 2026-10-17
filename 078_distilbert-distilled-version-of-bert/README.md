@@ -26,7 +26,7 @@ Imagine you have a really smart teacher who knows everything about English — b
 - **Architecture**: The student has 6 Transformer layers, 768 hidden size, 12 attention heads — same hidden dimension as BERT-base but half the layers. Token type embeddings and the pooler are removed.
 - **Initialization**: The student's 6 layers are initialized by copying every other layer from BERT-base (layers 0, 2, 4, 7, 9, 11).
 - **Triple loss**:
-  1. **Distillation loss**: KL divergence between softmax-temperature-scaled output distributions of student and teacher. Temperature T=2 is used; the loss is T² · KL(softmax(teacher_logits/T) || softmax(student_logits/T)).
+  1. **Distillation loss**: KL divergence between softmax-temperature-scaled output distributions of student and teacher. Temperature T=2 is used; the loss is T² · KL(softmax(teacher_logits/T) \|\| softmax(student_logits/T)).
   2. **MLM loss**: Standard masked language modeling cross-entropy loss (same as BERT's pre-training objective).
   3. **Cosine embedding loss**: 1 − cos(student_hidden, teacher_hidden) on the final hidden states, aligning the student's representations with the teacher's.
 - **Training**: DistilBERT was trained on the same data as BERT (English Wikipedia + Toronto BookCorpus) with dynamic masking. The distillation process took ~3.5 days on 8 V100 GPUs — significantly cheaper than BERT's original pre-training.

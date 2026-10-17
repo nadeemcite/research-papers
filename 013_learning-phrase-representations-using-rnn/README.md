@@ -13,7 +13,7 @@ permalink: "/013_learning-phrase-representations-using-rnn/"
 
 ## Summary
 
-This paper introduces the **RNN Encoder–Decoder**, a pair of recurrent neural networks that jointly learn to map a variable-length source sequence into a fixed-length vector (encoder) and then decode that vector back into a variable-length target sequence (decoder). The two networks are trained jointly to maximise the conditional probability *p(target | source)*. The authors propose a new **Gated Recurrent Unit (GRU)** as the hidden unit inside both networks — a unit with a *reset gate* and an *update gate* that adaptively decides what to forget and what to remember at each time step, giving the recurrent network better memory capacity and easier training than a plain tanh RNN, without the complexity of a full LSTM.
+This paper introduces the **RNN Encoder–Decoder**, a pair of recurrent neural networks that jointly learn to map a variable-length source sequence into a fixed-length vector (encoder) and then decode that vector back into a variable-length target sequence (decoder). The two networks are trained jointly to maximise the conditional probability *p(target \| source)*. The authors propose a new **Gated Recurrent Unit (GRU)** as the hidden unit inside both networks — a unit with a *reset gate* and an *update gate* that adaptively decides what to forget and what to remember at each time step, giving the recurrent network better memory capacity and easier training than a plain tanh RNN, without the complexity of a full LSTM.
 
 The model was evaluated as an additional phrase-pair scoring feature inside a phrase-based statistical machine translation (SMT) system for English→French on WMT'14. Adding the RNN Encoder–Decoder score to the Moses log-linear model improved BLEU from 33.30 → 33.87 on the test set, and together with a continuous-space language model (CSLM) reached 34.64 BLEU. Qualitatively, the learned phrase representations preserved both semantic and syntactic structure, as shown by t-SNE visualisations of word/phrase embeddings.
 
@@ -31,7 +31,7 @@ The **encoder** reads the source sequence token by token with a GRU and produces
 ### Key method details relevant to the code
 
 - The GRU's two-gate design (reset + update) is the heart of this paper and what the notebook implements from scratch with raw matrix operations.
-- The encoder–decoder conditional probability formulation p(y_1,…,y_T' | x_1,…,x_T) = ∏ p(y_t | y_{<t}, c) is the training objective.
+- The encoder–decoder conditional probability formulation p(y_1,…,y_T' \| x_1,…,x_T) = ∏ p(y_t \| y_{<t}, c) is the training objective.
 - Both networks trained jointly end-to-end; in the notebook we train on a sequence-memorisation task and compare GRU vs. vanilla RNN.
 - The paper uses 1000 hidden units, rank-100 input/output approximations (100-dim embeddings), tanh for the candidate, and adadelta. The notebook uses smaller dimensions for speed but the same gate equations.
 

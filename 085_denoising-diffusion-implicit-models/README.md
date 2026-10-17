@@ -7,7 +7,7 @@ permalink: "/085_denoising-diffusion-implicit-models/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models)
 
 
-**Paper:** Song, Meng, & Ermon (2021) — [arXiv:2010.02502](https://arxiv.org/abs/2010.02502) | ICLR 2021
+**Paper:** Song, Meng, & Ermon (2021) — [arXiv:2010.02502](https://arxiv.org/abs/2010.02502) \| ICLR 2021
 
 Denoising Diffusion Implicit Models (DDIM) accelerate sampling from diffusion models by constructing a family of non-Markovian forward processes that share the same training objective as DDPMs but admit much faster reverse generative processes. The key insight is that while DDPMs require iterating through all T diffusion steps (often 1000), DDIM defines a deterministic, non-Markovian reverse process that can use an arbitrary subsequence of timesteps — typically 10–50 steps instead of 1000 — producing samples of comparable quality 10× to 50× faster. Crucially, the same trained noise-prediction network is reused; no retraining is needed. DDIM also enables semantically meaningful latent-space interpolation and near-perfect reconstruction of training images, capabilities absent in stochastic DDPM sampling.
 
@@ -18,7 +18,7 @@ Imagine you're baking a cake from a recipe, but the recipe has 1000 tiny steps �
 
 ## Core Idea
 
-1. **Non-Markovian forward process:** DDPMs define a Markov chain that progressively adds noise. DDIM generalizes this to a non-Markovian process where the forward posterior q(x_{t-1}|x_t, x_0) depends on x_0, not just x_t. This doesn't change the marginal q(x_t|x_0), so the training objective (noise prediction MSE) stays identical.
+1. **Non-Markovian forward process:** DDPMs define a Markov chain that progressively adds noise. DDIM generalizes this to a non-Markovian process where the forward posterior q(x_{t-1}\|x_t, x_0) depends on x_0, not just x_t. This doesn't change the marginal q(x_t\|x_0), so the training objective (noise prediction MSE) stays identical.
 
 2. **Deterministic reverse process:** By setting σ_t = 0 (no stochastic noise injection during sampling), the reverse process becomes fully deterministic given the initial noise x_T. This is the key to DDIM's consistency property — the same x_T always produces the same image.
 

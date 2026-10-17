@@ -7,7 +7,7 @@ permalink: "/079_exploring-limits-transfer-learning-text-to-text/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/exploring-transfer-learning-t5)
 
 
-**arXiv:** [1910.10683](https://arxiv.org/abs/1910.10683) | **Authors:** Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, Peter J. Liu | **Year:** 2019
+**arXiv:** [1910.10683](https://arxiv.org/abs/1910.10683) \| **Authors:** Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, Peter J. Liu \| **Year:** 2019
 
 
 ## Summary

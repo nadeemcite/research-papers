@@ -58,7 +58,7 @@ The notebook implements MoCo (Momentum Contrast) for unsupervised visual represe
 - Plot training loss curves (MoCo vs SimCLR)
 - Plot linear eval accuracy comparison
 - t-SNE of learned features (optional, if time permits)
-- Print summary table: Method | Queue Size | Linear Acc
+- Print summary table: Method \| Queue Size \| Linear Acc
 
 ## Key Functions/Classes
 

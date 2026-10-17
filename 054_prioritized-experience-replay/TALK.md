@@ -17,7 +17,7 @@ nav_order: 2
 ## Interview Q&A
 
 ### Q1: Why use TD error as the priority metric? Could you use something else?
-**Tom Schaul (ICLR presentation):** The TD error is a natural proxy for "how surprising" a transition is -- it measures the gap between what the agent expected and what it observed. It is already computed as part of the Q-learning update, so it comes for free. We did explore alternatives in the appendix: the derivative of TD error (how much the error changed since last replay), the norm of weight changes, and episodic return-based prioritization. None outperformed |delta| in our experiments, but this may be environment-dependent.
+**Tom Schaul (ICLR presentation):** The TD error is a natural proxy for "how surprising" a transition is -- it measures the gap between what the agent expected and what it observed. It is already computed as part of the Q-learning update, so it comes for free. We did explore alternatives in the appendix: the derivative of TD error (how much the error changed since last replay), the norm of weight changes, and episodic return-based prioritization. None outperformed \|delta\| in our experiments, but this may be environment-dependent.
 
 ### Q2: What is the advantage of the sum-tree over a simple sorted array?
 **From the paper (Appendix B.2.1):** A sorted array with binary search gives O(log N) sampling, but updating a priority requires re-sorting, which is O(N log N). The sum-tree achieves both sampling and updating in O(log N), with O(N) memory. This is critical when the replay buffer has 1 million transitions and updates happen every training step.

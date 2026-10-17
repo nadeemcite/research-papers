@@ -34,7 +34,7 @@ The notebook implements node2vec from scratch (no `node2vec` library, no `gensim
 ### 4. Skip-gram with Negative Sampling
 - **Vocabulary**: All nodes in the graph.
 - **`skipgram_train(walks, dim, window_size, neg_samples, epochs, lr)`**: Implements Skip-gram with negative sampling from scratch using numpy.
-  - Initializes embedding matrix W (|V| × dim) and context matrix C (|V| × dim).
+  - Initializes embedding matrix W (\|V\| × dim) and context matrix C (\|V\| × dim).
   - For each walk, for each center node, samples context nodes within ±window_size.
   - Positive pair: (center, context) → sigmoid(W[center] · C[context]) → maximize log-likelihood.
   - Negative pairs: sample `neg_samples` random nodes → minimize sigmoid(W[center] · C[neg]).

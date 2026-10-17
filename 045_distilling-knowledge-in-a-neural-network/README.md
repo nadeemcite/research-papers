@@ -21,7 +21,7 @@ Knowledge Distillation is a model compression technique that transfers the "dark
 - Softmax with temperature: q_i = exp(z_i / T) / sum_j exp(z_j / T), where T > 1 produces a softer distribution
 - Distillation loss: cross-entropy between the student's soft targets (at temperature T) and the teacher's soft targets (at temperature T)
 - Hard label loss: standard cross-entropy with true labels at temperature 1
-- Combined objective: L = alpha * T^2 * KL(teacher_soft || student_soft) + (1 - alpha) * CE(true_labels, student_hard)
+- Combined objective: L = alpha * T^2 * KL(teacher_soft \|\| student_soft) + (1 - alpha) * CE(true_labels, student_hard)
 - The T^2 scaling factor compensates for the 1/T^2 gradient magnitude reduction at high temperatures
 - Matching logits is a special case of distillation in the high-temperature limit (reduces to MSE on logits)
 - Best results typically obtained with considerably lower weight on the hard-label objective

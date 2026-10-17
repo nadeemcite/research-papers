@@ -34,8 +34,8 @@ The GAN objective is extended by conditioning on auxiliary information y:
 min_G  max_D  V(D, G) = E_{x~p_data}[log D(x|y)] + E_{z~p_z}[log(1 - D(G(z|y)))]
 ```
 
-- **G(z|y)**: generator takes noise z AND label y, produces a class-conditioned sample
-- **D(x|y)**: discriminator takes image x AND label y, decides if the image is real AND matches the label
+- **G(z\|y)**: generator takes noise z AND label y, produces a class-conditioned sample
+- **D(x\|y)**: discriminator takes image x AND label y, decides if the image is real AND matches the label
 - **y**: any auxiliary information (class label, text embedding, data from another modality)
 
 ### Conditioning Mechanism

@@ -35,13 +35,13 @@ nav_order: 1
 - **Class `Actor`:** MLP mapping obs_dim → hidden → hidden → action_dim.
   - Layers: Linear(obs_dim, 256) → ReLU → Linear(256, 256) → ReLU → Linear(256, act_dim) → tanh.
   - Output scaled by `max_action` to map [-1, 1] → [-max_action, max_action].
-- `forward(state)` returns the deterministic action μ(s|θ^μ).
+- `forward(state)` returns the deterministic action μ(s\|θ^μ).
 - Initialised with small weights (per the paper's recommendation for stable initial behaviour).
 
 ### 5. Critic Network (Q-Function)
 - **Class `Critic`:** MLP mapping (obs_dim + act_dim) → hidden → hidden → 1.
   - Layers: Linear(obs_dim + act_dim, 256) → ReLU → Linear(256, 256) → ReLU → Linear(256, 1).
-- `forward(state, action)` concatenates state and action, returns Q(s, a|θ^Q) as a scalar.
+- `forward(state, action)` concatenates state and action, returns Q(s, a\|θ^Q) as a scalar.
 - This is the Q-value approximator used for both the critic loss and the actor's policy gradient.
 
 ### 6. Target Networks & Soft Update

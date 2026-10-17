@@ -68,7 +68,7 @@ nav_order: 1
 - Print training curves and test metrics for each.
 
 ### 8. Results Comparison
-- Print comparison table: Model | AUC | Accuracy | Log Loss | # Parameters.
+- Print comparison table: Model \| AUC \| Accuracy \| Log Loss \| # Parameters.
 - Plot ROC curves for all three models on the same figure.
 - Plot training loss curves for all three models.
 - Expected: WideDeep > Deep > Wide (or WideDeep best, with Wide strong on memorizable patterns and Deep strong on generalizable patterns).

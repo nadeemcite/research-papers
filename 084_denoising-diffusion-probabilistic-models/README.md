@@ -17,9 +17,9 @@ Denoising Diffusion Probabilistic Models (DDPM) are a class of generative models
 
 ## Core Idea
 
-The key insight is that while adding noise is trivial and closed-form (a Markov chain of Gaussian transitions), removing noise can be learned by a neural network parameterized as Gaussian transitions. The forward process q(x_t | x_{t-1}) adds noise according to a variance schedule {β_t}. Crucially, any intermediate noisy state x_t can be computed directly from x_0 in closed form: q(x_t | x_0) = N(x_t; √(ᾱ_t) x_0, (1-ᾱ_t)I), where ᾱ_t = ∏(1-β_i). This allows training on arbitrary timesteps without simulating the full chain.
+The key insight is that while adding noise is trivial and closed-form (a Markov chain of Gaussian transitions), removing noise can be learned by a neural network parameterized as Gaussian transitions. The forward process q(x_t \| x_{t-1}) adds noise according to a variance schedule {β_t}. Crucially, any intermediate noisy state x_t can be computed directly from x_0 in closed form: q(x_t \| x_0) = N(x_t; √(ᾱ_t) x_0, (1-ᾱ_t)I), where ᾱ_t = ∏(1-β_i). This allows training on arbitrary timesteps without simulating the full chain.
 
-The reverse process p_θ(x_{t-1} | x_t) is parameterized as a Gaussian with mean and variance predicted by a U-Net conditioned on the timestep t. The training objective reduces to a simple MSE loss: L = E[||ε - ε_θ(x_t, t)||²], where ε is the actual noise and ε_θ is the network's prediction.
+The reverse process p_θ(x_{t-1} \| x_t) is parameterized as a Gaussian with mean and variance predicted by a U-Net conditioned on the timestep t. The training objective reduces to a simple MSE loss: L = E[\|\|ε - ε_θ(x_t, t)\|\|²], where ε is the actual noise and ε_θ is the network's prediction.
 
 ## Key Method Details
 

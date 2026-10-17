@@ -66,7 +66,7 @@ The notebook implements a simplified **Rainbow DQN** agent that combines three o
 - **Purpose**: Proportional prioritization by TD-error magnitude for PER DQN and Rainbow.
 - **Key class**: `PrioritizedReplayBuffer` using a sum-tree for O(log n) sampling
 - **Methods**: `push()`, `sample(batch_size, beta)` → (tensors, indices, weights), `update_priorities(indices, td_errors)`
-- **Data flow**: transitions stored with priority = |TD-error|^α; sampled proportionally; importance-sampling weights = (N·p_i)^(-β)
+- **Data flow**: transitions stored with priority = \|TD-error\|^α; sampled proportionally; importance-sampling weights = (N·p_i)^(-β)
 - **Simplification vs paper**: Paper used rank-based prioritization option too; we implement proportional (sum-tree) which is the more common variant.
 
 ### 9. ε-Greedy Action Selection

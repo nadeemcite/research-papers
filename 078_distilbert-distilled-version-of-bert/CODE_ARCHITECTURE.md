@@ -49,7 +49,7 @@ The notebook demonstrates knowledge distillation from a teacher Transformer mode
 - Plots: (a) parameter count comparison bar chart, (b) inference speed comparison, (c) training loss curve.
 
 ### 7. Results Summary
-- Prints a formatted table: Model | Params | Accuracy | F1 | Inference (ms/batch)
+- Prints a formatted table: Model \| Params \| Accuracy \| F1 \| Inference (ms/batch)
 - Shows that the student retains most of the teacher's accuracy with ~50% fewer parameters and ~2x faster inference.
 
 ## Key Functions/Classes

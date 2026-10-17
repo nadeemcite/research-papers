@@ -64,7 +64,7 @@ The notebook implements BYOL (Bootstrap Your Own Latent) for self-supervised ima
 - **t-SNE / PCA scatter:** 2D projection of learned features colored by class label — should show class-separated clusters if representations are meaningful
 
 ### 9. Summary & Discussion
-- Print summary table: Method | Linear Acc | Embedding Variance | Collapsed?
+- Print summary table: Method \| Linear Acc \| Embedding Variance \| Collapsed?
 - Discuss what would happen without the predictor (collapse)
 - Note the difference between BYOL (EMA target) and SimSiam (stop-gradient only)
 

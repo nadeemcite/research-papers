@@ -38,7 +38,7 @@ This notebook implements DDIM on top of a DDPM-trained U-Net denoiser. The key d
 - Input: (B, 1, 32, 32) + timestep → Output: (B, 1, 32, 32) predicted noise
 
 ### 6. Training Loop
-- Simplified objective: L = E[||ε - ε_θ(x_t, t)||²]
+- Simplified objective: L = E[\|\|ε - ε_θ(x_t, t)\|\|²]
 - Random timestep sampling, forward diffusion, noise prediction, MSE loss
 - Adam optimizer, 3 epochs
 

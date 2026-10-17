@@ -56,7 +56,7 @@ The notebook implements a from-scratch Conditional GAN using PyTorch. Both the g
 ### 6. Loss Functions & Optimizers
 - **Loss**: `nn.BCELoss()` — Binary Cross Entropy
 - **Optimizers**: Adam for both G and D (lr=0.0002, betas=(0.5, 0.999))
-- **Non-saturating generator loss**: Generator maximizes log(D(G(z|y))) using real labels (1.0) for fake samples — stronger gradients than minimizing log(1-D(G(z|y))).
+- **Non-saturating generator loss**: Generator maximizes log(D(G(z\|y))) using real labels (1.0) for fake samples — stronger gradients than minimizing log(1-D(G(z\|y))).
 
 ### 7. Training Loop
 - **Per-epoch flow**:

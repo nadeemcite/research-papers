@@ -23,7 +23,7 @@ DeepWalk bridges two worlds: **word2vec** (which learns word embeddings from sen
 ### Key Method Details
 
 - **Truncated random walks:** For each node v, generate γ random walks of length t. At each step, move to a uniformly-random neighbor. Walks are independent and can be generated in parallel. The paper uses γ=80, t=40 as defaults (we use smaller values for speed).
-- **Skip-gram with context window:** For each node in a walk, predict the nodes within a window of size w. The objective maximizes log P(context | center) = log σ(v_c · v_w) for positive pairs, plus negative sampling terms.
+- **Skip-gram with context window:** For each node in a walk, predict the nodes within a window of size w. The objective maximizes log P(context \| center) = log σ(v_c · v_w) for positive pairs, plus negative sampling terms.
 - **Negative sampling:** Instead of normalizing over all nodes (expensive), sample k negative nodes from a unigram distribution raised to the 3/4 power (same as word2vec). This makes training O(1) per positive pair.
 - **Online learning:** New walks can be generated and added incrementally; the model does not need to reprocess the entire graph. This is crucial for streaming/dynamic graphs.
 - **Parallelizable:** Random walk generation and Skip-gram training are both embarrassingly parallel — no locking required during walk generation, and Skip-gram uses Hogwild-style asynchronous updates.

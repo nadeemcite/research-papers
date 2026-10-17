@@ -7,7 +7,7 @@ permalink: "/025_image-to-image-translation-with-conditional/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pix2pix-image-to-image-translation)
 
 
-**Paper:** [arXiv:1611.07004](https://arxiv.org/abs/1611.07004) | **Venue:** CVPR 2017 | **Authors:** Phillip Isola, Jun-Yan Zhu, Tinghui Zhou, Alexei A. Efros (Berkeley AI Research)
+**Paper:** [arXiv:1611.07004](https://arxiv.org/abs/1611.07004) \| **Venue:** CVPR 2017 \| **Authors:** Phillip Isola, Jun-Yan Zhu, Tinghui Zhou, Alexei A. Efros (Berkeley AI Research)
 
 
 ## Summary

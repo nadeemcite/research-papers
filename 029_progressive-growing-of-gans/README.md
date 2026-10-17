@@ -9,7 +9,7 @@ permalink: "/029_progressive-growing-of-gans/"
 
 **Paper:** [Progressive Growing of GANs for Improved Quality, Stability, and Variation](https://arxiv.org/abs/1710.10196)
 **Authors:** Tero Karras, Timo Aila, Samuli Laine, Jaakko Lehtinen (NVIDIA)
-**Year:** 2017 | **Citations:** ~1,545 (OpenAlex)
+**Year:** 2017 \| **Citations:** ~1,545 (OpenAlex)
 
 
 ## Summary

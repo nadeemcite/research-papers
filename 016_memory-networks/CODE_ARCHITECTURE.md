@@ -35,8 +35,8 @@ Random seed → Generate story sentences (actions) → Generate questions with l
 
 ### 3. Vocabulary & Encoding
 - `Vocabulary` class: Maps words to integer indices. Built from all stories in the training set.
-- `encode_sentence(words, vocab)`: Converts a sentence (list of words) to a bag-of-words vector — a binary vector of length |W| indicating which words are present.
-- Three separate embedding spaces are used for the scoring function (matching the paper's D = 3|W|): one for memory slots (Φ_y), one for input questions (Φ_x input), one for supporting memories (Φ_x memory).
+- `encode_sentence(words, vocab)`: Converts a sentence (list of words) to a bag-of-words vector — a binary vector of length \|W\| indicating which words are present.
+- Three separate embedding spaces are used for the scoring function (matching the paper's D = 3\|W\|): one for memory slots (Φ_y), one for input questions (Φ_x input), one for supporting memories (Φ_x memory).
 
 **Shapes:**
 - Bag-of-words vector: `(vocab_size,)` — binary

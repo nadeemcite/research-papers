@@ -7,7 +7,7 @@ permalink: "/086_high-resolution-latent-diffusion/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/latent-diffusion-models)
 
 
-**Paper:** Rombach, Blattmann, Lorenz, Esser, & Ommer (2022) — [arXiv:2112.10752](https://arxiv.org/abs/2112.10752) | CVPR 2022
+**Paper:** Rombach, Blattmann, Lorenz, Esser, & Ommer (2022) — [arXiv:2112.10752](https://arxiv.org/abs/2112.10752) \| CVPR 2022
 
 Latent Diffusion Models (LDMs) move the diffusion process out of high-dimensional pixel space and into a compressed latent space learned by a pretrained autoencoder. A standard DDPM-style U-Net denoiser then operates on this much smaller latent representation, dramatically cutting both training and inference cost while preserving visual fidelity. The paper also introduces cross-attention layers into the U-Net, enabling conditioning on text, class labels, and spatial layouts — the architectural foundation that became Stable Diffusion. By choosing a modest downsampling factor (f=4 or f=8), the autoencoder retains enough spatial detail for high-fidelity reconstruction while reducing the dimensionality the diffusion model must learn by a factor of 8–64×.
 

@@ -56,7 +56,7 @@ The notebook implements Label Smoothing Regularization (LSR) from scratch in PyT
 - **Function `evaluate_with_confidence(model, test_loader, device)`**
   - Collects: predicted probabilities (softmax), predicted class, true class for all test samples
   - Computes: test accuracy, mean confidence, expected calibration error (ECE)
-  - ECE: bins predictions by confidence (10 bins), computes |accuracy(bin) - confidence(bin)| weighted by bin size
+  - ECE: bins predictions by confidence (10 bins), computes \|accuracy(bin) - confidence(bin)\| weighted by bin size
   - Returns confidence values, correctness array, ECE
 
 ### 8. Training Two Models

@@ -33,7 +33,7 @@ Imagine you're looking at a photo of a busy street and you need to quickly point
 ## Key Method Details
 
 - **Objectness score:** Each predicted bounding box carries a confidence = Pr(Object) × IOU(pred, truth). This decouples "is there something?" from "what is it?" and handles the class imbalance from mostly-empty grid cells.
-- **Conditional class probabilities:** Pr(Class_i | Object) — only updated at cells containing an object. Final detection score = Pr(Class_i | Object) × Pr(Object) × IOU.
+- **Conditional class probabilities:** Pr(Class_i \| Object) — only updated at cells containing an object. Final detection score = Pr(Class_i \| Object) × Pr(Object) × IOU.
 - **Non-maximal suppression:** Post-processing to remove duplicate detections of the same object; adds 2-3% mAP.
 - **Leaky ReLU** activation (0.1 slope for negative inputs) in every layer except the last, which is linear in the paper (the notebook applies a sigmoid to bound outputs to [0, 1]).
 

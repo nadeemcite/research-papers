@@ -7,7 +7,7 @@ permalink: "/033_ssd-single-shot-multibox-detector/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/ssd-single-shot-multibox-detector)
 
 
-**arXiv:** [1512.02325](https://arxiv.org/abs/1512.02325) | **Authors:** Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang Fu, Alexander C. Berg | **Year:** 2016 (ECCV)
+**arXiv:** [1512.02325](https://arxiv.org/abs/1512.02325) \| **Authors:** Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang Fu, Alexander C. Berg \| **Year:** 2016 (ECCV)
 
 ## Summary
 

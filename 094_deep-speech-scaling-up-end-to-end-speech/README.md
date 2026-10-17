@@ -38,7 +38,7 @@ Deep Speech's big idea was: **throw away all those complicated hand-built steps 
 - **Clipped ReLU**: g(z) = min(max(0, z), 20) — prevents activations from exploding in the recurrent layer.
 - **Training optimizer**: Nesterov's Accelerated Gradient with momentum 0.99, learning rate annealed per epoch.
 - **Regularization**: 5–10% dropout on feed-forward layers (not recurrent), plus input jittering (±5ms time shifts) at test time.
-- **Language model integration**: Q(c) = log P(c|x) + α·log P_lm(c) + β·word_count(c), optimized via beam search with beam size 1000–8000.
+- **Language model integration**: Q(c) = log P(c\|x) + α·log P_lm(c) + β·word_count(c), optimized via beam search with beam size 1000–8000.
 - **Multi-GPU training**: Data parallelism (batch across GPUs) + model parallelism (split along time dimension) + striding (stride-2 in first layer to halve recurrent sequence length).
 
 ## Influence

@@ -20,7 +20,7 @@ nav_order: 2
 ## Interview-Style Q&A
 
 **Q: Why doesn't DDIM require retraining the model?**
-A: The key insight is that DDIM generalizes the forward diffusion process to be non-Markovian, but the marginal distributions q(x_t|x_0) remain identical to DDPM's. Since the training objective only depends on these marginals (via the simplified noise-prediction loss), any model trained with the DDPM objective works directly with DDIM sampling. You just change the sampling algorithm.
+A: The key insight is that DDIM generalizes the forward diffusion process to be non-Markovian, but the marginal distributions q(x_t\|x_0) remain identical to DDPM's. Since the training objective only depends on these marginals (via the simplified noise-prediction loss), any model trained with the DDPM objective works directly with DDIM sampling. You just change the sampling algorithm.
 
 **Q: What does the η (eta) parameter control?**
 A: η interpolates between deterministic (η=0, pure DDIM) and stochastic (η=1, equivalent to DDPM) sampling. Values in between give a controlled mix. The deterministic version (η=0) is what enables consistency, reconstruction, and meaningful latent interpolation, because the same initial noise always maps to the same output.

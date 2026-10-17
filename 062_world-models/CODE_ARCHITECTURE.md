@@ -56,7 +56,7 @@ A linear policy:
 ### 6. Dream Environment
 A `DreamEnv` class that replaces the real simulator:
 - **`reset():** Sample initial z_0 from the VAE prior (or from a random real frame), reset LSTM hidden state h_0
-- **`step(action):** Feed (z_t, a_t) to MDN-RNN → get next z distribution → sample z_{t+1}, update h_{t+1}. Reward = −||decoded_z − target||² (or proxy reward from latent space).
+- **`step(action):** Feed (z_t, a_t) to MDN-RNN → get next z distribution → sample z_{t+1}, update h_{t+1}. Reward = −\|\|decoded_z − target\|\|² (or proxy reward from latent space).
 - The controller never sees real pixels during dream training.
 
 ### 7. Training Loop (CMA-ES on Controller)

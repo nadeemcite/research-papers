@@ -37,7 +37,7 @@ nav_order: 1
   - actions: (N,) — discrete int
   - advantages: (N,) — standardized (mean 0, std 1)
   - returns: (N,) — used for value-function fitting
-  - old_log_probs: (N,) — log π_old(a|s), frozen for the update
+  - old_log_probs: (N,) — log π_old(a\|s), frozen for the update
 
 ### 6. TRPO Update — Core Algorithm
 

@@ -31,7 +31,7 @@ These are reconstructed from publicly available blog posts, talks, and interview
 
 **Q: Why did you frame image captioning as a translation problem rather than extending object detection pipelines?**
 
-Oriol Vinyals (from the Google Research blog and conference talks): "The key insight was that captioning is really a sequence generation problem. Once you have a good image representation, generating a sentence is the same problem as translating one language to another — which Sutskever and Cho had just shown works with encoder-decoder LSTMs. We just replaced the source-language encoder with a CNN. Framing it as maximising p(S|I) meant we could train the whole thing end-to-end with gradient descent, which is much cleaner than stitching together detectors and templates."
+Oriol Vinyals (from the Google Research blog and conference talks): "The key insight was that captioning is really a sequence generation problem. Once you have a good image representation, generating a sentence is the same problem as translating one language to another — which Sutskever and Cho had just shown works with encoder-decoder LSTMs. We just replaced the source-language encoder with a CNN. Framing it as maximising p(S\|I) meant we could train the whole thing end-to-end with gradient descent, which is much cleaner than stitching together detectors and templates."
 
 **Q: Why did you freeze the CNN weights during training rather than fine-tuning everything?**
 

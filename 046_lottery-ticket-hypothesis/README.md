@@ -7,7 +7,7 @@ permalink: "/046_lottery-ticket-hypothesis/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
 
 
-**Paper:** [arXiv:1803.03635](https://arxiv.org/abs/1803.03635) | **Authors:** Jonathan Frankle, Michael Carbin | **Venue:** ICLR 2019 (Best Paper) | **Year:** 2018
+**Paper:** [arXiv:1803.03635](https://arxiv.org/abs/1803.03635) \| **Authors:** Jonathan Frankle, Michael Carbin \| **Venue:** ICLR 2019 (Best Paper) \| **Year:** 2018
 
 
 ## Summary

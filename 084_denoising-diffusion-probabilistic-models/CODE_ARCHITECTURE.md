@@ -17,7 +17,7 @@ The notebook implements a simplified DDPM from scratch in PyTorch, training on a
 - **Image size:** 32×32 (FashionMNIST resized) or 28×28
 - **Batch size:** 128
 - **Epochs:** 10-20 (reduced for Kaggle runtime budget)
-- **Precompute:** alphas, alphas_cumprod (ᾱ_t), sqrt terms, and one-pass terms for the posterior q(x_{t-1}|x_t,x_0)
+- **Precompute:** alphas, alphas_cumprod (ᾱ_t), sqrt terms, and one-pass terms for the posterior q(x_{t-1}\|x_t,x_0)
 
 ### 2. Forward Diffusion Process
 - **`q_sample(x_0, t, noise)`:** Closed-form noising: x_t = √(ᾱ_t)·x_0 + √(1-ᾱ_t)·ε

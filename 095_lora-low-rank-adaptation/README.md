@@ -7,7 +7,7 @@ permalink: "/095_lora-low-rank-adaptation/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lora-low-rank-adaptation)
 
 
-**arXiv:** [2106.09685](https://arxiv.org/abs/2106.09685) | **Authors:** Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen (Microsoft Corporation) | **Year:** 2021
+**arXiv:** [2106.09685](https://arxiv.org/abs/2106.09685) \| **Authors:** Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen (Microsoft Corporation) \| **Year:** 2021
 
 
 ## Summary

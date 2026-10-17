@@ -7,7 +7,7 @@ permalink: "/096_instructgpt-human-feedback/"
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback)
 
 
-**arXiv:** [2203.02155](https://arxiv.org/abs/2203.02155) | **Authors:** Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, Ryan Lowe (OpenAI) | **Year:** 2022
+**arXiv:** [2203.02155](https://arxiv.org/abs/2203.02155) \| **Authors:** Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, Ryan Lowe (OpenAI) \| **Year:** 2022
 
 
 ## Summary
@@ -28,7 +28,7 @@ The key insight is that the language modeling objective (predict the next token 
 
 3. **PPO Optimization:** The SFT model is fine-tuned against the reward model using PPO in a bandit environment. A per-token KL penalty from the SFT model prevents the policy from drifting too far:
 
-   > objective(φ) = E[r_θ(x,y) − β·log(π_φ(y|x)/π_SFT(y|x))] + γ·E[log(π_φ(x))]
+   > objective(φ) = E[r_θ(x,y) − β·log(π_φ(y\|x)/π_SFT(y\|x))] + γ·E[log(π_φ(x))]
 
    The KL coefficient β controls penalty strength; γ controls pretraining mix (PPO-ptx). Steps 2 and 3 can be iterated: collect more comparisons from the current best policy → retrain RM → retrain policy.
 

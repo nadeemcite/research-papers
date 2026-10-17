@@ -20,13 +20,13 @@ Prioritized Experience Replay improves the standard experience replay mechanism 
 
 The method has three key components:
 
-1. **Priority by TD error:** Each transition stored in the replay buffer is assigned a priority p_i = |delta_i| + epsilon, where delta_i is the absolute TD error from the last time the transition was replayed. New transitions get maximal priority to ensure they are seen at least once.
+1. **Priority by TD error:** Each transition stored in the replay buffer is assigned a priority p_i = \|delta_i\| + epsilon, where delta_i is the absolute TD error from the last time the transition was replayed. New transitions get maximal priority to ensure they are seen at least once.
 
 2. **Stochastic prioritization:** Rather than greedily always picking the highest-priority transition (which causes overfitting and loses diversity), transitions are sampled with probability P(i) = p_i^alpha / sum_k(p_k^alpha). The exponent alpha controls how aggressive the prioritization is: alpha=0 gives uniform sampling, alpha=1 gives full proportional prioritization.
 
 3. **Importance-sampling correction:** Non-uniform sampling introduces bias into the value estimates. To correct this, each transition's update is scaled by an importance-sampling weight w_i = (N * P(i))^(-beta), normalized by the maximum weight. Beta is annealed linearly from beta_0 to 1 over training, so the bias is tolerated early (when learning is non-stationary anyway) but fully corrected near convergence.
 
-Two variants exist: **proportional** (priority = |delta| + epsilon, implemented with a sum-tree) and **rank-based** (priority = 1/rank, implemented with stratified sampling). Both perform similarly in practice.
+Two variants exist: **proportional** (priority = \|delta\| + epsilon, implemented with a sum-tree) and **rank-based** (priority = 1/rank, implemented with stratified sampling). Both perform similarly in practice.
 
 ## What problem does it solve
 
@@ -36,7 +36,7 @@ Prioritized Experience Replay is like sorting the flashcards so that the ones yo
 
 ## Key Method Details
 
-- **Priority metric:** Absolute TD error |delta| = |R + gamma * max_a Q(s', a') - Q(s, a)|
+- **Priority metric:** Absolute TD error \|delta\| = \|R + gamma * max_a Q(s', a') - Q(s, a)\|
 - **Sampling probability:** P(i) = p_i^alpha / sum_k(p_k^alpha), with alpha in [0, 1]
 - **IS weights:** w_i = (N * P(i))^(-beta) / max_j(w_j), with beta annealed from beta_0 to 1
 - **Sum-tree data structure:** For proportional variant -- a binary tree where each leaf holds a priority and each internal node holds the sum of its children. Sampling is O(log N), updates are O(log N).

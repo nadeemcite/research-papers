@@ -11,7 +11,7 @@ nav_order: 2
 
 ## Notable Press Coverage, Blog Posts, and Announcements
 
-1. **Journal of Machine Learning Research (JMLR) follow-up (2014)** — The authors expanded the arXiv preprint into the canonical paper "Dropout: A Simple Way to Prevent Neural Networks from Overfitting," published in JMLR volume 15. This version provides extensive practical guidance and theoretical motivation. [JMLR page](https://jmlr.org/papers/v15/srivastava14a.html) | [PDF](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
+1. **Journal of Machine Learning Research (JMLR) follow-up (2014)** — The authors expanded the arXiv preprint into the canonical paper "Dropout: A Simple Way to Prevent Neural Networks from Overfitting," published in JMLR volume 15. This version provides extensive practical guidance and theoretical motivation. [JMLR page](https://jmlr.org/papers/v15/srivastava14a.html) \| [PDF](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
 
 2. **Nitish Srivastava's Dropout page (University of Toronto)** — The first author maintains a dedicated page with slides, code, and FAQs about dropout. [https://www.cs.toronto.edu/~nitish/dropout](https://www.cs.toronto.edu/~nitish/dropout)
 

@@ -25,10 +25,10 @@ The notebook implements a **Variational Auto-Encoder** from scratch in PyTorch, 
 
 ### Section 3: Encoder Network (Probabilistic Encoder)
 - **Class:** `Encoder(nn.Module)`
-- An MLP that maps input x (784-dim) to the parameters of the approximate posterior q(z|x).
+- An MLP that maps input x (784-dim) to the parameters of the approximate posterior q(z\|x).
 - Architecture: 784 → 512 (hidden, ReLU) → two parallel linear layers:
-  - `fc_mu`: 512 → latent_dim (mean of q(z|x))
-  - `fc_logvar`: 512 → latent_dim (log-variance of q(z|x))
+  - `fc_mu`: 512 → latent_dim (mean of q(z\|x))
+  - `fc_logvar`: 512 → latent_dim (log-variance of q(z\|x))
 - Outputs: `mu` (B, latent_dim) and `logvar` (B, latent_dim).
 - The use of log-variance (instead of variance directly) ensures numerical stability (variance is always positive via exp(logvar)).
 - **Shapes:** Input `(B, 784)` → hidden `(B, 512)` → mu `(B, latent_dim)`, logvar `(B, latent_dim)`.
@@ -44,7 +44,7 @@ The notebook implements a **Variational Auto-Encoder** from scratch in PyTorch, 
 
 ### Section 5: Decoder Network (Probabilistic Decoder)
 - **Class:** `Decoder(nn.Module)`
-- An MLP that maps latent z to the parameters of the likelihood p(x|z).
+- An MLP that maps latent z to the parameters of the likelihood p(x\|z).
 - Architecture: latent_dim → 512 (hidden, ReLU) → 784 (output, Sigmoid).
 - The sigmoid output maps to [0, 1], suitable for Bernoulli likelihood on normalized MNIST pixels.
 - **Shapes:** Input `(B, latent_dim)` → hidden `(B, 512)` → output `(B, 784)`.
@@ -59,7 +59,7 @@ The notebook implements a **Variational Auto-Encoder** from scratch in PyTorch, 
 ### Section 7: Loss Function — Negative ELBO
 - **Function:** `vae_loss(x_recon, x, mu, logvar)`
 - The ELBO has two terms:
-  1. **Reconstruction loss (BCE):** Binary Cross-Entropy between x and x_recon. This is the expected negative log-likelihood: -E[log p(x|z)]. Computed as `F.binary_cross_entropy(x_recon, x, reduction='sum')`.
+  1. **Reconstruction loss (BCE):** Binary Cross-Entropy between x and x_recon. This is the expected negative log-likelihood: -E[log p(x\|z)]. Computed as `F.binary_cross_entropy(x_recon, x, reduction='sum')`.
   2. **KL-divergence:** Analytical closed-form for Gaussian prior N(0,I) and Gaussian posterior: `-0.5 * sum(1 + logvar - mu^2 - exp(logvar))`. This regularizes the encoder's posterior to stay close to the prior.
 - Total loss = reconstruction_loss + KL_divergence (both summed over the batch, then divided by batch size for per-sample average).
 - **Note:** The paper formulates this as maximizing the ELBO; we minimize the negative ELBO.

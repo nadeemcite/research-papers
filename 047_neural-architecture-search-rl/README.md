@@ -28,7 +28,7 @@ That's exactly what this paper does, but with neural networks instead of Lego sp
 - **Controller:** An LSTM that sequentially predicts hyperparameters for each layer of a CNN (filter height ∈ {1,3,5}, filter width ∈ {1,3,5}, stride ∈ {1,2,3}, number of filters ∈ {24,36,48,64})
 - **Search space:** For CNNs, the controller generates architectures with a fixed number of layers (e.g., 6). Each layer has 5 hyperparameters. Skip connections are predicted via an anchor point mechanism.
 - **Training child networks:** Each sampled architecture is trained from scratch on the target dataset (CIFAR-10). Validation accuracy is the reward.
-- **REINFORCE update:** The controller is trained with policy gradient: ∇θ J(θ) ≈ (1/N) Σ (R_n − b) ∇θ log p(a_n|s_n), where R_n is the validation accuracy and b is an exponential moving average baseline.
+- **REINFORCE update:** The controller is trained with policy gradient: ∇θ J(θ) ≈ (1/N) Σ (R_n − b) ∇θ log p(a_n\|s_n), where R_n is the validation accuracy and b is an exponential moving average baseline.
 - **Parallelism:** The paper uses asynchronous parameter server training to speed up the controller, and trains multiple child networks in parallel.
 - **Simplifications in this notebook:** We use a much smaller search space (3 layers, fewer choices), MNIST instead of CIFAR-10, 1-2 epochs per child network, and synchronous (non-parallel) training.
 

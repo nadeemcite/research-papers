@@ -20,7 +20,7 @@ The central insight is that many problems require outputting *positions* within 
 ## Key Method Details
 
 - **Architecture:** An encoder-decoder structure where the encoder is an LSTM/GRU that processes the input sequence (e.g., a set of 2D points), and the decoder is another LSTM that generates output positions one at a time.
-- **Pointer attention:** At decoder step t, the attention mechanism computes scores u_j = v^T tanh(W_s s_t + W_e e_j) for each encoder hidden state e_j, then normalizes via softmax: p(C_i | C_1,...,C_{i-1}, P) = softmax(u_j). The output is an index into the input sequence — not a token from a fixed vocabulary.
+- **Pointer attention:** At decoder step t, the attention mechanism computes scores u_j = v^T tanh(W_s s_t + W_e e_j) for each encoder hidden state e_j, then normalizes via softmax: p(C_i \| C_1,...,C_{i-1}, P) = softmax(u_j). The output is an index into the input sequence — not a token from a fixed vocabulary.
 - **Difference from Bahdanau attention:** Standard attention (Bahdanau et al., 2015) uses the attention weights to compute a weighted sum (context vector) that is fed into the output layer alongside the decoder state. Pointer Networks *replace* the output layer entirely — the attention distribution *is* the output distribution.
 - **Training:** The model is trained end-to-end with a cross-entropy loss over the correct output sequence of indices. Teacher forcing is used during training.
 - **Generalization:** The model can generalize to input sequences longer than those seen during training, because the attention mechanism is not tied to a specific input length.

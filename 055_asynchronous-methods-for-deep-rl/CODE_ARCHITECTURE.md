@@ -108,7 +108,7 @@ The notebook implements a simplified single-process version of the A3C (Asynchro
 
 ### 12. Evaluation
 - **Purpose**: Run the trained policy (stochastic, no epsilon needed) for several episodes and report average reward.
-- **Key detail**: Unlike DQN (which needs ε-greedy), A3C's policy is stochastic — we sample actions from π(a|s) during evaluation. For deterministic evaluation, we can also take argmax.
+- **Key detail**: Unlike DQN (which needs ε-greedy), A3C's policy is stochastic — we sample actions from π(a\|s) during evaluation. For deterministic evaluation, we can also take argmax.
 
 ## Key Functions/Classes Summary
 

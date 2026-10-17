@@ -59,7 +59,7 @@ The notebook implements knowledge distillation from Hinton et al. (2015) from sc
 
 ### 7. Combined Loss Function
 - **Function `combined_loss(student_logits, teacher_logits, labels, T, alpha)`**
-  - Soft loss: alpha * T^2 * KL(teacher_soft || student_soft)
+  - Soft loss: alpha * T^2 * KL(teacher_soft \|\| student_soft)
   - Hard loss: (1 - alpha) * CrossEntropy(student_logits, labels)
   - alpha controls the trade-off (paper recommends alpha ~0.7-0.9)
   - Returns total loss

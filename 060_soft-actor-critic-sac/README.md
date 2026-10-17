@@ -18,21 +18,21 @@ Soft Actor-Critic (SAC), introduced by Haarnoja et al. (2018) at Berkeley AI Res
 
 The maximum entropy RL objective augments the standard reward objective:
 
-> **J(π) = Σ E[s_t,a_t ~ ρ^π] [ r(s_t, a_t) + α · H(π(·|s_t)) ]**
+> **J(π) = Σ E[s_t,a_t ~ ρ^π] [ r(s_t, a_t) + α · H(π(·\|s_t)) ]**
 
 where **H(π)** is the entropy of the policy and **α** is the temperature controlling the reward–entropy trade-off. The optimal policy under this objective succeeds at the task while remaining as stochastic as possible.
 
 **Key algorithmic components:**
 
 1. **Soft Q-value update (critic):** The critic learns the soft Q-function using a Bellman backup that incorporates entropy:
-   - Q(s,a) ← r(s,a) + γ · E_s'[ V(s') ], where V(s') = E_a'[ Q(s',a') − α·log π(a'|s') ]
+   - Q(s,a) ← r(s,a) + γ · E_s'[ V(s') ], where V(s') = E_a'[ Q(s',a') − α·log π(a'\|s') ]
    - Two Q-networks (Q1, Q2) are trained independently, and the *minimum* of the two is used as the target value to avoid overestimation bias.
 
 2. **Policy update (actor):** The actor is trained to maximize the expected soft Q-value while maximizing entropy:
-   - J(π) = E_s[ E_a~π [ Q(s,a) − α·log π(a|s) ] ]
+   - J(π) = E_s[ E_a~π [ Q(s,a) − α·log π(a\|s) ] ]
    - The policy is a tanh-squashed Gaussian, enabling reparameterization: a = tanh(μ + σ·ε), ε ~ N(0,1), so gradients flow through the sampler.
 
-3. **Automatic temperature (α) tuning:** Instead of fixing α, SAC adjusts it to satisfy a target entropy constraint (typically H_target = −|A|, the negative of the action dimension):
+3. **Automatic temperature (α) tuning:** Instead of fixing α, SAC adjusts it to satisfy a target entropy constraint (typically H_target = −\|A\|, the negative of the action dimension):
    - α is learned via a dual gradient descent step that pushes the policy entropy toward the target.
 
 4. **Off-policy replay:** All experience is stored in a replay buffer and reused, giving SAC excellent sample efficiency compared to on-policy methods.
@@ -49,7 +49,7 @@ SAC has become one of the most widely used and recommended algorithms for contin
 
 - **Twin Q-networks** (Q1, Q2) with a shared or separate target network updated via Polyak averaging (soft target updates).
 - **Reparameterization trick** for the Gaussian policy: actions are sampled as a = tanh(μ(s) + σ(s)·ε), enabling low-variance policy gradients.
-- **Automatic temperature α** via a learned log-α optimizer with a target entropy of −|action_dim|.
+- **Automatic temperature α** via a learned log-α optimizer with a target entropy of −\|action_dim\|.
 - **Replay buffer** with uniform sampling and batch updates.
 - The notebook implements all of the above from scratch in PyTorch on the Pendulum-v1 Gymnasium environment, with reward curve and entropy plots.
 
