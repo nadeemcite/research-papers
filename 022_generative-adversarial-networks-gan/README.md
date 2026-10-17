@@ -4,12 +4,13 @@ nav_order: 23
 permalink: "/022_generative-adversarial-networks-gan/"
 ---
 # Generative Adversarial Networks (GAN)
+![GAN banner](../assets/banners/022.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/generative-adversarial-networks-gan)
 
-
-**Paper:** Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., & Bengio, Y. (2014). *Generative Adversarial Nets.* arXiv:1406.2661. Published at NIPS 2014.
-
-**arXiv:** https://arxiv.org/abs/1406.2661
+- **Paper:** [Generative Adversarial Nets](https://arxiv.org/abs/1406.2661)
+- **Authors:** Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio
+- **Year:** 2014 (NIPS 2014)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/aGXecMt314w) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
@@ -23,7 +24,14 @@ Ian Goodfellow had a simpler idea, inspired by the world of **counterfeit money*
 
 This is exactly what a GAN does. No textbooks, no slow step-by-step refinement — just two networks competing, and through competition, the generator learns to produce images that look like real data. It's like learning to forge paintings by repeatedly trying to fool an art expert who is also getting better at their job.
 
-## Core Idea & Key Method Details
+## Core Idea
+
+- **Generative modeling as a two-player game:** a generator G maps random noise z to samples, and a discriminator D estimates the probability that a sample came from the real data rather than from G. G is trained to fool D; D is trained not to be fooled.
+- **No explicit likelihood, no Markov chains:** both networks are trained with ordinary backpropagation, and drawing a sample is a single forward pass through G.
+- **A clean theoretical optimum:** the minimax game has a global optimum where the generator's distribution equals the data distribution and D outputs 1/2 everywhere.
+- **A practical training trick:** G maximizes log D(G(z)) instead of minimizing log(1 − D(G(z))), which keeps its gradients strong early in training.
+
+## Key Method Details
 
 ### The Minimax Game
 
@@ -81,8 +89,6 @@ Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
 ---
 
 ## Resources
-
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/generative-adversarial-networks-gan)
 
 | File | Description |
 |------|-------------|

@@ -4,14 +4,23 @@ nav_order: 21
 permalink: "/020_attention-is-all-you-need-transformer/"
 ---
 # Attention Is All You Need (Transformer)
+![Transformer banner](../assets/banners/020.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/attention-is-all-you-need-transformer)
 
+- **Paper:** [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+- **Authors:** Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin
+- **Lab, year:** Google Brain / Google Research, 2017
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/4iKss2ffzHI) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
 "Attention Is All You Need," published in 2017 by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin (all at Google Brain / Google Research), introduced the **Transformer** — a neural network architecture based entirely on attention mechanisms, dispensing with recurrence and convolutions entirely for sequence transduction tasks. The Transformer replaced the sequential processing bottleneck of RNNs/LSTMs with **self-attention**, where every position in a sequence can directly attend to every other position in parallel. The model achieved 28.4 BLEU on WMT 2014 English-to-German translation (improving over existing best results by over 2 BLEU) and 41.8 BLEU on English-to-French — both state-of-the-art at the time — while training in just 3.5 days on 8 GPUs, a fraction of the cost of competing models. This paper is arguably the most influential neural network architecture paper of the last decade: every major modern language model (GPT, BERT, T5, LLaMA, Claude, Gemini) and increasingly vision, audio, and multimodal models are built on the Transformer architecture it introduced.
 
-**arXiv link:** https://arxiv.org/abs/1706.03762
+## What Problem Does It Solve
+
+Imagine you're reading a long book and need to answer a question about something mentioned in chapter 1, but you're currently in chapter 20. The old way AI handled this was like reading the book page by page — by the time it reached chapter 20, the details from chapter 1 had faded from its "memory" (this was called the vanishing gradient problem with RNNs). Even worse, it had to read every single page in order, one at a time, so it was very slow — even on powerful computers that are designed to do many things simultaneously.
+
+This paper introduced a brilliant idea: instead of reading page by page, what if every page could "look at" every other page at the same time? So when the AI is reading chapter 20, it can directly "pay attention to" chapter 1 without having to remember everything in between. This is called **self-attention**. It's like being at a dinner party where instead of passing a message down the table one person at a time, everyone can talk to everyone else directly. This made AI both smarter (it could connect ideas across long distances) and much faster (computers could process all the "conversations" at the same time instead of one by one). This single idea became the foundation for ChatGPT, Google Translate, and almost every modern AI system.
 
 ## Core Idea
 
@@ -39,17 +48,9 @@ The central insight is that **self-attention** — computing relationships betwe
 
 The Transformer is the foundational architecture of modern deep learning. It directly enabled BERT (Devlin et al., 2018), GPT series (Radford et al. 2018–2020), T5 (Raffel et al., 2019), and virtually every subsequent large language model. The architecture was adapted to vision (ViT, Dosovitskiy et al., 2020), audio (Whisper), protein structure (AlphaFold 2), and code (Codex). The paper has been cited over 170,000 times — one of the most cited computer science papers of all time. "Attention is all you need" became a widely recognized phrase in the AI community and a template for paper titles across the field.
 
-## What Problem Does It Solve
-
-Imagine you're reading a long book and need to answer a question about something mentioned in chapter 1, but you're currently in chapter 20. The old way AI handled this was like reading the book page by page — by the time it reached chapter 20, the details from chapter 1 had faded from its "memory" (this was called the vanishing gradient problem with RNNs). Even worse, it had to read every single page in order, one at a time, so it was very slow — even on powerful computers that are designed to do many things simultaneously.
-
-This paper introduced a brilliant idea: instead of reading page by page, what if every page could "look at" every other page at the same time? So when the AI is reading chapter 20, it can directly "pay attention to" chapter 1 without having to remember everything in between. This is called **self-attention**. It's like being at a dinner party where instead of passing a message down the table one person at a time, everyone can talk to everyone else directly. This made AI both smarter (it could connect ideas across long distances) and much faster (computers could process all the "conversations" at the same time instead of one by one). This single idea became the foundation for ChatGPT, Google Translate, and almost every modern AI system.
-
 ---
 
 ## Resources
-
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/attention-is-all-you-need-transformer)
 
 | File | Description |
 |------|-------------|

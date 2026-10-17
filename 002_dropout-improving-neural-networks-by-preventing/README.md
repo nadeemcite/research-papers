@@ -4,28 +4,25 @@ nav_order: 3
 permalink: "/002_dropout-improving-neural-networks-by-preventing/"
 ---
 # Dropout — Improving Neural Networks by Preventing Co-adaptation of Feature Detectors
+![Dropout banner](../assets/banners/002.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
 
-
-**Paper:** [arXiv:1207.0580](https://arxiv.org/abs/1207.0580)
-**Authors:** Geoffrey E. Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, Ruslan R. Salakhutdinov
-**Year:** 2012
-
----
-
-## What problem does it solve?
-
-Imagine you're studying for a big exam by memorizing the exact questions from your practice test instead of understanding the concepts. You ace the practice test, but on the real exam with new questions, you fail. That's called **overfitting** — your brain memorized instead of learned.
-
-Neural networks have the exact same problem. When you train a big neural network on a small amount of data, it memorizes the training examples instead of learning the general patterns. So it does great on the data it's seen, but badly on new data. Dropout solves this by randomly turning off about half the "brain cells" (neurons) every time the network looks at a new training example. It's like a soccer team where the coach randomly benches half the players at every practice — no player can rely on a specific teammate always being there, so every player has to learn to be good on their own. By the time the real game comes, the whole team is stronger because each player learned to handle many different situations independently.
-
----
+- **Paper:** [Improving neural networks by preventing co-adaptation of feature detectors](https://arxiv.org/abs/1207.0580)
+- **Authors:** Geoffrey E. Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, Ruslan R. Salakhutdinov
+- **Year:** 2012
+- **Video:** YouTube Short coming on 24 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
 Large neural networks trained on small datasets have a chronic problem: they memorize the training examples instead of learning general rules, so they perform poorly on new test data. This is called **overfitting**. Hinton et al. proposed a surprisingly simple fix: during training, randomly drop out (set to zero) roughly half of the neurons in the network for every training example. Each update trains a different "thinned" sub-network, which forces the network to learn robust features that work in many different contexts rather than relying on specific co-adapted combinations of neurons.
 
-## The Core Idea
+## What Problem Does It Solve
+
+Imagine you're studying for a big exam by memorizing the exact questions from your practice test instead of understanding the concepts. You ace the practice test, but on the real exam with new questions, you fail. That's called **overfitting** — your brain memorized instead of learned.
+
+Neural networks have the exact same problem. When you train a big neural network on a small amount of data, it memorizes the training examples instead of learning the general patterns. So it does great on the data it's seen, but badly on new data. Dropout solves this by randomly turning off about half the "brain cells" (neurons) every time the network looks at a new training example. It's like a soccer team where the coach randomly benches half the players at every practice — no player can rely on a specific teammate always being there, so every player has to learn to be good on their own. By the time the real game comes, the whole team is stronger because each player learned to handle many different situations independently.
+
+## Core Idea
 
 The breakthrough insight is that **neurons should not depend on each other too much**. In a standard network, a hidden neuron can become useful only because another specific neuron is present; this is "co-adaptation." Dropout breaks these co-adaptations by randomly deleting neurons on every forward pass. Because the network never knows which neurons will be available, each neuron must learn to detect a feature that is independently useful across a wide variety of internal contexts. At test time, all neurons are used but their outgoing weights are scaled down by the dropout probability, which approximates the effect of averaging over all the thinned networks.
 
@@ -52,11 +49,9 @@ The breakthrough insight is that **neurons should not depend on each other too m
 - For ImageNet: AlexNet-style convolutional networks with dropout in fully connected layers.
 - Optimizer: SGD with momentum, learning rate tuned per task.
 
-## Why It Mattered
+## Influence
 
 Dropout became one of the most widely used regularization techniques in deep learning. It is simple to implement, adds almost no computational cost, and dramatically improves generalization across vision, speech, and NLP tasks. The 2012 ImageNet win by AlexNet used dropout in the fully connected layers, helping establish deep learning as the dominant approach in computer vision. The follow-up JMLR paper (2014) provided a more thorough analysis and is one of the most cited deep-learning papers of all time.
-
-## Influence Afterward
 
 - **Batch Normalization** (Ioffe & Szegedy, 2015) — reduces internal covariate shift and, in some cases, reduces the need for dropout.
 - **DropConnect** (Wan et al., 2013) — randomly drops weights instead of activations.
@@ -68,8 +63,6 @@ Dropout became one of the most widely used regularization techniques in deep lea
 ---
 
 ## Resources
-
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
 
 | File | Description |
 |------|-------------|
