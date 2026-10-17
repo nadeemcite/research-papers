@@ -1,13 +1,13 @@
 <p align="center"><img src="assets/banner.svg" alt="100 Papers That Changed AI: reimplemented from scratch, validated on Kaggle" width="100%"></p>
 
 <p align="center">
-  <img alt="papers" src="https://img.shields.io/badge/papers-97%20%2F%20100-4ea8de">
+  <img alt="papers" src="https://img.shields.io/badge/papers-98%20%2F%20100-4ea8de">
   <a href="https://www.kaggle.com/nadymsazad"><img alt="Kaggle" src="https://img.shields.io/badge/Kaggle-run%20every%20notebook-20BEFF?logo=kaggle&logoColor=white"></a>
   <a href="https://www.youtube.com/@BackpropDaily"><img alt="YouTube" src="https://img.shields.io/badge/YouTube-Backprop%20Daily-FF0000?logo=youtube&logoColor=white"></a>
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-57cc99"></a>
 </p>
 
-**97 of the 100 papers that shaped modern AI**, from Dropout (2012) to Chinchilla (2022), each turned into a small, runnable, from-scratch PyTorch reimplementation with a plain-English explainer. Every notebook in this repo was **executed top to bottom on Kaggle** and is published with its real outputs, so you can open it, see it work, and fork it on a free GPU.
+**98 of the 100 papers that shaped modern AI**, from Dropout (2012) to Chinchilla (2022), each turned into a small, runnable, from-scratch PyTorch reimplementation with a plain-English explainer. Every notebook in this repo was **executed top to bottom on Kaggle** and is published with its real outputs, so you can open it, see it work, and fork it on a free GPU.
 
 ## How it's made: agent-generated, GPU-validated, human-reviewed
 
@@ -146,6 +146,7 @@ This repo is also an experiment in what AI agents can build when the bar is *"it
 | 095 | 2021 | [LoRA: Low-Rank Adaptation of Large Language Models](095_lora-low-rank-adaptation/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lora-low-rank-adaptation) |
 | 096 | 2022 | [Training Language Models to Follow Instructions with Human Feedback (InstructGPT)](096_instructgpt-human-feedback/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback) |
 | 097 | 2022 | [Training Compute-Optimal Large Language Models (Chinchilla)](097_chinchilla-compute-optimal-scaling-laws/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/chinchilla-compute-optimal-scaling-laws) |
+| 099 | 2022 | [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](099_flashattention-fast-memory-efficient-exact-attention/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/flashattention-io-aware-exact-attention) |
 
 ### Graph Representation Learning
 
