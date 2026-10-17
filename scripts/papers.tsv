@@ -1,0 +1,98 @@
+num	short	year	domain	title	folder	kaggle
+001	Word2Vec	2013	language	Word2Vec — Efficient Estimation of Word Representations in Vector Space	001_word2vec-efficient-estimation-of-word	word2vec-word-representations
+002	Dropout	2012	foundations	Dropout — Improving Neural Networks by Preventing Co-adaptation of Feature Detectors	002_dropout-improving-neural-networks-by-preventing	dropout-improving-neural-networks
+003	Adam	2014	foundations	Adam — A Method for Stochastic Optimization	003_adam-a-method-for-stochastic	adam-a-method-for-stochastic-optimization
+004	VGGNet	2014	cnn	VGGNet — Very Deep Convolutional Networks for Large-Scale Image Recognition	004_vggnet-very-deep-convolutional-networks	vggnet-very-deep-convolutional-networks
+005	GoogLeNet	2014	cnn	GoogLeNet — Going Deeper with Convolutions	005_googlenet-going-deeper-with-convolutions	googlenet-going-deeper-with-convolutions
+006	BatchNorm	2015	foundations	Batch Normalization	006_batch-normalization	batch-normalization
+007	He Init / PReLU	2015	foundations	Delving Deep into Rectifiers (He Initialization)	007_delving-deep-into-rectifiers	delving-deep-into-rectifiers-he-init
+008	ResNet	2015	cnn	ResNet — Deep Residual Learning for Image Recognition	008_resnet-deep-residual-learning-for-image	resnet-deep-residual-learning
+009	Highway Nets	2015	cnn	Highway Networks	009_highway-networks	highway-networks
+010	Neural Style	2015	generative	A Neural Algorithm of Artistic Style (Neural Style Transfer)	010_a-neural-algorithm-of-artistic-style	a-neural-algorithm-of-artistic-style
+011	Seq2Seq	2014	sequence	Sequence to Sequence Learning with Neural Networks	011_sequence-to-sequence-learning-with-neural-networks	sequence-to-sequence-learning-with-neural-networks
+012	Bahdanau Attention	2014	sequence	Neural Machine Translation by Jointly Learning to Align and Translate	012_neural-machine-translation-by-jointly-learning	bahdanau-attention-neural-machine-translation
+013	GRU Enc-Dec	2014	sequence	Learning Phrase Representations using RNN Encoder-Decoder (GRU)	013_learning-phrase-representations-using-rnn	gru-from-scratch-cho-2014
+014	Show and Tell	2014	sequence	Show and Tell: A Neural Image Caption Generator	014_show-and-tell-neural-image-caption-generator	show-and-tell-a-neural-image-caption-generator
+015	Neural Turing Mach	2014	sequence	Neural Turing Machines	015_neural-turing-machines	neural-turing-machines
+016	Memory Networks	2014	sequence	Memory Networks	016_memory-networks	memory-networks
+017	End-to-End MemNN	2015	sequence	End-to-End Memory Networks	017_end-to-end-memory-networks	end-to-end-memory-networks
+018	Pointer Networks	2015	sequence	Pointer Networks	018_pointer-networks	pointer-networks
+019	ConvS2S	2017	sequence	Convolutional Sequence to Sequence Learning	019_convolutional-sequence-to-sequence-learning	convolutional-sequence-to-sequence-learning
+020	Transformer	2017	sequence	Attention Is All You Need (Transformer)	020_attention-is-all-you-need-transformer	attention-is-all-you-need-transformer
+021	VAE	2013	generative	Auto-Encoding Variational Bayes (VAE)	021_auto-encoding-variational-bayes-vae	auto-encoding-variational-bayes-vae
+022	GAN	2014	generative	Generative Adversarial Networks (GAN)	022_generative-adversarial-networks-gan	generative-adversarial-networks-gan
+023	DCGAN	2015	generative	DCGAN — Unsupervised Representation Learning with Deep Convolutional GANs	023_dcgan-unsupervised-representation-learning	dcgan-unsupervised-representation-learning
+024	Conditional GAN	2014	generative	Conditional Generative Adversarial Nets	024_conditional-generative-adversarial-nets	conditional-generative-adversarial-nets
+025	pix2pix	2016	generative	Image-to-Image Translation with Conditional Adversarial Networks (Pix2Pix)	025_image-to-image-translation-with-conditional	pix2pix-image-to-image-translation
+026	CycleGAN	2017	generative	CycleGAN: Unpaired Image-to-Image Translation	026_cyclegan-unpaired-image-translation	cyclegan-unpaired-image-to-image-translation
+027	WGAN	2017	generative	Wasserstein GAN	027_wasserstein-gan	wasserstein-gan
+028	WGAN-GP	2017	generative	Improved Training of Wasserstein GANs (WGAN-GP)	028_improved-training-wasserstein-gans-gp	improved-training-of-wasserstein-gans-wgan-gp
+029	ProGAN	2017	generative	Progressive Growing of GANs for Improved Quality, Stability, and Variation	029_progressive-growing-of-gans	progressive-growing-of-gans
+030	StyleGAN	2018	generative	A Style-Based Generator Architecture for GANs (StyleGAN)	030_style-based-generator-architecture-gans-stylegan	stylegan
+031	Faster R-CNN	2015	detection	Faster R-CNN: Towards Real-Time Object Detection	031_faster-r-cnn-towards-real-time-object	faster-r-cnn-towards-real-time-object-detection
+032	YOLO	2015	detection	You Only Look Once (YOLO)	032_you-only-look-once-yolo	you-only-look-once-yolo
+033	SSD	2015	detection	SSD — Single Shot MultiBox Detector	033_ssd-single-shot-multibox-detector	ssd-single-shot-multibox-detector
+034	Mask R-CNN	2017	detection	Mask R-CNN	034_mask-r-cnn	mask-r-cnn
+035	U-Net	2015	detection	U-Net: Convolutional Networks for Biomedical Image Segmentation	035_u-net-biomedical-image-segmentation	u-net-biomedical-image-segmentation
+036	SqueezeNet	2016	cnn	SqueezeNet: AlexNet-level accuracy with 50× fewer parameters and <0.5MB model size	036_squeezenet	squeezenet
+037	DenseNet	2016	cnn	Densely Connected Convolutional Networks (DenseNet)	037_densely-connected-convolutional-networks-densenet	densely-connected-convolutional-networks
+038	MobileNets	2017	cnn	MobileNets: Efficient CNNs for Mobile Vision	038_mobilenets-efficient-cnns	mobilenets-efficient-cnns-for-mobile-vision
+039	Wide ResNet	2016	cnn	Wide Residual Networks	039_wide-residual-networks	wide-residual-networks
+040	ResNeXt	2016	cnn	Aggregated Residual Transformations for Deep Neural Networks (ResNeXt)	040_aggregated-residual-transformations-resnext	resnext-aggregated-residual-transformations
+041	CapsNet	2017	cnn	Dynamic Routing Between Capsules	041_dynamic-routing-between-capsules	dynamic-routing-between-capsules
+042	LayerNorm	2016	foundations	Layer Normalization	042_layer-normalization	layer-normalization
+043	GroupNorm	2018	foundations	Group Normalization	043_group-normalization	group-normalization
+044	Inception-v3	2015	cnn	Rethinking the Inception Architecture (Label Smoothing)	044_rethinking-inception-architecture-label	label-smoothing-regularization-inception
+045	Distillation	2015	foundations	Distilling the Knowledge in a Neural Network	045_distilling-knowledge-in-a-neural-network	distilling-knowledge-in-a-neural-network
+046	Lottery Ticket	2018	foundations	The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks	046_lottery-ticket-hypothesis	lottery-ticket-hypothesis
+047	NAS	2016	cnn	Neural Architecture Search with Reinforcement Learning	047_neural-architecture-search-rl	neural-architecture-search-rl
+048	EfficientNet	2019	cnn	EfficientNet: Rethinking Model Scaling for CNNs	048_efficientnet-rethinking-model-scaling	efficientnet-rethinking-model-scaling-for-cnns
+049	Xception	2016	cnn	Xception: Deep Learning with Depthwise Separable Convolutions	049_xception-depthwise-separable-convolutions	xception-depthwise-separable-convolutions
+050	SENet	2017	cnn	Squeeze-and-Excitation Networks	050_squeeze-and-excitation-networks	squeeze-and-excitation-networks
+051	DQN	2013	rl	Playing Atari with Deep Reinforcement Learning (DQN)	051_playing-atari-with-deep-reinforcement	playing-atari-with-deep-reinforcement
+052	Double DQN	2015	rl	Deep Reinforcement Learning with Double Q-learning	052_double-dqn	double-dqn-deep-reinforcement-learning
+054	Prioritized Replay	2015	rl	Prioritized Experience Replay	054_prioritized-experience-replay	prioritized-experience-replay
+055	A3C	2016	rl	Asynchronous Methods for Deep Reinforcement Learning (A3C)	055_asynchronous-methods-for-deep-rl	asynchronous-methods-for-deep-rl
+053	Dueling DQN	2015	rl	Dueling Network Architectures for Deep RL	053_dueling-network-architectures-for-deep-rl	dueling-network-architectures-for-deep-rl
+056	TRPO	2015	rl	Trust Region Policy Optimization (TRPO)	056_trust-region-policy-optimization	trust-region-policy-optimization-trpo
+057	DDPG	2015	rl	Continuous Control with Deep Reinforcement Learning (DDPG)	057_continuous-control-with-deep-rl-ddpg	continuous-control-deep-rl-ddpg
+058	PPO	2017	rl	Proximal Policy Optimization Algorithms (PPO)	058_proximal-policy-optimization-algorithms-ppo	proximal-policy-optimization-algorithms-ppo
+059	Rainbow	2017	rl	Rainbow: Combining Improvements in Deep Reinforcement Learning	059_rainbow-combining-improvements-deep-rl	rainbow-combining-improvements-deep-rl
+060	SAC	2018	rl	Soft Actor-Critic (SAC): Off-Policy Maximum Entropy Deep RL	060_soft-actor-critic-sac	soft-actor-critic-sac
+061	AlphaZero	2017	rl	AlphaZero — Mastering Chess and Shogi by Self-Play	061_alphazero-mastering-chess-and-shogi-by	alphazero-mastering-chess-and-shogi
+062	World Models	2018	rl	World Models	062_world-models	world-models
+063	RLHF (Human Prefs)	2017	rl	Deep Reinforcement Learning from Human Preferences	063_deep-rl-from-human-preferences	deep-reinforcement-learning-from-human-preferences
+064	Neural ODE	2018	foundations	Neural Ordinary Differential Equations	064_neural-ordinary-differential-equations	neural-ordinary-differential-equations
+065	node2vec	2016	graph	node2vec: Scalable Feature Learning for Networks	065_node2vec-scalable-feature-learning-networks	node2vec-scalable-feature-learning-for-networks
+066	DeepWalk	2014	graph	DeepWalk: Online Learning of Social Representations	066_deepwalk-online-learning-of-social-rep	deepwalk-online-learning-of-social-representations
+067	GCN	2016	graph	Semi-Supervised Classification with Graph Convolutional Networks (GCN)	067_semi-supervised-classification-graph-convolutional-networks	semi-supervised-classification-graph-conv
+068	GAT	2017	graph	Graph Attention Networks (GAT)	068_graph-attention-networks-gat	graph-attention-networks-gat
+069	CPC	2018	ssl	Representation Learning with Contrastive Predictive Coding	069_representation-learning-with-contrastive-predictive	069-contrastive-predictive-coding
+070	SimCLR	2020	ssl	SimCLR — A Simple Framework for Contrastive Learning of Visual Representations	070_simclr-contrastive-learning	simclr-a-simple-framework-for-contrastive-learning
+071	MoCo	2019	ssl	Momentum Contrast for Unsupervised Visual Representation Learning (MoCo)	071_momentum-contrast-unsupervised-visual	moco-unsupervised-visual-representation-learning
+072	BYOL	2020	ssl	Bootstrap Your Own Latent (BYOL) — Self-Supervised Learning Without Negative Pairs	072_bootstrap-your-own-latent-byol	bootstrap-your-own-latent-byol
+073	ELMo	2018	language	Deep Contextualized Word Representations (ELMo)	073_deep-contextualized-word-representations-elmo	deep-contextualized-word-representations-elmo
+074	BERT	2018	language	BERT: Pre-training of Deep Bidirectional Transformers	074_bert-pre-training-deep-bidirectional-transformers	bert-pre-training-deep-bidirectional-transformers
+075	XLNet	2019	language	XLNet: Generalized Autoregressive Pretraining	075_xlnet-permutation-language-model	xlnet-generalized-autoregressive-pretraining
+076	RoBERTa	2019	language	RoBERTa: A Robustly Optimized BERT Pretraining Approach	076_roberta-robustly-optimized-bert-pretraining	roberta-robustly-optimized-bert-pretraining
+077	ALBERT	2019	language	ALBERT: A Lite BERT for Self-supervised Learning	077_albert-lite-bert	albert-a-lite-bert-for-self-supervised-learning
+078	DistilBERT	2019	language	DistilBERT: A Distilled Version of BERT	078_distilbert-distilled-version-of-bert	distilbert-a-distilled-version-of-bert
+079	T5	2019	language	Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)	079_exploring-limits-transfer-learning-text-to-text	exploring-transfer-learning-t5
+080	GPT-3	2020	language	Language Models are Few-Shot Learners (GPT-3)	080_language-models-few-shot-learners-gpt3	language-models-few-shot-learners-gpt3
+081	ViT	2020	multimodal	An Image is Worth 16x16 Words (Vision Transformer)	081_image-worth-16x16-words-vision-transformer	an-image-is-worth-16x16-words-vision-transformer
+082	CLIP	2021	multimodal	Learning Transferable Visual Models From Natural Language Supervision (CLIP)	082_learning-transferable-visual-models-clip	082-learning-transferable-visual-models-clip
+083	DALL-E	2021	generative	Zero-Shot Text-to-Image Generation (DALL-E)	083_zero-shot-text-to-image-generation-dall-e	zero-shot-text-to-image-generation-dall-e
+084	DDPM	2020	generative	Denoising Diffusion Probabilistic Models (DDPM)	084_denoising-diffusion-probabilistic-models	denoising-diffusion-probabilistic-models-ddpm
+085	DDIM	2020	generative	Denoising Diffusion Implicit Models (DDIM)	085_denoising-diffusion-implicit-models	denoising-diffusion-implicit-models
+086	Latent Diffusion	2021	generative	High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion)	086_high-resolution-latent-diffusion	latent-diffusion-models
+087	Sparse MoE	2017	scaling	Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer	087_sparsely-gated-mixture-of-experts	sparsely-gated-mixture-of-experts-layer
+088	Switch Transformer	2021	scaling	Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity	088_switch-transformer	088-switch-transformer
+089	WaveNet	2016	speech	WaveNet: A Generative Model for Raw Audio	089_wavenet-a-generative-model-for-raw-audio	wavenet-a-generative-model-for-raw-audio
+090	Tacotron	2017	speech	Tacotron: Towards End-to-End Speech Synthesis	090_tacotron-end-to-end-speech-synthesis	tacotron-towards-end-to-end-speech-synthesis
+091	NCF	2017	recsys	Neural Collaborative Filtering	091_neural-collaborative-filtering	neural-collaborative-filtering
+092	Wide & Deep	2016	recsys	Wide & Deep Learning for Recommender Systems	092_wide-deep-learning-recommender-systems	wide-deep-learning-for-recommender-systems
+093	DLRM	2019	recsys	Deep Learning Recommendation Model (DLRM)	093_deep-learning-recommendation-model-dlrm	deep-learning-recommendation-model-dlrm
+094	Deep Speech	2014	speech	Deep Speech: Scaling up End-to-End Speech Recognition	094_deep-speech-scaling-up-end-to-end-speech	deep-speech-end-to-end-speech-recognition
+095	LoRA	2021	scaling	LoRA: Low-Rank Adaptation of Large Language Models	095_lora-low-rank-adaptation	lora-low-rank-adaptation
+096	InstructGPT	2022	scaling	Training Language Models to Follow Instructions with Human Feedback (InstructGPT)	096_instructgpt-human-feedback	instructgpt-human-feedback
+097	Chinchilla	2022	scaling	Training Compute-Optimal Large Language Models (Chinchilla)	097_chinchilla-compute-optimal-scaling-laws	chinchilla-compute-optimal-scaling-laws
