@@ -1,9 +1,10 @@
 # Rethinking the Inception Architecture (Label Smoothing)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/label-smoothing-regularization-inception)
+
 
 **Paper:** Szegedy, Vanhoucke, Ioffe, Shlens, Wojna (2016). *Rethinking the Inception Architecture for Computer Vision.* arXiv:1512.00567
 **Link:** https://arxiv.org/abs/1512.00567
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/rethinking-inception-architecture-label-smoothing)
 
 ## Summary
 
@@ -32,4 +33,17 @@ Label smoothing fixes this by telling the network: "the answer is mostly B, but 
 
 ## Kaggle
 
-[Open in Kaggle](https://www.kaggle.com/code/nadymsazad/rethinking-inception-architecture-label-smoothing)
+[Open in Kaggle](https://www.kaggle.com/code/nadymsazad/label-smoothing-regularization-inception)
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/label-smoothing-regularization-inception)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

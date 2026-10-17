@@ -1,8 +1,9 @@
 # DeepWalk: Online Learning of Social Representations
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deepwalk-online-learning-of-social-representations)
+
 
 **Paper:** Bryan Perozzi, Rami Al-Rfou, Steven Skiena. *DeepWalk: Online Learning of Social Representations*. KDD 2014. [arXiv:1403.6652](https://arxiv.org/abs/1403.6652)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deepwalk-online-learning-of-social-rep)
 
 ## Summary
 
@@ -34,3 +35,16 @@ This is useful because real social networks (Facebook friends, YouTube subscript
 ### Influence
 
 With over 7,000+ citations, DeepWalk is a foundational paper in **graph representation learning** and **network embedding**. It was the first to show that NLP language modeling techniques could be directly applied to graph-structured data, opening the door to node2vec (2016), GraphSAGE (2017), GAT (2018), and the broader field of graph neural networks. The paper demonstrated that DeepWalk could achieve F1 scores up to 10% higher than baselines using only 60% of the training data, and could handle graphs with millions of nodes. The idea of "random walks as sentences" became a paradigm — it influenced not only graph embedding but also sequence-based approaches to hyperbolic embeddings, knowledge graph embeddings, and network anomaly detection.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deepwalk-online-learning-of-social-representations)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

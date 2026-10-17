@@ -1,8 +1,9 @@
 # Show and Tell: A Neural Image Caption Generator
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/show-and-tell-a-neural-image-caption-generator)
+
 
 **Authors:** Oriol Vinyals, Alexander Toshev, Samy Bengio, Dumitru Erhan (Google)  
 **Published:** CVPR 2015 (arXiv: 18 Nov 2014, last revised 19 Apr 2015)  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/show-and-tell-a-neural-image-caption-generator)
 **arXiv:** https://arxiv.org/abs/1411.4555
 
 ## Summary
@@ -41,3 +42,16 @@ Imagine you have a friend who is blind, and you want to show them photos on your
 Before this paper, computers could *sort of* do this, but the approach was clunky. They would first try to list all the objects they saw ("dog," "frisbee," "grass") and then stitch those words together into a sentence using fixed templates — like filling in blanks in a form. The result was often robotic and wrong, like "A dog is on a frisbee" when the dog is actually *catching* the frisbee.
 
 This paper solved that by teaching a computer to do what a human does: look at the whole picture and just *describe it naturally*. It used a "vision brain" (CNN) that has looked at millions of images and learned to understand what's in a picture, connected to a "language brain" (LSTM) that has read lots of captions and learned to write sentences. Together, they could look at a new photo and write a real, natural sentence about it — sometimes even writing descriptions they'd never seen before, by combining things they'd learned separately.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/show-and-tell-a-neural-image-caption-generator)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

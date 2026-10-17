@@ -1,4 +1,6 @@
 # Deep Reinforcement Learning from Human Preferences
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-reinforcement-learning-from-human-preferences)
+
 
 **Paper:** Christiano, P., Leike, J., Brown, T. B., Martic, M., Legg, S., & Amodei, D. (2017). *Deep reinforcement learning from human preferences.* arXiv:1706.03741.
 
@@ -6,7 +8,6 @@
 
 **Citations:** ~499 (OpenAlex, as of 2026)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-rl-from-human-preferences)
 
 ## Summary
 
@@ -40,3 +41,16 @@ Imagine you're teaching a robot to do a backflip. You can't write down a math fo
 ## Influence
 
 This paper is one of the foundational works in **Reinforcement Learning from Human Feedback (RLHF)**, which later became the core technique for aligning large language models (used in InstructGPT, ChatGPT, Claude, and others). The idea of training a reward model from pairwise preferences and then optimizing it with RL directly shaped the modern AI alignment pipeline. With ~499 citations, it bridged the gap between theoretical preference learning and practical deep RL, demonstrating that human feedback could scale to state-of-the-art RL systems with minimal human oversight.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-reinforcement-learning-from-human-preferences)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

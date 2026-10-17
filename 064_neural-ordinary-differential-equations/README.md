@@ -1,8 +1,9 @@
 # Neural Ordinary Differential Equations
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-ordinary-differential-equations)
+
 
 **Paper:** Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, David Duvenaud. *Neural Ordinary Differential Equations*. NeurIPS 2018. [arXiv:1806.07366](https://arxiv.org/abs/1806.07366)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-ordinary-differential-equations)
 
 ## Summary
 
@@ -34,3 +35,16 @@ This solves real problems: modeling patient health data recorded at irregular in
 ### Influence
 
 With over 11,000 citations on Google Scholar, Neural ODEs pioneered the field of **continuous-depth learning**. The paper won the **Best Paper Award at NeurIPS 2018**. It spawned numerous follow-ups: Neural SDEs (Kidger et al., 2020), FFJORD (Grathwohl et al., 2019) for scalable continuous normalizing flows, Neural CDEs (Kidger et al., 2020) for time series, and the `torchdiffeq` library became a standard PyTorch tool. The framework found applications in physics-informed neural networks, optimal control, and dynamical systems modeling, bridging deep learning with centuries of ODE theory.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-ordinary-differential-equations)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

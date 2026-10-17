@@ -1,10 +1,11 @@
 # Neural Machine Translation by Jointly Learning to Align and Translate
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bahdanau-attention-neural-machine-translation)
+
 
 **Paper:** Neural Machine Translation by Jointly Learning to Align and Translate  
 **Authors:** Dzmitry Bahdanau, Kyunghyun Cho, Yoshua Bengio  
 **Venue:** International Conference on Learning Representations (ICLR), 2015 (oral)  
 **arXiv:** https://arxiv.org/abs/1409.0473
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bahdanau-attention-neural-machine-translation)
 
 ## One-paragraph summary
 
@@ -30,3 +31,16 @@ With over 30,000 citations (Semantic Scholar, 2026), this is one of the most inf
 ## What problem does it solve
 
 Imagine you're translating a long English paragraph into French for a friend. The old way was like asking someone to read the entire English paragraph, memorize it as one "summary blob," and then write the French translation from memory alone. If the paragraph is short, the summary blob works fine. But if it's very long, the person forgets details from the beginning by the time they reach the end—they can't hold it all in their head at once. This paper's solution is like giving the translator the original English paragraph to look at *while* they write each French word. Before writing each word, they glance back at the English text and focus on the part that matters most right now. Writing "zone"? Look at "Area." Writing "économique"? Look at "Economic." They don't have to memorize everything—they just need to know *where to look* at each step. This simple "look back and focus" trick let the model handle long sentences perfectly and became the basis for how all modern AI models pay attention to the right information.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bahdanau-attention-neural-machine-translation)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,11 +1,12 @@
 # Neural Architecture Search with Reinforcement Learning
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-architecture-search-rl)
+
 
 **Authors:** Barret Zoph, Quoc V. Le  
 **Published:** November 2016 (ICLR 2017)  
 **arXiv:** [1611.01578](https://arxiv.org/abs/1611.01578)  
 **Citations:** 6,057 (620 influential) per Semantic Scholar  
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-architecture-search-rl)
 
 ## Summary
 
@@ -29,3 +30,16 @@ That's exactly what this paper does, but with neural networks instead of Lego sp
 ## Influence
 
 This paper pioneered the NAS field, directly inspiring NASNet (Zoph et al., 2018), ENAS (Pham et al., 2018), DARTS (Liu et al., 2019), and the entire AutoML industry. Google's AutoML products and Cloud AutoML trace their lineage to this work. It demonstrated that machine learning models could design their own architectures, fundamentally changing how neural networks are developed.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-architecture-search-rl)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

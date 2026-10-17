@@ -1,8 +1,9 @@
 # Image-to-Image Translation with Conditional Adversarial Networks (Pix2Pix)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pix2pix-image-to-image-translation)
+
 
 **Paper:** [arXiv:1611.07004](https://arxiv.org/abs/1611.07004) | **Venue:** CVPR 2017 | **Authors:** Phillip Isola, Jun-Yan Zhu, Tinghui Zhou, Alexei A. Efros (Berkeley AI Research)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/image-to-image-translation-with-conditional)
 
 ## Summary
 
@@ -30,3 +31,16 @@ Imagine you have a black-and-white coloring book outline and you want a computer
 ## Influence
 
 Pix2Pix became one of the most influential papers in generative modeling, spawning CycleGAN, Pix2PixHD, SPADE, and the entire line of conditional image-to-image translation research. The open-source release went viral — artists and hobbyists created #edges2cats, #pix2pix hashtag experiments, and interactive demos. The U-Net + PatchGAN architecture became the de facto standard for conditional image generation. The paper has been cited thousands of times and remains a foundational reference in GAN-based image translation.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pix2pix-image-to-image-translation)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

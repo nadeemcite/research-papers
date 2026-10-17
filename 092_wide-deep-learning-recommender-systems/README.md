@@ -1,11 +1,12 @@
 # Wide & Deep Learning for Recommender Systems
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-deep-learning-for-recommender-systems)
+
 
 **Paper:** [Wide & Deep Learning for Recommender Systems](https://arxiv.org/abs/1606.07792)  
 **Authors:** Heng-Tze Cheng, Levent Koc, Jeremiah Harmsen, Tal Shaked, Tushar Chandra, Hrishi Aradhye, Glen Anderson, Greg Corrado, Wei Chai, Mustafa Ispir, Rohan Anil, Zakaria Haque, Lichan Hong, Vihan Jain, Xiaobing Liu, Hemal Shah  
 **Venue:** RecSys 2016 (1st Workshop on Deep Learning for Recommender Systems)  
 **Year:** 2016  
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-deep-learning-recommender-systems)
 
 ## Summary
 
@@ -46,6 +47,15 @@ Wide & Deep became one of the most influential papers in industrial recommender 
 - **Optimizers:** FTRL Proximal with L1 for wide part (produces sparse weights), AdaGrad for deep part.
 - **Serving:** Multithreaded batch inference, 14 ms latency at 10M apps/sec peak.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1606.07792
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-deep-learning-for-recommender-systems)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

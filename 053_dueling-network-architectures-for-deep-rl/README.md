@@ -1,10 +1,11 @@
 # Dueling Network Architectures for Deep Reinforcement Learning
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dueling-network-architectures-for-deep-rl)
+
 
 **Paper:** Wang, Z., Schaul, T., Hessel, M., van Hasselt, H., Lanctot, M., & Freitas, N. (2016). *Dueling Network Architectures for Deep Reinforcement Learning.* In Proceedings of the International Conference on Machine Learning (ICML 2016). arXiv:1511.06581.
 
 **arXiv:** https://arxiv.org/abs/1511.06581
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dueling-network-architectures-for-deep-rl)
 
 ## Summary
 
@@ -134,6 +135,15 @@ The dueling architecture became one of the most widely adopted DQN improvements:
 - **OpenAI Spinning Up and DeepMind educational materials**: The dueling architecture is taught as a standard DQN variant in the most widely-used RL educational resources
 - **ICML 2016**: Presented at the International Conference on Machine Learning, 2016
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1511.06581
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dueling-network-architectures-for-deep-rl)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

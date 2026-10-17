@@ -1,4 +1,6 @@
 # Convolutional Sequence to Sequence Learning
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/convolutional-sequence-to-sequence-learning)
+
 
 ## Summary
 
@@ -30,3 +32,16 @@ This paper was the capstone of the convolutional sequence modeling line of work 
 ## What Problem Does It Solve
 
 Imagine you're translating a long sentence from English to French — say 30 words. The old way of doing this with AI was like reading the sentence one word at a time, left to right, and keeping a running "memory" of everything you've read so far. To translate the 30th word, the AI had to process word 1, then word 2, then word 3... all the way to word 30, one after another. You couldn't skip ahead or work on multiple words at the same time — it was like a single worker building a wall brick by brick, one at a time. This was slow, especially on powerful computers that are designed to do many things at once. This paper showed that instead of reading one word at a time, you can use a "sliding window" approach — like looking at 5 words at once, then sliding the window over by one word and looking at the next 5. Because each window is independent, a computer can process all the windows at the same time (like hiring 30 workers instead of 1). By stacking several layers of these windows, the AI can still "see" the whole sentence — it just does it in parallel rather than one-by-one. The result: translations that are just as good (or better) but completed 10x faster, because the computer's GPU — which is built for parallel work — is finally being used efficiently.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/convolutional-sequence-to-sequence-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

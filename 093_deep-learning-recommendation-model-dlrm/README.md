@@ -1,10 +1,11 @@
 # Deep Learning Recommendation Model (DLRM)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-learning-recommendation-model-dlrm)
+
 
 **Paper:** [Deep Learning Recommendation Model for Personalization and Recommendation Systems](https://arxiv.org/abs/1906.00091)  
 **Authors:** Maxim Naumov, Dheevatsa Mudigere, Hao-Jun Michael Shi, Jianyu Huang, Narayanan Sundaraman, Jongsoo Park, Xiaodong Wang, Udit Gupta, Carole-Jean Wu, et al. (Facebook)  
 **Year:** 2019  
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-learning-recommendation-model-dlrm)
 
 ## Summary
 
@@ -41,6 +42,15 @@ DLRM became the industry-standard benchmark for recommendation systems. It was a
 - **Data:** The paper uses the Criteo Ad Click Prediction dataset (a standard CTR benchmark). Our implementation uses MovieLens-100k adapted for CTR-style binary classification.
 - **Comparison with NCF:** DLRM differs from NCF (which uses MLP-based interactions between only user and item embeddings) by using dot-product interactions across *all* feature embeddings and processing continuous features through a dedicated MLP.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1906.00091
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-learning-recommendation-model-dlrm)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

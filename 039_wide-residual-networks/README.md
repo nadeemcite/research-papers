@@ -1,7 +1,8 @@
 # Wide Residual Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-residual-networks)
+
 
 **arXiv:** [https://arxiv.org/abs/1605.07146](https://arxiv.org/abs/1605.07146)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-residual-networks)
 
 **Authors:** Sergey Zagoruyko, Nikos Komodakis (Université Paris-Est, École des Ponts ParisTech)
 
@@ -22,3 +23,16 @@ The Wide Residual Networks paper says: instead of building a super tall, skinny 
 ## Influence
 
 Wide Residual Networks became one of the most cited ResNet variants. The insight that width matters as much as depth influenced subsequent architecture design (ResNeXt, EfficientNet). WRNs are widely used as baselines in transfer learning, semi-supervised learning, and neural architecture search. The official code (https://github.com/szagoruyko/wide-residual-networks) has been forked and adapted extensively. The paper has been cited thousands of times and remains a standard reference for efficient CNN architecture design.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-residual-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

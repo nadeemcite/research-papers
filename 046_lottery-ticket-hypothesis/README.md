@@ -1,8 +1,9 @@
 # The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
+
 
 **Paper:** [arXiv:1803.03635](https://arxiv.org/abs/1803.03635) | **Authors:** Jonathan Frankle, Michael Carbin | **Venue:** ICLR 2019 (Best Paper) | **Year:** 2018
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
 
 ## Summary
 
@@ -30,6 +31,15 @@ This matters because it means we can build AI systems that are much smaller, fas
 
 With over 1,300 citations, this paper fundamentally changed how the community thinks about pruning and sparse networks. It launched an entire research direction into *when* and *why* sparse subnetworks exist, led to the discovery of lottery tickets in transformers (BERT), reinforcement learning, and even proved theoretical guarantees (Malach et al., 2019). It was awarded the ICLR 2019 Best Paper Award.
 
-## Notebook
+---
 
-The notebook implements iterative magnitude pruning from scratch on a small MLP trained on MNIST, extracts winning tickets at various sparsity levels, and compares them against re-initialized subnetworks to demonstrate the core finding of the paper.
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

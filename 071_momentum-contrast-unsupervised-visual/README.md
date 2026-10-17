@@ -1,9 +1,10 @@
 # Momentum Contrast for Unsupervised Visual Representation Learning (MoCo)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/moco-unsupervised-visual-representation-learning)
+
 
 **arXiv:** [1911.05722](https://arxiv.org/abs/1911.05722)  
 **Authors:** Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, Ross Girshick (Facebook AI Research)  
 **Published:** November 2019, CVPR 2020  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/moco-unsupervised-visual-representation-learning)
 
 ## Summary
 
@@ -27,3 +28,16 @@ Imagine you have a huge box of photos but no labels — nobody has told you whic
 ## Influence
 
 MoCo was a landmark in self-supervised learning. It was one of the first methods to show that unsupervised pre-training can match or surpass supervised pre-training on downstream detection and segmentation tasks (PASCAL VOC, COCO). It directly influenced MoCo v2/v3, and alongside SimCLR and BYOL, it established contrastive learning as the dominant paradigm for visual self-supervised representation learning in 2019–2021. The paper has been cited over 10,000 times and is widely taught in computer vision courses.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/moco-unsupervised-visual-representation-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

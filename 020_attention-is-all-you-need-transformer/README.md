@@ -1,4 +1,6 @@
 # Attention Is All You Need (Transformer)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/attention-is-all-you-need-transformer)
+
 
 ## Summary
 
@@ -37,3 +39,16 @@ The Transformer is the foundational architecture of modern deep learning. It dir
 Imagine you're reading a long book and need to answer a question about something mentioned in chapter 1, but you're currently in chapter 20. The old way AI handled this was like reading the book page by page — by the time it reached chapter 20, the details from chapter 1 had faded from its "memory" (this was called the vanishing gradient problem with RNNs). Even worse, it had to read every single page in order, one at a time, so it was very slow — even on powerful computers that are designed to do many things simultaneously.
 
 This paper introduced a brilliant idea: instead of reading page by page, what if every page could "look at" every other page at the same time? So when the AI is reading chapter 20, it can directly "pay attention to" chapter 1 without having to remember everything in between. This is called **self-attention**. It's like being at a dinner party where instead of passing a message down the table one person at a time, everyone can talk to everyone else directly. This made AI both smarter (it could connect ideas across long distances) and much faster (computers could process all the "conversations" at the same time instead of one by one). This single idea became the foundation for ChatGPT, Google Translate, and almost every modern AI system.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/attention-is-all-you-need-transformer)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

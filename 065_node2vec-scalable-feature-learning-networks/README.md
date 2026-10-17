@@ -1,10 +1,11 @@
 # node2vec: Scalable Feature Learning for Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/node2vec-scalable-feature-learning-for-networks)
+
 
 **Authors:** Aditya Grover, Jure Leskovec (Stanford University)
 **Published:** KDD 2016 (arXiv: July 2016)
 **arXiv:** https://arxiv.org/abs/1607.00653
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/065-node2vec-scalable-feature-learning-networks)
 
 ## Summary
 
@@ -34,3 +35,16 @@ Imagine you have a big group of friends at school, and you draw lines between pe
 ## Influence
 
 node2vec became one of the most widely used graph representation learning algorithms, with thousands of citations. It established the paradigm of treating graph sampling as a tunable procedure rather than a fixed strategy, influencing subsequent work in graph neural networks and graph contrastive learning. The official implementation is available at http://snap.stanford.edu/node2vec.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/node2vec-scalable-feature-learning-for-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

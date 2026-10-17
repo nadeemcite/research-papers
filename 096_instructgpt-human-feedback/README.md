@@ -1,8 +1,9 @@
 # Training Language Models to Follow Instructions with Human Feedback (InstructGPT)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback)
+
 
 **arXiv:** [2203.02155](https://arxiv.org/abs/2203.02155) | **Authors:** Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, Ryan Lowe (OpenAI) | **Year:** 2022
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback)
 
 ## Summary
 
@@ -44,3 +45,16 @@ This paper solves that problem. The researchers realized that just making the ro
 ## Influence
 
 InstructGPT is one of the most consequential papers in AI history. It introduced the RLHF pipeline that became the foundation for ChatGPT (launched in November 2022), which triggered the current AI boom. The three-step SFT → RM → PPO recipe is now standard practice at every major AI lab (Anthropic, Google, Meta, Mistral). The paper demonstrated that alignment through human feedback is more efficient than model scaling — a paradigm shift that redirected the field from "just scale up" to "align carefully." It also crystallized the helpful/honest/harmless framework for evaluating AI safety.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

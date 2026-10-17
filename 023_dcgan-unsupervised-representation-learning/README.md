@@ -1,4 +1,6 @@
 # DCGAN — Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dcgan-unsupervised-representation-learning)
+
 
 **Paper:** Radford, Metz, & Chintala (2015), *Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks*, arXiv:1511.06434  
 **Authors:** Alec Radford, Luke Metz (indico Research), Soumith Chintala (Facebook AI Research)  
@@ -50,3 +52,16 @@ DCGAN became one of the most cited papers in generative modeling. Its architectu
 https://arxiv.org/abs/1511.06434
 
 **Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dcgan-unsupervised-representation-learning)
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dcgan-unsupervised-representation-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

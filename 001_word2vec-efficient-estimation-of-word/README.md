@@ -1,7 +1,8 @@
 # Word2Vec — Efficient Estimation of Word Representations in Vector Space
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/word2vec-word-representations)
+
 
 **Paper:** [arXiv:1301.3781](https://arxiv.org/abs/1301.3781)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/word2vec-word-representations)
 **Authors:** Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean (Google Inc.)
 **Year:** 2013
 
@@ -58,3 +59,16 @@ Word2Vec was a watershed moment for NLP. It demonstrated that meaningful semanti
 - **ELMo / BERT** — contextual embeddings that replaced static Word2Vec vectors
 - **Item2Vec, node2vec, doc2vec** — the "2vec" pattern spread across domains
 - The concept of learning dense representations from self-supervised objectives became foundational to modern deep learning
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/word2vec-word-representations)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

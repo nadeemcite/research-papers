@@ -1,9 +1,10 @@
 # Deep Speech: Scaling up End-to-End Speech Recognition
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-speech-end-to-end-speech-recognition)
+
 
 **Paper:** [Deep Speech: Scaling up end-to-end speech recognition](https://arxiv.org/abs/1412.5567)
 **Authors:** Awni Hannun, Carl Case, Jared Casper, Bryan Catanzaro, Greg Diamos, Erich Elsen, Ryan Prenger, Sanjeev Satheesh, Shubho Sengupta, Adam Coates, Andrew Y. Ng (Baidu Research – Silicon Valley AI Lab, 2014)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-speech-scaling-up-end-to-end-speech)
 
 ## Summary
 
@@ -40,3 +41,16 @@ Deep Speech's big idea was: **throw away all those complicated hand-built steps 
 Deep Speech was a landmark paper that demonstrated end-to-end deep learning could match or exceed traditional HMM-based ASR pipelines, which had dominated speech recognition for decades. It directly inspired Mozilla's open-source DeepSpeech project (26k+ GitHub stars), which brought the architecture to the broader community. The paper's emphasis on CTC loss for end-to-end ASR influenced subsequent systems including Deep Speech 2 (which added batch normalization and uni-directional recurrent layers for deployment), Wav2Letter, and the broader move toward end-to-end neural speech recognition. The data synthesis technique (adding noise to clean speech for training robustness) became standard practice. The paper is cited over 2,000 times and represents a pivotal moment where the field shifted from pipeline engineering to end-to-end learning for speech.
 
 **arXiv:** https://arxiv.org/abs/1412.5567
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-speech-end-to-end-speech-recognition)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

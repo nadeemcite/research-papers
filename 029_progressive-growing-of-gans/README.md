@@ -1,10 +1,11 @@
 # Progressive Growing of GANs for Improved Quality, Stability, and Variation
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
+
 
 **Paper:** [Progressive Growing of GANs for Improved Quality, Stability, and Variation](https://arxiv.org/abs/1710.10196)
 **Authors:** Tero Karras, Timo Aila, Samuli Laine, Jaakko Lehtinen (NVIDIA)
 **Year:** 2017 | **Citations:** ~1,545 (OpenAlex)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
 
 ## Summary
 
@@ -52,13 +53,15 @@ Imagine you're learning to draw a face. You wouldn't start by trying to draw eve
 
 Progressive Growing of GANs was a landmark paper in generative modeling. It directly led to NVIDIA's StyleGAN series (StyleGAN, StyleGAN2, StyleGAN3), which built upon the progressive growing infrastructure with style-based generator architectures. The fade-in technique and the progressive training paradigm influenced numerous subsequent works in high-resolution image synthesis. The paper's training stabilization techniques (equalized learning rate, pixelwise normalization, minibatch stddev) became standard building blocks in GAN implementations. The work demonstrated that GANs could reliably produce photorealistic images at megapixel resolution, a feat that was extremely difficult before. ProGAN was also notable for its ICLR 2018 acceptance and its open-source release by NVIDIA, which made high-quality GAN training accessible to the broader research community.
 
-## Notebook
+---
 
-See [solution.ipynb](solution.ipynb) for a from-scratch implementation in PyTorch, including:
-- Progressive growing architecture with fade-in transitions
-- Equalized learning rate convolution layers
-- Pixelwise feature normalization in the generator
-- Minibatch standard deviation layer in the discriminator
-- Training loop with resolution schedule and sample visualization at each growth stage
+## Resources
 
-See [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) for a detailed notebook breakdown and [TALK.md](TALK.md) for press coverage and interview Q&A.
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

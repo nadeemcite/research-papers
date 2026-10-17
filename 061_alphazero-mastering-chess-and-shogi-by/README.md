@@ -1,10 +1,11 @@
 # Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm (AlphaZero)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/alphazero-mastering-chess-and-shogi)
+
 
 **Paper:** [Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm](https://arxiv.org/abs/1712.01815)  
 **Authors:** David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew Lai, Arthur Guez, Marc Lanctot, Laurent Sifre, Dharshan Kumaran, Thore Graepel, Timothy Lillicrap, Karen Simonyan, Demis Hassabis  
 **Published:** arXiv:1712.01815 (5 Dec 2017); Science, 362(6419):1140–1144 (7 Dec 2018)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/alphazero-mastering-chess-and-shogi)
 
 ## Summary
 
@@ -33,3 +34,16 @@ AlphaZero is one of the most influential AI papers of the decade:
 - **Citations:** the paper has accumulated over 3,500 citations and was published in Science (2018).
 
 arXiv link: https://arxiv.org/abs/1712.01815
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/alphazero-mastering-chess-and-shogi)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

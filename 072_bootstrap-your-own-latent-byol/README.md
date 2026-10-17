@@ -1,9 +1,10 @@
 # Bootstrap Your Own Latent (BYOL) — A New Approach to Self-Supervised Learning
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bootstrap-your-own-latent-byol)
+
 
 **arXiv:** [2006.07733](https://arxiv.org/abs/2006.07733)  
 **Authors:** Jean-Bastien Grill, Florian Strub, Florent Altché, Corentin Tallec, Pierre H. Richemond, Elena Buchatskaya, Carl Doersch, Bernardo Avila Pires, Zhaohan Daniel Guo, Mohammad Gheshlaghi Azar, Bilal Piot, Koray Kavukcuoglu, Rémi Munos, Michal Valko (DeepMind)  
 **Published:** June 2020, NeurIPS 2020  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bootstrap-your-own-latent-byol)
 
 ## Summary
 
@@ -34,3 +35,16 @@ The surprising discovery is that this works *without* comparing different images
 ## Influence
 
 BYOL was a landmark paper that challenged the prevailing assumption that negative pairs are necessary for self-supervised learning. Published at NeurIPS 2020, it sparked significant debate (particularly around the role of BatchNorm) and inspired follow-up methods like SimSiam (which showed that stop-gradient + predictor suffices even without EMA), Barlow Twins, and VicReg. BYOL is widely cited (over 4,000 citations) and is considered one of the three pillars of modern self-supervised visual learning alongside SimCLR and MoCo. The paper's insight that predictor + stop-gradient prevents collapse opened an entire research direction in non-contrastive self-supervised learning.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bootstrap-your-own-latent-byol)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,10 +1,11 @@
 # Rainbow: Combining Improvements in Deep Reinforcement Learning
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/rainbow-combining-improvements-deep-rl)
+
 
 **Paper:** Hessel, M., Modayil, J., van Hasselt, H., Schaul, T., Ostrovski, G., Dabney, W., Horgan, D., Piot, B., Azar, M., & Silver, D. (2018). *Rainbow: Combining Improvements in Deep Reinforcement Learning.* In Proceedings of the AAAI Conference on Artificial Intelligence (AAAI 2018). arXiv:1710.02298.
 
 **arXiv:** https://arxiv.org/abs/1710.02298
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/rainbow-combining-improvements-deep-rl)
 
 ## Summary
 
@@ -71,6 +72,15 @@ Rainbow became one of the most cited deep RL papers:
 - The paper demonstrated that "composing ideas" in RL is not just additive — interactions between components matter, which motivated more careful empirical methodology in the field.
 - Co-authors include David Silver (lead of AlphaGo/AlphaZero) and Hado van Hasselt (Double Q-learning), connecting Rainbow to the broader DeepMind RL research lineage.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1710.02298
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/rainbow-combining-improvements-deep-rl)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

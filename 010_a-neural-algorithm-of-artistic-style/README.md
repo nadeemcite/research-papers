@@ -1,7 +1,8 @@
 # A Neural Algorithm of Artistic Style
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/a-neural-algorithm-of-artistic-style)
+
 
 **Paper:** *A Neural Algorithm of Artistic Style* by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge (University of Tübingen, Bernstein Center, MPI for Biological Cybernetics). First released on arXiv in August 2015, accepted at CVPR 2016 as *Image Style Transfer Using Convolutional Neural Networks*. arXiv link: <https://arxiv.org/abs/1508.06576>
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/a-neural-algorithm-of-artistic-style)
 
 **Summary.** The paper proposes a way to turn a photograph into a painting in the style of another image using a pretrained deep convolutional network. The key observation is that the layers of a CNN trained on object recognition encode *content* and *style* in separable ways. Higher convolutional layers capture objects and their spatial layout (content), while the correlations between filter responses—summarised by a Gram matrix—capture texture, colour, and local brush-stroke patterns (style). Gatys et al. showed that a new image can be synthesised by optimising random pixels so that its VGG-19 features match the content features of one image at `conv4_2` and the style Gram matrices of another image at multiple layers (`conv1_1` through `conv5_1`). The synthesis uses only the convolutional part of VGG-19 with average pooling, freezes the network weights, and treats the pixel values of the generated image as the only trainable parameters. This work established the field of neural style transfer, inspired mobile apps such as Prisma and DeepArt, and remains the reference implementation for optimisation-based style transfer.
 
@@ -19,3 +20,16 @@
 Imagine you have a favourite family photograph and you wish it looked like it was painted by Vincent van Gogh. Before this paper, you would need a human artist to redraw the photo in that style, because computers could not reliably separate *what* is in a picture from *how* it looks.
 
 The paper solves this separation problem by borrowing the brain-like processing of a deep convolutional network. Think of the network as a stack of filters that first see edges and colours, then textures, then objects. The researchers discovered that one particular layer keeps a good sketch of the objects and their positions (the content), while the correlations between filters at several layers capture the painting’s texture, colours, and small strokes (the style). They then create a brand-new image whose pixels are gradually adjusted until it satisfies both demands at once: "look like this photo in terms of things and where they are, and look like that painting in terms of colours and brushwork." The result is a computer-generated artwork that keeps your family photo but feels as if Van Gogh had painted it.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/a-neural-algorithm-of-artistic-style)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

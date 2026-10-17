@@ -1,7 +1,8 @@
 # Dropout — Improving Neural Networks by Preventing Co-adaptation of Feature Detectors
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
+
 
 **Paper:** [arXiv:1207.0580](https://arxiv.org/abs/1207.0580)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
 **Authors:** Geoffrey E. Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, Ruslan R. Salakhutdinov
 **Year:** 2012
 
@@ -58,3 +59,16 @@ Dropout became one of the most widely used regularization techniques in deep lea
 - **Monte Carlo Dropout** (Gal & Ghahramani, 2016) — reinterpreted dropout as approximate Bayesian inference for uncertainty estimation.
 - **Stochastic Depth** (Huang et al., 2016) — randomly drops residual blocks during training.
 - Dropout remains a standard baseline regularizer, especially for fully connected layers.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

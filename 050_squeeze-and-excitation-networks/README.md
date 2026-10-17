@@ -1,11 +1,12 @@
 # Squeeze-and-Excitation Networks (SENet)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeeze-and-excitation-networks)
+
 
 **arXiv:** [https://arxiv.org/abs/1709.01507](https://arxiv.org/abs/1709.01507)
 **Authors:** Jie Hu, Li Shen, Samuel Albanie, Gang Sun, Enhua Wu
 **Published:** 2017 (CVPR 2018)
 **Code:** [https://github.com/hujie-frank/SENet](https://github.com/hujie-frank/SENet)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeeze-and-excitation-networks)
 
 ## Summary
 
@@ -35,3 +36,16 @@ Imagine you're looking at a photo of a dog in a park. Your brain doesn't pay equ
 - Concept of channel attention spawned follow-up works: CBAM (spatial + channel attention), ECA-Net (efficient channel attention), GCNet, etc.
 - One of the most cited computer vision papers (40,000+ citations as of 2024)
 - Authors extended the idea to "Gather-Excite" in NIPS 2018, generalizing the spatial aggregation
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeeze-and-excitation-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

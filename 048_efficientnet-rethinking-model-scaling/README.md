@@ -1,10 +1,11 @@
 # EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/efficientnet-rethinking-model-scaling-for-cnns)
+
 
 **Paper:** [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
 **Authors:** Mingxing Tan, Quoc V. Le (Google Research, Google Brain)
 **Published:** ICML 2019 (arXiv: 1905.11946, May 2019)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/efficientnet-rethinking-model-scaling)
 
 ## Summary
 
@@ -45,3 +46,16 @@ EfficientNet became one of the most widely adopted CNN architectures, with 40,00
 - Widespread use in transfer learning, medical imaging, and edge deployment
 - Popularized compound scaling as a general principle for model scaling
 - The baseline for many subsequent scaling studies and NAS papers
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/efficientnet-rethinking-model-scaling-for-cnns)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

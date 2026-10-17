@@ -1,10 +1,11 @@
 # 073 — Deep Contextualized Word Representations (ELMo)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-contextualized-word-representations-elmo)
+
 
 **Paper:** Peters, M. E., Neumann, M., Iyyer, M., Gardner, M., Clark, C., Lee, K., & Zettlemoyer, L. (2018). *Deep Contextualized Word Representations*. NAACL 2018.
 
 **arXiv:** https://arxiv.org/abs/1802.05365
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/073-elmo-deep-contextualized-word-representations)
 
 ---
 
@@ -32,3 +33,16 @@ With over 12,000 citations, ELMo was a landmark paper that bridged the static-em
 Imagine you have a dictionary where the word "bank" has only one definition. But in real life, "bank" can mean the side of a river ("I sat by the bank of the river") or a place that keeps money ("I deposited cash at the bank"). Old word-embedding systems like Word2Vec gave "bank" the same vector no matter which meaning you intended — it was like a dictionary with only one entry per word.
 
 ELMo fixes this by looking at the whole sentence before deciding what "bank" means. It's like a smart friend who knows that if you mention "river" and "sitting," you probably mean the riverbank, and if you mention "deposit" and "cash," you mean the money bank. ELMo reads the entire sentence, understands the context, and gives "bank" a different vector in each sentence. This means computers can finally tell apart words that are spelled the same but mean different things — just like humans do.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-contextualized-word-representations-elmo)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

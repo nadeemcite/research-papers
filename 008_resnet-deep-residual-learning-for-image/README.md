@@ -1,7 +1,8 @@
 # ResNet — Deep Residual Learning for Image Recognition
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
+
 
 **arXiv:** [https://arxiv.org/abs/1512.03385](https://arxiv.org/abs/1512.03385)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
 
 **Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research)
 
@@ -18,3 +19,16 @@ ResNet’s influence is enormous: it replaced VGG-style plain stacks as the defa
 Imagine you are trying to send a message across a very long chain of whispering friends. With every extra friend, the message gets a little more garbled. Adding more friends does not help—it actually makes the final message worse, even though each friend is trying hard. ResNet solves the "long chain" problem for deep neural networks.
 
 In a normal deep network, every new layer has to rewrite the entire signal from scratch. As the network gets deeper, this becomes harder and harder, so accuracy stops improving and even drops. ResNet gives each layer an *express lane*—a shortcut that carries the original signal forward. A layer only has to learn the small change (the "residual") it wants to make to that signal. If a layer is not useful, it can simply let the signal pass through. Because the original information is never lost, the network can become much deeper without getting confused, much like letting every friend both whisper a small correction and pass the original message on unchanged.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

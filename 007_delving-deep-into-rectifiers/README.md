@@ -1,8 +1,9 @@
 # Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/delving-deep-into-rectifiers-he-init)
+
 
 **Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research)  
 **arXiv:** [1502.01852](https://arxiv.org/abs/1502.01852)  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/delving-deep-into-rectifiers-he-init)
 **Published:** 6 February 2015
 
 ## One-paragraph summary
@@ -25,3 +26,16 @@ Deep networks with ReLU activations were especially tricky because ReLU literall
 ## Influence
 
 The He initialization rule became the de-facto default for ReLU networks in PyTorch (`torch.nn.init.kaiming_normal_`) and TensorFlow/Keras (`he_normal`). PReLU influenced later learned-activation research such as GELU, Swish, and Maxout, and the paper's analysis remains a standard reference for why deep networks need careful weight scaling.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/delving-deep-into-rectifiers-he-init)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

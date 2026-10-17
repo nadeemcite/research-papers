@@ -1,10 +1,11 @@
 # Proximal Policy Optimization Algorithms (PPO)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/proximal-policy-optimization-algorithms-ppo)
+
 
 **Paper:** [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)  
 **Authors:** John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov  
 **Published:** arXiv:1707.06347 (submitted Jul 2017, revised Aug 2017)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/proximal-policy-optimization-algorithms-ppo)
 
 ## Summary
 
@@ -36,3 +37,16 @@ PPO is arguably the most impactful reinforcement learning algorithm ever publish
 - **Simplicity over TRPO:** PPO replaced TRPO as the preferred on-policy method because it requires only first-order optimization (Adam) instead of conjugate gradient with line search, and is compatible with parameter sharing and architectures using dropout.
 
 arXiv link: https://arxiv.org/abs/1707.06347
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/proximal-policy-optimization-algorithms-ppo)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

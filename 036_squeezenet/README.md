@@ -1,10 +1,11 @@
 # SqueezeNet: AlexNet-level accuracy with 50× fewer parameters and <0.5 MB model size
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeezenet)
+
 
 **Paper:** [SqueezeNet: AlexNet-level accuracy with 50x fewer parameters and <0.5MB model size](https://arxiv.org/abs/1602.07360)
 **Authors:** Forrest N. Iandola, Song Han, Matthew W. Moskewicz, Khalid Ashraf, William J. Dally, Kurt Keutzer (UC Berkeley / Stanford)
 **Year:** 2016
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeezenet)
 
 ## Summary
 
@@ -44,3 +45,16 @@ The squeeze layer reduces the number of input channels (bottleneck), then the ex
 ## Influence
 
 SqueezeNet became one of the most cited lightweight architecture papers, influencing MobileNet, ShuffleNet, and the broader trend of efficient model design. It demonstrated that architectural innovation alone (without compression) could achieve dramatic parameter reduction, and that combining architecture design with model compression (Deep Compression) yields multiplicative savings. The Fire module pattern of squeeze-then-expand became a template for efficient convolutions in edge deployment scenarios.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeezenet)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

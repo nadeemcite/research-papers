@@ -1,7 +1,8 @@
 # Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/faster-r-cnn-towards-real-time-object-detection)
+
 
 **arXiv:** [https://arxiv.org/abs/1506.01497](https://arxiv.org/abs/1506.01497)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/faster-r-cnn-towards-real-time-object)
 
 **Authors:** Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun (Microsoft Research)
 
@@ -20,3 +21,16 @@ Faster R-CNN fixed this by combining both steps into one brain. Instead of a sep
 ## Influence
 
 Faster R-CNN is one of the most influential papers in computer vision history, with 56,000+ citations (TPAMI 2016 version). It became the standard two-stage detection paradigm for years, directly spawning Mask R-CNN (2017), FPN (2017), and Cascade R-CNN (2018). The anchor-based framework influenced one-stage detectors like RetinaNet and SSD. RPN's concept of learned proposal generation appears in numerous downstream tasks beyond detection, including 3D detection, instance segmentation, and scene text detection. The official code (https://github.com/rbgirshick/py-faster-rcnn) and later Detectron framework made it the de facto research baseline. The paper won the Best Paper Honorable Mention at ICCV 2015 and the 1st-place entries in ILSVRC 2015 and MS COCO 2015 detection tracks used Faster R-CNN as their foundation.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/faster-r-cnn-towards-real-time-object-detection)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

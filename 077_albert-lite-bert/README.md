@@ -1,10 +1,11 @@
 # 077 — ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/albert-a-lite-bert-for-self-supervised-learning)
+
 
 **Paper:** Lan, Z., Chen, M., Goodman, S., Gimpel, K., Sharma, P., & Soricut, R. (2020). *ALBERT: A Lite BERT for Self-supervised Learning of Language Representations*. ICLR 2020. arXiv:1909.11942.
 
 **arXiv:** https://arxiv.org/abs/1909.11942
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/albert-a-lite-bert-self-supervised)
 
 ---
 
@@ -37,3 +38,16 @@ That's exactly the problem ALBERT solves for AI language models. BERT was a supe
 ALBERT said: "What if we build the same castle but reuse the same bricks across multiple floors?" Instead of giving each layer of the AI its own set of weights (like buying new bricks for every floor), ALBERT shares the same weights across all layers — like using one set of bricks and just rearranging them. It also made the word-lookup table (the biggest single piece) much smaller by splitting it into two smaller pieces instead of one giant one. And it swapped out a confusing "does this sentence come next?" game for a better "are these sentences in the right order?" game that actually teaches the AI how sentences flow.
 
 The result? ALBERT has way fewer parameters than BERT, trains faster, uses less memory, and yet scores even higher on language tests. It proved that you don't always need a bigger model — sometimes you just need a smarter way to reuse what you have.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/albert-a-lite-bert-for-self-supervised-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

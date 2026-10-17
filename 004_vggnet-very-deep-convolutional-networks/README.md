@@ -1,8 +1,9 @@
 # VGGNet — Very Deep Convolutional Networks for Large-Scale Image Recognition
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/vggnet-very-deep-convolutional-networks)
+
 
 **Paper:** Simonyan, K., & Zisserman, A. (2015). *Very Deep Convolutional Networks for Large-Scale Image Recognition*. ICLR 2015.  
 **arXiv:** https://arxiv.org/abs/1409.1556
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/vggnet-very-deep-convolutional-networks)
 
 ## What problem does it solve?
 
@@ -46,3 +47,16 @@ VGGNet placed **1st in localization** and **2nd in classification** at ILSVRC 20
 | GoogLeNet (winner, 7-net ensemble) | 6.7% |
 
 Official VGG page: https://robots.ox.ac.uk/~vgg/research/very_deep/
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/vggnet-very-deep-convolutional-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

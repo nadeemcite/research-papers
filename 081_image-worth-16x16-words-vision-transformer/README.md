@@ -1,4 +1,6 @@
 # An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale (ViT)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/an-image-is-worth-16x16-words-vision-transformer)
+
 
 **arXiv:** https://arxiv.org/abs/2010.11929
 
@@ -6,7 +8,6 @@
 
 **Published:** ICLR 2021 (submitted Oct 2020, revised Jun 2021)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/image-worth-16x16-words-vision-transformer)
 
 ## Summary
 
@@ -33,3 +34,16 @@ Imagine you have a big box of photos and you want a computer to tell you what's 
 ## Influence
 
 ViT is one of the most influential computer vision papers of the decade. It sparked the "Vision Transformer" revolution, leading to variants like DeiT, Swin Transformer, BEiT, and MAE. It fundamentally shifted the CV community away from CNN-centric thinking toward Transformer-based architectures. The paper has been cited over 100,000 times and the ViT architecture forms the backbone of modern multimodal models like CLIP, DALL-E, and many others. The official code is at https://github.com/google-research/vision_transformer.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/an-image-is-worth-16x16-words-vision-transformer)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,4 +1,6 @@
 # Denoising Diffusion Probabilistic Models (DDPM)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-probabilistic-models-ddpm)
+
 
 **Paper:** Ho, Jain, & Abbeel (2020). *Denoising Diffusion Probabilistic Models.* arXiv:2006.11239
 **Authors:** Jonathan Ho, Ajay Jain, Pieter Abbeel (UC Berkeley)
@@ -35,4 +37,17 @@ This solved a major problem in AI: how to generate high-quality images without u
 
 DDPM sparked the diffusion model revolution. Direct descendants include DDIM (faster sampling), Stable Diffusion (latent space diffusion for text-to-image), DALL-E 2, Imagen, and essentially all modern AI image generators. The paper has been cited thousands of times and is one of the most influential generative modeling papers of the decade.
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/084_denoising-diffusion-probabilistic-models)
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-probabilistic-models-ddpm)
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-probabilistic-models-ddpm)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

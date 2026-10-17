@@ -1,10 +1,11 @@
 # Wasserstein GAN (WGAN)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wasserstein-gan)
+
 
 **Paper:** [Wasserstein GAN](https://arxiv.org/abs/1701.07875)
 **Authors:** Martin Arjovsky, Soumith Chintala, Léon Bottou
 **Year:** 2017
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wasserstein-gan)
 
 ## Summary
 
@@ -50,6 +51,15 @@ The Wasserstein GAN fixes this by measuring the *distance* between the piles ins
 
 WGAN was a landmark paper that directly led to the Improved Training of Wasserstein GANs (WGAN-GP) paper, which replaced weight clipping with a gradient penalty to enforce the Lipschitz constraint more effectively. The Wasserstein distance became the default training objective for many subsequent GAN architectures, including BigGAN and StyleGAN variants. The paper has been cited over 10,000 times and is considered one of the most important theoretical contributions to GAN training stability.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1701.07875
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wasserstein-gan)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

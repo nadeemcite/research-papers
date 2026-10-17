@@ -1,10 +1,11 @@
 # Deep Reinforcement Learning with Double Q-learning
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/double-dqn-deep-reinforcement-learning)
+
 
 **Paper:** van Hasselt, H., Guez, A., & Silver, D. (2016). *Deep Reinforcement Learning with Double Q-learning.* In Proceedings of the AAAI Conference on Artificial Intelligence (AAAI 2016). arXiv:1509.06461.
 
 **arXiv:** https://arxiv.org/abs/1509.06461
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/double-dqn-deep-reinforcement-learning)
 
 ## Summary
 
@@ -71,6 +72,15 @@ Double DQN became one of the most influential papers in deep RL:
 - Cited thousands of times; the decoupled selection/evaluation idea appears in modern algorithms like SAC and TD3 (twin critics).
 - David Silver, one of the co-authors, later led AlphaGo and AlphaZero at DeepMind.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1509.06461
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/double-dqn-deep-reinforcement-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
