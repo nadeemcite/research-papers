@@ -1,3 +1,8 @@
+---
+title: "RLHF (Human Prefs): Talk & Q&A"
+parent: "063 RLHF (Human Prefs)"
+nav_order: 2
+---
 # TALK.md — Deep Reinforcement Learning from Human Preferences
 
 ## Press / Blog Coverage

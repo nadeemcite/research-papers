@@ -1,3 +1,8 @@
+---
+title: "Dueling DQN: Talk & Q&A"
+parent: "053 Dueling DQN"
+nav_order: 2
+---
 # TALK.md — Dueling Network Architectures for Deep Reinforcement Learning
 
 ## Press / Blog Coverage

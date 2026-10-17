@@ -1,3 +1,8 @@
+---
+title: "Lottery Ticket: Code architecture"
+parent: "046 Lottery Ticket"
+nav_order: 1
+---
 # Code Architecture — Lottery Ticket Hypothesis Notebook
 
 ## Overview

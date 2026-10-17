@@ -1,3 +1,8 @@
+---
+title: "GroupNorm: Code architecture"
+parent: "043 GroupNorm"
+nav_order: 1
+---
 # Code Architecture — Group Normalization Notebook
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "078 DistilBERT"
+nav_order: 79
+permalink: "/078_distilbert-distilled-version-of-bert/"
+---
 # DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilbert-a-distilled-version-of-bert)
 

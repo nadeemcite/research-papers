@@ -1,3 +1,8 @@
+---
+title: "GAT: Talk & Q&A"
+parent: "068 GAT"
+nav_order: 2
+---
 # TALK.md — Graph Attention Networks (GAT)
 
 ## Verifiable Press / Blog Coverage

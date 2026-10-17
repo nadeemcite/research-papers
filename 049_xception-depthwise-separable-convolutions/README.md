@@ -1,3 +1,8 @@
+---
+title: "049 Xception"
+nav_order: 50
+permalink: "/049_xception-depthwise-separable-convolutions/"
+---
 # Xception: Deep Learning with Depthwise Separable Convolutions
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/xception-depthwise-separable-convolutions)
 

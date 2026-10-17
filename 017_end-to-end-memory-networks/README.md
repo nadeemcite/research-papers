@@ -1,3 +1,8 @@
+---
+title: "017 End-to-End MemNN"
+nav_order: 18
+permalink: "/017_end-to-end-memory-networks/"
+---
 # End-To-End Memory Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/end-to-end-memory-networks)
 

@@ -1,3 +1,8 @@
+---
+title: "DCGAN: Talk & Q&A"
+parent: "023 DCGAN"
+nav_order: 2
+---
 # TALK.md — DCGAN Press, Coverage, and Discussion
 
 ## Verifiable Press & Blog Coverage

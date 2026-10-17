@@ -1,3 +1,8 @@
+---
+title: "Chinchilla: Code architecture"
+parent: "097 Chinchilla"
+nav_order: 1
+---
 # Code Architecture: Chinchilla Scaling Laws Notebook
 
 ## Overview

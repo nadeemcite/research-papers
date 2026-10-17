@@ -1,3 +1,8 @@
+---
+title: "SSD: Talk & Q&A"
+parent: "033 SSD"
+nav_order: 2
+---
 # TALK.md: SSD Coverage, Q&A, and Citations
 
 ## Press / Blog Coverage

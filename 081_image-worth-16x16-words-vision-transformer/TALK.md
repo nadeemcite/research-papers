@@ -1,3 +1,8 @@
+---
+title: "ViT: Talk & Q&A"
+parent: "081 ViT"
+nav_order: 2
+---
 # TALK: Press Coverage, Interviews, and Citations for ViT
 
 ## Verifiable Press & Blog Coverage

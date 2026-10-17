@@ -1,3 +1,8 @@
+---
+title: "Sparse MoE: Talk & Q&A"
+parent: "087 Sparse MoE"
+nav_order: 2
+---
 # TALK — Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer
 
 ## Verifiable Press/Blog Coverage

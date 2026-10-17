@@ -1,3 +1,8 @@
+---
+title: "Prioritized Replay: Talk & Q&A"
+parent: "054 Prioritized Replay"
+nav_order: 2
+---
 # TALK.md — Prioritized Experience Replay Coverage & Q&A
 
 ## Press / Blog Coverage

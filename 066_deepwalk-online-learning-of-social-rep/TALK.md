@@ -1,3 +1,8 @@
+---
+title: "DeepWalk: Talk & Q&A"
+parent: "066 DeepWalk"
+nav_order: 2
+---
 # TALK.md — DeepWalk: Online Learning of Social Representations
 
 ## Verifiable Press / Blog Coverage

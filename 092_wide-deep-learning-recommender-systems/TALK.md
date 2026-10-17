@@ -1,3 +1,8 @@
+---
+title: "Wide & Deep: Talk & Q&A"
+parent: "092 Wide & Deep"
+nav_order: 2
+---
 # TALK.md — Wide & Deep Learning for Recommender Systems
 
 ## Press & Blog Coverage

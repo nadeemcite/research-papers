@@ -1,3 +1,8 @@
+---
+title: "076 RoBERTa"
+nav_order: 77
+permalink: "/076_roberta-robustly-optimized-bert-pretraining/"
+---
 # 076 — RoBERTa: A Robustly Optimized BERT Pretraining Approach
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/roberta-robustly-optimized-bert-pretraining)
 

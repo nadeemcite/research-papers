@@ -1,3 +1,8 @@
+---
+title: "MobileNets: Code architecture"
+parent: "038 MobileNets"
+nav_order: 1
+---
 # Code Architecture — MobileNets Notebook
 
 ## Overview

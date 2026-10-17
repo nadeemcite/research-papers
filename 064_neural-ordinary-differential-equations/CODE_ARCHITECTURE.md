@@ -1,3 +1,8 @@
+---
+title: "Neural ODE: Code architecture"
+parent: "064 Neural ODE"
+nav_order: 1
+---
 # Code Architecture — Neural Ordinary Differential Equations
 
 ## Notebook Overview

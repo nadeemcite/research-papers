@@ -1,3 +1,8 @@
+---
+title: "042 LayerNorm"
+nav_order: 43
+permalink: "/042_layer-normalization/"
+---
 # Layer Normalization
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/layer-normalization)
 

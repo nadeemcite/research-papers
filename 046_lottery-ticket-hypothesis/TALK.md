@@ -1,3 +1,8 @@
+---
+title: "Lottery Ticket: Talk & Q&A"
+parent: "046 Lottery Ticket"
+nav_order: 2
+---
 # TALK.md — The Lottery Ticket Hypothesis
 
 ## Press & Blog Coverage

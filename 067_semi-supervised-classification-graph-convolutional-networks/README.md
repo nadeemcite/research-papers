@@ -1,3 +1,8 @@
+---
+title: "067 GCN"
+nav_order: 68
+permalink: "/067_semi-supervised-classification-graph-convolutional-networks/"
+---
 # Semi-Supervised Classification with Graph Convolutional Networks (GCN)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/semi-supervised-classification-graph-conv)
 

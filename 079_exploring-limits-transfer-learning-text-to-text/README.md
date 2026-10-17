@@ -1,3 +1,8 @@
+---
+title: "079 T5"
+nav_order: 80
+permalink: "/079_exploring-limits-transfer-learning-text-to-text/"
+---
 # Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/exploring-transfer-learning-t5)
 

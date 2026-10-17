@@ -1,3 +1,8 @@
+---
+title: "WGAN-GP: Talk & Q&A"
+parent: "028 WGAN-GP"
+nav_order: 2
+---
 # TALK.md — Improved Training of Wasserstein GANs (WGAN-GP): Press, Interviews, and Citations
 
 ## Press / Blog Coverage

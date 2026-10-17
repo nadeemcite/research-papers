@@ -1,3 +1,8 @@
+---
+title: "GCN: Code architecture"
+parent: "067 GCN"
+nav_order: 1
+---
 # Code Architecture — Semi-Supervised Classification with Graph Convolutional Networks
 
 ## Notebook Overview

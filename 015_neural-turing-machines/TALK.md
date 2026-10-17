@@ -1,3 +1,8 @@
+---
+title: "Neural Turing Mach: Talk & Q&A"
+parent: "015 Neural Turing Mach"
+nav_order: 2
+---
 # TALK.md — Neural Turing Machines: Coverage, Q&A, and Citations
 
 ## Press & Blog Coverage

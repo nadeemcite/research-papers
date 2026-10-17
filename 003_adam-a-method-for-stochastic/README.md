@@ -1,3 +1,8 @@
+---
+title: "003 Adam"
+nav_order: 4
+permalink: "/003_adam-a-method-for-stochastic/"
+---
 # Adam — A Method for Stochastic Optimization
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/adam-a-method-for-stochastic-optimization)
 

@@ -1,3 +1,8 @@
+---
+title: "CycleGAN: Talk & Q&A"
+parent: "026 CycleGAN"
+nav_order: 2
+---
 # TALK.md — CycleGAN Coverage & Q&A
 
 ## Press / Blog Coverage

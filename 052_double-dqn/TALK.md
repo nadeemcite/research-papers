@@ -1,3 +1,8 @@
+---
+title: "Double DQN: Talk & Q&A"
+parent: "052 Double DQN"
+nav_order: 2
+---
 # TALK.md — Deep Reinforcement Learning with Double Q-learning
 
 ## Press / Blog Coverage

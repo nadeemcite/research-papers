@@ -1,3 +1,8 @@
+---
+title: "DDPG: Code architecture"
+parent: "057 DDPG"
+nav_order: 1
+---
 # Code Architecture — DDPG Notebook
 
 ## Section-by-Section Breakdown

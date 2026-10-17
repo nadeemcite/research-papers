@@ -1,3 +1,8 @@
+---
+title: "CapsNet: Code architecture"
+parent: "041 CapsNet"
+nav_order: 1
+---
 # Code Architecture — Dynamic Routing Between Capsules (CapsNet)
 
 ## Notebook Structure

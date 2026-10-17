@@ -1,3 +1,8 @@
+---
+title: "Memory Networks: Code architecture"
+parent: "016 Memory Networks"
+nav_order: 1
+---
 # Code Architecture — Memory Networks Notebook
 
 ## Overview

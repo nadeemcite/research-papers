@@ -1,3 +1,8 @@
+---
+title: "Xception: Code architecture"
+parent: "049 Xception"
+nav_order: 1
+---
 # Code Architecture — Xception Notebook
 
 ## Overview

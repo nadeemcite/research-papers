@@ -1,3 +1,8 @@
+---
+title: "CycleGAN: Code architecture"
+parent: "026 CycleGAN"
+nav_order: 1
+---
 # Code Architecture — CycleGAN Notebook
 
 ## Section-by-Section Breakdown

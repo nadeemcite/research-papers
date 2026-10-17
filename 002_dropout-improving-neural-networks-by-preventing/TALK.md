@@ -1,3 +1,8 @@
+---
+title: "Dropout: Talk & Q&A"
+parent: "002 Dropout"
+nav_order: 2
+---
 # TALK.md — Dropout: Context, Discussion, and Interview Material
 
 **Paper:** [Improving neural networks by preventing co-adaptation of feature detectors (arXiv:1207.0580)](https://arxiv.org/abs/1207.0580)

@@ -1,3 +1,8 @@
+---
+title: "055 A3C"
+nav_order: 56
+permalink: "/055_asynchronous-methods-for-deep-rl/"
+---
 # Asynchronous Methods for Deep Reinforcement Learning (A3C)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/asynchronous-methods-for-deep-rl)
 

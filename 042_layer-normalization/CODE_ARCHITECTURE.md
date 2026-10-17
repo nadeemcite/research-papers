@@ -1,3 +1,8 @@
+---
+title: "LayerNorm: Code architecture"
+parent: "042 LayerNorm"
+nav_order: 1
+---
 # Code Architecture — Layer Normalization Notebook
 
 ## Overview

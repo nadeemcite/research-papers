@@ -1,3 +1,8 @@
+---
+title: "Faster R-CNN: Talk & Q&A"
+parent: "031 Faster R-CNN"
+nav_order: 2
+---
 # Faster R-CNN — Talks, Coverage, and Discussion
 
 ## Press / Blog Coverage

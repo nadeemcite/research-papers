@@ -1,3 +1,8 @@
+---
+title: "Deep Speech: Code architecture"
+parent: "094 Deep Speech"
+nav_order: 1
+---
 # Code Architecture — Deep Speech
 
 ## Overview

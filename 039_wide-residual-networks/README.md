@@ -1,3 +1,8 @@
+---
+title: "039 Wide ResNet"
+nav_order: 40
+permalink: "/039_wide-residual-networks/"
+---
 # Wide Residual Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-residual-networks)
 

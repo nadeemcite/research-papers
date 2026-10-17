@@ -1,3 +1,8 @@
+---
+title: "He Init / PReLU: Code architecture"
+parent: "007 He Init / PReLU"
+nav_order: 1
+---
 # Code Architecture — He Initialization from Scratch
 
 ## Notebook outline

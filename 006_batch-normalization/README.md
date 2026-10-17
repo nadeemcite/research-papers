@@ -1,3 +1,8 @@
+---
+title: "006 BatchNorm"
+nav_order: 7
+permalink: "/006_batch-normalization/"
+---
 # Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/batch-normalization)
 

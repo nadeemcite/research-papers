@@ -1,3 +1,8 @@
+---
+title: "Deep Speech: Talk & Q&A"
+parent: "094 Deep Speech"
+nav_order: 2
+---
 # Talk — Deep Speech: Scaling up End-to-End Speech Recognition
 
 ## Verifiable Press/Blog Coverage

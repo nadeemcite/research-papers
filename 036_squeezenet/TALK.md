@@ -1,3 +1,8 @@
+---
+title: "SqueezeNet: Talk & Q&A"
+parent: "036 SqueezeNet"
+nav_order: 2
+---
 # TALK.md — SqueezeNet: Press, Interviews, Citations
 
 ## Press & Blog Coverage

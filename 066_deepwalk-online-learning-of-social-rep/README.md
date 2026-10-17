@@ -1,3 +1,8 @@
+---
+title: "066 DeepWalk"
+nav_order: 67
+permalink: "/066_deepwalk-online-learning-of-social-rep/"
+---
 # DeepWalk: Online Learning of Social Representations
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deepwalk-online-learning-of-social-representations)
 

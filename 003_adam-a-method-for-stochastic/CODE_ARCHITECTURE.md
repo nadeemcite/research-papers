@@ -1,3 +1,8 @@
+---
+title: "Adam: Code architecture"
+parent: "003 Adam"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Adam Optimizer From Scratch
 
 ## What the notebook builds

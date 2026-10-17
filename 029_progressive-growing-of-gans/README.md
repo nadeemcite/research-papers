@@ -1,3 +1,8 @@
+---
+title: "029 ProGAN"
+nav_order: 30
+permalink: "/029_progressive-growing-of-gans/"
+---
 # Progressive Growing of GANs for Improved Quality, Stability, and Variation
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
 

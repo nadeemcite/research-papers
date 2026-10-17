@@ -1,3 +1,8 @@
+---
+title: "057 DDPG"
+nav_order: 58
+permalink: "/057_continuous-control-with-deep-rl-ddpg/"
+---
 # Continuous Control with Deep Reinforcement Learning (DDPG)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/continuous-control-deep-rl-ddpg)
 

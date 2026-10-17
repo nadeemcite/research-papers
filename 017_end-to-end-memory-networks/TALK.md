@@ -1,3 +1,8 @@
+---
+title: "End-to-End MemNN: Talk & Q&A"
+parent: "017 End-to-End MemNN"
+nav_order: 2
+---
 # TALK.md — End-to-End Memory Networks: Coverage, Q&A, and Citations
 
 ## Press & Blog Coverage

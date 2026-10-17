@@ -1,3 +1,8 @@
+---
+title: "StyleGAN: Code architecture"
+parent: "030 StyleGAN"
+nav_order: 1
+---
 # Code Architecture — StyleGAN Notebook
 
 ## Overview

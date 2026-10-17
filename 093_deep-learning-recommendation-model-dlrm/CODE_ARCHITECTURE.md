@@ -1,3 +1,8 @@
+---
+title: "DLRM: Code architecture"
+parent: "093 DLRM"
+nav_order: 1
+---
 # Code Architecture — Deep Learning Recommendation Model (DLRM)
 
 ## Notebook Structure

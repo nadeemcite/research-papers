@@ -1,3 +1,8 @@
+---
+title: "ConvS2S: Talk & Q&A"
+parent: "019 ConvS2S"
+nav_order: 2
+---
 # TALK — Convolutional Sequence to Sequence Learning
 
 ## Press / Blog Coverage

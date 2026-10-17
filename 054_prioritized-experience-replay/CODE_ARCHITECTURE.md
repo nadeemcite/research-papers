@@ -1,3 +1,8 @@
+---
+title: "Prioritized Replay: Code architecture"
+parent: "054 Prioritized Replay"
+nav_order: 1
+---
 # Code Architecture — Prioritized Experience Replay Notebook
 
 ## Section-by-Section Breakdown

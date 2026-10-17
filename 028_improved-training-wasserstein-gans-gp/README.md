@@ -1,3 +1,8 @@
+---
+title: "028 WGAN-GP"
+nav_order: 29
+permalink: "/028_improved-training-wasserstein-gans-gp/"
+---
 # Improved Training of Wasserstein GANs (WGAN-GP)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/improved-training-of-wasserstein-gans-wgan-gp)
 

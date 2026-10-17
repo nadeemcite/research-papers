@@ -1,3 +1,8 @@
+---
+title: "Wide ResNet: Code architecture"
+parent: "039 Wide ResNet"
+nav_order: 1
+---
 # Wide Residual Networks — Notebook Architecture
 
 ## Goal

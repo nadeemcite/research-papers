@@ -1,3 +1,8 @@
+---
+title: "GRU Enc-Dec: Talk & Q&A"
+parent: "013 GRU Enc-Dec"
+nav_order: 2
+---
 # TALK — Learning Phrase Representations using RNN Encoder–Decoder (GRU)
 
 ## Press / Blog / Verifiable Coverage

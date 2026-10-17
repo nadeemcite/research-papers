@@ -1,3 +1,8 @@
+---
+title: "SAC: Code architecture"
+parent: "060 SAC"
+nav_order: 1
+---
 # Code Architecture — Soft Actor-Critic (SAC) Notebook
 
 ## Section-by-Section Notebook Breakdown

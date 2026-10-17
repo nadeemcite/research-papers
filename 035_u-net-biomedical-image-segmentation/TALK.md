@@ -1,3 +1,8 @@
+---
+title: "U-Net: Talk & Q&A"
+parent: "035 U-Net"
+nav_order: 2
+---
 # TALK.md — U-Net Press Coverage, Interviews, and Citations
 
 ## Verifiable Press/Blog Coverage

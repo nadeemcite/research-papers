@@ -1,3 +1,8 @@
+---
+title: "072 BYOL"
+nav_order: 73
+permalink: "/072_bootstrap-your-own-latent-byol/"
+---
 # Bootstrap Your Own Latent (BYOL) — A New Approach to Self-Supervised Learning
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bootstrap-your-own-latent-byol)
 

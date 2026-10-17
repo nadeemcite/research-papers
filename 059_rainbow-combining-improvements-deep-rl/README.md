@@ -1,3 +1,8 @@
+---
+title: "059 Rainbow"
+nav_order: 60
+permalink: "/059_rainbow-combining-improvements-deep-rl/"
+---
 # Rainbow: Combining Improvements in Deep Reinforcement Learning
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/rainbow-combining-improvements-deep-rl)
 

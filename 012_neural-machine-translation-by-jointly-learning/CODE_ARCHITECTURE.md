@@ -1,3 +1,8 @@
+---
+title: "Bahdanau Attention: Code architecture"
+parent: "012 Bahdanau Attention"
+nav_order: 1
+---
 # Code Architecture — Neural Machine Translation by Jointly Learning to Align and Translate
 
 This notebook builds a minimal but faithful Bahdanau attention seq2seq model from scratch in PyTorch, trains it on a toy date-translation task, and visualizes the attention alignment heatmap between source and target tokens.

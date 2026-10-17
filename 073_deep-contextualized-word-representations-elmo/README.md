@@ -1,3 +1,8 @@
+---
+title: "073 ELMo"
+nav_order: 74
+permalink: "/073_deep-contextualized-word-representations-elmo/"
+---
 # 073 — Deep Contextualized Word Representations (ELMo)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-contextualized-word-representations-elmo)
 

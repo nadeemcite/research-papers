@@ -1,3 +1,8 @@
+---
+title: "018 Pointer Networks"
+nav_order: 19
+permalink: "/018_pointer-networks/"
+---
 # Pointer Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pointer-networks)
 

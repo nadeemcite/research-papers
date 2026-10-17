@@ -1,3 +1,8 @@
+---
+title: "Distillation: Talk & Q&A"
+parent: "045 Distillation"
+nav_order: 2
+---
 # TALK.md — Distilling the Knowledge in a Neural Network
 
 ## Press / Blog Coverage

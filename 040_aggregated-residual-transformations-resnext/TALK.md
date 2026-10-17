@@ -1,3 +1,8 @@
+---
+title: "ResNeXt: Talk & Q&A"
+parent: "040 ResNeXt"
+nav_order: 2
+---
 # ResNeXt — Talks, Coverage, and Discussion
 
 ## Press / Blog Coverage

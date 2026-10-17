@@ -1,3 +1,8 @@
+---
+title: "005 GoogLeNet"
+nav_order: 6
+permalink: "/005_googlenet-going-deeper-with-convolutions/"
+---
 # GoogLeNet — Going Deeper with Convolutions
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/googlenet-going-deeper-with-convolutions)
 

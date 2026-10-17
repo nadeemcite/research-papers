@@ -1,3 +1,8 @@
+---
+title: "Bahdanau Attention: Talk & Q&A"
+parent: "012 Bahdanau Attention"
+nav_order: 2
+---
 # Talk / Press / Coverage — Neural Machine Translation by Jointly Learning to Align and Translate
 
 ## Verifiable press and blog coverage

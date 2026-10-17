@@ -1,3 +1,8 @@
+---
+title: "094 Deep Speech"
+nav_order: 95
+permalink: "/094_deep-speech-scaling-up-end-to-end-speech/"
+---
 # Deep Speech: Scaling up End-to-End Speech Recognition
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-speech-end-to-end-speech-recognition)
 

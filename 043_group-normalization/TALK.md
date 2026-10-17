@@ -1,3 +1,8 @@
+---
+title: "GroupNorm: Talk & Q&A"
+parent: "043 GroupNorm"
+nav_order: 2
+---
 # TALK.md — Group Normalization
 
 ## Press / Blog Coverage

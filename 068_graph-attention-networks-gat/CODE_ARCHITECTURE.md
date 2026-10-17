@@ -1,3 +1,8 @@
+---
+title: "GAT: Code architecture"
+parent: "068 GAT"
+nav_order: 1
+---
 # Code Architecture — Graph Attention Networks (GAT)
 
 ## Notebook Overview

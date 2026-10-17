@@ -1,3 +1,8 @@
+---
+title: "Double DQN: Code architecture"
+parent: "052 Double DQN"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Deep Reinforcement Learning with Double Q-learning
 
 ## Overview

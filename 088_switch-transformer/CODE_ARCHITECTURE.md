@@ -1,3 +1,8 @@
+---
+title: "Switch Transformer: Code architecture"
+parent: "088 Switch Transformer"
+nav_order: 1
+---
 # Code Architecture — Switch Transformer Notebook
 
 ## Section-by-Section Breakdown

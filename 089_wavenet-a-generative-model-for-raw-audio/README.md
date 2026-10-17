@@ -1,3 +1,8 @@
+---
+title: "089 WaveNet"
+nav_order: 90
+permalink: "/089_wavenet-a-generative-model-for-raw-audio/"
+---
 # WaveNet: A Generative Model for Raw Audio
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
 

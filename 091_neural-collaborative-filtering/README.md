@@ -1,3 +1,8 @@
+---
+title: "091 NCF"
+nav_order: 92
+permalink: "/091_neural-collaborative-filtering/"
+---
 # Neural Collaborative Filtering
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-collaborative-filtering)
 

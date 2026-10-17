@@ -1,3 +1,8 @@
+---
+title: "VGGNet: Talk & Q&A"
+parent: "004 VGGNet"
+nav_order: 2
+---
 # TALK.md — VGGNet
 
 ## Press coverage, blog posts, and official announcements

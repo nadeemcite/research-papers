@@ -1,3 +1,8 @@
+---
+title: "Mask R-CNN: Code architecture"
+parent: "034 Mask R-CNN"
+nav_order: 1
+---
 # Code Architecture — Mask R-CNN Notebook
 
 ## Overview

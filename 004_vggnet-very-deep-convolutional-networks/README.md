@@ -1,3 +1,8 @@
+---
+title: "004 VGGNet"
+nav_order: 5
+permalink: "/004_vggnet-very-deep-convolutional-networks/"
+---
 # VGGNet — Very Deep Convolutional Networks for Large-Scale Image Recognition
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/vggnet-very-deep-convolutional-networks)
 

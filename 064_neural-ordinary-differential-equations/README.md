@@ -1,3 +1,8 @@
+---
+title: "064 Neural ODE"
+nav_order: 65
+permalink: "/064_neural-ordinary-differential-equations/"
+---
 # Neural Ordinary Differential Equations
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-ordinary-differential-equations)
 

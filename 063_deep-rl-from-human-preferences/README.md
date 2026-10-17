@@ -1,3 +1,8 @@
+---
+title: "063 RLHF (Human Prefs)"
+nav_order: 64
+permalink: "/063_deep-rl-from-human-preferences/"
+---
 # Deep Reinforcement Learning from Human Preferences
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-reinforcement-learning-from-human-preferences)
 

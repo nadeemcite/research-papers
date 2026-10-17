@@ -1,3 +1,8 @@
+---
+title: "pix2pix: Talk & Q&A"
+parent: "025 pix2pix"
+nav_order: 2
+---
 # TALK.md — Pix2Pix Press, Interviews, and Citations
 
 ## Press / Blog Coverage

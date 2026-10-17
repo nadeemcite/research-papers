@@ -1,3 +1,8 @@
+---
+title: "EfficientNet: Talk & Q&A"
+parent: "048 EfficientNet"
+nav_order: 2
+---
 # TALK.md — EfficientNet: Rethinking Model Scaling for CNNs
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "071 MoCo"
+nav_order: 72
+permalink: "/071_momentum-contrast-unsupervised-visual/"
+---
 # Momentum Contrast for Unsupervised Visual Representation Learning (MoCo)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/moco-unsupervised-visual-representation-learning)
 

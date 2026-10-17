@@ -1,3 +1,8 @@
+---
+title: "PPO: Code architecture"
+parent: "058 PPO"
+nav_order: 1
+---
 # Code Architecture — PPO Implementation
 
 This document describes the notebook structure, key functions/classes, data flow, and deliberate simplifications versus the original paper.

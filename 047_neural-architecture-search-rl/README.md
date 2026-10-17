@@ -1,3 +1,8 @@
+---
+title: "047 NAS"
+nav_order: 48
+permalink: "/047_neural-architecture-search-rl/"
+---
 # Neural Architecture Search with Reinforcement Learning
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-architecture-search-rl)
 

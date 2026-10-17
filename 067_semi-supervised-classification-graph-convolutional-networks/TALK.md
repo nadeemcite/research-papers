@@ -1,3 +1,8 @@
+---
+title: "GCN: Talk & Q&A"
+parent: "067 GCN"
+nav_order: 2
+---
 # TALK.md - Semi-Supervised Classification with Graph Convolutional Networks
 
 ## Verifiable Press / Blog Coverage

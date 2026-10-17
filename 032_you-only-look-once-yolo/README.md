@@ -1,3 +1,8 @@
+---
+title: "032 YOLO"
+nav_order: 33
+permalink: "/032_you-only-look-once-yolo/"
+---
 # You Only Look Once: Unified, Real-Time Object Detection (YOLO)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/you-only-look-once-yolo)
 

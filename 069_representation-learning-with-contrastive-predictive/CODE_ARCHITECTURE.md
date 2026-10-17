@@ -1,3 +1,8 @@
+---
+title: "CPC: Code architecture"
+parent: "069 CPC"
+nav_order: 1
+---
 # Code Architecture — CPC Notebook
 
 ## Section-by-Section Breakdown

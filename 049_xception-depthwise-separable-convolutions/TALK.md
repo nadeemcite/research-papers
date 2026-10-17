@@ -1,3 +1,8 @@
+---
+title: "Xception: Talk & Q&A"
+parent: "049 Xception"
+nav_order: 2
+---
 # TALK — Xception Press, Coverage, and Q&A
 
 ## Verifiable Press/Blog Coverage

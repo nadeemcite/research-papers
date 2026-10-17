@@ -1,3 +1,8 @@
+---
+title: "GAN: Code architecture"
+parent: "022 GAN"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Generative Adversarial Networks (GAN)
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "DCGAN: Code architecture"
+parent: "023 DCGAN"
+nav_order: 1
+---
 # Code Architecture — DCGAN Notebook
 
 ## Overview

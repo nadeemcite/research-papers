@@ -1,3 +1,8 @@
+---
+title: "088 Switch Transformer"
+nav_order: 89
+permalink: "/088_switch-transformer/"
+---
 # Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/088-switch-transformer)
 

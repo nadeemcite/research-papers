@@ -1,3 +1,8 @@
+---
+title: "WaveNet: Code architecture"
+parent: "089 WaveNet"
+nav_order: 1
+---
 # Code Architecture — WaveNet
 
 ## Notebook Structure

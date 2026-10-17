@@ -1,3 +1,8 @@
+---
+title: "Faster R-CNN: Code architecture"
+parent: "031 Faster R-CNN"
+nav_order: 1
+---
 # Faster R-CNN — Notebook Architecture
 
 ## Goal

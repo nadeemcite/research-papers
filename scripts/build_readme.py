@@ -1,5 +1,5 @@
-"""Generates README.md, assets/banner.svg, assets/family-tree.svg and the site navigation block of
-_config.yml (GitHub Pages, Just the Docs theme) from scripts/papers.tsv.
+"""Generates README.md, assets/banner.svg and assets/family-tree.svg from scripts/papers.tsv, and writes
+the GitHub Pages (Just the Docs) nav front matter into each paper's Markdown files.
 
 Usage (from the repo root):  python scripts/build_readme.py
 Requires matplotlib. To add a paper, append a row to scripts/papers.tsv (and, optionally, its
@@ -272,28 +272,30 @@ def build_readme(papers):
     (ROOT / 'README.md').write_text('\n'.join(L) + '\n')
 
 
-NAV_MARKER = '# --- BEGIN GENERATED NAV ---'
-
-
-def build_nav_config(papers):
-    """Rewrite everything after NAV_MARKER in _config.yml with Just the Docs front matter defaults.
+def build_nav_front_matter(papers):
+    """Write Just the Docs front matter (title / parent / nav_order) into each paper's Markdown files.
 
     Each paper README becomes a top-level nav entry ("001 Word2Vec", ordered by number) and its
-    CODE_ARCHITECTURE.md / TALK.md become child pages, so the Markdown files need no front matter.
+    CODE_ARCHITECTURE.md / TALK.md become child pages. Idempotent: an existing leading front matter
+    block is replaced. (Per-file `defaults:` in _config.yml would avoid touching the files, but with
+    ~300 scopes it slows the GitHub Pages build from ~15 s to ~6 min.)
     """
-    cfg = ROOT / '_config.yml'
-    head, sep, _ = cfg.read_text().partition(NAV_MARKER)
-    assert sep, f'{NAV_MARKER!r} not found in _config.yml'
     q = lambda v: json.dumps(v, ensure_ascii=False)  # JSON strings are valid YAML scalars
-    L = [NAV_MARKER, 'defaults:', '  - scope: {path: "README.md"}', '    values: {title: "Home", nav_order: 1}']
-    for p in sorted(papers, key=lambda p: p['num']):
+    for p in papers:
         parent = f"{p['num']} {p['short']}"
-        L.append(f'  - scope: {{path: {q(p["folder"] + "/README.md")}}}')
-        L.append(f'    values: {{title: {q(parent)}, nav_order: {int(p["num"]) + 1}}}')
+        # permalink: jekyll-readme-index only turns front-matter-less READMEs into the folder index
+        pages = [('README.md', {'title': parent, 'nav_order': int(p['num']) + 1, 'permalink': f"/{p['folder']}/"})]
         for i, (fname, label) in enumerate([('CODE_ARCHITECTURE.md', 'Code architecture'), ('TALK.md', 'Talk & Q&A')], 1):
-            L.append(f'  - scope: {{path: {q(p["folder"] + "/" + fname)}}}')
-            L.append(f'    values: {{title: {q(p["short"] + ": " + label)}, parent: {q(parent)}, nav_order: {i}}}')
-    cfg.write_text(head + '\n'.join(L) + '\n')
+            pages.append((fname, {'title': f"{p['short']}: {label}", 'parent': parent, 'nav_order': i}))
+        for fname, fm in pages:
+            path = ROOT / p['folder'] / fname
+            if not path.exists():
+                continue
+            text = path.read_text()
+            if text.startswith('---\n'):
+                text = text.split('\n---\n', 1)[1]
+            block = '---\n' + ''.join(f'{k}: {q(v)}\n' for k, v in fm.items()) + '---\n'
+            path.write_text(block + text)
 
 
 def anchor(title):
@@ -307,5 +309,5 @@ if __name__ == '__main__':
     build_banner(papers)
     build_family_tree(papers)
     build_readme(papers)
-    build_nav_config(papers)
-    print(f'Built README.md, assets/banner.svg, assets/family-tree.svg, _config.yml nav for {len(papers)} papers')
+    build_nav_front_matter(papers)
+    print(f'Built README.md, assets/banner.svg, assets/family-tree.svg, paper nav front matter for {len(papers)} papers')

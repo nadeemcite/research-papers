@@ -1,3 +1,8 @@
+---
+title: "044 Inception-v3"
+nav_order: 45
+permalink: "/044_rethinking-inception-architecture-label/"
+---
 # Rethinking the Inception Architecture (Label Smoothing)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/label-smoothing-regularization-inception)
 

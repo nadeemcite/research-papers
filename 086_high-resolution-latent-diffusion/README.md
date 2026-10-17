@@ -1,3 +1,8 @@
+---
+title: "086 Latent Diffusion"
+nav_order: 87
+permalink: "/086_high-resolution-latent-diffusion/"
+---
 # High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/latent-diffusion-models)
 

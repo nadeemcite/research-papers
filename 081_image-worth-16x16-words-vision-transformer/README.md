@@ -1,3 +1,8 @@
+---
+title: "081 ViT"
+nav_order: 82
+permalink: "/081_image-worth-16x16-words-vision-transformer/"
+---
 # An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale (ViT)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/an-image-is-worth-16x16-words-vision-transformer)
 

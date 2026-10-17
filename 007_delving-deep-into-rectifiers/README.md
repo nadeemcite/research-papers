@@ -1,3 +1,8 @@
+---
+title: "007 He Init / PReLU"
+nav_order: 8
+permalink: "/007_delving-deep-into-rectifiers/"
+---
 # Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/delving-deep-into-rectifiers-he-init)
 

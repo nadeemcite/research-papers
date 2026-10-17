@@ -1,3 +1,8 @@
+---
+title: "056 TRPO"
+nav_order: 57
+permalink: "/056_trust-region-policy-optimization/"
+---
 # Trust Region Policy Optimization (TRPO)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/trust-region-policy-optimization-trpo)
 

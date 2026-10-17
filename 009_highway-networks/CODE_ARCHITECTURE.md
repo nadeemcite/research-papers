@@ -1,3 +1,8 @@
+---
+title: "Highway Nets: Code architecture"
+parent: "009 Highway Nets"
+nav_order: 1
+---
 # Code Architecture — Highway Networks (009)
 
 ## 1. Goal of the notebook

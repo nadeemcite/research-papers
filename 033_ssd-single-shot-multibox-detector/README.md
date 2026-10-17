@@ -1,3 +1,8 @@
+---
+title: "033 SSD"
+nav_order: 34
+permalink: "/033_ssd-single-shot-multibox-detector/"
+---
 # SSD: Single Shot MultiBox Detector
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/ssd-single-shot-multibox-detector)
 

@@ -1,3 +1,8 @@
+---
+title: "062 World Models"
+nav_order: 63
+permalink: "/062_world-models/"
+---
 # World Models
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/world-models)
 

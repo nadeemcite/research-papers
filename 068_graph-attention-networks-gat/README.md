@@ -1,3 +1,8 @@
+---
+title: "068 GAT"
+nav_order: 69
+permalink: "/068_graph-attention-networks-gat/"
+---
 # Graph Attention Networks (GAT)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/graph-attention-networks-gat)
 

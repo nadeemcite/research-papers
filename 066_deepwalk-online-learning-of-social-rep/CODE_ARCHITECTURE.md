@@ -1,3 +1,8 @@
+---
+title: "DeepWalk: Code architecture"
+parent: "066 DeepWalk"
+nav_order: 1
+---
 # Code Architecture — DeepWalk: Online Learning of Social Representations
 
 ## Notebook Overview

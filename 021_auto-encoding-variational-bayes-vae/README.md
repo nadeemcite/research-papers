@@ -1,3 +1,8 @@
+---
+title: "021 VAE"
+nav_order: 22
+permalink: "/021_auto-encoding-variational-bayes-vae/"
+---
 # Auto-Encoding Variational Bayes (VAE)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/auto-encoding-variational-bayes-vae)
 

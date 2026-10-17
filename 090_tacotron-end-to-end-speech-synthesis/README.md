@@ -1,3 +1,8 @@
+---
+title: "090 Tacotron"
+nav_order: 91
+permalink: "/090_tacotron-end-to-end-speech-synthesis/"
+---
 # Tacotron: Towards End-to-End Speech Synthesis
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/tacotron-towards-end-to-end-speech-synthesis)
 

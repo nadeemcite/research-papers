@@ -1,3 +1,8 @@
+---
+title: "End-to-End MemNN: Code architecture"
+parent: "017 End-to-End MemNN"
+nav_order: 1
+---
 # Code Architecture — End-to-End Memory Networks Notebook
 
 ## Overview

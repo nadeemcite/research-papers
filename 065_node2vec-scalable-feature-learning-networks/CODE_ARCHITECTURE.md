@@ -1,3 +1,8 @@
+---
+title: "node2vec: Code architecture"
+parent: "065 node2vec"
+nav_order: 1
+---
 # Code Architecture — node2vec Notebook
 
 ## Overview

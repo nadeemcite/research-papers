@@ -1,3 +1,8 @@
+---
+title: "087 Sparse MoE"
+nav_order: 88
+permalink: "/087_sparsely-gated-mixture-of-experts/"
+---
 # Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sparsely-gated-mixture-of-experts-layer)
 

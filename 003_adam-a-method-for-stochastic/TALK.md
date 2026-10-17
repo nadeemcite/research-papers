@@ -1,3 +1,8 @@
+---
+title: "Adam: Talk & Q&A"
+parent: "003 Adam"
+nav_order: 2
+---
 # TALK.md — Adam Optimizer
 
 ## Press coverage, blog posts, and official announcements

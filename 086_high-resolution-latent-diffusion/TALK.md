@@ -1,3 +1,8 @@
+---
+title: "Latent Diffusion: Talk & Q&A"
+parent: "086 Latent Diffusion"
+nav_order: 2
+---
 # Latent Diffusion Models — Talks, Press, and Discussion
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "SqueezeNet: Code architecture"
+parent: "036 SqueezeNet"
+nav_order: 1
+---
 # Code Architecture — SqueezeNet Notebook
 
 ## Overview

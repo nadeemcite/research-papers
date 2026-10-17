@@ -1,3 +1,8 @@
+---
+title: "011 Seq2Seq"
+nav_order: 12
+permalink: "/011_sequence-to-sequence-learning-with-neural-networks/"
+---
 # Sequence to Sequence Learning with Neural Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
 

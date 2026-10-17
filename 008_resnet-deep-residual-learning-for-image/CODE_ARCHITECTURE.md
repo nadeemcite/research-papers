@@ -1,3 +1,8 @@
+---
+title: "ResNet: Code architecture"
+parent: "008 ResNet"
+nav_order: 1
+---
 # ResNet — Deep Residual Learning for Image Recognition — Notebook Architecture
 
 ## Goal

@@ -1,3 +1,8 @@
+---
+title: "Rainbow: Code architecture"
+parent: "059 Rainbow"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Rainbow: Combining Improvements in Deep Reinforcement Learning
 
 ## Overview

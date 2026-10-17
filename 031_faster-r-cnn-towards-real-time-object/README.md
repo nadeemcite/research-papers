@@ -1,3 +1,8 @@
+---
+title: "031 Faster R-CNN"
+nav_order: 32
+permalink: "/031_faster-r-cnn-towards-real-time-object/"
+---
 # Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/faster-r-cnn-towards-real-time-object-detection)
 

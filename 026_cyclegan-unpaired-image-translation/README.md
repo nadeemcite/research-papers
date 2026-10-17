@@ -1,3 +1,8 @@
+---
+title: "026 CycleGAN"
+nav_order: 27
+permalink: "/026_cyclegan-unpaired-image-translation/"
+---
 # CycleGAN: Unpaired Image-to-Image Translation
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/cyclegan-unpaired-image-to-image-translation)
 

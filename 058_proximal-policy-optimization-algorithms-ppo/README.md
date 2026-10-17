@@ -1,3 +1,8 @@
+---
+title: "058 PPO"
+nav_order: 59
+permalink: "/058_proximal-policy-optimization-algorithms-ppo/"
+---
 # Proximal Policy Optimization Algorithms (PPO)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/proximal-policy-optimization-algorithms-ppo)
 

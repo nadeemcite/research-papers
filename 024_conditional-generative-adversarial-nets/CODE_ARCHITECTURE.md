@@ -1,3 +1,8 @@
+---
+title: "Conditional GAN: Code architecture"
+parent: "024 Conditional GAN"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Conditional Generative Adversarial Nets (CGAN)
 
 ## Overview

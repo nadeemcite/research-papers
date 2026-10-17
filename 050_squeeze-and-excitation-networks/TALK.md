@@ -1,3 +1,8 @@
+---
+title: "SENet: Talk & Q&A"
+parent: "050 SENet"
+nav_order: 2
+---
 # TALK — Squeeze-and-Excitation Networks
 
 ## Press & Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "DDIM: Code architecture"
+parent: "085 DDIM"
+nav_order: 1
+---
 # Code Architecture — DDIM
 
 ## Overview

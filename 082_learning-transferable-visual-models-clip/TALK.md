@@ -1,3 +1,8 @@
+---
+title: "CLIP: Talk & Q&A"
+parent: "082 CLIP"
+nav_order: 2
+---
 # TALK — CLIP (Contrastive Language–Image Pre-training)
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "ProGAN: Talk & Q&A"
+parent: "029 ProGAN"
+nav_order: 2
+---
 # TALK — Progressive Growing of GANs
 
 ## Press / Blog Coverage

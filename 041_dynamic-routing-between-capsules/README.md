@@ -1,3 +1,8 @@
+---
+title: "041 CapsNet"
+nav_order: 42
+permalink: "/041_dynamic-routing-between-capsules/"
+---
 # Dynamic Routing Between Capsules
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dynamic-routing-between-capsules)
 

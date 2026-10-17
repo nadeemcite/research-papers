@@ -1,3 +1,8 @@
+---
+title: "085 DDIM"
+nav_order: 86
+permalink: "/085_denoising-diffusion-implicit-models/"
+---
 # Denoising Diffusion Implicit Models (DDIM)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models)
 

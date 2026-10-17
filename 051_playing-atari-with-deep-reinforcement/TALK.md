@@ -1,3 +1,8 @@
+---
+title: "DQN: Talk & Q&A"
+parent: "051 DQN"
+nav_order: 2
+---
 # TALK.md — Playing Atari with Deep Reinforcement Learning (DQN)
 
 ## Press / Blog Coverage

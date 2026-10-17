@@ -1,3 +1,8 @@
+---
+title: "StyleGAN: Talk & Q&A"
+parent: "030 StyleGAN"
+nav_order: 2
+---
 # TALK — StyleGAN Press Coverage, Interviews, and Citations
 
 ## Verifiable Press/Blog Coverage

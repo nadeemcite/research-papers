@@ -1,3 +1,8 @@
+---
+title: "TRPO: Talk & Q&A"
+parent: "056 TRPO"
+nav_order: 2
+---
 # TALK.md — TRPO Coverage, Q&A, Misconceptions, Citations
 
 ## Press / Blog Coverage

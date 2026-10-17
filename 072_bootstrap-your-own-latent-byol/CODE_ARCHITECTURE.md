@@ -1,3 +1,8 @@
+---
+title: "BYOL: Code architecture"
+parent: "072 BYOL"
+nav_order: 1
+---
 # Code Architecture — BYOL Notebook
 
 ## Overview

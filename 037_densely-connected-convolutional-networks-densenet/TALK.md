@@ -1,3 +1,8 @@
+---
+title: "DenseNet: Talk & Q&A"
+parent: "037 DenseNet"
+nav_order: 2
+---
 # Talk — DenseNet (Densely Connected Convolutional Networks)
 
 ## Press / Blog Coverage

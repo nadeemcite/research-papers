@@ -1,3 +1,8 @@
+---
+title: "DDPM: Code architecture"
+parent: "084 DDPM"
+nav_order: 1
+---
 # Code Architecture — DDPM
 
 ## Overview

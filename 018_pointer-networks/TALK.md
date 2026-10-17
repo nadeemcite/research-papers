@@ -1,3 +1,8 @@
+---
+title: "Pointer Networks: Talk & Q&A"
+parent: "018 Pointer Networks"
+nav_order: 2
+---
 # TALK — Pointer Networks
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "DALL-E: Code architecture"
+parent: "083 DALL-E"
+nav_order: 1
+---
 # Code Architecture — DALL-E (Zero-Shot Text-to-Image Generation)
 
 ## Overview

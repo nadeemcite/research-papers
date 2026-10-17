@@ -1,3 +1,8 @@
+---
+title: "A3C: Code architecture"
+parent: "055 A3C"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Asynchronous Methods for Deep Reinforcement Learning (A3C)
 
 ## Overview

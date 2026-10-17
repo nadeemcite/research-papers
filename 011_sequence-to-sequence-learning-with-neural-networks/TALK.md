@@ -1,3 +1,8 @@
+---
+title: "Seq2Seq: Talk & Q&A"
+parent: "011 Seq2Seq"
+nav_order: 2
+---
 # Talk / Press / Coverage — Sequence to Sequence Learning with Neural Networks
 
 ## Verifiable press and blog coverage

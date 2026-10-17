@@ -1,3 +1,8 @@
+---
+title: "074 BERT"
+nav_order: 75
+permalink: "/074_bert-pre-training-deep-bidirectional-transformers/"
+---
 # 074 — BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bert-pre-training-deep-bidirectional-transformers)
 

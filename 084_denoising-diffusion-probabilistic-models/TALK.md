@@ -1,3 +1,8 @@
+---
+title: "DDPM: Talk & Q&A"
+parent: "084 DDPM"
+nav_order: 2
+---
 # TALK.md — DDPM Press Coverage, Interviews, and Citations
 
 ## Verifiable Press/Blog Coverage

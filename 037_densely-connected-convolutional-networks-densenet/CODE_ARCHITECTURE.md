@@ -1,3 +1,8 @@
+---
+title: "DenseNet: Code architecture"
+parent: "037 DenseNet"
+nav_order: 1
+---
 # Code Architecture — DenseNet (Densely Connected Convolutional Networks)
 
 ## Notebook Overview

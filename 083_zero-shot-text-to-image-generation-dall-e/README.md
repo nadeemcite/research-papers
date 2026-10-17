@@ -1,3 +1,8 @@
+---
+title: "083 DALL-E"
+nav_order: 84
+permalink: "/083_zero-shot-text-to-image-generation-dall-e/"
+---
 # Zero-Shot Text-to-Image Generation (DALL-E)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
 

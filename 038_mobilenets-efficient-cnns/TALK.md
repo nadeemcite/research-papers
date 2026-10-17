@@ -1,3 +1,8 @@
+---
+title: "MobileNets: Talk & Q&A"
+parent: "038 MobileNets"
+nav_order: 2
+---
 # TALK — MobileNets Press, Coverage, and Q&A
 
 ## Verifiable Press/Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "008 ResNet"
+nav_order: 9
+permalink: "/008_resnet-deep-residual-learning-for-image/"
+---
 # ResNet — Deep Residual Learning for Image Recognition
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
 

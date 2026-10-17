@@ -1,3 +1,8 @@
+---
+title: "SimCLR: Talk & Q&A"
+parent: "070 SimCLR"
+nav_order: 2
+---
 # TALK.md: SimCLR Press Coverage, Interviews & Misconceptions
 
 ## Verifiable Press/Blog Coverage

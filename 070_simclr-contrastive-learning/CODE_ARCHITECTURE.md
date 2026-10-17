@@ -1,3 +1,8 @@
+---
+title: "SimCLR: Code architecture"
+parent: "070 SimCLR"
+nav_order: 1
+---
 # Code Architecture: SimCLR Notebook
 
 ## Overview

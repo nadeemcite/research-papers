@@ -1,3 +1,8 @@
+---
+title: "DDIM: Talk & Q&A"
+parent: "085 DDIM"
+nav_order: 2
+---
 # DDIM — Talks, Press, and Discussion
 
 ## Press / Blog Coverage

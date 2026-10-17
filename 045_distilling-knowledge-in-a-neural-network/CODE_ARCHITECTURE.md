@@ -1,3 +1,8 @@
+---
+title: "Distillation: Code architecture"
+parent: "045 Distillation"
+nav_order: 1
+---
 # Code Architecture — Knowledge Distillation Notebook
 
 ## Overview

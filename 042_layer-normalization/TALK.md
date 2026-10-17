@@ -1,3 +1,8 @@
+---
+title: "LayerNorm: Talk & Q&A"
+parent: "042 LayerNorm"
+nav_order: 2
+---
 # TALK.md — Layer Normalization
 
 ## Press / Blog Coverage

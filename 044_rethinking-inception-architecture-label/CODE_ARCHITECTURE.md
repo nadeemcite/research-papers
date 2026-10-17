@@ -1,3 +1,8 @@
+---
+title: "Inception-v3: Code architecture"
+parent: "044 Inception-v3"
+nav_order: 1
+---
 # Code Architecture — Label Smoothing Notebook
 
 ## Overview

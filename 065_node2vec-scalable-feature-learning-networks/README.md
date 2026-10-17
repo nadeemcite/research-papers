@@ -1,3 +1,8 @@
+---
+title: "065 node2vec"
+nav_order: 66
+permalink: "/065_node2vec-scalable-feature-learning-networks/"
+---
 # node2vec: Scalable Feature Learning for Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/node2vec-scalable-feature-learning-for-networks)
 

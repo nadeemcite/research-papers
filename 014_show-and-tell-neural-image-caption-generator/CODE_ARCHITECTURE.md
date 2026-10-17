@@ -1,3 +1,8 @@
+---
+title: "Show and Tell: Code architecture"
+parent: "014 Show and Tell"
+nav_order: 1
+---
 # Code Architecture — Show and Tell: A Neural Image Caption Generator
 
 This notebook implements a **CNN encoder + LSTM decoder** image captioning model from scratch in PyTorch, following the architecture described in Vinyals et al. (2014). It uses a pretrained ResNet-18 (substituting for the paper's GoogLeNet/Inception) as the image encoder and a from-scratch LSTM as the language decoder. The model is trained on a small synthetic image-caption dataset, and then used to generate captions for sample images with beam search.

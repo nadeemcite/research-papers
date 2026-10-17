@@ -1,3 +1,8 @@
+---
+title: "FlashAttention: Code architecture"
+parent: "099 FlashAttention"
+nav_order: 1
+---
 # Code Architecture — FlashAttention Notebook
 
 ## Overview

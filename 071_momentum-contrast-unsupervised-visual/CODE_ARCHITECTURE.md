@@ -1,3 +1,8 @@
+---
+title: "MoCo: Code architecture"
+parent: "071 MoCo"
+nav_order: 1
+---
 # Code Architecture — MoCo Notebook
 
 ## Overview

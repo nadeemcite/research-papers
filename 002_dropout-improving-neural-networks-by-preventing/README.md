@@ -1,3 +1,8 @@
+---
+title: "002 Dropout"
+nav_order: 3
+permalink: "/002_dropout-improving-neural-networks-by-preventing/"
+---
 # Dropout — Improving Neural Networks by Preventing Co-adaptation of Feature Detectors
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dropout-improving-neural-networks)
 

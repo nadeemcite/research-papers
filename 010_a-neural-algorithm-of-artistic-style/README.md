@@ -1,3 +1,8 @@
+---
+title: "010 Neural Style"
+nav_order: 11
+permalink: "/010_a-neural-algorithm-of-artistic-style/"
+---
 # A Neural Algorithm of Artistic Style
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/a-neural-algorithm-of-artistic-style)
 

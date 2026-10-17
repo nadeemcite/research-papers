@@ -1,3 +1,8 @@
+---
+title: "048 EfficientNet"
+nav_order: 49
+permalink: "/048_efficientnet-rethinking-model-scaling/"
+---
 # EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/efficientnet-rethinking-model-scaling-for-cnns)
 

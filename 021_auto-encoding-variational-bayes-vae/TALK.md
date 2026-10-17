@@ -1,3 +1,8 @@
+---
+title: "VAE: Talk & Q&A"
+parent: "021 VAE"
+nav_order: 2
+---
 # TALK.md — Auto-Encoding Variational Bayes (VAE)
 
 ## Press / Blog Coverage

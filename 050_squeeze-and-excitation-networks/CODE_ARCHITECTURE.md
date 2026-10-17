@@ -1,3 +1,8 @@
+---
+title: "SENet: Code architecture"
+parent: "050 SENet"
+nav_order: 1
+---
 # Code Architecture — Squeeze-and-Excitation Networks Notebook
 
 ## Notebook Structure

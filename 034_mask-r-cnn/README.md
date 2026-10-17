@@ -1,3 +1,8 @@
+---
+title: "034 Mask R-CNN"
+nav_order: 35
+permalink: "/034_mask-r-cnn/"
+---
 # Mask R-CNN
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/mask-r-cnn)
 

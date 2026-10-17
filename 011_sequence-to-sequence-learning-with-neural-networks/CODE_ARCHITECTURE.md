@@ -1,3 +1,8 @@
+---
+title: "Seq2Seq: Code architecture"
+parent: "011 Seq2Seq"
+nav_order: 1
+---
 # Code Architecture — Sequence to Sequence Learning with Neural Networks
 
 This notebook builds a minimal but faithful seq2seq LSTM system from scratch in PyTorch, trains it on a toy date-normalization task, and visualizes the encoder's hidden-state compression.

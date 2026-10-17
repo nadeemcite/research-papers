@@ -1,3 +1,8 @@
+---
+title: "022 GAN"
+nav_order: 23
+permalink: "/022_generative-adversarial-networks-gan/"
+---
 # Generative Adversarial Networks (GAN)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/generative-adversarial-networks-gan)
 

@@ -1,3 +1,8 @@
+---
+title: "014 Show and Tell"
+nav_order: 15
+permalink: "/014_show-and-tell-neural-image-caption-generator/"
+---
 # Show and Tell: A Neural Image Caption Generator
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/show-and-tell-a-neural-image-caption-generator)
 

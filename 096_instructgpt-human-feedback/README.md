@@ -1,3 +1,8 @@
+---
+title: "096 InstructGPT"
+nav_order: 97
+permalink: "/096_instructgpt-human-feedback/"
+---
 # Training Language Models to Follow Instructions with Human Feedback (InstructGPT)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/instructgpt-human-feedback)
 

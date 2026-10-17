@@ -1,3 +1,8 @@
+---
+title: "053 Dueling DQN"
+nav_order: 54
+permalink: "/053_dueling-network-architectures-for-deep-rl/"
+---
 # Dueling Network Architectures for Deep Reinforcement Learning
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dueling-network-architectures-for-deep-rl)
 

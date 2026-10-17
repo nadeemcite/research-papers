@@ -1,3 +1,8 @@
+---
+title: "061 AlphaZero"
+nav_order: 62
+permalink: "/061_alphazero-mastering-chess-and-shogi-by/"
+---
 # Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm (AlphaZero)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/alphazero-mastering-chess-and-shogi)
 

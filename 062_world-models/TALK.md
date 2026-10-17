@@ -1,3 +1,8 @@
+---
+title: "World Models: Talk & Q&A"
+parent: "062 World Models"
+nav_order: 2
+---
 # World Models — Press Coverage, Interviews, Misconceptions, Citations
 
 ## Verifiable Press & Blog Coverage

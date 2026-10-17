@@ -1,3 +1,8 @@
+---
+title: "093 DLRM"
+nav_order: 94
+permalink: "/093_deep-learning-recommendation-model-dlrm/"
+---
 # Deep Learning Recommendation Model (DLRM)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-learning-recommendation-model-dlrm)
 

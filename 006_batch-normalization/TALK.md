@@ -1,3 +1,8 @@
+---
+title: "BatchNorm: Talk & Q&A"
+parent: "006 BatchNorm"
+nav_order: 2
+---
 # Talking About Batch Normalization
 
 ## Verifiable press, blog, and community coverage

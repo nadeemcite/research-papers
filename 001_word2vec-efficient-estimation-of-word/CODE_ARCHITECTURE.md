@@ -1,3 +1,8 @@
+---
+title: "Word2Vec: Code architecture"
+parent: "001 Word2Vec"
+nav_order: 1
+---
 # Code Architecture — Word2Vec (Skip-gram + Negative Sampling)
 
 **Notebook:** `solution.ipynb`

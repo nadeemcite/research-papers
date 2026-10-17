@@ -1,3 +1,8 @@
+---
+title: "NAS: Talk & Q&A"
+parent: "047 NAS"
+nav_order: 2
+---
 # TALK.md — Neural Architecture Search with Reinforcement Learning
 
 ## Verifiable Press/Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "World Models: Code architecture"
+parent: "062 World Models"
+nav_order: 1
+---
 # Code Architecture — World Models
 
 This document describes the notebook structure, key functions/classes, data flow, and deliberate simplifications versus the original paper.

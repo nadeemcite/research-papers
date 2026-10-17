@@ -1,3 +1,8 @@
+---
+title: "EfficientNet: Code architecture"
+parent: "048 EfficientNet"
+nav_order: 1
+---
 # Code Architecture — EfficientNet Compound Scaling
 
 ## Overview

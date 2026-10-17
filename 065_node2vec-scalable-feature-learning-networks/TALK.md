@@ -1,3 +1,8 @@
+---
+title: "node2vec: Talk & Q&A"
+parent: "065 node2vec"
+nav_order: 2
+---
 # TALK — node2vec: Scalable Feature Learning for Networks
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "012 Bahdanau Attention"
+nav_order: 13
+permalink: "/012_neural-machine-translation-by-jointly-learning/"
+---
 # Neural Machine Translation by Jointly Learning to Align and Translate
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bahdanau-attention-neural-machine-translation)
 

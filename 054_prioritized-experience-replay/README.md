@@ -1,3 +1,8 @@
+---
+title: "054 Prioritized Replay"
+nav_order: 55
+permalink: "/054_prioritized-experience-replay/"
+---
 # Prioritized Experience Replay
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/prioritized-experience-replay)
 

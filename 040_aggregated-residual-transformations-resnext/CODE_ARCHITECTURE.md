@@ -1,3 +1,8 @@
+---
+title: "ResNeXt: Code architecture"
+parent: "040 ResNeXt"
+nav_order: 1
+---
 # ResNeXt — Notebook Architecture
 
 ## Goal

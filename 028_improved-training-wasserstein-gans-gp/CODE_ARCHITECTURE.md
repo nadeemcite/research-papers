@@ -1,3 +1,8 @@
+---
+title: "WGAN-GP: Code architecture"
+parent: "028 WGAN-GP"
+nav_order: 1
+---
 # Code Architecture — Improved Training of Wasserstein GANs (WGAN-GP) Notebook
 
 ## Overview

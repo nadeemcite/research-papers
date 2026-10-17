@@ -1,3 +1,8 @@
+---
+title: "Neural Style: Talk & Q&A"
+parent: "010 Neural Style"
+nav_order: 2
+---
 # A Neural Algorithm of Artistic Style — Talk / Press / Context
 
 ## Verifiable press and blog coverage

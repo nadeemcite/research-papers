@@ -1,3 +1,8 @@
+---
+title: "080 GPT-3"
+nav_order: 81
+permalink: "/080_language-models-few-shot-learners-gpt3/"
+---
 # Language Models are Few-Shot Learners (GPT-3)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/language-models-are-few-shot-learners-gpt-3)
 

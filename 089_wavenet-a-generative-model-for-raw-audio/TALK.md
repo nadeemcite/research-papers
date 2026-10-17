@@ -1,3 +1,8 @@
+---
+title: "WaveNet: Talk & Q&A"
+parent: "089 WaveNet"
+nav_order: 2
+---
 # TALK — WaveNet: A Generative Model for Raw Audio
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "MoCo: Talk & Q&A"
+parent: "071 MoCo"
+nav_order: 2
+---
 # TALK — Momentum Contrast (MoCo)
 
 ## Press / Blog Coverage

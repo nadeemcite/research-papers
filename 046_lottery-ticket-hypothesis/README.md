@@ -1,3 +1,8 @@
+---
+title: "046 Lottery Ticket"
+nav_order: 47
+permalink: "/046_lottery-ticket-hypothesis/"
+---
 # The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
 

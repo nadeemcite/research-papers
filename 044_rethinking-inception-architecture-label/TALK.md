@@ -1,3 +1,8 @@
+---
+title: "Inception-v3: Talk & Q&A"
+parent: "044 Inception-v3"
+nav_order: 2
+---
 # TALK.md — Rethinking the Inception Architecture (Label Smoothing)
 
 ## Press / Blog Coverage

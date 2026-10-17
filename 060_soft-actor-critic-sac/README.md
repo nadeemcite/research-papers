@@ -1,3 +1,8 @@
+---
+title: "060 SAC"
+nav_order: 61
+permalink: "/060_soft-actor-critic-sac/"
+---
 # Soft Actor-Critic (SAC): Off-Policy Maximum Entropy Deep RL with a Stochastic Actor
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/soft-actor-critic-sac)
 

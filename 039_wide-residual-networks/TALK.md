@@ -1,3 +1,8 @@
+---
+title: "Wide ResNet: Talk & Q&A"
+parent: "039 Wide ResNet"
+nav_order: 2
+---
 # Wide Residual Networks — Talks, Coverage, and Discussion
 
 ## Press / Blog Coverage

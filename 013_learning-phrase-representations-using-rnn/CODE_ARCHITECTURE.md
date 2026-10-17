@@ -1,3 +1,8 @@
+---
+title: "GRU Enc-Dec: Code architecture"
+parent: "013 GRU Enc-Dec"
+nav_order: 1
+---
 # Code Architecture — Learning Phrase Representations using RNN Encoder–Decoder (GRU)
 
 This notebook implements a **GRU cell from scratch** using raw matrix operations (no `nn.GRU`), builds both a GRU-based and a vanilla-RNN-based recurrent network, trains both on a sequence-memorisation task, and compares them by plotting gradient norms over time steps — directly demonstrating the GRU's advantage in preserving information over long sequences.

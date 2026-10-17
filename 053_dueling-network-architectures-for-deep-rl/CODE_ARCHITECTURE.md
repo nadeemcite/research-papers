@@ -1,3 +1,8 @@
+---
+title: "Dueling DQN: Code architecture"
+parent: "053 Dueling DQN"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Dueling Network Architectures for Deep Reinforcement Learning
 
 ## Overview

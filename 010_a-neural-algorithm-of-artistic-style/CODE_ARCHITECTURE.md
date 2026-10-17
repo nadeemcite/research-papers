@@ -1,3 +1,8 @@
+---
+title: "Neural Style: Code architecture"
+parent: "010 Neural Style"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Neural Style Transfer (Gatys et al.)
 
 ## Notebook goal

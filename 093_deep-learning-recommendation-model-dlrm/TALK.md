@@ -1,3 +1,8 @@
+---
+title: "DLRM: Talk & Q&A"
+parent: "093 DLRM"
+nav_order: 2
+---
 # TALK.md — Deep Learning Recommendation Model (DLRM)
 
 ## Press & Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "092 Wide & Deep"
+nav_order: 93
+permalink: "/092_wide-deep-learning-recommender-systems/"
+---
 # Wide & Deep Learning for Recommender Systems
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wide-deep-learning-for-recommender-systems)
 

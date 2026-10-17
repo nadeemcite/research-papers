@@ -1,3 +1,8 @@
+---
+title: "ResNet: Talk & Q&A"
+parent: "008 ResNet"
+nav_order: 2
+---
 # ResNet — Deep Residual Learning for Image Recognition — Talking points
 
 ## Verifiable press / blog coverage

@@ -1,3 +1,8 @@
+---
+title: "099 FlashAttention"
+nav_order: 100
+permalink: "/099_flashattention-fast-memory-efficient-exact-attention/"
+---
 # FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/flashattention-io-aware-exact-attention)
 

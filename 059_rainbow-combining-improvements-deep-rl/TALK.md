@@ -1,3 +1,8 @@
+---
+title: "Rainbow: Talk & Q&A"
+parent: "059 Rainbow"
+nav_order: 2
+---
 # TALK.md — Rainbow: Combining Improvements in Deep Reinforcement Learning
 
 ## Press / Blog Coverage

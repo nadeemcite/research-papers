@@ -1,3 +1,8 @@
+---
+title: "024 Conditional GAN"
+nav_order: 25
+permalink: "/024_conditional-generative-adversarial-nets/"
+---
 # Conditional Generative Adversarial Nets (CGAN)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
 

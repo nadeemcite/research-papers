@@ -1,3 +1,8 @@
+---
+title: "070 SimCLR"
+nav_order: 71
+permalink: "/070_simclr-contrastive-learning/"
+---
 # SimCLR: A Simple Framework for Contrastive Learning of Visual Representations
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/simclr-a-simple-framework-for-contrastive-learning)
 

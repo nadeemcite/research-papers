@@ -1,3 +1,8 @@
+---
+title: "040 ResNeXt"
+nav_order: 41
+permalink: "/040_aggregated-residual-transformations-resnext/"
+---
 # Aggregated Residual Transformations for Deep Neural Networks (ResNeXt)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnext-aggregated-residual-transformations)
 

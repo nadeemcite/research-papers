@@ -1,3 +1,8 @@
+---
+title: "052 Double DQN"
+nav_order: 53
+permalink: "/052_double-dqn/"
+---
 # Deep Reinforcement Learning with Double Q-learning
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/double-dqn-deep-reinforcement-learning)
 

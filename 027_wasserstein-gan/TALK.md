@@ -1,3 +1,8 @@
+---
+title: "WGAN: Talk & Q&A"
+parent: "027 WGAN"
+nav_order: 2
+---
 # TALK.md — Wasserstein GAN: Press, Interviews, and Citations
 
 ## Press / Blog Coverage

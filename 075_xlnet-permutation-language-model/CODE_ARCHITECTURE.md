@@ -1,3 +1,8 @@
+---
+title: "XLNet: Code architecture"
+parent: "075 XLNet"
+nav_order: 1
+---
 # Code Architecture — 075 XLNet
 
 ## Overview

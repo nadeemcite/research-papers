@@ -1,3 +1,8 @@
+---
+title: "YOLO: Code architecture"
+parent: "032 YOLO"
+nav_order: 1
+---
 # Code Architecture — YOLO Notebook
 
 ## Overview

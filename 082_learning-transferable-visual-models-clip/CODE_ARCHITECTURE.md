@@ -1,3 +1,8 @@
+---
+title: "CLIP: Code architecture"
+parent: "082 CLIP"
+nav_order: 1
+---
 # Code Architecture — CLIP (Contrastive Language–Image Pre-training)
 
 ## Overview

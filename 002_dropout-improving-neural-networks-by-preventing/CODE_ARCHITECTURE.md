@@ -1,3 +1,8 @@
+---
+title: "Dropout: Code architecture"
+parent: "002 Dropout"
+nav_order: 1
+---
 # Code Architecture — Dropout (MLP with/without Dropout on Fashion-MNIST)
 
 **Notebook:** `solution.ipynb`

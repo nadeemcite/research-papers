@@ -1,3 +1,8 @@
+---
+title: "069 CPC"
+nav_order: 70
+permalink: "/069_representation-learning-with-contrastive-predictive/"
+---
 # Representation Learning with Contrastive Predictive Coding (CPC)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/069-contrastive-predictive-coding)
 

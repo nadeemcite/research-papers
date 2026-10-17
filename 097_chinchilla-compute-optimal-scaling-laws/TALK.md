@@ -1,3 +1,8 @@
+---
+title: "Chinchilla: Talk & Q&A"
+parent: "097 Chinchilla"
+nav_order: 2
+---
 # TALK.md: Chinchilla Coverage, Q&A, and Citations
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "037 DenseNet"
+nav_order: 38
+permalink: "/037_densely-connected-convolutional-networks-densenet/"
+---
 # Densely Connected Convolutional Networks (DenseNet)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/densely-connected-convolutional-networks)
 

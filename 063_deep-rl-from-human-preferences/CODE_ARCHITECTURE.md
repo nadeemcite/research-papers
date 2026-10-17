@@ -1,3 +1,8 @@
+---
+title: "RLHF (Human Prefs): Code architecture"
+parent: "063 RLHF (Human Prefs)"
+nav_order: 1
+---
 # Code Architecture — Deep RL from Human Preferences
 
 ## Overview

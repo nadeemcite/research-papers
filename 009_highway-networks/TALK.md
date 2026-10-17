@@ -1,3 +1,8 @@
+---
+title: "Highway Nets: Talk & Q&A"
+parent: "009 Highway Nets"
+nav_order: 2
+---
 # Highway Networks — Talk / Context
 
 ## Verifiable coverage

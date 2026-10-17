@@ -1,3 +1,8 @@
+---
+title: "T5: Code architecture"
+parent: "079 T5"
+nav_order: 1
+---
 # Code Architecture — T5 (Text-to-Text Transfer Transformer)
 
 ## Overview

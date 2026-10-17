@@ -1,3 +1,8 @@
+---
+title: "Neural ODE: Talk & Q&A"
+parent: "064 Neural ODE"
+nav_order: 2
+---
 # TALK.md — Neural Ordinary Differential Equations
 
 ## Verifiable Press / Blog Coverage

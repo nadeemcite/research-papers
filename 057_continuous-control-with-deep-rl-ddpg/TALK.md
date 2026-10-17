@@ -1,3 +1,8 @@
+---
+title: "DDPG: Talk & Q&A"
+parent: "057 DDPG"
+nav_order: 2
+---
 # TALK.md — DDPG Coverage, Q&A, Misconceptions, Citations
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "036 SqueezeNet"
+nav_order: 37
+permalink: "/036_squeezenet/"
+---
 # SqueezeNet: AlexNet-level accuracy with 50× fewer parameters and <0.5 MB model size
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeezenet)
 

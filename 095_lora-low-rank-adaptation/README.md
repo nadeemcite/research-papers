@@ -1,3 +1,8 @@
+---
+title: "095 LoRA"
+nav_order: 96
+permalink: "/095_lora-low-rank-adaptation/"
+---
 # LoRA: Low-Rank Adaptation of Large Language Models
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lora-low-rank-adaptation)
 

@@ -1,3 +1,8 @@
+---
+title: "Wide & Deep: Code architecture"
+parent: "092 Wide & Deep"
+nav_order: 1
+---
 # Code Architecture — Wide & Deep Learning for Recommender Systems
 
 ## Notebook Structure

@@ -1,3 +1,8 @@
+---
+title: "VGGNet: Code architecture"
+parent: "004 VGGNet"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — VGGNet From Scratch
 
 ## What the notebook builds

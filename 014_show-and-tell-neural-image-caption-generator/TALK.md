@@ -1,3 +1,8 @@
+---
+title: "Show and Tell: Talk & Q&A"
+parent: "014 Show and Tell"
+nav_order: 2
+---
 # TALK — Show and Tell: A Neural Image Caption Generator
 
 ## Press / Blog / Verifiable Coverage

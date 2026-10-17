@@ -1,3 +1,8 @@
+---
+title: "InstructGPT: Code architecture"
+parent: "096 InstructGPT"
+nav_order: 1
+---
 # Code Architecture: InstructGPT Notebook
 
 ## Overview

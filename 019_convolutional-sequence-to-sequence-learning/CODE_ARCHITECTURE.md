@@ -1,3 +1,8 @@
+---
+title: "ConvS2S: Code architecture"
+parent: "019 ConvS2S"
+nav_order: 1
+---
 # Code Architecture — Convolutional Sequence to Sequence Learning Notebook
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "DQN: Code architecture"
+parent: "051 DQN"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — Playing Atari with Deep Reinforcement Learning (DQN)
 
 ## Overview

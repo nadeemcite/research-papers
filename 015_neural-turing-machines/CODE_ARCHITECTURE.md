@@ -1,3 +1,8 @@
+---
+title: "Neural Turing Mach: Code architecture"
+parent: "015 Neural Turing Mach"
+nav_order: 1
+---
 # Code Architecture — Neural Turing Machines Notebook
 
 ## Overview

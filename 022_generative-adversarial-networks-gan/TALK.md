@@ -1,3 +1,8 @@
+---
+title: "GAN: Talk & Q&A"
+parent: "022 GAN"
+nav_order: 2
+---
 # TALK.md — Generative Adversarial Networks (GAN)
 
 ## Press / Blog Coverage

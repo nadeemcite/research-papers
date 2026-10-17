@@ -1,3 +1,8 @@
+---
+title: "077 ALBERT"
+nav_order: 78
+permalink: "/077_albert-lite-bert/"
+---
 # 077 — ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/albert-a-lite-bert-for-self-supervised-learning)
 

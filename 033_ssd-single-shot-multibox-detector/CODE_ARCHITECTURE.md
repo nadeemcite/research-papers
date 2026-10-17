@@ -1,3 +1,8 @@
+---
+title: "SSD: Code architecture"
+parent: "033 SSD"
+nav_order: 1
+---
 # Code Architecture: SSD Notebook
 
 ## Overview

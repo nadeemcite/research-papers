@@ -1,3 +1,8 @@
+---
+title: "NCF: Code architecture"
+parent: "091 NCF"
+nav_order: 1
+---
 # Code Architecture — Neural Collaborative Filtering
 
 ## Notebook Structure

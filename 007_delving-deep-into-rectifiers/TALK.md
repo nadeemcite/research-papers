@@ -1,3 +1,8 @@
+---
+title: "He Init / PReLU: Talk & Q&A"
+parent: "007 He Init / PReLU"
+nav_order: 2
+---
 # TALK — Delving Deep into Rectifiers
 
 ## Verifiable press / blog coverage

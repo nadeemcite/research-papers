@@ -1,3 +1,8 @@
+---
+title: "U-Net: Code architecture"
+parent: "035 U-Net"
+nav_order: 1
+---
 # Code Architecture — U-Net Notebook
 
 ## Section-by-Section Breakdown

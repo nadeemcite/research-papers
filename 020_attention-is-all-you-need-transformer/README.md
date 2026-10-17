@@ -1,3 +1,8 @@
+---
+title: "020 Transformer"
+nav_order: 21
+permalink: "/020_attention-is-all-you-need-transformer/"
+---
 # Attention Is All You Need (Transformer)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/attention-is-all-you-need-transformer)
 

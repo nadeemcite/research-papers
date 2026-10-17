@@ -1,3 +1,8 @@
+---
+title: "Memory Networks: Talk & Q&A"
+parent: "016 Memory Networks"
+nav_order: 2
+---
 # TALK.md — Memory Networks: Coverage, Q&A, and Citations
 
 ## Press & Blog Coverage

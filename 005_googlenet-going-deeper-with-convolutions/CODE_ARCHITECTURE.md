@@ -1,3 +1,8 @@
+---
+title: "GoogLeNet: Code architecture"
+parent: "005 GoogLeNet"
+nav_order: 1
+---
 # CODE_ARCHITECTURE.md — GoogLeNet / Inception Module
 
 This notebook builds a **minimal but faithful Inception-style network** from scratch in PyTorch, then compares its parameter count against a plain CNN of similar depth.

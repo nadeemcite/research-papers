@@ -1,3 +1,8 @@
+---
+title: "InstructGPT: Talk & Q&A"
+parent: "096 InstructGPT"
+nav_order: 2
+---
 # TALK.md: InstructGPT Coverage, Q&A, and Citations
 
 ## Press / Blog Coverage

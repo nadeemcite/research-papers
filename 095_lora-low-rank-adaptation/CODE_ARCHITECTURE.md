@@ -1,3 +1,8 @@
+---
+title: "LoRA: Code architecture"
+parent: "095 LoRA"
+nav_order: 1
+---
 # Code Architecture: LoRA Notebook
 
 ## Overview

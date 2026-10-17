@@ -1,3 +1,8 @@
+---
+title: "CapsNet: Talk & Q&A"
+parent: "041 CapsNet"
+nav_order: 2
+---
 # Talks, Coverage & Discussion — Dynamic Routing Between Capsules
 
 ## Press & Blog Coverage

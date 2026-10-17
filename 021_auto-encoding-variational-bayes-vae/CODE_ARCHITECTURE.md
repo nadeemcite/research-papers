@@ -1,3 +1,8 @@
+---
+title: "VAE: Code architecture"
+parent: "021 VAE"
+nav_order: 1
+---
 # Code Architecture — Auto-Encoding Variational Bayes (VAE)
 
 ## Overview

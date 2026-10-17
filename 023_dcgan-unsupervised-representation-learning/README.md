@@ -1,3 +1,8 @@
+---
+title: "023 DCGAN"
+nav_order: 24
+permalink: "/023_dcgan-unsupervised-representation-learning/"
+---
 # DCGAN — Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dcgan-unsupervised-representation-learning)
 

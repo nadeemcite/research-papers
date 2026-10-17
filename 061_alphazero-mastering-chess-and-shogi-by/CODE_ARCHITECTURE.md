@@ -1,3 +1,8 @@
+---
+title: "AlphaZero: Code architecture"
+parent: "061 AlphaZero"
+nav_order: 1
+---
 # Code Architecture — AlphaZero Implementation
 
 This document describes the notebook structure, key functions/classes, data flow, and deliberate simplifications versus the original paper.

@@ -1,3 +1,8 @@
+---
+title: "051 DQN"
+nav_order: 52
+permalink: "/051_playing-atari-with-deep-reinforcement/"
+---
 # Playing Atari with Deep Reinforcement Learning (DQN)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/playing-atari-with-deep-reinforcement-learning)
 

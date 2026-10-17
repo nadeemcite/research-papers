@@ -1,3 +1,8 @@
+---
+title: "TRPO: Code architecture"
+parent: "056 TRPO"
+nav_order: 1
+---
 # Code Architecture — TRPO Notebook
 
 ## Section-by-Section Breakdown

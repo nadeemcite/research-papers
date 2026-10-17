@@ -1,3 +1,8 @@
+---
+title: "084 DDPM"
+nav_order: 85
+permalink: "/084_denoising-diffusion-probabilistic-models/"
+---
 # Denoising Diffusion Probabilistic Models (DDPM)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-probabilistic-models-ddpm)
 

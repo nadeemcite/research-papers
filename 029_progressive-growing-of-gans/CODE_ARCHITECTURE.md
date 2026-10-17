@@ -1,3 +1,8 @@
+---
+title: "ProGAN: Code architecture"
+parent: "029 ProGAN"
+nav_order: 1
+---
 # Code Architecture — Progressive Growing of GANs
 
 ## Overview

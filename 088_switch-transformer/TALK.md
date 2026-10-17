@@ -1,3 +1,8 @@
+---
+title: "Switch Transformer: Talk & Q&A"
+parent: "088 Switch Transformer"
+nav_order: 2
+---
 # TALK.md — Switch Transformer: Press, Coverage, and Q&A
 
 ## Verifiable Press/Blog Coverage

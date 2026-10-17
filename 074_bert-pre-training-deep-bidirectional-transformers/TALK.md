@@ -1,3 +1,8 @@
+---
+title: "BERT: Talk & Q&A"
+parent: "074 BERT"
+nav_order: 2
+---
 # TALK — 074 BERT
 
 ## Verifiable Press / Blog Coverage

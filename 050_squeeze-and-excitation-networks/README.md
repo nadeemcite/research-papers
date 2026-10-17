@@ -1,3 +1,8 @@
+---
+title: "050 SENet"
+nav_order: 51
+permalink: "/050_squeeze-and-excitation-networks/"
+---
 # Squeeze-and-Excitation Networks (SENet)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/squeeze-and-excitation-networks)
 

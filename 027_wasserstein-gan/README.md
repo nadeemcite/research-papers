@@ -1,3 +1,8 @@
+---
+title: "027 WGAN"
+nav_order: 28
+permalink: "/027_wasserstein-gan/"
+---
 # Wasserstein GAN (WGAN)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wasserstein-gan)
 

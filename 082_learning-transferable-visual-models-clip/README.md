@@ -1,3 +1,8 @@
+---
+title: "082 CLIP"
+nav_order: 83
+permalink: "/082_learning-transferable-visual-models-clip/"
+---
 # Learning Transferable Visual Models From Natural Language Supervision (CLIP)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/082-learning-transferable-visual-models-clip)
 

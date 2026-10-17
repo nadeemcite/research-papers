@@ -1,3 +1,8 @@
+---
+title: "Mask R-CNN: Talk & Q&A"
+parent: "034 Mask R-CNN"
+nav_order: 2
+---
 # Talks, Press, and Coverage — Mask R-CNN
 
 ## Press & Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "WGAN: Code architecture"
+parent: "027 WGAN"
+nav_order: 1
+---
 # Code Architecture — Wasserstein GAN Notebook
 
 ## Overview

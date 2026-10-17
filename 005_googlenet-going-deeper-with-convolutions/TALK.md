@@ -1,3 +1,8 @@
+---
+title: "GoogLeNet: Talk & Q&A"
+parent: "005 GoogLeNet"
+nav_order: 2
+---
 # TALK.md — GoogLeNet / Inception
 
 ## Verifiable press / blog / official coverage

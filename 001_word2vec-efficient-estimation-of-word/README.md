@@ -1,3 +1,8 @@
+---
+title: "001 Word2Vec"
+nav_order: 2
+permalink: "/001_word2vec-efficient-estimation-of-word/"
+---
 # Word2Vec — Efficient Estimation of Word Representations in Vector Space
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/word2vec-word-representations)
 

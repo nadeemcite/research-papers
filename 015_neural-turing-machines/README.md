@@ -1,3 +1,8 @@
+---
+title: "015 Neural Turing Mach"
+nav_order: 16
+permalink: "/015_neural-turing-machines/"
+---
 # Neural Turing Machines
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-turing-machines)
 

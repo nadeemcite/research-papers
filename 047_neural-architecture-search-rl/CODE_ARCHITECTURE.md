@@ -1,3 +1,8 @@
+---
+title: "NAS: Code architecture"
+parent: "047 NAS"
+nav_order: 1
+---
 # Code Architecture — Neural Architecture Search with RL
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "BatchNorm: Code architecture"
+parent: "006 BatchNorm"
+nav_order: 1
+---
 # Code Architecture — Batch Normalization Notebook
 
 This document breaks down how `solution.ipynb` implements Batch Normalization (BN) from scratch in NumPy, plugs it into a small MLP, and visualizes activation distributions with and without BN across training.

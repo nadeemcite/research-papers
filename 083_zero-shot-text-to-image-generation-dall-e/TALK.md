@@ -1,3 +1,8 @@
+---
+title: "DALL-E: Talk & Q&A"
+parent: "083 DALL-E"
+nav_order: 2
+---
 # TALK — DALL-E (Zero-Shot Text-to-Image Generation)
 
 ## Press / Blog Coverage

@@ -1,3 +1,8 @@
+---
+title: "BYOL: Talk & Q&A"
+parent: "072 BYOL"
+nav_order: 2
+---
 # TALK — Bootstrap Your Own Latent (BYOL)
 
 ## Press / Blog Coverage

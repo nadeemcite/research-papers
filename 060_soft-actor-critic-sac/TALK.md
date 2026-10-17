@@ -1,3 +1,8 @@
+---
+title: "SAC: Talk & Q&A"
+parent: "060 SAC"
+nav_order: 2
+---
 # TALK.md — Press, Coverage, and Discussion of Soft Actor-Critic
 
 ## Press & Blog Coverage (Verifiable)

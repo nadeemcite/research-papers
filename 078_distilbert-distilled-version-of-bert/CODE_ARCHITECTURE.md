@@ -1,3 +1,8 @@
+---
+title: "DistilBERT: Code architecture"
+parent: "078 DistilBERT"
+nav_order: 1
+---
 # Code Architecture — DistilBERT Knowledge Distillation Notebook
 
 ## Overview

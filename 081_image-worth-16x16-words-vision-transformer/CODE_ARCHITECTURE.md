@@ -1,3 +1,8 @@
+---
+title: "ViT: Code architecture"
+parent: "081 ViT"
+nav_order: 1
+---
 # Code Architecture: Vision Transformer (ViT) from Scratch
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "019 ConvS2S"
+nav_order: 20
+permalink: "/019_convolutional-sequence-to-sequence-learning/"
+---
 # Convolutional Sequence to Sequence Learning
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/convolutional-sequence-to-sequence-learning)
 

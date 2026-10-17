@@ -1,3 +1,8 @@
+---
+title: "pix2pix: Code architecture"
+parent: "025 pix2pix"
+nav_order: 1
+---
 # Code Architecture — Pix2Pix (Image-to-Image Translation with Conditional Adversarial Networks)
 
 ## Notebook Structure

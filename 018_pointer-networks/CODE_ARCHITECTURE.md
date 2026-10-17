@@ -1,3 +1,8 @@
+---
+title: "Pointer Networks: Code architecture"
+parent: "018 Pointer Networks"
+nav_order: 1
+---
 # Code Architecture — Pointer Networks Notebook
 
 ## Overview

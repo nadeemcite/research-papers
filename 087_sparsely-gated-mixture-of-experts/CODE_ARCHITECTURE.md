@@ -1,3 +1,8 @@
+---
+title: "Sparse MoE: Code architecture"
+parent: "087 Sparse MoE"
+nav_order: 1
+---
 # Code Architecture — Sparsely-Gated Mixture-of-Experts
 
 ## Overview

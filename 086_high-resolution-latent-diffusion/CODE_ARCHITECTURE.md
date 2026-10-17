@@ -1,3 +1,8 @@
+---
+title: "Latent Diffusion: Code architecture"
+parent: "086 Latent Diffusion"
+nav_order: 1
+---
 # Code Architecture — Latent Diffusion Models (LDM)
 
 ## Overview

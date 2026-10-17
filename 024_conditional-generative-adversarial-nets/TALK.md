@@ -1,3 +1,8 @@
+---
+title: "Conditional GAN: Talk & Q&A"
+parent: "024 Conditional GAN"
+nav_order: 2
+---
 # TALK.md — Conditional Generative Adversarial Nets (CGAN)
 
 ## Press / Blog Coverage

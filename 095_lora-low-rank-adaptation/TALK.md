@@ -1,3 +1,8 @@
+---
+title: "LoRA: Talk & Q&A"
+parent: "095 LoRA"
+nav_order: 2
+---
 # TALK.md: LoRA Coverage, Q&A, and Citations
 
 ## Press / Blog Coverage

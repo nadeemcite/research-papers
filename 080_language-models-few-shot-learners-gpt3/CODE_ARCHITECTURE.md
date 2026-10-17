@@ -1,3 +1,8 @@
+---
+title: "GPT-3: Code architecture"
+parent: "080 GPT-3"
+nav_order: 1
+---
 # Code Architecture — GPT-3: Language Models are Few-Shot Learners
 
 ## Overview

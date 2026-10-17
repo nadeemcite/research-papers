@@ -1,3 +1,8 @@
+---
+title: "Tacotron: Code architecture"
+parent: "090 Tacotron"
+nav_order: 1
+---
 # Code Architecture — Tacotron: End-to-End Speech Synthesis
 
 ## Notebook Structure

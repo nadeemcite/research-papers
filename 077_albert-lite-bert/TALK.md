@@ -1,3 +1,8 @@
+---
+title: "ALBERT: Talk & Q&A"
+parent: "077 ALBERT"
+nav_order: 2
+---
 # TALK — 077 ALBERT
 
 ## Verifiable Press / Blog Coverage

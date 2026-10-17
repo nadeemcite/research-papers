@@ -1,3 +1,8 @@
+---
+title: "097 Chinchilla"
+nav_order: 98
+permalink: "/097_chinchilla-compute-optimal-scaling-laws/"
+---
 # Training Compute-Optimal Large Language Models (Chinchilla)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/chinchilla-compute-optimal-scaling-laws)
 

@@ -1,3 +1,8 @@
+---
+title: "013 GRU Enc-Dec"
+nav_order: 14
+permalink: "/013_learning-phrase-representations-using-rnn/"
+---
 # Learning Phrase Representations using RNN Encoder–Decoder (GRU)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/gru-from-scratch-cho-2014)
 

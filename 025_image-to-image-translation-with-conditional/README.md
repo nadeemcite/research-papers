@@ -1,3 +1,8 @@
+---
+title: "025 pix2pix"
+nav_order: 26
+permalink: "/025_image-to-image-translation-with-conditional/"
+---
 # Image-to-Image Translation with Conditional Adversarial Networks (Pix2Pix)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pix2pix-image-to-image-translation)
 

@@ -1,3 +1,8 @@
+---
+title: "009 Highway Nets"
+nav_order: 10
+permalink: "/009_highway-networks/"
+---
 # Highway Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/highway-networks)
 

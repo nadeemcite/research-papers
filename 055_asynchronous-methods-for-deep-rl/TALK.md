@@ -1,3 +1,8 @@
+---
+title: "A3C: Talk & Q&A"
+parent: "055 A3C"
+nav_order: 2
+---
 # TALK.md — Asynchronous Methods for Deep Reinforcement Learning (A3C)
 
 ## Press / Blog Coverage

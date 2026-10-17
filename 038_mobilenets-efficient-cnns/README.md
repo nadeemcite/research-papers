@@ -1,3 +1,8 @@
+---
+title: "038 MobileNets"
+nav_order: 39
+permalink: "/038_mobilenets-efficient-cnns/"
+---
 # MobileNets: Efficient CNNs for Mobile Vision
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/mobilenets-efficient-cnns-for-mobile-vision)
 

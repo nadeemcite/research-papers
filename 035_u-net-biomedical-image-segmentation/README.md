@@ -1,3 +1,8 @@
+---
+title: "035 U-Net"
+nav_order: 36
+permalink: "/035_u-net-biomedical-image-segmentation/"
+---
 # U-Net: Convolutional Networks for Biomedical Image Segmentation
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/u-net-biomedical-image-segmentation)
 

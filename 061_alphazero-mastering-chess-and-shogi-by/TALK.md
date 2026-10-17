@@ -1,3 +1,8 @@
+---
+title: "AlphaZero: Talk & Q&A"
+parent: "061 AlphaZero"
+nav_order: 2
+---
 # AlphaZero — Press Coverage, Interviews, Misconceptions, Citations
 
 ## Verifiable Press & Blog Coverage

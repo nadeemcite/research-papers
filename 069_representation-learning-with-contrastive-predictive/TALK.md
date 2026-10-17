@@ -1,3 +1,8 @@
+---
+title: "CPC: Talk & Q&A"
+parent: "069 CPC"
+nav_order: 2
+---
 # TALK — Coverage, Q&A, Misconceptions, and Citations
 
 ## Press / Blog Coverage (Verified)

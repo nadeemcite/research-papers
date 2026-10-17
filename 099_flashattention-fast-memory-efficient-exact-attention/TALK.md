@@ -1,3 +1,8 @@
+---
+title: "FlashAttention: Talk & Q&A"
+parent: "099 FlashAttention"
+nav_order: 2
+---
 # TALK.md — FlashAttention: Press, Q&A, and Misconceptions
 
 ## Press & Blog Coverage

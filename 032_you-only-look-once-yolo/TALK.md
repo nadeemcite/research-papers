@@ -1,3 +1,8 @@
+---
+title: "YOLO: Talk & Q&A"
+parent: "032 YOLO"
+nav_order: 2
+---
 # TALK — You Only Look Once (YOLO)
 
 ## Press / Blog Coverage

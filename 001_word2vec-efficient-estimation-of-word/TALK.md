@@ -1,3 +1,8 @@
+---
+title: "Word2Vec: Talk & Q&A"
+parent: "001 Word2Vec"
+nav_order: 2
+---
 # TALK.md — Word2Vec: Context, Discussion, and Interview Material
 
 **Paper:** [Efficient Estimation of Word Representations in Vector Space (arXiv:1301.3781)](https://arxiv.org/abs/1301.3781)

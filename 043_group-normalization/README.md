@@ -1,3 +1,8 @@
+---
+title: "043 GroupNorm"
+nav_order: 44
+permalink: "/043_group-normalization/"
+---
 # Group Normalization
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/group-normalization)
 

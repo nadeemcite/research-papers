@@ -1,3 +1,8 @@
+---
+title: "ELMo: Code architecture"
+parent: "073 ELMo"
+nav_order: 1
+---
 # Code Architecture — ELMo (073)
 
 ## Overview

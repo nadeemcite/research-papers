@@ -1,3 +1,8 @@
+---
+title: "BERT: Code architecture"
+parent: "074 BERT"
+nav_order: 1
+---
 # Code Architecture — 074 BERT
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "045 Distillation"
+nav_order: 46
+permalink: "/045_distilling-knowledge-in-a-neural-network/"
+---
 # Distilling the Knowledge in a Neural Network
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilling-the-knowledge-in-a-neural-network)
 

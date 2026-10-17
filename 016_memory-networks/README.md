@@ -1,3 +1,8 @@
+---
+title: "016 Memory Networks"
+nav_order: 17
+permalink: "/016_memory-networks/"
+---
 # Memory Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/memory-networks)
 

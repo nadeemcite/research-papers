@@ -1,3 +1,8 @@
+---
+title: "075 XLNet"
+nav_order: 76
+permalink: "/075_xlnet-permutation-language-model/"
+---
 # 075 — XLNet: Generalized Autoregressive Pretraining for Language Understanding
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/xlnet-generalized-autoregressive-pretraining)
 
