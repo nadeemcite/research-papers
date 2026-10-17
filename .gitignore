@@ -10,3 +10,7 @@ kernel-metadata.json
 
 # macOS Finder metadata
 .DS_Store
+
+# Local AI tool config
+.claude/
+.serena/
