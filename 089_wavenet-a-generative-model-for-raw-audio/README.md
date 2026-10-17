@@ -6,16 +6,15 @@ permalink: "/089_wavenet-a-generative-model-for-raw-audio/"
 # WaveNet: A Generative Model for Raw Audio
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
 
-
-**Paper:** [WaveNet: A Generative Model for Raw Audio](https://arxiv.org/abs/1609.03499)
-**Authors:** Aaron van den Oord, Sander Dieleman, Heiga Zen, Karen Simonyan, Oriol Vinyals, Alex Graves, Nal Kalchbrenner, Andrew Senior, Koray Kavukcuoglu (Google DeepMind, 2016)
-
+- **Paper:** [WaveNet: A Generative Model for Raw Audio](https://arxiv.org/abs/1609.03499)
+- **Authors:** Aaron van den Oord, Sander Dieleman, Heiga Zen, Karen Simonyan, Oriol Vinyals, Alex Graves, Nal Kalchbrenner, Andrew Senior, Koray Kavukcuoglu
+- **Lab, year:** Google DeepMind, 2016
 
 ## Summary
 
 WaveNet is a fully probabilistic, autoregressive deep neural network that generates raw audio waveforms directly — sample by sample. Instead of relying on traditional signal-processing pipelines (parametric or concatenative TTS), WaveNet models the joint probability of an audio waveform as a product of conditional distributions: p(x) = prod p(x_t | x_1, ..., x_{t-1}). The key architectural innovation is the use of **dilated causal convolutions**: stacked convolutional layers with exponentially increasing dilation factors (1, 2, 4, 8, ...) that give the network a very large receptive field without requiring many parameters or recurrent connections. Each layer uses **gated activation units** (tanh * sigmoid) instead of standard ReLUs, and the network employs both **residual and skip connections** to enable training of deep stacks. Audio samples are quantized to 256 categorical values using **mu-law companding**, making the output a softmax classification problem at each timestep. When applied to text-to-speech, WaveNet achieved state-of-the-art performance rated significantly more natural than existing systems by human listeners. A single model could also capture multiple speakers' voices and generate realistic musical fragments.
 
-## What problem does it solve
+## What Problem Does It Solve
 
 Imagine you have a robot friend that can only talk in a flat, robotic voice — like the old GPS navigation systems. It doesn't sound like a real person at all. The problem WaveNet solves is: **how do we make a computer generate speech (or music) that sounds genuinely natural and human-like?**
 
@@ -41,13 +40,9 @@ Think of audio as a very long line of tiny numbers — like 16,000 numbers for j
 
 WaveNet revolutionized audio generation and directly influenced subsequent architectures including SampleRNN, Parallel WaveNet (distillation-based parallel sampling), WaveGlow, and the entire lineage of neural vocoders. Its dilated convolution pattern was adopted in domains beyond audio (e.g., time series forecasting). The paper has been cited thousands of times and was a key milestone in DeepMind's audio/speech research program. The core idea of autoregressive generation over discretized samples also connects to later work in image generation (PixelCNN lineage) and video prediction.
 
-**arXiv:** https://arxiv.org/abs/1609.03499
-
 ---
 
 ## Resources
-
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
 
 | File | Description |
 |------|-------------|
