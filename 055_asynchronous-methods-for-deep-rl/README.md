@@ -1,10 +1,11 @@
 # Asynchronous Methods for Deep Reinforcement Learning (A3C)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/asynchronous-methods-for-deep-rl)
+
 
 **Paper:** Mnih, V., Puigdomènech Badia, A., Mirza, M., Graves, A., Lillicrap, T. P., Harley, T., Silver, D., & Kavukcuoglu, K. (2016). *Asynchronous Methods for Deep Reinforcement Learning.* ICML 2016. arXiv:1602.01783.
 
 **arXiv:** https://arxiv.org/abs/1602.01783
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/asynchronous-methods-for-deep-rl)
 
 ## Summary
 
@@ -88,6 +89,15 @@ We implement a **single-process synchronous version** that faithfully captures t
 - **AlphaGo lineage**: the asynchronous framework influenced DeepMind's distributed training architectures for AlphaGo and AlphaZero
 - **Democratization**: showed that deep RL could train on a single CPU without GPU, making RL accessible to a much broader audience
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1602.01783
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/asynchronous-methods-for-deep-rl)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

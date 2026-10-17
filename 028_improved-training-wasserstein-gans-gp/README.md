@@ -1,10 +1,11 @@
 # Improved Training of Wasserstein GANs (WGAN-GP)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/improved-training-of-wasserstein-gans-wgan-gp)
+
 
 **Paper:** [Improved Training of Wasserstein GANs](https://arxiv.org/abs/1704.00028)
 **Authors:** Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, Aaron Courville
 **Year:** 2017 (NeurIPS 2017)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/improved-training-wasserstein-gans-gp)
 
 ## Summary
 
@@ -53,6 +54,15 @@ WGAN-GP fixes this by letting the robot use its full vocabulary (no weight limit
 
 WGAN-GP became the **default training method for GANs** for several years, widely adopted in both research and industry. It was published at NeurIPS 2017 and has been cited over 8,000 times. The gradient penalty approach directly inspired subsequent Lipschitz enforcement methods, including **spectral normalization** (Miyato et al., 2018), which became the standard for SNGAN and many BigGAN variants. WGAN-GP loss is used as a key component in BigGAN, Progressive GAN, and numerous conditional GAN architectures. The paper's key insight — that enforcing smoothness via input-space gradients is better than constraining parameter space — influenced the broader study of regularization in generative models and the analysis of Lipschitz continuity in deep learning.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1704.00028
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/improved-training-of-wasserstein-gans-wgan-gp)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

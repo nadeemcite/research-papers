@@ -1,9 +1,10 @@
 # Tacotron: Towards End-to-End Speech Synthesis
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/tacotron-towards-end-to-end-speech-synthesis)
+
 
 **Paper:** [Tacotron: Towards End-to-End Speech Synthesis](https://arxiv.org/abs/1703.10135)
 **Authors:** Yuxuan Wang, RJ Skerry-Ryan, Daisy Stanton, Yonghui Wu, Ron J. Weiss, Navdeep Jaitly, Zongheng Yang, Ying Xiao, Zhifeng Chen, Samy Bengio, Quoc Le, Yannis Agiomyrgiannakis, Rob Clark, Rif A. Saurous (Google, 2017)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/tacotron-towards-end-to-end-speech-synthesis)
 
 ## Summary
 
@@ -37,3 +38,16 @@ Imagine you type a sentence on your phone and want it read aloud in a natural-so
 Tacotron established the end-to-end neural TTS paradigm and spawned a direct lineage of influential models: Tacotron 2 (2017, combined with WaveNet vocoder for near-human quality), the Google TTS production system, and the broader family of attention-based spectrogram prediction models (Deep Voice 3, Transformer TTS, FastSpeech). The CBHG module, attention-based alignment for speech, and the character-to-spectrogram framework became standard building blocks in TTS research. The paper has been cited thousands of times and was a foundational milestone in making neural TTS practical. Demo page: https://google.github.io/tacotron/
 
 **arXiv:** https://arxiv.org/abs/1703.10135
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/tacotron-towards-end-to-end-speech-synthesis)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

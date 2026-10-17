@@ -1,8 +1,9 @@
 # Training Compute-Optimal Large Language Models (Chinchilla)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/chinchilla-compute-optimal-scaling-laws)
+
 
 **arXiv:** [2203.15556](https://arxiv.org/abs/2203.15556) | **Authors:** Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor Cai, Eliza Rutherford, Diego de Las Casas, Lisa Anne Hendricks, Johannes Welbl, Aidan Clark, Tom Hennigan, Eric Noland, Katie Millican, George van den Driessche, Bogdan Damoc, Aurelia Guy, Simon Osindero, Karen Simonyan, Erich Elsen, Jack W. Rae, Oriol Vinyals, Laurent Sifre (DeepMind) | **Year:** 2022
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/chinchilla-compute-optimal-scaling-laws)
 
 ## Summary
 
@@ -45,3 +46,16 @@ This paper figured out the *perfect recipe*: for every dollar you spend on a big
 ## Influence
 
 The Chinchilla paper is one of the most impactful LLM papers of the 2020s. It directly changed how every major AI lab trains models: LLaMA (Meta), Falcon (TII), GPT-4 (OpenAI), and Mistral all adopted the Chinchilla scaling ratio of ~20 tokens per parameter. The Kaplan scaling laws (which advised scaling parameters 9× faster than data) were effectively retired. The paper also had massive implications for data collection — if you need 20× more tokens than parameters, then a 70B model needs 1.4T tokens, which drove the race for high-quality training data (RefinedWeb, FineWeb, etc.). The parametric loss formula L(N,D) = E + A/N^α + B/D^β became the standard scaling-law fitting framework used in subsequent work (Llama-2, Llama-3, and Chinchilla-derived scaling laws for compute-optimal training).
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/chinchilla-compute-optimal-scaling-laws)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

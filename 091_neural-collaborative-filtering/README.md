@@ -1,11 +1,12 @@
 # Neural Collaborative Filtering
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-collaborative-filtering)
+
 
 **Paper:** [Neural Collaborative Filtering](https://arxiv.org/abs/1708.05031)  
 **Authors:** Xiangnan He, Lizi Liao, Hanwang Zhang, Liqiang Nie, Xia Hu, Tat-Seng Chua  
 **Venue:** WWW 2017 (The Web Conference 2017)  
 **Year:** 2017  
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-collaborative-filtering)
 
 ## Summary
 
@@ -39,6 +40,15 @@ NCF became one of the most cited papers in recommender systems, with thousands o
 - **Pre-training:** NeuMF benefits from pre-training the GMF and MLP models separately, then initializing the fused model with those weights.
 - **Evaluation:** Leave-one-out evaluation — the last interacted item is held out for each user; Hit Ratio@10 and NDCG@10 are reported.
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1708.05031
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-collaborative-filtering)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

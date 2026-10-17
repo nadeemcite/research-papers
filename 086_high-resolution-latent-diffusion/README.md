@@ -1,10 +1,11 @@
 # High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/latent-diffusion-models)
+
 
 **Paper:** Rombach, Blattmann, Lorenz, Esser, & Ommer (2022) — [arXiv:2112.10752](https://arxiv.org/abs/2112.10752) | CVPR 2022
 
 Latent Diffusion Models (LDMs) move the diffusion process out of high-dimensional pixel space and into a compressed latent space learned by a pretrained autoencoder. A standard DDPM-style U-Net denoiser then operates on this much smaller latent representation, dramatically cutting both training and inference cost while preserving visual fidelity. The paper also introduces cross-attention layers into the U-Net, enabling conditioning on text, class labels, and spatial layouts — the architectural foundation that became Stable Diffusion. By choosing a modest downsampling factor (f=4 or f=8), the autoencoder retains enough spatial detail for high-fidelity reconstruction while reducing the dimensionality the diffusion model must learn by a factor of 8–64×.
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/high-resolution-latent-diffusion)
 
 ## What problem does it solve?
 
@@ -25,3 +26,16 @@ Imagine you want to paint a giant mural on a wall, but instead of painting direc
 ## Influence
 
 This paper is the direct foundation of Stable Diffusion, one of the most impactful open-source AI releases in history. The latent diffusion approach democratized high-quality image generation — making it feasible to train and run text-to-image models on consumer GPUs. With thousands of citations, it spawned an entire ecosystem: Stable Diffusion 1.x/2.x/3, ControlNet, DreamBooth, LoRA fine-tuning, and countless downstream applications in art, design, and content creation. The CompVis/latent-diffusion GitHub repository became one of the most starred ML projects ever. The paper was published at CVPR 2022 and its authors (Rombach, Blattmann) later joined Stability AI to build Stable Diffusion.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/latent-diffusion-models)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

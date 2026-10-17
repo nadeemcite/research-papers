@@ -1,4 +1,6 @@
 # StyleGAN — A Style-Based Generator Architecture for Generative Adversarial Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/stylegan)
+
 
 **Paper:** Karras, T., Laine, S., & Aila, T. (2019). *A Style-Based Generator Architecture for Generative Adversarial Networks.* CVPR 2019. [arXiv:1812.04948](https://arxiv.org/abs/1812.04948)
 
@@ -6,7 +8,6 @@
 
 **Citations:** 13,576+ (Semantic Scholar), 2,115 influential citations
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/style-based-generator-architecture-gans-stylegan)
 
 ---
 
@@ -38,13 +39,16 @@ Imagine you have a magic art robot that draws pictures of faces. The old way wor
 
 StyleGAN became one of the most influential GAN papers ever, with 13,500+ citations. It spawned StyleGAN2 (2019), StyleGAN3 (2021), and powered widely viral applications like "This Person Does Not Exist." NVIDIA released the FFHQ dataset and pre-trained models publicly. The intermediate latent space 𝒲 concept became foundational for GAN inversion, editing, and controllable generation research.
 
+
 ---
 
-## Files
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/stylegan)
 
 | File | Description |
 |------|-------------|
-| `solution.ipynb` | Jupyter notebook implementing a small StyleGAN with mapping network, AdaIN style injection, noise inputs, and style-mixing visualization |
-| `README.md` | This file |
-| `CODE_ARCHITECTURE.md` | Section-by-section notebook architecture breakdown |
-| `TALK.md` | Press coverage, interview Q&A, citations, misconceptions |
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

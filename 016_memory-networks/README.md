@@ -1,7 +1,8 @@
 # Memory Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/memory-networks)
+
 
 **Paper:** Weston, J., Chopra, S., & Bordes, A. (2014). Memory Networks. arXiv:1410.3916 [cs.AI].  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/memory-networks)
 **Link:** https://arxiv.org/abs/1410.3916  
 **Authors:** Jason Weston, Sumit Chopra, Antoine Bordes (Facebook AI Research)  
 **Published:** 15 October 2014 (v1); 29 November 2015 (v11)
@@ -20,5 +21,15 @@ Imagine you're reading a little story to a child: "Joe went to the kitchen. Joe 
 
 Memory Networks were one of the foundational papers in the "neural memory" line of research, alongside Neural Turing Machines (Graves et al., 2014, submitted to arXiv the same week). The explicit memory + attention retrieval paradigm directly inspired End-to-End Memory Networks (Sukhbaatar et al., 2015), which removed the need for supervised memory labels, and the key-value memory networks used in modern QA systems. The multi-hop reasoning pattern — iteratively retrieving and combining evidence — became a central idea in reasoning architectures and can be seen as a precursor to the attention mechanisms in Transformers. The bAbI QA dataset introduced alongside this work became a standard benchmark for reasoning in neural models.
 
-## arXiv Link
-https://arxiv.org/abs/1410.3916
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/memory-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

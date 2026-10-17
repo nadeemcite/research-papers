@@ -1,11 +1,12 @@
 # Pointer Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pointer-networks)
+
 
 ## Summary
 
 Pointer Networks, introduced by Oriol Vinyals, Meire Fortunato, and Navdeep Jaitly at Google and the University of California, Merced in 2015, propose a neural architecture that learns the conditional probability of an output sequence whose elements are discrete positions (indices) in the input sequence. The key innovation is repurposing the attention mechanism as a *pointer*: instead of using attention to blend encoder hidden states into a context vector (as in standard seq2seq with attention), the attention distribution directly selects an element of the input sequence as the output at each decoding step. This elegantly solves a fundamental limitation of sequence-to-sequence models — the output dictionary size is tied to the input length, which varies per example. Traditional seq2seq networks have a fixed output vocabulary and cannot handle problems where the set of possible outputs changes with each input. The paper demonstrates Pointer Networks on three combinatorial optimization problems: computing planar convex hulls, Delaunay triangulations, and the planar Travelling Salesman Problem (TSP), showing that the model trained purely on example input-output pairs can learn approximate solutions and generalize beyond the maximum input lengths seen during training. Published at NeurIPS 2015 (Advances in Neural Information Processing Systems 28).
 
 **arXiv link:** https://arxiv.org/abs/1506.03134
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pointer-networks)
 
 ## Core Idea
 
@@ -31,3 +32,16 @@ Pointer Networks introduced the concept of attention-as-pointer, which became fo
 ## What Problem Does It Solve
 
 Imagine you have a bunch of dots scattered on a piece of paper, and you need to draw a fence around just the outer dots — the ones on the edge — so that all the other dots are inside the fence. This is called finding the "convex hull." The answer is a list of which dots (by their position in your original list) form that fence. If you gave this problem to a regular AI that's good at translating languages, it would fail — because translation AIs pick words from a fixed dictionary, but here the "answer words" are actually just the numbers 1 through N (whichever dots you started with), and N changes every time you get a new set of dots. If you have 5 dots, the answer uses numbers 1-5. If you have 50 dots, the answer uses numbers 1-50. A regular AI can't handle a dictionary that keeps changing size. Pointer Networks fix this by using the AI's "attention" like a finger pointing at the dots — instead of looking up a word in a dictionary, the AI simply points at the dot it thinks should be next on the fence. The number of things it can point to is always exactly the number of dots you gave it, no matter how many there are. It's like a teacher calling on students by pointing at them rather than reading from a fixed name list — the pointing works no matter how many students are in the class.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pointer-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

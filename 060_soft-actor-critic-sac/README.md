@@ -1,8 +1,9 @@
 # Soft Actor-Critic (SAC): Off-Policy Maximum Entropy Deep RL with a Stochastic Actor
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/soft-actor-critic-sac)
+
 
 **arXiv:** [https://arxiv.org/abs/1801.01290](https://arxiv.org/abs/1801.01290)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/soft-actor-critic-sac)
 
 ## Summary
 
@@ -53,3 +54,16 @@ SAC has become one of the most widely used and recommended algorithms for contin
 - Network sizes are small (2-layer MLPs with 256 units) to keep training within Kaggle GPU time limits.
 - Episodes are capped at 200 steps; training runs for ~50,000 environment steps.
 - No rendering or video logging; metrics are plotted as static charts.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/soft-actor-critic-sac)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

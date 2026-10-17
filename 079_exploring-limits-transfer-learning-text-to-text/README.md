@@ -1,8 +1,9 @@
 # Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/exploring-transfer-learning-t5)
+
 
 **arXiv:** [1910.10683](https://arxiv.org/abs/1910.10683) | **Authors:** Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, Peter J. Liu | **Year:** 2019
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/exploring-limits-transfer-learning-t5)
 
 ## Summary
 
@@ -31,3 +32,16 @@ T5 says: "What if we just have **one** machine that always works the same way? Y
 ## Influence
 
 T5 became one of the most influential NLP papers of the modern era. The text-to-text paradigm directly inspired the design of instruction-tuned models (FLAN, T0, Tk-Instruct) and is conceptually ancestral to the prompt-based interface of modern LLMs like GPT-3.5/4. The C4 dataset is still widely used for pre-training. The Hugging Face `t5` model family (t5-small through t5-11b) is among the most downloaded models on the Hub. T5 has been cited over 20,000 times and was published in JMLR (2020). Google's subsequent models — mT5 (multilingual), ByT5 (byte-level), Flan-T5 (instruction-tuned) — all build on the same foundation.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/exploring-transfer-learning-t5)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

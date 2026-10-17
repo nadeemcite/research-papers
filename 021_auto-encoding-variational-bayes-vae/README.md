@@ -1,4 +1,6 @@
 # Auto-Encoding Variational Bayes (VAE)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/auto-encoding-variational-bayes-vae)
+
 
 ## Summary
 
@@ -45,3 +47,16 @@ The paper has been cited over 59,000 times on Google Scholar, making it one of t
 Imagine you have a big box of photographs and you want a computer to learn what makes a photo look like a face, a dog, or a sunset — without anyone labeling the photos. The computer needs to discover the "hidden ingredients" (like shape, color, lighting) that combine to produce each image. The problem is that figuring out these hidden ingredients from a photo is incredibly hard mathematically — the equations are so complex that nobody can solve them directly, and the traditional method (guessing and checking millions of times per photo) is way too slow.
 
 This paper found a clever shortcut. Instead of trying to solve the impossible equation, they taught a neural network to **approximate** the answer — like teaching a student to sketch a rough but useful summary instead of demanding a perfect copy. The genius move was the **reparameterization trick**: they figured out how to separate the randomness from the learning, so the computer could learn by standard backpropagation (the same technique that powers all deep learning). This made it fast enough to work on huge datasets, and the result was the Variational Auto-Encoder — a model that can not only understand images by compressing them into a compact code, but also **generate** entirely new images by sampling from that learned code space. It's like learning the recipe for a cake so well that you can bake brand-new cakes that never existed before.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/auto-encoding-variational-bayes-vae)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

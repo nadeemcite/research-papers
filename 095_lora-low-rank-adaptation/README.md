@@ -1,8 +1,9 @@
 # LoRA: Low-Rank Adaptation of Large Language Models
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lora-low-rank-adaptation)
+
 
 **arXiv:** [2106.09685](https://arxiv.org/abs/2106.09685) | **Authors:** Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen (Microsoft Corporation) | **Year:** 2021
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/095_lora-low-rank-adaptation)
 
 ## Summary
 
@@ -34,3 +35,16 @@ LoRA solves this by saying: "What if we don't retrain the whole robot? What if w
 ## Influence
 
 LoRA has become one of the most widely adopted techniques in modern AI. It is the backbone of the HuggingFace PEFT (Parameter-Efficient Fine-Tuning) library, is used for fine-tuning Stable Diffusion models (Civitai hosts thousands of LoRA adapters), and is standard practice for customizing open-weight LLMs (Llama, Mistral, etc.) on consumer hardware. The paper has been cited thousands of times and spawned variants like QLoRA (quantized LoRA), LoRA+, and DoRA. It democratized LLM fine-tuning by making it possible on single GPUs with limited memory.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lora-low-rank-adaptation)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

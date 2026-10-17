@@ -1,10 +1,11 @@
 # Conditional Generative Adversarial Nets (CGAN)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
+
 
 **Paper:** Mirza, M. & Osindero, S. (2014). *Conditional Generative Adversarial Nets.* arXiv:1411.1784.
 
 **arXiv:** https://arxiv.org/abs/1411.1784
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
 
 ## Summary
 
@@ -55,6 +56,15 @@ We simplify the architecture to standard MLPs with LeakyReLU (instead of maxout)
 - **Key insight**: The conditioning principle — feeding labels into both generator and discriminator — became the universal mechanism for controlled generation across all generative frameworks, not just GANs
 - **Multi-modal learning**: The paper's second experiment (image tagging on MIR Flickr) foreshadowed multi-modal AI, connecting image features to word embeddings via adversarial training
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1411.1784
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,7 +1,8 @@
 # Aggregated Residual Transformations for Deep Neural Networks (ResNeXt)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnext-aggregated-residual-transformations)
+
 
 **arXiv:** [https://arxiv.org/abs/1611.05431](https://arxiv.org/abs/1611.05431)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/aggregated-residual-transformations-resnext)
 
 **Authors:** Saining Xie, Ross Girshick, Piotr Dollár, Zhuowen Tu, Kaiming He (UC San Diego / Facebook AI Research)
 **Published:** CVPR 2017
@@ -25,3 +26,16 @@ Think of it like cooking. One master chef doing everything will be limited by ho
 ## Influence
 
 ResNeXt is one of the most influential CNN architectures. The concept of cardinality and grouped convolutions for accuracy (not just efficiency) directly influenced EfficientNet's compound scaling, SE-Net's channel attention, and modern architectures that use multi-branch designs. ResNeXt-50 and ResNeXt-101 are standard backbones in torchvision and are widely used for detection (Mask R-CNN), segmentation, and transfer learning. The paper has been cited over 10,000 times and is a staple in computer vision courses. The split-transform-merge paradigm it formalized became a guiding principle for subsequent architecture design.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnext-aggregated-residual-transformations)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

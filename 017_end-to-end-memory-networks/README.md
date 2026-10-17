@@ -1,4 +1,6 @@
 # End-To-End Memory Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/end-to-end-memory-networks)
+
 
 **Paper:** Sukhbaatar, S., Szlam, A., Weston, J., & Fergus, R. (2015). End-To-End Memory Networks. arXiv:1503.08895 [cs.NE].  
 **Link:** https://arxiv.org/abs/1503.08895  
@@ -19,5 +21,15 @@ Imagine you're reading a detective story: "The thief went to the kitchen. He pic
 
 End-to-End Memory Networks was a landmark paper that bridged the gap between supervised memory networks and fully trainable attention models. Its key contribution — differentiable soft attention over an external memory bank with multiple hops — became a foundational building block for subsequent reasoning architectures. The multi-hop attention pattern directly influenced key-value memory networks (Miller et al., 2016), dynamic memory networks (Kumar et al., 2016), and can be seen as a conceptual precursor to the multi-layer attention mechanisms in Transformers (Vaswani et al., 2017). The paper's bAbI results demonstrated that end-to-end training could nearly match strongly supervised models, validating the soft attention paradigm. The open-source release (github.com/facebook/MemNN) made MemN2N one of the most reproduced and studied architectures of its era.
 
-## arXiv Link
-https://arxiv.org/abs/1503.08895
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/end-to-end-memory-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

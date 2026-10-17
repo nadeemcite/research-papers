@@ -1,10 +1,11 @@
 # 074 — BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bert-pre-training-deep-bidirectional-transformers)
+
 
 **Paper:** Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019.
 
 **arXiv:** https://arxiv.org/abs/1810.04805
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bert-pre-training-of-deep-bidirectional-transforme)
 
 ---
 
@@ -35,3 +36,16 @@ With over 130,000 citations, BERT is one of the most influential papers in NLP h
 Imagine you're reading a fill-in-the-blank test: "The cat sat on the ___ because it was tired." To figure out that the blank is "mat" or "floor," you need to read both the words before AND after the blank. But older AI systems could only read left-to-right — like reading with a blindfold on your right eye. They'd see "The cat sat on the" but couldn't peek ahead at "because it was tired" to confirm their guess.
 
 BERT fixes this by reading the whole sentence at once — both directions at the same time, like how you actually read. It randomly covers up some words and tries to guess them using ALL the surrounding words, not just the ones to the left. This makes BERT much better at truly understanding language, which means it can then be quickly taught to do tons of different tasks — like figuring out if a review is positive or negative, answering questions about a passage, or figuring out if two sentences mean the same thing — just by adding a small "answer button" on top and showing it a few examples. Before BERT, each of these tasks needed its own specially-designed system from scratch.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bert-pre-training-deep-bidirectional-transformers)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

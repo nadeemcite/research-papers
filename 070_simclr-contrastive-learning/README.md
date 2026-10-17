@@ -1,10 +1,11 @@
 # SimCLR: A Simple Framework for Contrastive Learning of Visual Representations
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/simclr-a-simple-framework-for-contrastive-learning)
+
 
 **arXiv:** [https://arxiv.org/abs/2002.05709](https://arxiv.org/abs/2002.05709)
 
 **Authors:** Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton (Google Research)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/simclr-a-simple-framework-for-contrastive-learning)
 
 ## Summary
 
@@ -31,3 +32,16 @@ Imagine you have a giant box of photos but no labels — you don't know what's i
 ## Influence
 
 SimCLR became one of the most influential self-supervised learning papers. It was presented at ICML 2020 and has been cited thousands of times. It directly inspired follow-up works like SimCLRv2 (Chen et al., 2020), BYOL (Grill et al., 2020), and helped establish contrastive learning as a dominant paradigm in self-supervised visual representation learning. The framework's simplicity (no memory bank, no specialized architecture) made it widely adoptable. The official Google Research blog post "Advancing Self-Supervised and Semi-Supervised Learning with SimCLR" (April 2020) provides an accessible overview.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/simclr-a-simple-framework-for-contrastive-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

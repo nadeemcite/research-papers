@@ -1,10 +1,11 @@
 # 076 — RoBERTa: A Robustly Optimized BERT Pretraining Approach
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/roberta-robustly-optimized-bert-pretraining)
+
 
 **Paper:** Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., Levy, O., Lewis, M., Zettlemoyer, L., & Stoyanov, V. (2019). *RoBERTa: A Robustly Optimized BERT Pretraining Approach*. arXiv:1907.11692.
 
 **arXiv:** https://arxiv.org/abs/1907.11692
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/roberta-robustly-optimized-bert-pretraining)
 
 ---
 
@@ -35,3 +36,16 @@ Imagine you have a great recipe for chocolate chip cookies, but when you bake th
 That's exactly what RoBERTa did with BERT. BERT was a brilliant AI model for understanding language, like a super-smart reader that could fill in blanks and answer questions. But the researchers who made BERT didn't tune the training process very carefully — they used a small batch size (like baking only 6 cookies at a time instead of 50), they used the same hidden-word puzzles over and over (like doing the same crossword puzzle every day instead of new ones), and they added a "does this sentence come next?" game that actually distracted the model.
 
 RoBERTa said: "Let's keep BERT's brain exactly the same, but change how we teach it." They gave it fresh puzzles every time (dynamic masking), removed the distracting sentence game (no NSP), taught it in bigger groups (larger batches), and gave it way more books to read (bigger dataset). The result? RoBERTa beat every other language AI that came after BERT — without changing a single thing about BERT's architecture. It proved that BERT wasn't outdated; it was just undertrained.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/roberta-robustly-optimized-bert-pretraining)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

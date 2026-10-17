@@ -1,9 +1,10 @@
 # Distilling the Knowledge in a Neural Network
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilling-the-knowledge-in-a-neural-network)
+
 
 **Paper:** Hinton, Vinyals, Dean (2015). *Distilling the Knowledge in a Neural Network.* arXiv:1503.02531
 **Link:** https://arxiv.org/abs/1503.02531
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilling-knowledge-in-a-neural-network)
 
 ## Summary
 
@@ -34,4 +35,17 @@ By turning up the "temperature" on the master's judgments, you make these subtle
 
 ## Kaggle
 
-[Open in Kaggle](https://www.kaggle.com/code/nadymsazad/distilling-knowledge-in-a-neural-network)
+[Open in Kaggle](https://www.kaggle.com/code/nadymsazad/distilling-the-knowledge-in-a-neural-network)
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilling-the-knowledge-in-a-neural-network)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

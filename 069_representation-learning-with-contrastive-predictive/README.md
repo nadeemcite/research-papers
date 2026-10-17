@@ -1,10 +1,11 @@
 # Representation Learning with Contrastive Predictive Coding (CPC)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/069-contrastive-predictive-coding)
+
 
 **Paper:** van den Oord, A., Li, Y., & Vinyals, O. (2018). *Representation Learning with Contrastive Predictive Coding.* arXiv:1807.03748  
 **arXiv:** https://arxiv.org/abs/1807.03748  
 **Citations:** 6,300+ (as of 2024, per OpenAlex)  
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/069-contrastive-predictive-coding)
 
 ---
 
@@ -37,3 +38,16 @@ Here's the trick: instead of trying to predict the exact next sound or pixel (wh
 ## Influence
 
 CPC introduced the **InfoNCE loss**, which became one of the most influential losses in modern self-supervised learning. It directly inspired SimCLR (2020), MoCo (2020), CLIP (2021), and many other contrastive methods that now dominate self-supervised representation learning. The idea of "predict future in latent space, contrast against negatives" became a foundational paradigm. The paper has 6,300+ citations and is considered a landmark in unsupervised representation learning.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/069-contrastive-predictive-coding)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,8 +1,9 @@
 # Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/088-switch-transformer)
+
 
 **Paper:** Fedus, Zoph, Shazeer (2021) — JMLR
 **arXiv:** [2101.03961](https://arxiv.org/abs/2101.03961)
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/088_switch-transformer)
 
 ## Summary
 
@@ -39,3 +40,16 @@ The Switch Transformer does something smarter: it has a **supervisor** (the rout
 - Small vocabulary (~1000 tokens) and 4–8 experts (vs. 128 in the paper).
 - Compares Switch Transformer (top-1 routing) vs. dense Transformer FFN on training speed and parameter efficiency.
 - Single GPU/CPU implementation — no distributed all-to-all communication.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/088-switch-transformer)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

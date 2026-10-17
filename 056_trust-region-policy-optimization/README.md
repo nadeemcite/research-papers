@@ -1,10 +1,11 @@
 # Trust Region Policy Optimization (TRPO)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/trust-region-policy-optimization-trpo)
+
 
 **Paper:** [Trust Region Policy Optimization](https://arxiv.org/abs/1502.05477)  
 **Authors:** John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel  
 **Published:** ICML 2015 (arXiv: 1502.05477, submitted Feb 2015)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/trust-region-policy-optimization)
 
 ## Summary
 
@@ -26,3 +27,16 @@ TRPO solves this by putting a **speed limit** on how much the robot's strategy c
 ## Influence
 
 TRPO is one of the most influential papers in deep reinforcement learning. It directly inspired **PPO (Proximal Policy Optimization)** (Schulman et al., 2017), which simplifies TRPO's constrained update into a clipped surrogate objective and has become the default RL algorithm in both research and industry (e.g., OpenAI's usage, ChatGPT's RLHF training). The trust-region concept — limiting policy changes per update — is now a standard principle in policy-gradient methods. TRPO also popularized the use of conjugate gradient methods and Fisher information in deep RL, and the GAE advantage estimator (introduced in a companion paper by the same first author) became ubiquitous.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/trust-region-policy-optimization-trpo)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,10 +1,11 @@
 # Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sparsely-gated-mixture-of-experts-layer)
+
 
 **arXiv:** [1701.06538](https://arxiv.org/abs/1701.06538) (January 2017)
 
 **Authors:** Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, Jeff Dean (Google Brain)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sparsely-gated-mixture-of-experts-layer)
 
 ## Summary
 
@@ -43,3 +44,16 @@ This paper is one of the foundational works behind modern large language models.
 - **DeepSeek-MoE** and many modern LLM architectures that use sparse expert routing
 
 The paper has been cited 2,500+ times and is considered the breakthrough that made conditional computation practical at scale.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sparsely-gated-mixture-of-experts-layer)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,10 +1,11 @@
 # CycleGAN: Unpaired Image-to-Image Translation
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/cyclegan-unpaired-image-to-image-translation)
+
 
 **Paper:** [Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks](https://arxiv.org/abs/1703.10593)
 **Authors:** Jun-Yan Zhu, Taesung Park, Phillip Isola, Alexei A. Efros
 **Year:** 2017 (ICCV 2017)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/cyclegan-unpaired-image-translation)
 
 ## Summary
 
@@ -34,3 +35,16 @@ Imagine you have a bunch of photos of horses and a separate bunch of photos of z
 ## Influence
 
 CycleGAN is one of the most influential papers in image-to-image translation, cited 25,000+ times. It spawned a line of research including UNIT, MUNIT, DRIT, and extensions to multi-domain translation (StarGAN). It remains widely used for artistic style transfer, domain adaptation, and data augmentation.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/cyclegan-unpaired-image-to-image-translation)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

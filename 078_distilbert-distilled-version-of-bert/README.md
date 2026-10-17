@@ -1,10 +1,11 @@
 # DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilbert-a-distilled-version-of-bert)
+
 
 **Paper:** [arXiv:1910.01108](https://arxiv.org/abs/1910.01108)
 **Authors:** Victor Sanh, Lysandre Debut, Julien Chaumond, Thomas Wolf (HuggingFace)
 **Published:** October 2019 (last revised March 2020)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/078-distilbert-distilled-version-of-bert)
 
 ## Summary
 
@@ -29,3 +30,16 @@ Imagine you have a really smart teacher who knows everything about English — b
 ## Influence
 
 DistilBERT is one of the most widely used compressed language models in production. It is a core part of the HuggingFace `transformers` library and has been downloaded hundreds of millions of times. It demonstrated that pre-training distillation is viable and inspired a line of work on efficient transformer variants (TinyBERT, MobileBERT, etc.). The model is commonly deployed for on-device and edge NLP applications where latency and memory matter.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilbert-a-distilled-version-of-bert)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

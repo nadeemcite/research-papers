@@ -1,10 +1,11 @@
 # Continuous Control with Deep Reinforcement Learning (DDPG)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/continuous-control-deep-rl-ddpg)
+
 
 **Paper:** [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)  
 **Authors:** Timothy P. Lillicrap, Jonathan J. Hunt, Alexander Pritzel, Nicolas Heess, Tom Erez, Yuval Tassa, David Silver, Daan Wierstra  
 **Published:** arXiv:1509.02971 (submitted Sep 2015, ICLR 2016)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/continuous-control-deep-rl-ddpg)
 
 ## Summary
 
@@ -27,3 +28,16 @@ DDPG solves this by combining two ideas: (1) a "judge" (critic) that learns how 
 ## Influence
 
 DDPG became one of the most widely-used deep RL algorithms for continuous control. It established the actor-critic-with-replay-and-target-networks paradigm that underpins most modern off-policy continuous control methods. Its direct successors include **TD3** (Fujimoto et al., 2018), which addresses Q-value overestimation with twin critics and delayed policy updates, and **SAC** (Haarnoja et al., 2018), which adds entropy maximisation. These three algorithms (DDPG, TD3, SAC) remain the standard baselines for continuous control benchmarks such as MuJoCo, DeepMind Control Suite, and Gym's robotics environments. The paper also demonstrated that deep RL could solve diverse tasks with a single set of hyper-parameters, a key insight for the field's scalability.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/continuous-control-deep-rl-ddpg)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

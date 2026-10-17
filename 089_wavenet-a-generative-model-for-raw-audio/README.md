@@ -1,9 +1,10 @@
 # WaveNet: A Generative Model for Raw Audio
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
+
 
 **Paper:** [WaveNet: A Generative Model for Raw Audio](https://arxiv.org/abs/1609.03499)
 **Authors:** Aaron van den Oord, Sander Dieleman, Heiga Zen, Karen Simonyan, Oriol Vinyals, Alex Graves, Nal Kalchbrenner, Andrew Senior, Koray Kavukcuoglu (Google DeepMind, 2016)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
 
 ## Summary
 
@@ -36,3 +37,16 @@ Think of audio as a very long line of tiny numbers — like 16,000 numbers for j
 WaveNet revolutionized audio generation and directly influenced subsequent architectures including SampleRNN, Parallel WaveNet (distillation-based parallel sampling), WaveGlow, and the entire lineage of neural vocoders. Its dilated convolution pattern was adopted in domains beyond audio (e.g., time series forecasting). The paper has been cited thousands of times and was a key milestone in DeepMind's audio/speech research program. The core idea of autoregressive generation over discretized samples also connects to later work in image generation (PixelCNN lineage) and video prediction.
 
 **arXiv:** https://arxiv.org/abs/1609.03499
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

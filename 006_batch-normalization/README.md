@@ -1,8 +1,9 @@
 # Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/batch-normalization)
+
 
 **Authors:** Sergey Ioffe, Christian Szegedy  
 **arXiv:** [1502.03167](https://arxiv.org/abs/1502.03167)  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/batch-normalization)
 **Published:** 11 Feb 2015 (revised 2 Mar 2015)
 
 Batch Normalization (BN) is a method that normalizes the inputs of every layer in a deep neural network so that, for each mini-batch during training, the activations have mean 0 and variance 1 before they enter the nonlinearity. Ioffe and Szegedy introduced BN to fight *internal covariate shift* — the phenomenon where the distribution of each layer’s inputs keeps changing as the parameters of all earlier layers are updated. By making normalization part of the network architecture and backpropagating through the mini-batch statistics, BN lets optimizers use much larger learning rates, relaxes the need for careful initialization, and often removes the need for Dropout. In their ImageNet experiments, a batch-normalized Inception variant reached the baseline accuracy with 14× fewer training steps and ultimately set a new state of the art (4.9% top-5 validation error with an ensemble).
@@ -35,3 +36,16 @@ Imagine you are learning to bake cookies with a friend who keeps secretly changi
 ## Influence
 
 Batch Normalization became a near-universal building block in deep learning. ResNets, DenseNets, MobileNets, EfficientNets, Transformers, and nearly every modern vision or language model use some form of normalization. The paper is one of the most cited in machine learning (over 47,000 citations on Semantic Scholar) and helped make very deep networks trainable without hand-crafted initialization tricks. It also spurred a family of successors — Layer Normalization, Instance Normalization, Group Normalization, and Switchable Normalization — each adapting the same moment-normalization idea to different data layouts and batch constraints.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/batch-normalization)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

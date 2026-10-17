@@ -1,7 +1,8 @@
 # Neural Turing Machines
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-turing-machines)
+
 
 **Paper:** Graves, A., Wayne, G., & Danihelka, I. (2014). Neural Turing Machines. arXiv:1410.5401 [cs.NE].  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-turing-machines)
 **Link:** https://arxiv.org/abs/1410.5401  
 **Authors:** Alex Graves, Greg Wayne, Ivo Danihelka (Google DeepMind, London)  
 **Published:** 20 October 2014 (v1); 10 December 2014 (v2)
@@ -32,3 +33,16 @@ A Neural Turing Machine is like giving that person a notepad (the memory) and a 
 ## Influence
 
 NTMs are foundational to the entire family of memory-augmented neural networks. They directly inspired Differentiable Neural Computers (DNCs, Graves et al. 2016), Memory Networks (Weston et al. 2014), End-to-End Memory Networks (Sukhbaatar et al. 2015), and the broader programme of neural architectures with external memory. The differentiable read/write paradigm influenced attention mechanisms in transformers (which can be viewed as performing content-based addressing over a "memory" of key-value pairs). The paper has been cited thousands of times (2000+ on Google Scholar) and is considered a landmark in combining neural networks with algorithmic/programmatic computation.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/neural-turing-machines)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

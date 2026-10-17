@@ -1,10 +1,11 @@
 # Prioritized Experience Replay
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/prioritized-experience-replay)
+
 
 **Paper:** [Prioritized Experience Replay (Schaul et al., 2016)](https://arxiv.org/abs/1511.05952)
 **Authors:** Tom Schaul, John Quan, Ioannis Antonoglou, David Silver
 **Year:** 2016 (ICLR 2016)
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/prioritized-experience-replay)
 
 ## Summary
 
@@ -41,3 +42,16 @@ Prioritized Experience Replay is like sorting the flashcards so that the ones yo
 ## Influence
 
 Prioritized Experience Replay is one of the most widely adopted improvements in deep RL. It is a standard component in modern RL libraries (OpenAI Baselines, Stable Baselines3, Ray RLlib) and is used in combination with most DQN-derived algorithms. The paper has been cited 5,000+ times and the sum-tree data structure has become a textbook example of efficient priority sampling. The idea of prioritizing learning by surprise/error has also influenced curriculum learning, hard negative mining, and active learning in supervised settings.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/prioritized-experience-replay)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

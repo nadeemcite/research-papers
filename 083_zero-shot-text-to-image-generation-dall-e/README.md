@@ -1,4 +1,6 @@
 # Zero-Shot Text-to-Image Generation (DALL-E)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
+
 
 **arXiv:** https://arxiv.org/abs/2102.12092
 
@@ -45,4 +47,17 @@ DALL-E was a landmark paper that kicked off the text-to-image generation revolut
 - **Mainstream AI art movement:** DALL-E's release in January 2021 (alongside CLIP) is widely considered the beginning of the AI-generated art era
 - **Architecture influence:** The idea of tokenizing images and modeling them autoregressively influenced subsequent work like Parti, CM3leon, and unified multimodal models
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/083_zero-shot-text-to-image-generation-dall-e)
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

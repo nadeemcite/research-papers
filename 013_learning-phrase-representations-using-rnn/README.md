@@ -1,8 +1,9 @@
 # Learning Phrase Representations using RNN Encoder–Decoder (GRU)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/gru-from-scratch-cho-2014)
+
 
 **Authors:** Kyunghyun Cho, Bart van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, Yoshua Bengio  
 **Published:** EMNLP 2014 (arXiv: 3 Jun 2014, last revised 3 Sep 2014)  
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/gru-from-scratch-cho-2014)
 **arXiv:** https://arxiv.org/abs/1406.1078
 
 ## Summary
@@ -40,3 +41,16 @@ Imagine you're trying to memorise a phone number someone just told you. If it's 
 The GRU fixes this by giving the network two little "decision-makers" called **gates**. One gate (the *update gate*) acts like a bouncer at a club — it decides "should I keep the old memory or replace it with something new?" The other gate (the *reset gate*) acts like an eraser — it decides "when I'm thinking about what comes next, should I ignore the old stuff and start fresh?" With these two gates, the GRU can hold onto important information for a long time and forget unimportant stuff quickly — just like how *you* might repeat the first few digits of that phone number to yourself while listening to the rest.
 
 This paper also paired the GRU with an **encoder–decoder** setup: one network "reads" a sentence in English and turns it into a compact summary, and another network "writes" the French translation from that summary. This was a big deal in 2014 because it showed neural networks could help translate languages better than traditional systems that relied on hand-crafted rules.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/gru-from-scratch-cho-2014)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,6 +1,6 @@
 # You Only Look Once: Unified, Real-Time Object Detection (YOLO)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/you-only-look-once-yolo)
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/code/nadymsazad/you-only-look-once-yolo)
 
 **arXiv:** [1506.02640](https://arxiv.org/abs/1506.02640) | **Authors:** Joseph Redmon, Santosh Divvala, Ross Girshick, Ali Farhadi (2015)
 
@@ -41,3 +41,16 @@ Imagine you're looking at a photo of a busy street and you need to quickly point
 ## Influence
 
 YOLO revolutionized object detection by demonstrating that a single neural network could achieve real-time detection speed. It spawned an entire family of models (YOLOv2/YOLO9000, YOLOv3, YOLOv4, YOLOv5, YOLOv8, YOLOv10, YOLO11) that remain among the most widely used detectors in both research and industry. The original YOLO paper has been cited 40,000+ times and is one of the most influential computer vision papers of the 2010s. Its framing of detection as a regression problem influenced single-stage detectors like SSD and RetinaNet.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/you-only-look-once-yolo)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

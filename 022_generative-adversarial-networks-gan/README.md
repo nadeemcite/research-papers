@@ -1,4 +1,6 @@
 # Generative Adversarial Networks (GAN)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/generative-adversarial-networks-gan)
+
 
 **Paper:** Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., & Bengio, Y. (2014). *Generative Adversarial Nets.* arXiv:1406.2661. Published at NIPS 2014.
 
@@ -71,6 +73,15 @@ Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
 - **Cultural impact**: GAN-generated art sold at Christie's for $432,500 (2018); thispersondoesnotexist.com (based on StyleGAN) became a viral sensation
 - **NIPS 2014**: Presented at the Conference on Neural Information Processing Systems (NIPS 2014, now NeurIPS)
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1406.2661
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/generative-adversarial-networks-gan)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

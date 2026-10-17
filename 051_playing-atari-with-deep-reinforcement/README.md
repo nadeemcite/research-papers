@@ -1,10 +1,11 @@
 # Playing Atari with Deep Reinforcement Learning (DQN)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/playing-atari-with-deep-reinforcement-learning)
+
 
 **Paper:** Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). *Playing Atari with Deep Reinforcement Learning.* arXiv:1312.5602. NIPS Deep Learning Workshop 2013.
 
 **arXiv:** https://arxiv.org/abs/1312.5602
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/playing-atari-with-deep-reinforcement)
 
 ## Summary
 
@@ -88,6 +89,15 @@ We implement DQN on **CartPole-v1** (a classic control task with 4-dimensional s
 - **Industry impact**: Demonstrated that deep RL could learn complex control from raw sensory input, inspiring applications in robotics, autonomous driving, game AI, and recommendation systems
 - **NIPS 2013**: Presented at the NIPS Deep Learning Workshop, 2013
 
-## arXiv Link
+---
 
-https://arxiv.org/abs/1312.5602
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/playing-atari-with-deep-reinforcement-learning)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

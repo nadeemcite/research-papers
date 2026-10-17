@@ -1,10 +1,11 @@
 # MobileNets: Efficient CNNs for Mobile Vision
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/mobilenets-efficient-cnns-for-mobile-vision)
+
 
 **Paper:** [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
 **Authors:** Andrew G. Howard, Menglong Zhu, Bo Chen, Dmitry Kalenichenko, Weijun Wang, Tobias Weyand, Marco Andreetto, Hartwig Adam (Google Inc.)
 **Published:** April 2017
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/mobilenets-efficient-cnns)
 
 ## Summary
 
@@ -34,3 +35,16 @@ Imagine you want to use a smartphone app that instantly recognizes what's in a p
 ## Influence
 
 MobileNets became one of the most cited efficient architecture papers (20,000+ citations). It directly influenced MobileNetV2 (with inverted residuals and linear bottlenecks), MobileNetV3 (with neural architecture search), and the broader trend of efficient model design for edge deployment. The depthwise separable convolution pattern was adopted in ShuffleNet, EfficientNet, and numerous production mobile AI systems. The width/resolution multiplier concept became a standard technique for model scaling.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/mobilenets-efficient-cnns-for-mobile-vision)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

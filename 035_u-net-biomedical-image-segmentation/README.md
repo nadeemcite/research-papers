@@ -1,6 +1,6 @@
 # U-Net: Convolutional Networks for Biomedical Image Segmentation
-
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/u-net-biomedical-image-segmentation)
+
 
 ## Summary
 
@@ -44,3 +44,16 @@ U-Net is one of the most cited papers in computer vision history, with over **10
 - Used in satellite imagery, autonomous driving, agriculture, and materials science
 
 The paper won the ISBI 2012 EM segmentation challenge with a significant margin and the ISBI 2015 cell tracking challenge.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/u-net-biomedical-image-segmentation)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

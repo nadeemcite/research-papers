@@ -1,9 +1,10 @@
 # Dynamic Routing Between Capsules
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dynamic-routing-between-capsules)
+
 
 **Authors:** Sara Sabour, Nicholas Frosst, Geoffrey E. Hinton (Google Brain, Toronto)
 **arXiv:** [1710.09829](https://arxiv.org/abs/1710.09829) — Submitted 26 Oct 2017
 
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dynamic-routing-between-capsules)
 
 ## Summary
 
@@ -32,3 +33,16 @@ Imagine you're looking at a picture of a **face**. A regular CNN looks at the pi
 This paper fixes that by using **capsules** — tiny groups of neurons that output a *vector* (an arrow) instead of a single number. The arrow's **length** tells you "how sure" the capsule is that something exists, and the arrow's **direction** tells you *where and how* it's positioned (tilted, thick, thin, etc.). The capsules also talk to each other through a system called **routing-by-agreement**: lower-level capsules (that detect simple parts like eyes or nose-strokes) "vote" for higher-level capsules (that represent the whole face), and the votes go to whichever higher-level capsule the prediction matches best. It's like a team of detectives each making a guess about what the overall picture shows, and they all pool their evidence toward the detective whose theory best matches everyone's clues.
 
 The result? A network that's better at understanding the *relationships between parts*, can recognize overlapping digits (like two numbers drawn on top of each other), and is more robust to rotations and shifts. It's like the difference between recognizing a face by just checking off a list of features versus understanding how those features fit together.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dynamic-routing-between-capsules)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,10 +1,11 @@
 # 075 — XLNet: Generalized Autoregressive Pretraining for Language Understanding
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/xlnet-generalized-autoregressive-pretraining)
+
 
 **Paper:** Yang, Z., Dai, Z., Yang, Y., Carbonell, J., Salakhutdinov, R., & Le, Q. V. (2020). *XLNet: Generalized Autoregressive Pretraining for Language Understanding*. NeurIPS 2019.
 
 **arXiv:** https://arxiv.org/abs/1906.08237
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/xlnet-generalized-autoregressive-pretraining)
 
 ---
 
@@ -39,3 +40,16 @@ Older AI had two ways to learn language, and both had a weakness:
 - **Method 2 (BERT style):** Look at all the words at once — but it covers up some words with a special "[MASK]" sticker during training. Problem: at test time there's no mask sticker, so the AI gets confused because training and testing look different.
 
 XLNet is clever: it reads words in **random order** — sometimes predicting "weather" first, then "umbrella," then "today," and so on. By mixing up the order, over many rounds it naturally sees words from BOTH sides without needing any mask sticker. It's like solving a jigsaw puzzle by placing pieces in any order — eventually you see the whole picture. This gives XLNet the best of both worlds: it understands context from all directions (like BERT) but never needs fake mask tokens (like GPT), so there's no training-testing mismatch.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/xlnet-generalized-autoregressive-pretraining)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

@@ -1,10 +1,11 @@
 # Sequence to Sequence Learning with Neural Networks
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
+
 
 **Paper:** Sequence to Sequence Learning with Neural Networks  
 **Authors:** Ilya Sutskever, Oriol Vinyals, Quoc V. Le  
 **Venue:** Advances in Neural Information Processing Systems (NeurIPS), 2014  
 **arXiv:** https://arxiv.org/abs/1409.3215
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
 
 ## One-paragraph summary
 
@@ -31,3 +32,16 @@ The seq2seq architecture became the dominant neural approach to machine translat
 ## What problem does it solve
 
 Imagine you want to turn the English sentence "the cat sat on the mat" into French. Older neural networks were like a calculator that only accepts numbers of a fixed length: you could not feed them a sentence of, say, six words today and eight words tomorrow. This paper solves that mismatch by treating the sentence as a stream of tokens: one LSTM reads the whole English stream and summarizes it as a "thought vector"; a second LSTM unrolls that thought vector into French words, one at a time, until it decides it is done. A real-life everyday analogy is dictating a voice message to a friend in your language and getting a typed translation in theirs—the model has to understand a whole variable-length utterance and produce a different variable-length utterance, not just classify a fixed form.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

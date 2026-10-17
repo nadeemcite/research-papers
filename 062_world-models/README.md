@@ -1,4 +1,6 @@
 # World Models
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/world-models)
+
 
 **Paper:** Ha, D. & Schmidhuber, J. (2018). *World Models*. arXiv:1803.10122.  
 **Authors:** David Ha (Google Brain Tokyo), Jürgen Schmidhuber (NNAISENSE / IDSIA)  
@@ -30,3 +32,16 @@ Imagine you're learning to drive a car for the first time. The real world is ove
 This paper says: what if you first built a **mental model** of the road in your head — a little simulation of how the world works — and then practiced driving *inside your imagination* instead of on the real road? You could try things a thousand times faster, make mistakes safely, and when you finally drive the real car, your brain already knows what to do.
 
 That's exactly what World Models does for an AI agent. It has three parts: (1) a **Vision** module that compresses what it sees into a small summary, (2) a **Memory** module that predicts what happens next based on past experience, and (3) a tiny **Controller** that decides what action to take. The agent first watches the real world to learn its vision and memory, then closes its eyes and practices inside its own dream. When it wakes up, the controller works on the real thing. This is how humans instinctively predict a baseball's path and swing before consciously thinking — your internal model does the work.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/world-models)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

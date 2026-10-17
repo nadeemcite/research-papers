@@ -1,4 +1,6 @@
 # Learning Transferable Visual Models From Natural Language Supervision (CLIP)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/082-learning-transferable-visual-models-clip)
+
 
 **arXiv:** https://arxiv.org/abs/2103.00020
 
@@ -46,4 +48,17 @@ CLIP became one of the most influential papers in multimodal AI:
 - **Sparked the multimodal foundation model era:** Flamingo, BLIP, LLaVA, and GPT-4V all build on CLIP's vision-language alignment paradigm
 - **OpenAI released model weights** publicly, enabling widespread adoption
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/082_learning-transferable-visual-models-clip)
+**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/082-learning-transferable-visual-models-clip)
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/082-learning-transferable-visual-models-clip)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

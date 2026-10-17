@@ -1,10 +1,11 @@
 # Denoising Diffusion Implicit Models (DDIM)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models)
+
 
 **Paper:** Song, Meng, & Ermon (2021) — [arXiv:2010.02502](https://arxiv.org/abs/2010.02502) | ICLR 2021
 
 Denoising Diffusion Implicit Models (DDIM) accelerate sampling from diffusion models by constructing a family of non-Markovian forward processes that share the same training objective as DDPMs but admit much faster reverse generative processes. The key insight is that while DDPMs require iterating through all T diffusion steps (often 1000), DDIM defines a deterministic, non-Markovian reverse process that can use an arbitrary subsequence of timesteps — typically 10–50 steps instead of 1000 — producing samples of comparable quality 10× to 50× faster. Crucially, the same trained noise-prediction network is reused; no retraining is needed. DDIM also enables semantically meaningful latent-space interpolation and near-perfect reconstruction of training images, capabilities absent in stochastic DDPM sampling.
 
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models-ddim)
 
 ## What problem does it solve?
 
@@ -27,3 +28,16 @@ Imagine you're baking a cake from a recipe, but the recipe has 1000 tiny steps �
 ## Influence
 
 DDIM became the default fast sampler for diffusion models and is a foundational component of Stable Diffusion, DALL-E 2, and virtually all modern diffusion-based image generators. The ODE interpretation directly inspired subsequent work on DPM-Solvers, consistency models, and rectified flow. With over 3,000 citations, it is one of the most impactful papers in generative AI.
+
+---
+
+## Resources
+
+**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models)
+
+| File | Description |
+|------|-------------|
+| [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
+| [solution.ipynb](solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
+| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
