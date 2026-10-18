@@ -32,7 +32,7 @@ Imagine you're looking at a photo of a busy street and you need to quickly point
 
 ## Key Method Details
 
-- **Objectness score:** Each predicted bounding box carries a confidence = Pr(Object) × IOU(pred, truth). This decouples "is there something?" from "what is it?" and handles the class imbalance from mostly-empty grid cells.
+- **Objectness score:** Each predicted bounding box carries a confidence = Pr(Object) × IOU(pred, truth). This decouples "is there something?" from "what is it?". The imbalance from mostly-empty grid cells is handled separately, by the loss: empty cells count with weight λ_noobj = 0.5.
 - **Conditional class probabilities:** Pr(Class_i \| Object) — only updated at cells containing an object. Final detection score = Pr(Class_i \| Object) × Pr(Object) × IOU.
 - **Non-maximal suppression:** Post-processing to remove duplicate detections of the same object; adds 2-3% mAP.
 - **Leaky ReLU** activation (0.1 slope for negative inputs) in every layer except the last, which is linear in the paper (the notebook applies a sigmoid to bound outputs to [0, 1]).
@@ -49,7 +49,7 @@ Imagine you're looking at a photo of a busy street and you need to quickly point
 
 ### What the Notebook Result Shows
 
-On 200 test images it never trained on, the notebook's detector reaches **mAP@0.5 of about 0.90** (circle 0.91, rectangle 0.91, triangle 0.89), and about 96% of the shapes get a correct box. Most predicted boxes are tight; the typical mistakes are boxes a bit too large or small on thin or oddly shaped triangles. Across 3 random seeds the final mAP@0.5 was 0.90–0.91. This toy task is far easier than the paper's, so the number is **not** comparable to YOLO's 63.4% mAP on PASCAL VOC 2007; it shows that the grid targets, the multi-part loss and the decoding work together as a real detector.
+On 200 test images it never trained on, the notebook's detector reaches **mAP@0.5 of about 0.90** (circle 0.91, rectangle 0.91, triangle 0.89), and about 95–96% of the shapes get a correct box (the exact figure shifts slightly between runs, e.g. GitHub vs Kaggle). Most predicted boxes are tight; the typical mistakes are boxes a bit too large or small on thin or oddly shaped triangles. This toy task is far easier than the paper's, so the number is **not** comparable to YOLO's 63.4% mAP on PASCAL VOC 2007; it shows that the grid targets, the multi-part loss and the decoding work together as a real detector.
 
 ## Influence
 

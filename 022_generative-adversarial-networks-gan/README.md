@@ -14,7 +14,15 @@ permalink: "/022_generative-adversarial-networks-gan/"
 
 ## Summary
 
-Generative Adversarial Networks introduced a radically new framework for training generative models by framing the problem as a two-player game. Instead of defining an explicit likelihood function or relying on Markov chains, GANs pit a **generator network** G (which maps random noise to data-like samples) against a **discriminator network** D (which tries to distinguish real data from generated fakes). The generator's objective is to fool the discriminator; the discriminator's objective is to not be fooled. Through this adversarial process, the generator progressively learns to produce samples that match the true data distribution — all trainable with standard backpropagation, requiring no approximate inference or MCMC sampling. The paper proves that the global optimum of this minimax game is reached when the generator's distribution equals the data distribution and the discriminator outputs 1/2 everywhere (i.e., it cannot distinguish real from fake). The original implementation uses multilayer perceptrons for both G and D, trained on MNIST, the Toronto Face Database (TFD), and CIFAR-10 (where it also tried a convolutional model). The samples were promising but far from photorealistic; sharp images came with later work such as DCGAN. This repo's notebook trains a small MLP GAN on MNIST for 100 epochs. It learns varied, recognizable digits, though many are still rough, as small MLP GANs usually are. It is one of the most influential papers in deep learning history, spawning an entire research field including DCGAN, StyleGAN, CycleGAN, Pix2Pix, and eventually contributing to the rise of modern generative AI.
+Generative Adversarial Networks introduced a radically new framework for training generative models by framing the problem as a two-player game. Instead of defining an explicit likelihood function or relying on Markov chains, GANs pit a **generator network** G (which maps random noise to data-like samples) against a **discriminator network** D (which tries to distinguish real data from generated fakes). The generator's objective is to fool the discriminator; the discriminator's objective is to not be fooled.
+
+Through this adversarial process, the generator progressively learns to produce samples that match the true data distribution — all trainable with standard backpropagation, requiring no approximate inference or MCMC sampling. The paper proves that the global optimum of this minimax game is reached when the generator's distribution equals the data distribution and the discriminator outputs 1/2 everywhere (i.e., it cannot distinguish real from fake).
+
+The original implementation uses multilayer perceptrons for both G and D, trained on MNIST, the Toronto Face Database (TFD), and CIFAR-10 (where it also tried a convolutional model). The samples were promising but far from photorealistic; sharp images came with later work such as DCGAN.
+
+This repo's notebook trains a small MLP GAN on MNIST for 100 epochs. It learns varied, recognizable digits, though many are still rough, as small MLP GANs usually are.
+
+It is one of the most influential papers in deep learning history, spawning an entire research field including DCGAN, StyleGAN, CycleGAN, Pix2Pix, and eventually contributing to the rise of modern generative AI.
 
 ## What Problem Does It Solve
 
@@ -79,7 +87,7 @@ Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
 ### This Repo's Notebook
 
 - MLP generator and discriminator (2 hidden layers of 256), LeakyReLU in place of the paper's ReLU/maxout, dropout in D
-- MNIST scaled to [-1, 1] with a **Tanh** generator output. With [0, 1] data and a Sigmoid output, this setup collapses in the first epoch on every seed we tested (every noise vector gives the same blob)
+- MNIST scaled to [-1, 1] with a **Tanh** generator output. With [0, 1] data and a Sigmoid output, this setup collapsed in the first epoch of the run we tried (every noise vector gave the same blob)
 - `BCEWithLogitsLoss` (D outputs a raw score), Adam (lr 0.0002, betas 0.5/0.999), batch 64, k = 1, **100 epochs**
 
 ## Influence

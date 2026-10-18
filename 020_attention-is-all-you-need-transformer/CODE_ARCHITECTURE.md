@@ -7,7 +7,7 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements a **mini Transformer** from scratch in PyTorch, following the original paper's architecture but scaled down so it trains in about a minute. The model is an encoder-decoder Transformer trained on a **toy sequence copy task**, with visualization of the learned attention weights. With the settings in the notebook it copies about 99.6% of unseen test sequences exactly.
+The notebook implements a **mini Transformer** from scratch in PyTorch, following the original paper's architecture but scaled down so it runs in a notebook. The model is an encoder-decoder Transformer trained on a **toy sequence copy task**, with visualization of the learned attention weights. With the settings in the notebook it copies about 99.6% of unseen test sequences exactly.
 
 ## Notebook Structure
 
@@ -111,7 +111,7 @@ The notebook implements a **mini Transformer** from scratch in PyTorch, followin
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Scale:** d_model=64 (vs 512), d_ff=128 (vs 2048), N=2 layers (vs 6), H=4 heads (vs 8), dropout 0.05 (vs 0.1). Training takes about a minute, even on a laptop CPU, while keeping the architecture's essential structure.
+1. **Scale:** d_model=64 (vs 512), d_ff=128 (vs 2048), N=2 layers (vs 6), H=4 heads (vs 8), dropout 0.05 (vs 0.1). The small size keeps training light, while keeping the architecture's essential structure.
 2. **Task:** Toy copy task on synthetic integer sequences (vs WMT 2014 machine translation: about 4.5M English-German sentence pairs with a ~37K-token shared vocabulary). The copy task specifically tests whether the model can learn to attend to the correct source positions.
 3. **Vocabulary:** ~14 tokens (vs ~37K for WMT En-De).
 4. **No label smoothing:** Uses standard cross-entropy (the paper uses ε=0.1 label smoothing).

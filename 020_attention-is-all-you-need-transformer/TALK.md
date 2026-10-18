@@ -42,11 +42,11 @@ A5 (from the paper, Section 7): The conclusion says the authors planned to apply
 
 4. **"Scaled dot-product attention is the only type of attention."** The paper discusses additive (Bahdanau) attention too, noting that dot-product attention is faster and more space-efficient in practice. The 1/√d_k scaling is what the authors added to keep dot-product attention competitive when d_k is large.
 
-5. **"The original Transformer was used for general language modeling."** No — it was designed and evaluated specifically for sequence-to-sequence machine translation (English↔German, English↔French). Its use for general pretraining (GPT, BERT) came later, though the architecture proved general enough.
+5. **"The original Transformer was used for general language modeling."** No — it was designed for sequence-to-sequence machine translation and evaluated on English→German and English→French (WMT 2014). The paper also tried English constituency parsing (Section 6.3), but it was not used as a general language model. Its use for general pretraining (GPT, BERT) came later, though the architecture proved general enough.
 
 ## Real Citations
 
-1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). "Attention Is All You Need." *Advances in Neural Information Processing Systems (NeurIPS) 30.* arXiv:1706.03762. — The original paper, with about 197,000 citations on Semantic Scholar (October 2026).
+1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). "Attention Is All You Need." *Advances in Neural Information Processing Systems 30 (NIPS 2017, now called NeurIPS).* arXiv:1706.03762. — The original paper, with about 197,000 citations on Semantic Scholar (October 2026).
 
 2. Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2018). "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding." arXiv:1810.04805. — Applied the Transformer encoder for bidirectional pretraining.
 
