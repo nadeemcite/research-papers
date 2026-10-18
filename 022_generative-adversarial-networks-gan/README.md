@@ -14,13 +14,13 @@ permalink: "/022_generative-adversarial-networks-gan/"
 
 ## Summary
 
-Generative Adversarial Networks introduced a radically new framework for training generative models by framing the problem as a two-player game. Instead of defining an explicit likelihood function or relying on Markov chains, GANs pit a **generator network** G (which maps random noise to data-like samples) against a **discriminator network** D (which tries to distinguish real data from generated fakes). The generator's objective is to fool the discriminator; the discriminator's objective is to not be fooled. Through this adversarial process, the generator progressively learns to produce samples that match the true data distribution — all trainable with standard backpropagation, requiring no approximate inference or MCMC sampling. The paper proves that the global optimum of this minimax game is reached when the generator's distribution equals the data distribution and the discriminator outputs 1/2 everywhere (i.e., it cannot distinguish real from fake). The original implementation uses multilayer perceptrons for both G and D, trained on MNIST, TFD, CIFAR-10, and SVHN, demonstrating visually compelling generated samples. With 6,800+ citations and 450+ influential citations (Semantic Scholar), this is one of the most impactful papers in deep learning history, spawning an entire research field including DCGAN, StyleGAN, CycleGAN, Pix2Pix, and eventually contributing to the rise of modern generative AI.
+Generative Adversarial Networks introduced a radically new framework for training generative models by framing the problem as a two-player game. Instead of defining an explicit likelihood function or relying on Markov chains, GANs pit a **generator network** G (which maps random noise to data-like samples) against a **discriminator network** D (which tries to distinguish real data from generated fakes). The generator's objective is to fool the discriminator; the discriminator's objective is to not be fooled. Through this adversarial process, the generator progressively learns to produce samples that match the true data distribution — all trainable with standard backpropagation, requiring no approximate inference or MCMC sampling. The paper proves that the global optimum of this minimax game is reached when the generator's distribution equals the data distribution and the discriminator outputs 1/2 everywhere (i.e., it cannot distinguish real from fake). The original implementation uses multilayer perceptrons for both G and D, trained on MNIST, the Toronto Face Database (TFD), and CIFAR-10 (where it also tried a convolutional model). The samples were promising but far from photorealistic; sharp images came with later work such as DCGAN. This repo's notebook trains a small MLP GAN on MNIST for 100 epochs. It learns varied, recognizable digits, though many are still rough, as small MLP GANs usually are. With 6,800+ citations and 450+ influential citations (Semantic Scholar), this is one of the most impactful papers in deep learning history, spawning an entire research field including DCGAN, StyleGAN, CycleGAN, Pix2Pix, and eventually contributing to the rise of modern generative AI.
 
 ## What Problem Does It Solve
 
 Imagine you want to teach a computer to **draw** realistic pictures — say, pictures of handwritten digits or human faces. Before GANs, the main ways to do this were complicated and slow: you either had to write down exact mathematical rules for what makes a digit look like a digit (very hard), or use techniques like Markov chains that slowly refine an image step by step (very slow). It's like trying to teach someone to paint by giving them a textbook on color theory versus letting them learn by trial and error.
 
-Ian Goodfellow had a simpler idea, inspired by the world of **counterfeit money**: what if we set up two AIs against each other? One AI — the **counterfeiter** (generator) — tries to produce fake money (or fake images) that look real. The other AI — the **police** (discriminator) — tries to spot the fakes. They train together: every time the police catch a fake, the counterfeiter learns to do better. Every time the counterfeiter improves, the police have to get sharper. They keep pushing each other until the counterfeits are so good that even the police can't tell the difference from the real thing.
+Ian Goodfellow had a simpler idea: what if we set up two AIs against each other? The paper explains it with its own comparison to **counterfeit money**. One AI — the **counterfeiter** (generator) — tries to produce fake money (or fake images) that look real. The other AI — the **police** (discriminator) — tries to spot the fakes. They train together: every time the police catch a fake, the counterfeiter learns to do better. Every time the counterfeiter improves, the police have to get sharper. They keep pushing each other until the counterfeits are so good that even the police can't tell the difference from the real thing.
 
 This is exactly what a GAN does. No textbooks, no slow step-by-step refinement — just two networks competing, and through competition, the generator learns to produce images that look like real data. It's like learning to forge paintings by repeatedly trying to fool an art expert who is also getting better at their job.
 
@@ -71,10 +71,16 @@ In practice, minimizing log(1 - D(G(z))) saturates early in training when D easi
 ### Architecture
 
 Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
-- **Generator**: input = noise vector z (uniform prior), output = data-shaped vector, hidden layers with ReLU, output with sigmoid
-- **Discriminator**: input = data (real or fake), output = scalar probability, hidden layers with LeakyReLU/ReLU, output with sigmoid
+- **Generator**: input = noise vector z (fed only to the first layer), output = data-shaped vector, a mix of ReLU and sigmoid activations
+- **Discriminator**: input = data (real or fake), output = scalar probability, **maxout** activations
 - Trained with minibatch SGD with momentum
-- Dropout applied in D for regularization
+- Dropout applied when training D (not G)
+
+### This Repo's Notebook
+
+- MLP generator and discriminator (2 hidden layers of 256), LeakyReLU in place of the paper's ReLU/maxout, dropout in D
+- MNIST scaled to [-1, 1] with a **Tanh** generator output. An earlier version used [0, 1] with a Sigmoid output; it collapsed in the first epoch (every noise vector gave the same blob), and the discriminator then won completely
+- `BCEWithLogitsLoss` (D outputs a raw score), Adam (lr 0.0002, betas 0.5/0.999), batch 64, k = 1, **100 epochs**
 
 ## Influence
 

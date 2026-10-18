@@ -9,20 +9,18 @@ nav_order: 2
 
 1. **Google Machine Learning Crash Course — GAN Module:** Google's official ML education platform includes a comprehensive GAN tutorial series covering introduction, anatomy, training, loss functions, common problems, and variations. It uses TensorFlow's TF-GAN library with interactive Colab tutorials. (URL: https://developers.google.com/machine-learning/gan)
 
-2. **The Verge — "How AI-generated fake faces became a viral sensation" (2019):** The Verge reported on NVIDIA's StyleGAN generating photorealistic faces of people who don't exist, directly tracing the lineage back to Goodfellow's 2014 GAN paper. The article highlights thispersondoesnotexist.com, which went viral generating convincing fake faces on every page load. (URL: https://www.theverge.com/2019/3/5/18251330/ai-generated-fake-faces-deepfakes-stylegan-nvidia)
+2. **MIT Technology Review — "The GANfather: The man who's given machines the gift of imagination" (Martin Giles, February 2018):** A profile of Ian Goodfellow that tells how the GAN idea came about at a Montreal bar in 2014, and covers GANs' rapid rise and the worries about fake images. (URL: https://www.technologyreview.com/2018/02/21/145289/the-ganfather-the-man-whos-given-machines-the-gift-of-imagination/)
 
-3. **Christie's Auction House — "Is artificial intelligence set to become art's next medium?" (2018):** Christie's sold "Portrait de l'abbé Bellamy" (Edmond de Belamy), a GAN-generated painting by the Parisian collective Obvious, for $432,500 — the first AI-generated artwork sold by a major auction house. The piece was created using a GAN trained on a dataset of historical portraits. (URL: https://www.christies.com/features/A-collaboration-between-two-artists-one-human-one-a-machine-9332-1.aspx)
+3. **Christie's Auction House — "Is artificial intelligence set to become art's next medium?" (2018):** In October 2018 Christie's sold *Portrait of Edmond de Belamy*, a GAN-generated print by the Paris collective Obvious, for $432,500. Christie's presented it as the first AI-made artwork offered at a major auction house. The image came from a GAN trained on a set of historical portraits. (URL: https://www.christies.com/features/A-collaboration-between-two-artists-one-human-one-a-machine-9332-1.aspx)
 
 4. **Ian Goodfellow — "NIPS 2016 Tutorial: Generative Adversarial Networks" (2017):** Goodfellow himself wrote a comprehensive tutorial on GANs for NIPS 2016, published as arXiv:1701.00160. It covers the theory, training techniques, and research directions, serving as the authoritative technical reference for the GAN framework he invented. (URL: https://arxiv.org/abs/1701.00160)
 
-5. **Distill — "A Gentle Introduction to GANs" (2019):** Google AI published an interactive Distill article by Shengjun Zhu et al. providing a visual, step-by-step explanation of how GANs work, using animated diagrams to illustrate the adversarial training process. (URL: https://distill.pub/2019/gan-intro/ ... note: Distill has since ceased publishing, but archived versions remain available)
-
-6. **MIT Technology Review — "The GAN that changed the world" coverage:** Multiple Technology Review articles have covered GANs, from the original 2014 paper's reception to StyleGAN's face generation and deepfake concerns, consistently referencing Goodfellow's foundational work. (URL: https://www.technologyreview.com/)
+5. **GAN Lab — interactive GAN in the browser (2018):** Minsuk Kahng, Nikhil Thorat, Polo Chau, Fernanda Viégas and Martin Wattenberg (Georgia Tech and Google) built a tool that trains a small GAN live in your browser, so you can watch the generator and discriminator compete step by step. It was published at IEEE VAST 2018. (URL: https://poloclub.github.io/ganlab/, paper: https://arxiv.org/abs/1809.01587)
 
 ## Interview Q&A
 
 **Q1: How did you come up with the idea for GANs?**
-A1 (Ian Goodfellow, in multiple public talks and interviews): The idea came from a discussion at a bar in Montreal with friends about generative models. Goodfellow had the insight that instead of computing complicated probability distributions, you could train a generator network by having it compete against a discriminator network. He coded the first prototype that night, and it worked on the first try — a rare occurrence in deep learning research. He has recounted this story publicly at NIPS and in interviews with Wired and other outlets.
+A1 (as reported by MIT Technology Review, "The GANfather", 2018 — a retelling, not a direct quote): In 2014 Goodfellow was at Les 3 Brasseurs, a bar in Montreal, when friends asked for help with a project to generate images. While thinking it over, he hit on the idea of pitting two neural networks against each other. His friends doubted it would work, so he went home and coded it that same night, and according to the article it worked the first time.
 
 **Q2: Why is the generator trained to fool the discriminator rather than to match the data distribution directly?**
 A2 (from the paper, Section 3): The generator G is trained to minimize log(1 - D(G(z))), which is equivalent to maximizing D's error. The key insight is that the generator never sees the real data directly — it only receives gradients through the discriminator. This indirect training means the generator learns the data distribution implicitly, without needing to define or compute an explicit likelihood. This is what makes GANs "likelihood-free" generative models, avoiding the intractable partition function computations that plagued earlier approaches.
@@ -33,8 +31,8 @@ A3 (from the paper, Section 6, and Goodfellow's NIPS 2016 Tutorial): The origina
 **Q4: Why did you use multilayer perceptrons instead of convolutional networks?**
 A4 (from the paper, Section 3): The paper specifically explores "the special case when the generative model generates samples by passing random noise through a multilayer perceptron, and the discriminative model is also a multilayer perceptron." This choice was made to demonstrate the framework in its simplest form — the adversarial training principle is architecture-agnostic. The follow-up DCGAN paper (Radford et al., 2015) showed that convolutional architectures dramatically improve image quality, establishing the modern CNN-based GAN paradigm.
 
-**Q5: What surprised you most about the impact of this work?**
-A5 (Ian Goodfellow, public talks and interviews): GANs became the dominant paradigm for image generation for nearly a decade, spawning thousands of papers, enabling photorealistic face generation, art creation, and deepfakes. The adversarial training principle has been applied far beyond image generation — to text, audio, video, drug discovery, and scientific simulation. Goodfellow has expressed surprise at how quickly the community adopted and extended the framework, and at the sheer scale of the research field it created. He moved to Google Brain and later Apple, continuing to work on generative models and adversarial robustness.
+**Q5: What happened to GANs after the paper?**
+A5 (context, not a quote): GANs became one of the leading approaches to image generation for several years, spawning thousands of papers and enabling photorealistic face generation, AI art and deepfakes. The adversarial training idea has also been applied to audio, video and other domains. For text-to-image generation, diffusion models have since largely taken over (see 084 DDPM and 086 Latent Diffusion). Goodfellow went on to work at Google Brain, OpenAI, Apple and Google DeepMind.
 
 ## Common Misconceptions
 
@@ -54,7 +52,7 @@ A5 (Ian Goodfellow, public talks and interviews): GANs became the dominant parad
 
 2. Radford, A., Metz, L., & Chintala, S. (2015). "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks." *arXiv:1511.06434.* — DCGAN, the paper that established convolutional GAN architecture guidelines and made GANs produce sharp, coherent images.
 
-3. Arjovsky, M., Chintala, S., & Bottou, L. (2017). "Wasserstein GAN." *arXiv:1701.07875.* — Introduced the Wasserstein distance objective that dramatically stabilized GAN training, solving the mode collapse and instability problems of the original formulation.
+3. Arjovsky, M., Chintala, S., & Bottou, L. (2017). "Wasserstein GAN." *arXiv:1701.07875.* — Introduced the Wasserstein distance objective, which substantially improved training stability and gives a loss that tracks sample quality. It reduced, but did not eliminate, mode collapse.
 
 4. Karras, T., Laine, S., & Aila, T. (2019). "A Style-Based Generator Architecture for Generative Adversarial Networks." *CVPR 2019.* — StyleGAN, NVIDIA's landmark paper producing photorealistic, controllable face generation. Direct descendant of the original GAN.
 
