@@ -46,7 +46,7 @@ The notebook implements a from-scratch GAN using the original paper's framework:
   - Output: `(batch_size, 784)` — with Tanh (output in [-1, 1])
 - **Key class**: `Generator(nn.Module)` with `forward(z)` method
 - **Data flow**: `z ~ N(0, I)` → linear → LeakyReLU → linear → LeakyReLU → linear → Tanh → fake image (784-dim)
-- **Why Tanh, not Sigmoid**: an earlier version used [0, 1] data with a Sigmoid output. On every seed we tried, it collapsed in the first epoch (one identical, almost pure black-and-white blob for every z), and the discriminator then won completely. Switching to [-1, 1] data and Tanh, with nothing else changed, fixed it.
+- **Why Tanh, not Sigmoid**: with [0, 1] data and a Sigmoid output, this setup collapsed in the first epoch (one identical, almost pure black-and-white blob for every z), and the discriminator then won completely. Switching to [-1, 1] data and Tanh, with nothing else changed, avoids this.
 - **Simplification vs paper**: The paper's generator used a mix of ReLU and sigmoid activations. We use LeakyReLU in the hidden layers, a common modern choice.
 
 ### 5. Discriminator Network (D)

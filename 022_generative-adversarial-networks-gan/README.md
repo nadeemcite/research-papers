@@ -79,7 +79,7 @@ Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
 ### This Repo's Notebook
 
 - MLP generator and discriminator (2 hidden layers of 256), LeakyReLU in place of the paper's ReLU/maxout, dropout in D
-- MNIST scaled to [-1, 1] with a **Tanh** generator output. An earlier version used [0, 1] with a Sigmoid output; it collapsed in the first epoch (every noise vector gave the same blob), and the discriminator then won completely
+- MNIST scaled to [-1, 1] with a **Tanh** generator output. With [0, 1] data and a Sigmoid output, this setup collapses in the first epoch on every seed we tested (every noise vector gives the same blob)
 - `BCEWithLogitsLoss` (D outputs a raw score), Adam (lr 0.0002, betas 0.5/0.999), batch 64, k = 1, **100 epochs**
 
 ## Influence
