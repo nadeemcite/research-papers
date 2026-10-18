@@ -7,29 +7,27 @@ nav_order: 2
 
 ## Press / Blog Coverage
 
-1. **Google Research Blog (August 2017):** Google highlighted the Transformer architecture as a breakthrough in neural machine translation, noting it required significantly less training time than RNN-based systems and achieved state-of-the-art results on WMT translations. (Source: Google AI Blog, "Attention Is All You Need" coverage.)
+1. **Google Research Blog — "Transformer: A Novel Neural Network Architecture for Language Understanding" (Jakob Uszkoreit, August 31, 2017):** Google's announcement of the paper. It reports that the Transformer outperformed both recurrent and convolutional models on the WMT English-to-German and English-to-French translation benchmarks, while needing less computation to train and fitting modern ML hardware much better. (URL: https://research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding/)
 
-2. **MIT Technology Review (2017):** Covered the Transformer as part of the broader trend of attention-based models replacing recurrent networks, noting the architectural simplicity and training speed advantages.
+2. **Harvard NLP — "The Annotated Transformer" (Alexander Rush, April 2018):** A line-by-line PyTorch implementation of the paper, with the paper's text placed next to the code that implements each part. (URL: https://nlp.seas.harvard.edu/2018/04/03/attention.html)
 
-3. **The Gradient (2018):** Published a detailed explainer of the Transformer architecture, calling it "one of the most influential papers of 2017" and tracing its lineage from Bahdanau attention to full self-attention.
+3. **Jay Alammar's "The Illustrated Transformer" (2018):** A widely read blog post that walks through the Transformer architecture step by step with diagrams. (URL: https://jalammar.github.io/illustrated-transformer/)
 
-4. **Jay Alammar's "The Illustrated Transformer" (2018):** One of the most widely-read technical blog posts in deep learning, with millions of views. It provides a step-by-step visual walkthrough of the Transformer architecture. (URL: https://jalammar.github.io/illustrated-transformer/)
+4. **Lilian Weng's Blog — "Attention? Attention!" (2018):** A survey of attention mechanisms leading up to and including the Transformer. (URL: https://lilianweng.github.io/posts/2018-06-24-attention/)
 
-5. **Lilian Weng's Blog — "Attention? Attention!" (2018):** A comprehensive survey of attention mechanisms leading up to and including the Transformer, widely cited in the ML community. (URL: https://lilianweng.github.io/posts/2018-06-24-attention/)
-
-## Interview Q&A
+## Q&A (answers from the paper)
 
 **Q1: Why did you decide to remove recurrence and convolutions entirely?**
 A1 (from the paper, Sections 1 and 4): Recurrent models compute hidden states one position at a time, and the paper notes that this inherently sequential nature precludes parallelization within training examples. Self-attention connects every pair of positions with a constant number of sequential operations, versus O(n) for a recurrent layer, and shortens the path between long-range dependencies to O(1).
 
 **Q2: What was the role of the scaling factor 1/√d_k in scaled dot-product attention?**
-A2 (from the paper, Section 3.2.1): When d_k is large, the dot products between queries and keys grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. Dividing by √d_k keeps the variance of the dot products at approximately 1 regardless of d_k, preventing this problem.
+A2 (from the paper, Section 3.2.1): The authors note that additive attention beats unscaled dot-product attention when d_k is large. They *suspect* the reason is that large d_k makes the dot products large in magnitude, pushing the softmax into regions with extremely small gradients, so they scale by 1/√d_k to counteract it. Their footnote explains why: if the query and key entries are independent with mean 0 and variance 1, their dot product has variance d_k, so dividing by √d_k brings the variance back to 1.
 
 **Q3: Why use sinusoidal positional encodings instead of learned ones?**
-A3 (from the paper, Section 3.5): Sinusoidal encodings were chosen because they allow the model to extrapolate to sequence lengths longer than those seen during training, and because the relative positions can be expressed as linear functions of the fixed encodings, making it easy for the model to learn to attend by relative position.
+A3 (from the paper, Sections 3.5 and 6.2): The authors *hypothesized* that sinusoids would make it easy for the model to learn to attend by relative position, since for any fixed offset k, PE(pos+k) is a linear function of PE(pos). They also tried learned positional embeddings and got nearly identical results (Table 3, row E). They kept the sinusoidal version because it *may* allow the model to extrapolate to sequences longer than those seen in training. The paper does not test that claim.
 
 **Q4: How important was the multi-head attention mechanism?**
-A4 (from the paper, Section 3.2.2): Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this. Reducing the number of heads (in ablation studies) degraded performance on translation tasks.
+A4 (from the paper, Section 3.2.2): Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this. In the ablation (Table 3, row A, keeping total computation fixed), single-head attention was 0.9 BLEU worse than the best setting, but quality also dropped off with too many heads.
 
 **Q5: Did the authors expect the Transformer to apply beyond machine translation?**
 A5 (from the paper, Section 7): The conclusion says the authors planned to apply attention-based models to other tasks, extend the Transformer to input and output modalities other than text, and investigate local, restricted attention for large inputs such as images, audio and video. The paper itself already showed one step in that direction: English constituency parsing (Section 6.3).
@@ -42,7 +40,7 @@ A5 (from the paper, Section 7): The conclusion says the authors planned to apply
 
 3. **"The Transformer eliminated attention — it's all about something else."** The opposite: the Transformer made attention the *only* mechanism, removing recurrence and convolutions. The title means attention replaces everything else, not that attention itself is removed.
 
-4. **"Scaled dot-product attention is the only type of attention."** The paper compared it to additive (Bahdanau) attention and found dot-product faster and more space-efficient. The scaling is the key innovation that makes it work well at high dimensions.
+4. **"Scaled dot-product attention is the only type of attention."** The paper discusses additive (Bahdanau) attention too, noting that dot-product attention is faster and more space-efficient in practice. The 1/√d_k scaling is what the authors added to keep dot-product attention competitive when d_k is large.
 
 5. **"The original Transformer was used for general language modeling."** No — it was designed and evaluated specifically for sequence-to-sequence machine translation (English↔German, English↔French). Its use for general pretraining (GPT, BERT) came later, though the architecture proved general enough.
 
