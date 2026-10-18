@@ -20,7 +20,7 @@ nav_order: 2
 ## Interview Q&A
 
 **Q1: Why did you decide to remove recurrence and convolutions entirely?**
-A1 (Jakob Uszkoreit, in various public talks): Recurrent networks process sequences one step at a time, which fundamentally limits parallelization. We realized that attention alone — specifically self-attention, where every position can directly look at every other position — was sufficient to capture all the dependencies we needed, while being fully parallelizable across the sequence length.
+A1 (from the paper, Sections 1 and 4): Recurrent models compute hidden states one position at a time, and the paper notes that this inherently sequential nature precludes parallelization within training examples. Self-attention connects every pair of positions with a constant number of sequential operations, versus O(n) for a recurrent layer, and shortens the path between long-range dependencies to O(1).
 
 **Q2: What was the role of the scaling factor 1/√d_k in scaled dot-product attention?**
 A2 (from the paper, Section 3.2.1): When d_k is large, the dot products between queries and keys grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. Dividing by √d_k keeps the variance of the dot products at approximately 1 regardless of d_k, preventing this problem.
@@ -31,8 +31,8 @@ A3 (from the paper, Section 3.5): Sinusoidal encodings were chosen because they 
 **Q4: How important was the multi-head attention mechanism?**
 A4 (from the paper, Section 3.2.2): Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this. Reducing the number of heads (in ablation studies) degraded performance on translation tasks.
 
-**Q5: Did you anticipate the Transformer would become this influential beyond machine translation?**
-A5 (Ashish Vaswani, various interviews): We believed self-attention was a powerful general-purpose mechanism, but the speed of adoption across vision, audio, and other domains exceeded our expectations. The paper's title — "Attention Is All You Need" — was both a technical statement and a bit of a provocation that turned out to be remarkably prescient.
+**Q5: Did the authors expect the Transformer to apply beyond machine translation?**
+A5 (from the paper, Section 7): The conclusion says the authors planned to apply attention-based models to other tasks, extend the Transformer to input and output modalities other than text, and investigate local, restricted attention for large inputs such as images, audio and video. The paper itself already showed one step in that direction: English constituency parsing (Section 6.3).
 
 ## Common Misconceptions
 
