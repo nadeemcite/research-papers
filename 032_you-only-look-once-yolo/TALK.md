@@ -5,62 +5,64 @@ nav_order: 2
 ---
 # TALK — You Only Look Once (YOLO)
 
-## Press / Blog Coverage
+## Talks, Slides and Official Pages
 
-1. **MIT Technology Review** — "This AI Could Make Self-Driving Cars Safer and Faster" — covered YOLO's real-time detection capability as a breakthrough for autonomous driving applications.
+1. **CVPR 2016 talk by Joseph Redmon** — Redmon presented YOLO at CVPR 2016. The recording is on the Computer Vision Foundation YouTube channel: [You Only Look Once: Unified, Real-Time Object Detection](https://www.youtube.com/watch?v=NM6lrxy0bxs). The [CVPR 2016 slides](https://docs.google.com/presentation/d/1kAa7NOamBt4calBU9iHgT8a86RRHz9Yz2oh4-GTdX6M/edit?usp=sharing) are linked from Redmon's [YOLO publication page](https://pjreddie.com/publications/yolo/).
 
-2. **Wired** — Featured YOLO in coverage of real-time computer vision systems, highlighting its "single pass" approach as a paradigm shift from the dominant R-CNN pipeline.
+2. **OpenCV People's Choice Award** — The paper won the OpenCV People's Choice Award at CVPR 2016, as listed on [pjreddie.com](https://pjreddie.com/publications/yolo/). The same page also shares the paper's peer reviews.
 
-3. **The Verge** — Covered YOLO in the context of real-time object detection demos, noting its 45 FPS performance as enabling new applications in robotics and autonomous systems.
+3. **TED2017 talk** — Redmon explained real-time object detection to a general audience in his TED talk [How computers learn to recognize objects instantly](https://www.ted.com/talks/joseph_redmon_how_computers_learn_to_recognize_objects_instantly), with a live demo.
 
-4. **Reddit r/MachineLearning** — YOLO's original posting generated extensive community discussion, becoming one of the most upvoted CV papers on the subreddit. The open-source release of the darknet framework was widely celebrated.
+4. **Darknet and the YOLO project page** — The code was released as open source in the [Darknet framework](https://github.com/pjreddie/darknet). The [Darknet YOLO page](https://pjreddie.com/darknet/yolo/) shows how to run the later versions (YOLOv2/v3).
 
-5. **Joseph Redmon's CVPR 2016 Talk** — Redmon presented YOLO at CVPR 2016 (oral presentation). The talk was notable for its concise, direct style and live demo of real-time detection. The presentation slides are archived at [pjreddie.com](https://pjreddie.com/).
+5. **Official paper pages** — [arXiv 1506.02640](https://arxiv.org/abs/1506.02640) and the [CVPR 2016 open-access version](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html).
 
-## Interview Q&A
+## Q&A (answered from the paper)
 
-**Q: Why did you frame detection as a regression problem instead of classification?**
+These answers come from the paper itself, not from an interview. Direct quotes are marked with their section in the [arXiv paper](https://arxiv.org/abs/1506.02640).
 
-Joseph Redmon: "Prior detection systems repurpose classifiers to perform detection. They run a classifier at various locations and scales. Instead, we frame object detection as a regression problem to spatially separated bounding boxes and associated class probabilities. A single neural network predicts bounding boxes and class probabilities directly from full images in one evaluation."
+**Q: Why frame detection as a regression problem instead of classification?**
+
+From the paper (Abstract): "Prior work on object detection repurposes classifiers to perform detection. Instead, we frame object detection as a regression problem to spatially separated bounding boxes and associated class probabilities. A single neural network predicts bounding boxes and class probabilities directly from full images in one evaluation."
 
 **Q: YOLO makes more localization errors than R-CNN. Why?**
 
-Redmon: "YOLO imposes strong spatial constraints on bounding box predictions since each grid cell only predicts one box. This limits the number of nearby objects our model can predict. If two objects fall into the same cell our model can only predict one of them. Our model struggles with small objects that appear in groups, such as flocks of birds."
+From the paper (Section 2.4, Limitations of YOLO): "YOLO imposes strong spatial constraints on bounding box predictions since each grid cell only predicts two boxes and can only have one class. This spatial constraint limits the number of nearby objects that our model can predict. Our model struggles with small objects that appear in groups, such as flocks of birds."
 
 **Q: What motivated the unified, single-network approach?**
 
-Ross Girshick (co-author): "The key insight was that by unifying all components — feature extraction, bounding box prediction, classification — into a single network, we could optimize end-to-end directly on detection performance. The multi-stage pipelines like R-CNN couldn't be jointly optimized."
+In plain words: older systems were a chain of separate parts (find regions, extract features, classify, clean up boxes), and each part was tuned on its own. YOLO puts all of these steps into one network. The paper says that because the whole pipeline is a single network, it can be trained end-to-end directly for detection quality, and that it combines these components "into a single, jointly optimized model" (Section 3).
 
 **Q: How does YOLO compare to two-stage detectors in terms of false positives?**
 
-From the paper: "Compared to state-of-the-art detection systems, YOLO makes more localization errors but is far less likely to predict false detections where nothing exists. YOLO learns very general representations of objects. It outperforms all other detection methods by a wide margin when generalizing from natural images to artwork."
+From the paper (Abstract): "Compared to state-of-the-art detection systems, YOLO makes more localization errors but is less likely to predict false positives on background. Finally, YOLO learns very general representations of objects. It outperforms other detection methods, including DPM and R-CNN, when generalizing from natural images to other domains like artwork."
 
 **Q: What was the speed advantage?**
 
-From the paper: "Our base YOLO model processes images in real-time at 45 frames per second. A smaller version, Fast YOLO, processes 155 frames per second while still achieving double the mAP of other real-time detectors."
+From the paper (Abstract): "Our base YOLO model processes images in real-time at 45 frames per second. A smaller version of the network, Fast YOLO, processes an astounding 155 frames per second while still achieving double the mAP of other real-time detectors."
 
 ## Common Misconceptions
 
-1. **"YOLO doesn't use anchors or priors."** — The original YOLO (v1) does NOT use anchor boxes; it directly predicts bounding box coordinates. Anchor boxes were introduced in YOLOv2. This is an important architectural distinction.
+1. **Misconception: "YOLOv1 uses anchor boxes."** — It does not. YOLOv1 predicts box coordinates directly from each grid cell. Anchor boxes arrived later, in YOLOv2 (YOLO9000).
 
-2. **"YOLO is always faster than R-CNN."** — While YOLO is faster at inference, Fast R-CNN achieves higher mAP (especially on small objects). The original paper acknowledges YOLO's lower accuracy: 63.4% mAP vs Fast R-CNN's 70.0% on PASCAL VOC 2007. YOLO's advantage is speed, not accuracy.
+2. **Misconception: "YOLO is both faster and more accurate than R-CNN-style detectors."** — YOLO is much faster, but in the original paper it is less accurate. On PASCAL VOC 2007, YOLO scores 63.4% mAP while Fast R-CNN scores 70.0%. YOLO's big win is speed, not top accuracy.
 
-3. **"YOLO processes the image only once."** — The name refers to a single forward pass of the network for detection. Training still involves multiple epochs, and non-maximal suppression is applied as post-processing (though it's much lighter than region proposal).
+3. **Misconception: "'Only once' means no extra steps at all."** — The name means one forward pass of the network per image at test time. Training still takes many epochs, and non-maximal suppression is still used afterwards to remove duplicate boxes (it is a light step compared with region proposals).
 
-4. **"The loss function is just MSE."** — While sum-squared error is the base, the loss has multiple weighted components: coordinate loss (λ=4), confidence loss for objects and no-objects (λ_noobj=0.5), and classification loss. The square-root parameterization of width/height is also a key design choice, not standard MSE.
+4. **Misconception: "The loss function is just plain MSE."** — The base is sum-squared error, but the loss has several weighted parts: coordinate loss (λ_coord = 5 in the paper; the notebook uses 4), confidence loss for cells with and without objects (λ_noobj = 0.5), and classification loss. Width and height are predicted as square roots, so small boxes are not ignored.
 
-5. **"YOLOv1 predicted multiple boxes per cell."** — The paper describes B=2 boxes per cell in the full model, but each cell still only predicts one set of class probabilities. The notebook simplifies to B=1.
+5. **Misconception: "Each grid cell can detect several different objects."** — Each cell predicts B=2 boxes in the paper, but only one set of class probabilities, so in practice it can only label one class. The notebook simplifies further to B=1 box per cell.
 
 ## Real Citations
 
-1. Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. (2016). "You Only Look Once: Unified, Real-Time Object Detection." *CVPR 2016*, pp. 779-788. (Oral presentation)
+1. Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. (2016). "You Only Look Once: Unified, Real-Time Object Detection." *CVPR 2016*, pp. 779-788. [arXiv:1506.02640](https://arxiv.org/abs/1506.02640)
 
-2. Redmon, J., & Farhadi, A. (2017). "YOLO9000: Better, Faster, Stronger." *CVPR 2017*, pp. 7263-7271. (YOLOv2, extending v1 to 9000 classes)
+2. Redmon, J., & Farhadi, A. (2017). "YOLO9000: Better, Faster, Stronger." *CVPR 2017*, pp. 7263-7271. (YOLOv2, extending v1 to 9000 classes) [arXiv:1612.08242](https://arxiv.org/abs/1612.08242)
 
-3. Liu, W., et al. (2016). "SSD: Single Shot MultiBox Detector." *ECCV 2016*. (Single-stage detection inspired by YOLO)
+3. Liu, W., et al. (2016). "SSD: Single Shot MultiBox Detector." *ECCV 2016*. (Another single-stage detector from the same period) [arXiv:1512.02325](https://arxiv.org/abs/1512.02325)
 
-4. Lin, T.-Y., et al. (2017). "Focal Loss for Dense Object Detection." *ICCV 2017*. (RetinaNet, addressing class imbalance in single-stage detectors like YOLO)
+4. Lin, T.-Y., et al. (2017). "Focal Loss for Dense Object Detection." *ICCV 2017*. (RetinaNet, addressing class imbalance in single-stage detectors like YOLO) [arXiv:1708.02002](https://arxiv.org/abs/1708.02002)
 
-5. Redmon, J., & Farhadi, A. (2018). "YOLOv3: An Incremental Improvement." *arXiv:1804.02767*. (Third generation, multi-scale predictions)
+5. Redmon, J., & Farhadi, A. (2018). "YOLOv3: An Incremental Improvement." *arXiv:1804.02767*. (Third generation, multi-scale predictions) [arXiv:1804.02767](https://arxiv.org/abs/1804.02767)
 
-**Citation count:** The original YOLO paper has been cited 40,000+ times on Google Scholar (as of 2024), making it one of the most cited computer vision papers ever published.
+**Citation count:** The original YOLO paper has about 53,000 citations on [OpenAlex](https://openalex.org/works/W1483870316) (CVPR 2016 version, checked October 2026), which makes it one of the most cited computer vision papers.
