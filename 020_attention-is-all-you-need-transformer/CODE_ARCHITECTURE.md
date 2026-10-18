@@ -7,19 +7,19 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements a **mini Transformer** from scratch in PyTorch, following the original paper's architecture but scaled down for Colab GPU feasibility. The model is an encoder-decoder Transformer trained on a **toy sequence copy task** (and optionally a simple reverse/translation task), with full visualization of attention weights.
+The notebook implements a **mini Transformer** from scratch in PyTorch, following the original paper's architecture but scaled down so it trains in about a minute. The model is an encoder-decoder Transformer trained on a **toy sequence copy task**, with visualization of the learned attention weights. With the settings in the notebook it copies about 99.6% of unseen test sequences exactly.
 
 ## Notebook Structure
 
 ### Section 1: Setup & Imports
-- Installs/imports torch, numpy, matplotlib.
+- Imports torch, numpy, matplotlib.
 - Sets random seed for reproducibility.
 - Device selection (`cuda` if available, else `cpu`).
 
 ### Section 2: Toy Dataset — Sequence Copy Task
-- **Class:** `CopyTaskDataset(Dataset)` — generates random integer sequences of fixed length as source, with the target being the same sequence (copy) or reversed (reverse task).
-- **Vocab:** Small synthetic vocabulary (e.g., integers 0–9 plus special tokens: `<pad>`=0, `<bos>`=1, `<eos>`=2, `<unk>`=3).
-- **Collate function:** Pads sequences to max length in batch, returns `(src, tgt)` tensors with padding masks.
+- **Class:** `CopyTaskDataset(Dataset)` — generates random integer sequences of length 5–12 as the source; the target is the same sequence wrapped as `<bos> … <eos>`. 4,000 training and 500 test sequences, generated with different seeds.
+- **Vocab:** 14 tokens: 4 special tokens (`<pad>`=0, `<bos>`=1, `<eos>`=2, `<unk>`=3) plus 10 data tokens (IDs 4–13).
+- **Collate function:** Pads sequences to the longest in the batch and returns `(src, tgt)` tensors. Padding masks are built later in the training loop.
 - **Data flow:** Each sample is a 1D tensor of token IDs → batched into `(batch_size, seq_len)` tensors.
 - **Shapes:** src: `(B, L_src)`, tgt: `(B, L_tgt)`.
 
@@ -69,7 +69,8 @@ The notebook implements a **mini Transformer** from scratch in PyTorch, followin
 
 ### Section 9: Full Transformer Model
 - **Class:** `Transformer(nn.Module)`
-- Components: source embedding, target embedding, positional encoding, N encoder layers, N decoder layers, final linear projection to vocab size.
+- Components: one embedding shared by source and target (scaled by √d_model), positional encoding, N encoder layers, N decoder layers, and a final linear projection to vocab size that shares its weights with the embedding.
+- **Embedding init:** the shared embedding is initialized from N(0, 1/d_model), not PyTorch's default N(0, 1). Because the same matrix is also the output layer, the default init makes the model start out extremely over-confident (first-epoch loss ≈ 18.8 instead of ≈ 3.2), and in our tests it cost about 30 points of copy accuracy.
 - Forward (training): embeds src and tgt, adds PE, passes through encoder and decoder stacks, applies final linear layer to get logits over vocabulary.
 - Greedy decoding function for inference: generates output token-by-token using the causal mask.
 - **Shapes:** src `(B, L_src)`, tgt `(B, L_tgt)` → logits `(B, L_tgt, vocab_size)`.
@@ -77,20 +78,21 @@ The notebook implements a **mini Transformer** from scratch in PyTorch, followin
 ### Section 10: Training Loop
 - **Loss:** CrossEntropyLoss with ignore_index for padding tokens.
 - **Optimizer:** Adam with the paper's learning rate schedule (warmup + inverse sqrt decay).
-- Trains for a fixed number of epochs on the copy task, printing loss every N steps.
+- Teacher forcing: the decoder gets `tgt[:, :-1]` and is trained to predict `tgt[:, 1:]`. Gradients are clipped to norm 1.0.
+- Trains for 30 epochs (warmup 400 steps, scaled down from the paper's 4,000), printing the average loss and learning rate each epoch.
 - Plots training loss curve.
 
 ### Section 11: Evaluation & Inference
 - Greedy decode function: feeds `<bos>`, generates one token at a time until `<eos>` or max length.
 - Runs on test sequences and compares predicted output vs target.
-- Computes accuracy on the copy/reverse task.
+- Computes exact-sequence accuracy (the whole output must match) and prints 5 example predictions.
 
 ### Section 12: Attention Visualization
 - Extracts attention weights from the trained model for a sample input.
 - **Plot 1:** Encoder self-attention heatmap — shows which source tokens attend to which.
 - **Plot 2:** Decoder-encoder cross-attention heatmap — shows alignment between decoder positions and encoder positions.
-- **Plot 3:** Multi-head attention across different heads — shows different heads learn different patterns.
-- Uses matplotlib heatmaps with labeled axes.
+- **Plot 3:** Decoder self-attention heatmap — shows the causal mask (no attention to future positions).
+- Each plot shows all 4 heads side by side, as matplotlib heatmaps with labeled axes.
 
 ## Key Functions/Classes Summary
 
@@ -109,8 +111,8 @@ The notebook implements a **mini Transformer** from scratch in PyTorch, followin
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Scale:** d_model=64 (vs 512), d_ff=128 (vs 2048), N=2 layers (vs 6), H=4 heads (vs 8). This keeps training under ~5 minutes on Colab GPU while preserving the architecture's essential structure.
-2. **Task:** Toy copy/reverse task on synthetic integer sequences (vs WMT machine translation with 10K+ vocab and 40K+ sentence pairs). The copy task specifically tests whether the model can learn to attend to the correct source positions.
+1. **Scale:** d_model=64 (vs 512), d_ff=128 (vs 2048), N=2 layers (vs 6), H=4 heads (vs 8), dropout 0.05 (vs 0.1). Training takes about a minute, even on a laptop CPU, while keeping the architecture's essential structure.
+2. **Task:** Toy copy task on synthetic integer sequences (vs WMT 2014 machine translation: about 4.5M English-German sentence pairs with a ~37K-token shared vocabulary). The copy task specifically tests whether the model can learn to attend to the correct source positions.
 3. **Vocabulary:** ~14 tokens (vs ~37K for WMT En-De).
 4. **No label smoothing:** Uses standard cross-entropy (the paper uses ε=0.1 label smoothing).
 5. **No beam search:** Greedy decoding only (the paper uses beam search with width 4).

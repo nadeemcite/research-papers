@@ -46,7 +46,7 @@ A5 (from the paper, Section 7): The conclusion says the authors planned to apply
 
 ## Real Citations
 
-1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). "Attention Is All You Need." *Advances in Neural Information Processing Systems (NeurIPS) 30.* arXiv:1706.03762. — The original paper, cited 170,000+ times.
+1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). "Attention Is All You Need." *Advances in Neural Information Processing Systems (NeurIPS) 30.* arXiv:1706.03762. — The original paper, with about 197,000 citations on Semantic Scholar (October 2026).
 
 2. Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2018). "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding." arXiv:1810.04805. — Applied the Transformer encoder for bidirectional pretraining.
 

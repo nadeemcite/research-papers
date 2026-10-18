@@ -9,12 +9,12 @@ permalink: "/022_generative-adversarial-networks-gan/"
 
 - **Paper:** [Generative Adversarial Nets](https://arxiv.org/abs/1406.2661)
 - **Authors:** Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio
-- **Year:** 2014 (NIPS 2014)
+- **Lab, year:** Université de Montréal (DIRO), 2014 (NIPS 2014)
 - **Video:** [Watch the YouTube Short](https://youtube.com/shorts/aGXecMt314w) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-Generative Adversarial Networks introduced a radically new framework for training generative models by framing the problem as a two-player game. Instead of defining an explicit likelihood function or relying on Markov chains, GANs pit a **generator network** G (which maps random noise to data-like samples) against a **discriminator network** D (which tries to distinguish real data from generated fakes). The generator's objective is to fool the discriminator; the discriminator's objective is to not be fooled. Through this adversarial process, the generator progressively learns to produce samples that match the true data distribution — all trainable with standard backpropagation, requiring no approximate inference or MCMC sampling. The paper proves that the global optimum of this minimax game is reached when the generator's distribution equals the data distribution and the discriminator outputs 1/2 everywhere (i.e., it cannot distinguish real from fake). The original implementation uses multilayer perceptrons for both G and D, trained on MNIST, the Toronto Face Database (TFD), and CIFAR-10 (where it also tried a convolutional model). The samples were promising but far from photorealistic; sharp images came with later work such as DCGAN. This repo's notebook trains a small MLP GAN on MNIST for 100 epochs. It learns varied, recognizable digits, though many are still rough, as small MLP GANs usually are. With 6,800+ citations and 450+ influential citations (Semantic Scholar), this is one of the most impactful papers in deep learning history, spawning an entire research field including DCGAN, StyleGAN, CycleGAN, Pix2Pix, and eventually contributing to the rise of modern generative AI.
+Generative Adversarial Networks introduced a radically new framework for training generative models by framing the problem as a two-player game. Instead of defining an explicit likelihood function or relying on Markov chains, GANs pit a **generator network** G (which maps random noise to data-like samples) against a **discriminator network** D (which tries to distinguish real data from generated fakes). The generator's objective is to fool the discriminator; the discriminator's objective is to not be fooled. Through this adversarial process, the generator progressively learns to produce samples that match the true data distribution — all trainable with standard backpropagation, requiring no approximate inference or MCMC sampling. The paper proves that the global optimum of this minimax game is reached when the generator's distribution equals the data distribution and the discriminator outputs 1/2 everywhere (i.e., it cannot distinguish real from fake). The original implementation uses multilayer perceptrons for both G and D, trained on MNIST, the Toronto Face Database (TFD), and CIFAR-10 (where it also tried a convolutional model). The samples were promising but far from photorealistic; sharp images came with later work such as DCGAN. This repo's notebook trains a small MLP GAN on MNIST for 100 epochs. It learns varied, recognizable digits, though many are still rough, as small MLP GANs usually are. It is one of the most influential papers in deep learning history, spawning an entire research field including DCGAN, StyleGAN, CycleGAN, Pix2Pix, and eventually contributing to the rise of modern generative AI.
 
 ## What Problem Does It Solve
 
@@ -84,8 +84,7 @@ Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
 
 ## Influence
 
-- **Citations**: 6,800+ (Semantic Scholar), 150,000+ (Google Scholar) — one of the most cited papers in AI history
-- **Influential citations**: 450+ (Semantic Scholar)
+- **Citations**: one of the most cited papers in AI
 - **Direct descendants**: DCGAN (2015), Pix2Pix (2016), CycleGAN (2017), Progressive GAN (2017), StyleGAN (2019), BigGAN (2019), StyleGAN2/3 (2020/2021)
 - **Applications**: photorealistic face generation (NVIDIA StyleGAN), image-to-image translation, super-resolution, text-to-image synthesis, medical image synthesis, data augmentation
 - **Google ML tutorial**: Google's Machine Learning Crash Course includes a dedicated GAN module (https://developers.google.com/machine-learning/gan)

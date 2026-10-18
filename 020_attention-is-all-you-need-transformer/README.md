@@ -40,13 +40,13 @@ The central insight is that **self-attention** — computing relationships betwe
 - **Feed-forward dimension:** d_ff = 2048 (inner layer of the position-wise FFN).
 - **Number of layers:** N = 6 encoder layers and 6 decoder layers.
 - **Residual connections:** Each sub-layer output is LayerNorm(x + Sublayer(x)). All sub-layers and embedding layers produce outputs of dimension d_model = 512 to enable residual connections.
-- **Embedding sharing:** The input embeddings, output embeddings, and pre-softmax linear transformation share the same weight matrix, multiplied by √d_model.
+- **Embedding sharing:** The two embedding layers and the pre-softmax linear transformation share the same weight matrix; in the embedding layers the weights are multiplied by √d_model.
 - **Training:** Adam optimizer (β1=0.9, β2=0.98, ε=10^-9) with a learning rate that warms up over 4,000 steps then decays inversely with the square root of step number. Dropout 0.1, label smoothing ε=0.1.
 - **Results:** 28.4 BLEU on WMT 2014 En-De (new SOTA, +2.0 over previous best ensemble), 41.8 BLEU on WMT 2014 En-Fr (new single-model SOTA). Training: 3.5 days on 8 × P100 GPUs.
 
 ## Influence
 
-The Transformer is the foundational architecture of modern deep learning. It directly enabled BERT (Devlin et al., 2018), GPT series (Radford et al. 2018–2020), T5 (Raffel et al., 2019), and virtually every subsequent large language model. The architecture was adapted to vision (ViT, Dosovitskiy et al., 2020), audio (Whisper), protein structure (AlphaFold 2), and code (Codex). The paper has been cited over 170,000 times — one of the most cited computer science papers of all time. "Attention is all you need" became a widely recognized phrase in the AI community and a template for paper titles across the field.
+The Transformer is the foundational architecture of modern deep learning. It directly enabled BERT (Devlin et al., 2018), GPT series (Radford et al. 2018–2020), T5 (Raffel et al., 2019), and virtually every subsequent large language model. The architecture was adapted to vision (ViT, Dosovitskiy et al., 2020), audio (Whisper), protein structure (AlphaFold 2), and code (Codex). The paper has about 197,000 citations on Semantic Scholar (October 2026), making it one of the most cited computer science papers of all time. "Attention is all you need" became a widely recognized phrase in the AI community and a template for paper titles across the field.
 
 ---
 
