@@ -9,7 +9,7 @@ permalink: "/032_you-only-look-once-yolo/"
 
 - **Paper:** [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
 - **Authors:** Joseph Redmon, Santosh Divvala, Ross Girshick, Ali Farhadi
-- **Year:** 2015 (arXiv preprint); published at [CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html)
+- **Lab, year:** University of Washington, Allen Institute for AI and Facebook AI Research, 2015 ([CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html))
 - **Video:** YouTube Short coming on 18 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
@@ -23,10 +23,10 @@ Imagine you're looking at a photo of a busy street and you need to quickly point
 ## Core Idea
 
 - **Unified detection:** A single CNN predicts bounding boxes and class probabilities simultaneously from the full image — no region proposal step, no separate classifier.
-- **Grid-based prediction:** The input image (448×448) is divided into a 7×7 grid. Each grid cell predicts B bounding boxes (the paper uses B=2 in the full model, B=1 in the simplified version described here) with confidence scores, plus C conditional class probabilities (20 classes for PASCAL VOC).
+- **Grid-based prediction:** The input image (448×448) is divided into a 7×7 grid. Each grid cell predicts B bounding boxes (the paper uses B=2; this repo's notebook uses B=1) with confidence scores, plus C conditional class probabilities (20 classes for PASCAL VOC).
 - **Output tensor:** The final layer produces a 7×7×(5*B + C) tensor. With B=2 and C=20, that's 7×7×30.
-- **Loss function:** Multi-part sum-squared error with λ_coord = 5 in the paper (up-weighting localization; the notebook uses 4) and λ_noobj = 0.5 (down-weighting boxes without objects). Square-root parameterization for width/height.
-- **Architecture:** 24 convolutional layers (inspired by GoogLeNet, using 1×1 reduction + 3×3 conv layers) followed by 2 fully connected layers. Max-pooling layers (plus one stride-2 convolution) handle downsampling.
+- **Loss function:** Multi-part sum-squared error with λ_coord = 5 in the paper (up-weighting localization) and λ_noobj = 0.5 (down-weighting boxes without objects). Square-root parameterization for width/height.
+- **Architecture:** 24 convolutional layers (inspired by GoogLeNet, using 1×1 reduction + 3×3 conv layers) followed by 2 fully connected layers. Max-pooling layers and two stride-2 convolutions handle downsampling.
 - **Training:** Pretrained on ImageNet (first 20 conv layers, ~1 week), then fine-tuned for detection on PASCAL VOC 2007/2012. ~135 epochs, batch size 64, momentum 0.9, dropout 0.5.
 - **Speed:** 45 FPS (base), 155 FPS (Fast YOLO with 9 conv layers).
 
@@ -39,17 +39,17 @@ Imagine you're looking at a photo of a busy street and you need to quickly point
 
 ### Simplifications in This Notebook
 
-- Smaller network: 8 conv layers (stride-2 convs instead of max-pooling) + 2 fully connected layers, about 60 million parameters (mostly in the first fully connected layer)
+- Smaller network: 10 conv layers with BatchNorm (BatchNorm came later, in YOLOv2) and max-pooling, + 2 fully connected layers, about 7.2 million parameters
 - Input size 224×224 instead of 448×448
-- Synthetic toy dataset (red circles, green rectangles, blue triangles on a black background) instead of PASCAL VOC: 200 training and 50 test images
-- B=1 bounding box per cell (original paper uses B=2)
+- Synthetic toy dataset (red circles, green rectangles, blue triangles on a black background) instead of PASCAL VOC: 3,000 new training images every epoch, and 200 fixed test images
+- B=1 bounding box per cell (the paper uses B=2), and at most one shape per cell
 - 3 classes instead of 20
-- Very short training: 3 epochs with Adam (lr 1e-3) instead of ~135 epochs with SGD
-- No ImageNet pretraining; trained from scratch on the synthetic dataset
+- 20 epochs with Adam instead of ~135 epochs with SGD, and no ImageNet pretraining
+- Object-cell confidence target is 1 instead of the predicted box's IoU; sigmoid output instead of a linear last layer
 
 ### What the Notebook Result Shows
 
-The notebook is a small, from-scratch learning demo. It shows how the YOLO pieces fit together: the 7×7 grid targets, the multi-part loss, the training loop and the box decoding step. It does **not** reach useful detection accuracy yet. After 3 epochs the training loss goes from 14.33 to 12.97 (it goes up a little in epoch 2), and on the 50 test images the evaluation prints **Mean IoU 0.0000** and **Detection Accuracy (IoU > 0.5) 0.0000**. That means no predicted box overlapped a real shape well enough to count. The loss plot and the detection pictures are saved to files but not shown inside the notebook, because the plotting cell switches matplotlib to the non-display `Agg` backend. Treat the notebook as a clear map of how YOLO works, not as a working detector. Training much longer, on more images, is the natural next step.
+On 200 test images it never trained on, the notebook's detector reaches **mAP@0.5 of about 0.90** (circle 0.91, rectangle 0.91, triangle 0.89), and about 96% of the shapes get a correct box. Most predicted boxes are tight; the typical mistakes are boxes a bit too large or small on thin or oddly shaped triangles. Across 3 random seeds the final mAP@0.5 was 0.90–0.91. This toy task is far easier than the paper's, so the number is **not** comparable to YOLO's 63.4% mAP on PASCAL VOC 2007; it shows that the grid targets, the multi-part loss and the decoding work together as a real detector.
 
 ## Influence
 
@@ -62,6 +62,6 @@ YOLO changed object detection by showing that a single neural network could dete
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/032_you-only-look-once-yolo/solution.ipynb) | Small from-scratch PyTorch demo of YOLO's grid, loss and training loop on a toy shapes dataset (educational; it does not reach useful detection accuracy) |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/032_you-only-look-once-yolo/solution.ipynb) | From-scratch PyTorch YOLO detector trained on a toy shapes dataset: grid targets, multi-part loss, NMS and mAP@0.5 evaluation (about 0.90 on unseen test images) |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
 | [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |

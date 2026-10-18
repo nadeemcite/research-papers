@@ -49,7 +49,7 @@ From the paper (Abstract): "Our base YOLO model processes images in real-time at
 
 3. **Misconception: "'Only once' means no extra steps at all."** — The name means one forward pass of the network per image at test time. Training still takes many epochs, and non-maximal suppression is still used afterwards to remove duplicate boxes (it is a light step compared with region proposals).
 
-4. **Misconception: "The loss function is just plain MSE."** — The base is sum-squared error, but the loss has several weighted parts: coordinate loss (λ_coord = 5 in the paper; the notebook uses 4), confidence loss for cells with and without objects (λ_noobj = 0.5), and classification loss. Width and height are predicted as square roots, so small boxes are not ignored.
+4. **Misconception: "The loss function is just plain MSE."** — The base is sum-squared error, but the loss has several weighted parts: coordinate loss (λ_coord = 5), confidence loss for cells with and without objects (λ_noobj = 0.5), and classification loss. Width and height are predicted as square roots, so small boxes are not ignored.
 
 5. **Misconception: "Each grid cell can detect several different objects."** — Each cell predicts B=2 boxes in the paper, but only one set of class probabilities, so in practice it can only label one class. The notebook simplifies further to B=1 box per cell.
 
