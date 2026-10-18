@@ -1,3 +1,8 @@
+---
+title: "RAG: Talk & Q&A"
+parent: "098 RAG"
+nav_order: 2
+---
 # TALK — RAG (Retrieval-Augmented Generation)
 
 ## Verifiable Press/Blog Coverage

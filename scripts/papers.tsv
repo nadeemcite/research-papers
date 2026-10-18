@@ -51,9 +51,9 @@ num	short	year	domain	title	folder	kaggle
 050	SENet	2017	cnn	Squeeze-and-Excitation Networks	050_squeeze-and-excitation-networks	squeeze-and-excitation-networks
 051	DQN	2013	rl	Playing Atari with Deep Reinforcement Learning (DQN)	051_playing-atari-with-deep-reinforcement	playing-atari-with-deep-reinforcement
 052	Double DQN	2015	rl	Deep Reinforcement Learning with Double Q-learning	052_double-dqn	double-dqn-deep-reinforcement-learning
+053	Dueling DQN	2015	rl	Dueling Network Architectures for Deep RL	053_dueling-network-architectures-for-deep-rl	dueling-network-architectures-for-deep-rl
 054	Prioritized Replay	2015	rl	Prioritized Experience Replay	054_prioritized-experience-replay	prioritized-experience-replay
 055	A3C	2016	rl	Asynchronous Methods for Deep Reinforcement Learning (A3C)	055_asynchronous-methods-for-deep-rl	asynchronous-methods-for-deep-rl
-053	Dueling DQN	2015	rl	Dueling Network Architectures for Deep RL	053_dueling-network-architectures-for-deep-rl	dueling-network-architectures-for-deep-rl
 056	TRPO	2015	rl	Trust Region Policy Optimization (TRPO)	056_trust-region-policy-optimization	trust-region-policy-optimization-trpo
 057	DDPG	2015	rl	Continuous Control with Deep Reinforcement Learning (DDPG)	057_continuous-control-with-deep-rl-ddpg	continuous-control-deep-rl-ddpg
 058	PPO	2017	rl	Proximal Policy Optimization Algorithms (PPO)	058_proximal-policy-optimization-algorithms-ppo	proximal-policy-optimization-algorithms-ppo
@@ -96,4 +96,6 @@ num	short	year	domain	title	folder	kaggle
 095	LoRA	2021	scaling	LoRA: Low-Rank Adaptation of Large Language Models	095_lora-low-rank-adaptation	lora-low-rank-adaptation
 096	InstructGPT	2022	scaling	Training Language Models to Follow Instructions with Human Feedback (InstructGPT)	096_instructgpt-human-feedback	instructgpt-human-feedback
 097	Chinchilla	2022	scaling	Training Compute-Optimal Large Language Models (Chinchilla)	097_chinchilla-compute-optimal-scaling-laws	chinchilla-compute-optimal-scaling-laws
+098	RAG	2020	scaling	Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (RAG)	098_retrieval-augmented-generation-rag	retrieval-augmented-generation-rag
 099	FlashAttention	2022	scaling	FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness	099_flashattention-fast-memory-efficient-exact-attention	flashattention-io-aware-exact-attention
+100	Mamba	2023	sequence	Mamba: Linear-Time Sequence Modeling with Selective State Spaces	100_mamba-linear-time-sequence-modeling-selective	mamba-selective-state-space-model

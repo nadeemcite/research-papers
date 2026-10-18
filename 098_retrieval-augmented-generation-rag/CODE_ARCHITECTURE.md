@@ -1,3 +1,8 @@
+---
+title: "RAG: Code architecture"
+parent: "098 RAG"
+nav_order: 1
+---
 # Code Architecture — RAG (Retrieval-Augmented Generation)
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: "Mamba: Talk & Q&A"
+parent: "100 Mamba"
+nav_order: 2
+---
 # TALK.md — Mamba: Press, Blog Coverage, and Q&A
 
 ## Verifiable Press/Blog Coverage

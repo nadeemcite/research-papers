@@ -53,7 +53,7 @@ EDGES = [
     ('074', '078'), ('045', '078'), ('020', '079'), ('020', '080'),
     ('020', '081'), ('081', '082'), ('080', '082'),
     ('087', '088'), ('079', '088'), ('080', '095'), ('080', '096'), ('063', '096'), ('058', '096'),
-    ('080', '097'), ('020', '099'),
+    ('080', '097'), ('020', '099'), ('074', '098'), ('099', '100'),
     ('001', '066'), ('066', '065'), ('067', '068'),
     ('069', '070'), ('070', '072'), ('071', '072'),
     ('051', '052'), ('051', '053'), ('051', '054'), ('052', '059'), ('053', '059'), ('054', '059'),
@@ -198,8 +198,10 @@ def build_readme(papers):
              'YouTube-Backprop%20Daily-FF0000?logo=youtube&logoColor=white"></a>')
     L.append('  <a href="https://github.com/nadeemcite/research-papers/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-57cc99"></a>')
     L.append('</p>\n')
-    L.append(f'**{len(papers)} of the {GOAL} papers that shaped modern AI**, from Dropout ({min(years)}) to '
-             f'Chinchilla ({max(years)}), each turned into a small, runnable, from-scratch PyTorch '
+    first = min(papers, key=lambda p: (p['year'], p['num']))
+    last = max(papers, key=lambda p: (p['year'], p['num']))
+    L.append(f'**{len(papers)} of the {GOAL} papers that shaped modern AI**, from {first["short"]} ({first["year"]}) to '
+             f'{last["short"]} ({last["year"]}), each turned into a small, runnable, from-scratch PyTorch '
              'reimplementation with a plain-English explainer. Every notebook in this repo was **executed '
              'top to bottom on Kaggle** and is published with its real outputs, so you can open it, see it '
              'work, and fork it on a free GPU.\n')

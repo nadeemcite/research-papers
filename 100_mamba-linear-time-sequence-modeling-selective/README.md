@@ -1,3 +1,8 @@
+---
+title: "100 Mamba"
+nav_order: 101
+permalink: "/100_mamba-linear-time-sequence-modeling-selective/"
+---
 # Mamba: Linear-Time Sequence Modeling with Selective State Spaces
 
 **Authors:** Albert Gu, Tri Dao  

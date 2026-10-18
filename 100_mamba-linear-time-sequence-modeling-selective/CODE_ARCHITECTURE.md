@@ -1,3 +1,8 @@
+---
+title: "Mamba: Code architecture"
+parent: "100 Mamba"
+nav_order: 1
+---
 # Code Architecture — Mamba Selective State-Space Model Notebook
 
 ## Overview
