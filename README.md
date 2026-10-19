@@ -172,7 +172,7 @@ This repo is also an experiment in what AI agents can build when the bar is *"it
 
 | # | Year | Paper | Run it |
 |---|---|---|---|
-| 051 | 2013 | [Playing Atari with Deep Reinforcement Learning (DQN)](051_playing-atari-with-deep-reinforcement/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/playing-atari-with-deep-reinforcement) |
+| 051 | 2013 | [Playing Atari with Deep Reinforcement Learning (DQN)](051_playing-atari-with-deep-reinforcement/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/playing-atari-with-deep-reinforcement-learning) |
 | 052 | 2015 | [Deep Reinforcement Learning with Double Q-learning](052_double-dqn/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/double-dqn-deep-reinforcement-learning) |
 | 053 | 2015 | [Dueling Network Architectures for Deep RL](053_dueling-network-architectures-for-deep-rl/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/dueling-network-architectures-for-deep-rl) |
 | 054 | 2015 | [Prioritized Experience Replay](054_prioritized-experience-replay/) | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/prioritized-experience-replay) |

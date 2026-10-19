@@ -14,7 +14,11 @@ permalink: "/051_playing-atari-with-deep-reinforcement/"
 
 ## Summary
 
-This paper introduced **Deep Q-Networks (DQN)**, the first deep learning model to successfully learn control policies directly from high-dimensional sensory input using reinforcement learning. The core innovation is combining a neural network function approximator with Q-learning, trained using a variant of stochastic gradient descent. The key challenges addressed are: (1) training instability from correlated samples and non-stationary distributions — solved with **experience replay** (storing transitions in a replay buffer and sampling random minibatches to decorrelate updates), and (2) the moving target problem where the network bootstraps from its own rapidly changing estimates. In the 2013 paper the targets come from the previous iteration's parameters; the separate **target network** (a copy of the network updated only periodically, providing stable targets) was formalized in the 2015 Nature follow-up, and this notebook implements it too. The authors applied DQN to seven Atari 2600 games using the same architecture and hyperparameters — raw pixel inputs, no game-specific tuning — and outperformed all prior RL approaches on six games and surpassed human expert performance on three. This paper launched the entire field of deep reinforcement learning, leading directly to DQN improvements (Double DQN, Dueling DQN, Prioritized Replay, Rainbow), AlphaGo, AlphaZero, and modern RL.
+This paper introduced **Deep Q-Networks (DQN)**, the first deep learning model to successfully learn control policies directly from high-dimensional sensory input using reinforcement learning. The core innovation is combining a neural network function approximator with Q-learning, trained using a variant of stochastic gradient descent.
+
+The key challenges addressed are: (1) training instability from correlated samples and non-stationary distributions — solved with **experience replay** (storing transitions in a replay buffer and sampling random minibatches to decorrelate updates), and (2) the moving target problem where the network bootstraps from its own rapidly changing estimates. In the 2013 paper the targets come from the previous iteration's parameters; the separate **target network** (a copy of the network updated only periodically, providing stable targets) was formalized in the 2015 Nature follow-up, and this notebook implements it too.
+
+The authors applied DQN to seven Atari 2600 games using the same architecture and hyperparameters — raw pixel inputs, no game-specific tuning — and outperformed all prior RL approaches on six games and surpassed human expert performance on three. This paper launched the entire field of deep reinforcement learning, leading directly to DQN improvements (Double DQN, Dueling DQN, Prioritized Replay, Rainbow), AlphaGo, AlphaZero, and modern RL.
 
 ## What Problem Does It Solve
 
@@ -22,7 +26,9 @@ Imagine teaching a computer to play a video game **from scratch** — just by lo
 
 The challenge was that old reinforcement learning methods (Q-learning) used a "lookup table" approach: for every possible situation, they stored a value. But video game screens have millions of possible pixel combinations — you can't make a table that big. And when people tried to use neural networks instead of tables, the training was terribly unstable: the network would learn, then unlearn, then spiral out of control.
 
-Mnih et al. from DeepMind solved this with two clever tricks. First, **experience replay**: instead of learning from each moment as it happens (which gives you a stream of very similar, correlated experiences), the AI saves all its experiences in a big memory buffer and randomly samples from it — like reviewing flashcards in random order rather than reading a textbook front-to-back. Second, a **target network** (made explicit in the team's 2015 Nature follow-up, and included in this notebook): the AI keeps a frozen copy of itself that it uses as a stable reference for "what should the target be?" — only updating this copy occasionally. It's like a student who checks their answers against a textbook that only gets reprinted every few weeks, rather than one that changes every time they turn a page.
+Mnih et al. from DeepMind solved this with two clever tricks. First, **experience replay**: instead of learning from each moment as it happens (which gives you a stream of very similar, correlated experiences), the AI saves all its experiences in a big memory buffer and randomly samples from it — like reviewing flashcards in random order rather than reading a textbook front-to-back.
+
+Second, a **target network** (made explicit in the team's 2015 Nature follow-up, and included in this notebook): the AI keeps a frozen copy of itself that it uses as a stable reference for "what should the target be?" — only updating this copy occasionally. It's like a student who checks their answers against a textbook that only gets reprinted every few weeks, rather than one that changes every time they turn a page.
 
 The result was stunning: one single AI, with the same architecture and settings, learned to play seven different Atari games just from pixels — beating previous AI on six and even surpassing human experts on three. It was the first time a general-purpose game-playing AI worked at this level, and it kicked off the entire field of deep reinforcement learning.
 
@@ -89,13 +95,23 @@ As implemented in the notebook (the target-network steps come from the 2015 Natu
 - 2 convolutional layers (16 filters 8×8 stride 4, 32 filters 4×4 stride 2) + 1 fully connected hidden layer (256 units); the 2015 Nature version uses 3 convolutional + 2 fully connected layers
 - Output: Q-values for each action
 
-### Our Simplification
+### Simplifications in This Notebook
 
-We implement DQN on **CartPole-v1** (a classic control task with 4-dimensional state, 2 actions) using an MLP instead of a CNN. This keeps the notebook CPU-runnable while preserving all core algorithmic components (experience replay, target network, ε-greedy, Q-learning loss). The same algorithm scales to Atari by swapping the MLP for a CNN and using pixel inputs.
+We implement DQN on **CartPole-v1** (a classic control task with a 4-number state and 2 actions) using an MLP instead of a CNN. This keeps the notebook CPU-runnable while keeping the core parts (experience replay, ε-greedy, the Q-learning target). The same algorithm scales to Atari by swapping the MLP for a CNN and using pixel inputs.
+
+- MLP with 2 hidden layers of 128 units instead of the 2-conv + 1-FC CNN
+- 600 episodes, Adam with learning rate 2.5e-4, batch size 64
+- Replay buffer of 10,000 transitions instead of 1,000,000 frames
+- Target network copied every 100 steps (from the 2015 Nature version; the 2013 paper has none)
+- Huber (smooth L1) loss and gradient clipping at 10, instead of plain squared error
+- ε decays by ×0.995 per episode (about 0.049 after 600 episodes) instead of 1 → 0.1 over a million frames
+
+### What the Notebook Result Shows
+
+The agent **partly learned CartPole but did not solve it** in the saved run. The 50-episode training average peaked at **478.4** at episode 500, then dropped to **351.5** by episode 600. With exploration turned off (ε = 0), the trained agent averaged **173.1 ± 3.2** over 10 episodes, only 36.4% of the 475 "solved" threshold. In the demo episode the pole never tilted past 9.9°, but the cart drifted close to the edge of the track. The Q-value plot shows the right preference (push right when the pole leans right), but only by a small margin.
 
 ## Influence
 
-- **Citations**: 10,000+ (Google Scholar) — one of the most cited RL papers ever
 - **Direct descendants**: Double DQN (2015), Dueling DQN (2015), Prioritized Experience Replay (2015), Rainbow (2017), Distributional RL (C51, QR-DQN)
 - **DeepMind lineage**: Led directly to AlphaGo (2016), AlphaZero (2017), MuZero (2019), Agent57 (2020)
 - **Atari benchmark**: Established the Atari 2600 / Arcade Learning Environment as the standard benchmark for deep RL
@@ -110,6 +126,6 @@ We implement DQN on **CartPole-v1** (a classic control task with 4-dimensional s
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/051_playing-atari-with-deep-reinforcement/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/051_playing-atari-with-deep-reinforcement/solution.ipynb) | From-scratch PyTorch DQN on CartPole-v1 (MLP Q-network, replay buffer, target network, ε-greedy), with the training loop, plots and a greedy evaluation |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |

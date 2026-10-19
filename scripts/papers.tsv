@@ -49,7 +49,7 @@ num	short	year	domain	title	folder	kaggle
 048	EfficientNet	2019	cnn	EfficientNet: Rethinking Model Scaling for CNNs	048_efficientnet-rethinking-model-scaling	efficientnet-rethinking-model-scaling-for-cnns
 049	Xception	2016	cnn	Xception: Deep Learning with Depthwise Separable Convolutions	049_xception-depthwise-separable-convolutions	xception-depthwise-separable-convolutions
 050	SENet	2017	cnn	Squeeze-and-Excitation Networks	050_squeeze-and-excitation-networks	squeeze-and-excitation-networks
-051	DQN	2013	rl	Playing Atari with Deep Reinforcement Learning (DQN)	051_playing-atari-with-deep-reinforcement	playing-atari-with-deep-reinforcement
+051	DQN	2013	rl	Playing Atari with Deep Reinforcement Learning (DQN)	051_playing-atari-with-deep-reinforcement	playing-atari-with-deep-reinforcement-learning
 052	Double DQN	2015	rl	Deep Reinforcement Learning with Double Q-learning	052_double-dqn	double-dqn-deep-reinforcement-learning
 053	Dueling DQN	2015	rl	Dueling Network Architectures for Deep RL	053_dueling-network-architectures-for-deep-rl	dueling-network-architectures-for-deep-rl
 054	Prioritized Replay	2015	rl	Prioritized Experience Replay	054_prioritized-experience-replay	prioritized-experience-replay
