@@ -3,46 +3,44 @@ title: "AlphaZero: Talk & Q&A"
 parent: "061 AlphaZero"
 nav_order: 2
 ---
-# AlphaZero — Press Coverage, Interviews, Misconceptions, Citations
+# AlphaZero — Press Coverage, Q&A, Misconceptions, Citations
 
 ## Verifiable Press & Blog Coverage
 
-1. **The Guardian — "AlphaZero AI beats champion chess program after teaching itself in four hours" (December 7, 2017)**
-   Samuel Gibbs reported on AlphaZero's victory over Stockfish, highlighting that the AI learned chess from scratch in four hours of self-play without any human knowledge beyond the rules.
-   - https://www.theguardian.com/technology/2017/dec/07/alphazero-google-deepmind-ai-beats-champion-chess-program-teaching-itself-four-hours
+1. **The Guardian** — [AlphaZero AI beats champion chess program after teaching itself in four hours](https://www.theguardian.com/technology/2017/dec/07/alphazero-google-deepmind-ai-beats-champion-program-teaching-itself-to-play-four-hours) (December 7, 2017). Samuel Gibbs reported on AlphaZero's win over Stockfish, stressing that it learned chess from the rules alone through self-play.
 
-2. **Wired — "Alphabet's Latest AI Show Pony Has More Than One Trick" (December 6, 2017)**
-   Wired described AlphaZero as "the first multi-skilled AI board-game champ," emphasizing that a single algorithm mastered three different games.
-   - https://www.wired.com/story/alphago-zero-ai-master-chess-shogi-go/
+2. **Wired** — [Alphabet's Latest AI Show Pony Has More Than One Trick](https://www.wired.com/story/alphabets-latest-ai-show-pony-has-more-than-one-trick/) (December 2017). Wired called AlphaZero "the first multi-skilled AI board-game champ": one program that taught itself chess, shogi and Go.
 
-3. **MIT Technology Review — "Alpha Zero's 'Alien' Chess Shows the Power, and the Peculiarity, of AI" (December 8, 2017)**
-   Will Knight covered AlphaZero's unconventional, "alien" playing style, noting its counterintuitive sacrifices and positional understanding that differed from human chess theory.
-   - https://www.technologyreview.com/2017/12/08/105014/alpha-zeros-alien-chess-shows-the-power-and-the-peculiarity-of-ai/
+3. **MIT Technology Review** — [Alpha Zero's "Alien" Chess Shows the Power, and the Peculiarity, of AI](https://www.technologyreview.com/2017/12/08/147199/alpha-zeros-alien-chess-shows-the-power-and-the-peculiarity-of-ai/) (December 8, 2017). Will Knight covered Demis Hassabis's talk at NIPS 2017 about AlphaZero's unusual playing style.
 
-4. **BBC News — "'Superhuman' Google AI claims chess crown" (December 6, 2017)**
-   The BBC reported on AlphaZero's 100-game match against Stockfish (28 wins, 0 losses, 72 draws), quoting grandmaster Peter Heine Nielsen comparing AlphaZero's play to "a superior alien species."
-   - https://www.bbc.com/news/technology-42263504
+4. **BBC News** — [Google's 'superhuman' DeepMind AI claims chess crown](https://www.bbc.com/news/technology-42251535) (December 2017). The BBC reported the 100-game match against Stockfish (28 wins, 72 draws, 0 losses) and asked grandmaster Peter Heine Nielsen for his reaction.
 
-5. **Chess.com — "Google's AlphaZero Destroys Stockfish In 100-Game Match" (December 2017)**
-   Chess.com provided detailed game analysis and reactions from top grandmasters including Garry Kasparov, who called it "a remarkable achievement, even if we should have expected it after AlphaGo."
-   - https://www.chess.com/news/google-alphazero-destroys-stockfish-100-game-match-2017
+5. **Chess.com** — [Google's AlphaZero Destroys Stockfish In 100-Game Match](https://www.chess.com/news/view/google-s-alphazero-destroys-stockfish-in-100-game-match) (December 2017). Game analysis and reactions, including Garry Kasparov: "It's a remarkable achievement, even if we should have expected it after AlphaGo."
 
-## Interview Q&A
+6. **Chess.com** — [AlphaZero Chess: Reactions From Top GMs, Stockfish Author](https://www.chess.com/news/view/alphazero-reactions-from-top-gms-stockfish-author) (December 2017). First reactions from top grandmasters and a full statement from Stockfish co-author Tord Romstad on the match conditions.
+
+7. **DeepMind blog** — [AlphaZero: Shedding new light on chess, shogi, and Go](https://deepmind.google/blog/alphazero-shedding-new-light-on-chess-shogi-and-go/) (December 2018). DeepMind's summary of the final Science paper and its re-run matches.
+
+## Q&A (answers from the paper and linked sources)
+
+The paper is [arXiv:1712.01815](https://arxiv.org/abs/1712.01815). It has no numbered sections, so answers point to its main text or Methods.
 
 **Q: How can AlphaZero search a thousand times fewer positions than Stockfish and still win?**
-A: AlphaZero uses its neural network to evaluate positions much more intelligently — instead of brute-forcing millions of positions with a handcrafted evaluation function, MCTS with neural network priors focuses the search on the most promising lines. The paper states AlphaZero searches just 80,000 positions/second in chess vs. 70 million for Stockfish, but compensates with "much more selectively on the most promising variations — arguably a more 'human-like' approach to search."
+A (from the paper, main text): AlphaZero searches about 80 thousand positions per second in chess, against 70 million for Stockfish. The paper says it "compensates for the lower number of evaluations by using its deep neural network to focus much more selectively on the most promising variations – arguably a more 'human-like' approach to search".
 
 **Q: What did AlphaZero learn about chess that surprised grandmasters?**
-A: Demis Hassabis described AlphaZero's style as "alien" — it sometimes wins by offering counterintuitive sacrifices, like sacrificing a queen and bishop to exploit a positional advantage. Danish GM Peter Heine Nielsen said "I've always wondered how it would feel if chess were solved. Now I know." The paper showed AlphaZero independently rediscovered all major human openings (Sicilian, French, English, etc.) during self-play.
+A (from linked press and the paper): At NIPS 2017, Demis Hassabis said, as reported by [MIT Technology Review](https://www.technologyreview.com/2017/12/08/147199/alpha-zeros-alien-chess-shows-the-power-and-the-peculiarity-of-ai/): "It doesn't play like a human, and it doesn't play like a program. It plays in a third, almost alien, way." He described how it sometimes offers up a bishop and queen to exploit a positional advantage. Grandmaster Peter Heine Nielsen told the [BBC](https://www.bbc.com/news/technology-42251535): "I always wondered how it would be if a superior species landed on earth and showed us how they played chess. Now I know." The paper (main text, Table 2) shows that AlphaZero independently discovered and often played the 12 most common human openings.
 
 **Q: Was the match against Stockfish fair?**
-A: This was a subject of significant debate. Stockfish developer Tord Romstad criticized the setup: Stockfish 8 was a year-old version, running with 64 threads and only 1 GB hash (suboptimal), at fixed 1-minute-per-move time controls (negating Stockfish's time management heuristics). GM Hikaru Nakamura argued Stockfish was "basically running on what would be my laptop" while AlphaZero used Google supercomputers. DeepMind addressed these in the Science (2018) version with stronger Stockfish conditions (44 cores, 32 GB hash, 3-hour time control), where AlphaZero still won 155–6–839.
+A (from the paper and linked sources): The paper says Stockfish played with 64 threads and a 1 GB hash, at one minute per move. In a statement to [Chess.com](https://www.chess.com/news/view/alphazero-reactions-from-top-gms-stockfish-author), Stockfish co-author Tord Romstad said the results were "not particularly meaningful because of the rather strange choice of time controls and Stockfish parameter settings": a fixed minute per move switches off Stockfish's time management, the version was a year old, and the hash tables were too small for that many threads.
+
+In the same article Hikaru Nakamura said Stockfish "was basically running on what would be my laptop". For the final Science version, DeepMind re-ran the match with three hours per game plus 15 seconds per move and Stockfish on 44 CPU cores; AlphaZero won 155 games and lost 6 out of 1,000 ([DeepMind blog](https://deepmind.google/blog/alphazero-shedding-new-light-on-chess-shogi-and-go/)).
 
 **Q: How does AlphaZero differ from AlphaGo Zero?**
-A: The paper lists several differences: (1) AlphaZero handles draws (expected outcome, not binary win/loss); (2) it doesn't use symmetries (chess/shogi are asymmetric, unlike Go); (3) it updates the network continually rather than using checkpoint-based best-player selection; (4) it reuses the same hyperparameters across all games without game-specific tuning.
+A (from the paper, main text): The paper lists several differences: (1) AlphaZero estimates the expected outcome, which allows draws, instead of only win/loss; (2) it does not use board symmetries for data augmentation (chess and shogi are not symmetric like Go); (3) it keeps one network that is updated continually, instead of picking a best player after each iteration; (4) it uses the same hyperparameters for all games without game-specific tuning.
 
-**Q: Why was AlphaZero never released to the public?**
-A: Unlike AlphaGo, DeepMind did not release the AlphaZero program. However, the open-source Leela Chess Zero project implemented the same algorithm and competed successfully against Stockfish, demonstrating that the approach is reproducible without DeepMind's resources.
+**Q: Can people run AlphaZero themselves?**
+A: DeepMind did not release the AlphaZero program. The open-source [Leela Chess Zero](https://lczero.org/) project re-implemented the same approach for chess.
 
 ## Common Misconceptions
 
@@ -53,10 +51,10 @@ A: Unlike AlphaGo, DeepMind did not release the AlphaZero program. However, the 
    *Correction:* AlphaZero is fundamentally different from traditional engines. Stockfish uses alpha-beta search with handcrafted evaluation functions and domain-specific heuristics refined over decades. AlphaZero uses MCTS guided by a neural network trained by reinforcement learning. The search algorithm, evaluation method, and learning approach are all different.
 
 3. **"The 4-hour training means AlphaZero is easy to reproduce."**
-   *Correction:* The 4 hours used 5,000 first-generation TPUs for self-play generation and 64 second-generation TPUs for training — equivalent to millions of TPU-hours. The paper notes this was a "computationally intensive" process. Reproducing AlphaZero's full results requires enormous compute, which is why open-source efforts like Leela Chess Zero used distributed community compute over months.
+   *Correction:* Those 4 hours ran on 5,000 first-generation TPUs generating self-play games plus 64 second-generation TPUs training the network (paper, main text). That is roughly 20,000 TPU-hours for self-play alone, far beyond a single machine. Reproducing AlphaZero's full results needs enormous compute.
 
 4. **"AlphaZero proved neural networks are inherently superior to alpha-beta search."**
-   *Correction:* The paper itself notes this "calling into question the widely held belief that alpha-beta search is inherently superior," but the computer chess community (including Komodo developer Larry Kaufman) argued the advantage was largely due to GPU/TPU hardware. Kaufman predicted the strongest engine would be a hybrid, which has partially come true (Stockfish now incorporates NNUE — a neural network evaluation function).
+   *Correction:* The paper says its results call into question "the widely held belief that alpha-beta search is inherently superior in these domains", but it does not prove neural networks are always better. Critics such as Tord Romstad ([Chess.com](https://www.chess.com/news/view/alphazero-reactions-from-top-gms-stockfish-author)) pointed out that AlphaZero ran on custom hardware not available to ordinary users. Today's Stockfish combines alpha-beta search with a small neural-network evaluation (NNUE).
 
 5. **"AlphaZero can play any game."**
    *Correction:* AlphaZero requires a perfect-information, turn-based game with known rules and a well-defined terminal scoring. It cannot directly handle imperfect-information games (poker), real-time games (StarCraft, though AlphaStar extended the paradigm), or games without clear win/loss/draw outcomes. MuZero (2019) later removed even the requirement for known rules.

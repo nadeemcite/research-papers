@@ -16,7 +16,7 @@ permalink: "/061_alphazero-mastering-chess-and-shogi-by/"
 
 AlphaZero is a single, generic reinforcement learning algorithm that achieves superhuman performance in chess, shogi, and Go — starting from random play with no domain knowledge except the game rules. It generalises the earlier AlphaGo Zero approach: a deep neural network (p, v) = fθ(s) takes a board position s and outputs a policy vector p (move probabilities) and a scalar value v (expected outcome), replacing the handcrafted evaluation functions and move-ordering heuristics used by traditional engines. Instead of alpha-beta search, AlphaZero uses Monte-Carlo Tree Search (MCTS) guided by the neural network: each simulation selects moves with high visit counts, high prior probability, and high value. The network is trained entirely by self-play reinforcement learning — games are played by MCTS using the latest network, terminal positions are scored as −1/0/+1, and the loss function combines mean-squared error on the value prediction and cross-entropy on the policy prediction against the MCTS visit-count distribution.
 
-Key differences from AlphaGo Zero: (1) AlphaZero estimates expected outcome including draws, not just binary win/loss; (2) it does not use symmetries (chess/shogi are asymmetric); (3) it maintains a single network updated continually rather than checkpoint-based best-player evaluation; (4) it reuses the same hyperparameters across all games without per-game tuning. Starting from random initialization, AlphaZero surpassed Stockfish in chess after 4 hours, Elmo in shogi after 2 hours, and AlphaGo Zero (3-day) in Go after 8 hours — all using 5,000 first-generation TPUs for self-play generation and 64 second-generation TPUs for training.
+Key differences from AlphaGo Zero: (1) AlphaZero estimates expected outcome including draws, not just binary win/loss; (2) it does not use symmetries (chess/shogi are asymmetric); (3) it maintains a single network updated continually rather than checkpoint-based best-player evaluation; (4) it reuses the same hyperparameters across all games without per-game tuning. Starting from random initialization, AlphaZero surpassed Stockfish in chess after 4 hours, Elmo in shogi after 2 hours, and AlphaGo Lee in Go after 8 hours — all using 5,000 first-generation TPUs for self-play generation and 64 second-generation TPUs for training.
 
 ## What Problem Does It Solve
 
@@ -36,6 +36,17 @@ Imagine you want to build a robot that can play any board game — chess, checke
 - **Training loss:** l = (z − v)² − πᵀ log p + c‖θ‖², combining MSE value loss, cross-entropy policy loss, and L2 regularization.
 - **Continual updates:** the network is updated continuously from self-play data, unlike AlphaGo Zero's iteration-based best-player checkpointing.
 
+### Simplifications in This Notebook
+
+- Connect Four (6×7 board, 7 moves) instead of chess, shogi and Go
+- A 2-layer CNN with policy and value heads instead of a deep residual network
+- 100 MCTS simulations per move instead of 800
+- 3 training iterations of 20 self-play games each, a 500-position replay buffer, Adam with lr 0.001
+
+### What the Notebook Result Shows
+
+The run is a working demo of the AlphaZero loop, not a strong player. Over 3 iterations the value loss fell from **0.7404** to **0.5541**, while the policy loss barely moved (**1.9579** → **1.8819**). Against a random player the network with MCTS won **95.0%**, **95.0%** and then **100.0%** of 20 games. MCTS alone already beats random moves most of the time, so this mainly shows that the search works. In a sample position, MCTS spent 102 of 200 simulations on the center column.
+
 ## Influence
 
 AlphaZero is one of the most influential AI papers of the decade:
@@ -44,7 +55,7 @@ AlphaZero is one of the most influential AI papers of the decade:
 - **MuZero (2019):** DeepMind's follow-up extended AlphaZero to learn the game rules themselves (no rules given), playing Atari, chess, shogi, and Go with a single system.
 - **AlphaFold:** the planning + neural network paradigm influenced DeepMind's protein-folding breakthrough, which won the 2024 Nobel Prize in Chemistry.
 - **MCTS + neural networks in RL:** the combination became a standard paradigm in game-playing RL research, influencing projects from poker (Pluribus) to StarCraft (AlphaStar).
-- **Citations:** the paper has accumulated over 3,500 citations and was published in Science (2018).
+- **Science (2018):** the final version was published in Science.
 
 ---
 
@@ -55,4 +66,4 @@ AlphaZero is one of the most influential AI papers of the decade:
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/061_alphazero-mastering-chess-and-shogi-by/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper and linked sources), citations, and common misconceptions about the paper |
