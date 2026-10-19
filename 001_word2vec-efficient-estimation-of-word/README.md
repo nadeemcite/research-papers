@@ -31,7 +31,7 @@ Strip the neural network language model down to almost nothing. No hidden layers
 ### Skip-gram Architecture
 - **Input:** A center word (one-hot vector of dimension V = vocab size).
 - **Embedding:** Multiply one-hot by the input embedding matrix W (V×d) to get the word's d-dimensional vector.
-- **Output:** Predict each context word within a window of size C using a softmax over the vocabulary: `p(w_c | w_t) = exp(v'_{w_c}^T v_{w_t}) / Σ exp(v'_w^T v_{w_t})`
+- **Output:** Predict each context word within a window of size C using a softmax over the vocabulary: `p(w_c \| w_t) = exp(v'_{w_c}^T v_{w_t}) / Σ exp(v'_w^T v_{w_t})`
 - **Two matrices:** Input embeddings W and output embeddings W'. The final word vectors are typically W (the input embeddings).
 
 ### CBOW Architecture
@@ -44,11 +44,20 @@ Strip the neural network language model down to almost nothing. No hidden layers
 - This reduces computation from O(V) to O(k+1) per step, enabling training on massive corpora.
 
 ### Training Setup (from the paper)
-- 1.6 billion words (Google News dataset)
-- Vocabulary: 3 million words
-- Embedding dimensions: tested 100–1000
-- Training time: less than a day on a single machine
+- Google News corpus of about 6 billion tokens, vocabulary limited to the 1 million most frequent words (Section 4.2)
+- Embedding dimensions: tested 50–1000
+- Training time: the abstract reports high-quality vectors from 1.6 billion words in less than a day
 - Evaluation: word similarity tasks and analogy tasks (semantic + syntactic)
+
+### Simplifications in This Notebook
+
+- Skip-gram with **negative sampling** (from the follow-up paper, arXiv:1310.4546) instead of the hierarchical softmax used in this paper
+- A tiny hand-written corpus: 14 sentences, 26 words in the vocabulary, 112 tokens after filtering
+- 50-dimensional vectors, 80 epochs, learning rate 0.03, k = 5 negative samples, plain NumPy
+
+### What the Notebook Result Shows
+
+The training loss fell from **4.1584** (epoch 1) to **2.3532** (epoch 80), so the model did learn something. But with only 112 tokens, the vectors are not good. The nearest neighbours of "king" are mostly common words ("to" 0.798, "war" 0.791, "ruled" 0.782), and the analogies fail: king − queen + prince gives "to" first ("princess" is third), and princess − prince + queen gives "with" instead of "king". Only "knight" and "dragon" end up as each other's closest word (0.888). The paper's analogy results need millions to billions of words.
 
 ## Influence
 
@@ -69,4 +78,4 @@ Word2Vec was a watershed moment for NLP. It demonstrated that meaningful semanti
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/001_word2vec-efficient-estimation-of-word/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
