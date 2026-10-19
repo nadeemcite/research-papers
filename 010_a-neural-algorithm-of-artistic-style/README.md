@@ -34,7 +34,17 @@ The paper solves this separation problem by borrowing the brain-like processing 
 - Content representation: feature maps `F^l` of the generated image `x` at layer `l` are compared to the corresponding maps `P^l` of the content image `p` with `L_content(p,x,l) = (1/2) Σ (F^l_ij − P^l_ij)^2`. The paper uses `conv4_2` for content.
 - Style representation: for each chosen layer, the Gram matrix `G^l = F^l (F^l)^T` is computed; entries measure correlations between different filter responses. The style loss for a layer is the normalised squared distance between Gram matrices: `E_l = (1 / 4 N_l^2 M_l^2) Σ (G^l_ij − A^l_ij)^2`, summed over selected layers with equal weights.
 - Total loss: `L_total = α L_content + β L_style`; the ratio `α/β` controls the trade-off (roughly `1e-3` for content-heavy and `1e-4` for style-heavy results).
-- Optimisation: start from the content image plus noise and minimise the loss with L-BFGS via back-propagation to the pixels.
+- Optimisation: the paper starts from a white noise image and minimises the loss with gradient descent (L-BFGS) by back-propagating to the pixels. The CVPR version (Section 3.3) shows that starting from the content image also works.
+
+### Simplifications in This Notebook
+
+- 256 × 256 images instead of about 512 × 512
+- Starts from the content image plus a little noise, not from white noise
+- α = 1, β = 1e4 (α/β = 1e-4, a style-heavy setting) and 300 L-BFGS loss evaluations
+
+### What the Notebook Result Shows
+
+Over the run, the content loss fell from 7.46e-04 (step 50) to 2.50e-04 (step 300) and the style loss from 4.64e-07 to 6.75e-08. The generated image keeps the dancer's pose and outline from the content photo and takes on the blue-grey colours and some brush-like texture of the cubist painting. The large geometric shapes of the painting do not appear: because the notebook starts from the content photo, the result looks more like a recoloured, textured photo than a full repaint.
 
 ## Influence
 
@@ -47,6 +57,6 @@ The paper founded neural style transfer as a research area and was later publish
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/010_a-neural-algorithm-of-artistic-style/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/010_a-neural-algorithm-of-artistic-style/solution.ipynb) | PyTorch style transfer with a frozen, pretrained VGG-19: content and Gram-matrix style losses and an L-BFGS loop that optimises the image pixels |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |

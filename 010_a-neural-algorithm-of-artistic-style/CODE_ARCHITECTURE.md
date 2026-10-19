@@ -45,7 +45,7 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
 - For each selected layer, compute the Gram matrix of the generated image features and the target style features.
 - Normalise by the number of elements in the feature map (`N * C * H * W` style: `1 / (4 * N_l^2 * M_l^2)` where `M_l = H * W`).
 - Weight layers equally (`1 / number_of_layers`) and sum them.
-- Formula per layer: `E_l = (1 / (4 N_l^2 M_l^2)) * ||G_x - G_a||_F^2`.
+- Formula per layer: `E_l = (1 / (4 N_l^2 M_l^2)) * \|\|G_x - G_a\|\|_F^2`.
 
 ### 7. Total loss and optimisation loop
 - Start from the content image (with a small amount of noise) as the initial generated image.
