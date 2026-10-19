@@ -10,7 +10,7 @@ permalink: "/032_you-only-look-once-yolo/"
 - **Paper:** [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
 - **Authors:** Joseph Redmon, Santosh Divvala, Ross Girshick, Ali Farhadi
 - **Lab, year:** University of Washington, Allen Institute for AI and Facebook AI Research, 2015 ([CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html))
-- **Video:** YouTube Short coming on 18 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/ZznC1w2mElY) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
