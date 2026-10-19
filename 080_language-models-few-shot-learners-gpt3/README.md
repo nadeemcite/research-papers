@@ -18,7 +18,9 @@ GPT-3 demonstrated that scaling up autoregressive language models to 175 billion
 
 ## What Problem Does It Solve
 
-Imagine you're learning a new board game. If someone just tells you the rules, that's like *zero-shot* — you might get it right, but you'll make mistakes. If they show you one example move, that's *one-shot* — a bit better. If they walk you through several rounds first, that's *few-shot* — you'll play much more confidently. Before GPT-3, AI systems needed hundreds or thousands of practice examples to learn a new task (like having to play 500 games before understanding the rules). GPT-3 showed that a big enough AI, having already read tons of text, can learn new tasks from just a handful of examples — the same way you pick up a new game after watching a few rounds. This paper proved that simply making language models *bigger* lets them learn this way, no special training required.
+Imagine you're learning a new board game. If someone just tells you the rules, that's like *zero-shot* — you might get it right, but you'll make mistakes. If they show you one example move, that's *one-shot* — a bit better. If they walk you through several rounds first, that's *few-shot* — you'll play much more confidently.
+
+Before GPT-3, AI systems needed hundreds or thousands of practice examples to learn a new task (like having to play 500 games before understanding the rules). GPT-3 showed that a big enough AI, having already read tons of text, can learn new tasks from just a handful of examples — the same way you pick up a new game after watching a few rounds. This paper proved that simply making language models *bigger* lets them learn this way, no special training required.
 
 ## Core Idea
 
@@ -29,15 +31,24 @@ The paper evaluates on dozens of NLP tasks: translation, QA, cloze, arithmetic, 
 ## Key Method Details
 
 1. **In-context learning protocol:** The prompt is constructed as `task_description + K examples + query`, where each example is `input → output`. The model generates the output for the query via next-token prediction.
-2. **Few-shot scaling:** Accuracy improves monotonically with K (0, 1, 2, 4, 8, 16, 32 examples).
+2. **Few-shot scaling:** Accuracy generally improves as K, the number of examples in the prompt, grows. In the few-shot setting the paper uses as many examples as fit in the 2,048-token context window (typically 10 to 100).
 3. **Model scaling:** Larger models use in-context examples more effectively — the gap between zero-shot and few-shot widens with scale.
 4. **No gradient updates:** The model weights are frozen; all task knowledge is accessed through the prompt.
 
-In our notebook, we replicate this protocol using a small pretrained language model (GPT-2) on a toy sentiment classification task. We construct prompts with 0, 1, 2, 4, 8, and 16 in-context examples and measure how classification accuracy scales with the number of examples.
+### Simplifications in This Notebook
+
+- GPT-2 small (124M parameters, pretrained, frozen) instead of GPT-3 (175B); no training at all
+- One toy task: 50 hand-written sentences for binary sentiment, split into a 20-sentence example pool and a 30-sentence test set
+- K = 0, 1, 2, 4, 8 and 16 examples; 3 random draws of examples per K
+- The label is chosen by comparing the next-token scores of " positive" and " negative", not by free text generation
+
+### What the Notebook Result Shows
+
+Accuracy on the 30 test sentences rose from **50.0%** with no examples (K=0) to **56.7%** (K=1), **60.0%** (K=2), **70.0%** (K=4), **71.1%** (K=8) and **76.7%** (K=16). So more examples in the prompt helped even this small model. Keep the caveats in mind: the test set has only 30 sentences (17 of them negative, so always saying "negative" would already score 56.7%), and single draws vary a lot (from 70.0% to 86.7% at K=16). This shows the in-context effect at toy scale; it does not reproduce GPT-3's numbers.
 
 ## Influence
 
-GPT-3 popularized the in-context learning paradigm and prompt engineering, directly leading to GPT-3.5/4, ChatGPT, and the modern LLM era. It showed that scale alone can unlock emergent capabilities, influencing the entire trajectory of large language model development. The paper has been cited over 30,000 times and is one of the most influential AI papers of the decade.
+GPT-3 popularized the in-context learning paradigm and prompt engineering, directly leading to GPT-3.5/4, ChatGPT, and the modern LLM era. It showed that scale alone can unlock emergent capabilities, influencing the entire trajectory of large language model development. It is one of the most influential AI papers of the decade.
 
 ---
 
@@ -46,6 +57,6 @@ GPT-3 popularized the in-context learning paradigm and prompt engineering, direc
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/080_language-models-few-shot-learners-gpt3/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/080_language-models-few-shot-learners-gpt3/solution.ipynb) | In-context learning demo with pretrained GPT-2 (no training): zero-, one- and few-shot sentiment prompts, an accuracy-vs-K sweep and plot |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |

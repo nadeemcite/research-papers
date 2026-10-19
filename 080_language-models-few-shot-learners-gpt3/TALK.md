@@ -7,34 +7,29 @@ nav_order: 2
 
 ## Verifiable Press/Blog Coverage
 
-1. **The New York Times** — "The New A.I. System Spits Out Coherent Text. It Also Spreads Misinformation." (July 2020) — covered GPT-3's text generation capabilities and societal concerns.
-   - https://www.nytimes.com/2020/07/20/technology/openai-gpt3-smart.html (verified: URL exists in NYT archives)
+1. **The New York Times** — [Meet GPT-3. It Has Learned to Code (and Blog and Argue).](https://www.nytimes.com/2020/11/24/science/artificial-intelligence-ai-gpt3.html) (November 2020, Cade Metz) — a long feature on what people built with GPT-3 (code, tweets, poems, chat) and where it still fails, such as biased and toxic language.
 
-2. **The Guardian** — "A robot wrote this entire article. Are you scared yet, human?" (September 2020) — GPT-3 was used to write an op-ed, one of the first instances of AI-generated content in a major newspaper.
-   - https://www.theguardian.com/commentisfree/2020/sep/08/robot-wrote-this-article-gpt-3
+2. **The Guardian** — [A robot wrote this entire article. Are you scared yet, human?](https://www.theguardian.com/commentisfree/2020/sep/08/robot-wrote-this-article-gpt-3) (September 2020) — GPT-3 was used to write an op-ed, one of the first instances of AI-generated content in a major newspaper.
 
-3. **MIT Technology Review** — "OpenAI's new GPT-3 language model is surprisingly good at writing code and responding to medical questions." (July 2020)
-   - https://www.technologyreview.com/2020/07/20/1005446/openais-new-gpt-3-language-model-is-surprisingly-good-at-writing-code-and-responding-to-medical-questions/
+3. **MIT Technology Review** — [OpenAI's new language generator GPT-3 is shockingly good—and completely mindless](https://www.technologyreview.com/2020/07/20/1005454/openai-machine-learning-language-generator-gpt-3-nlp/) (July 2020) — an early hands-on look at what GPT-3 gets right and where it makes no sense.
 
-4. **Wired** — "The Text Engine That Could (Maybe) Write Your Next Book" (August 2020)
-   - https://www.wired.com/story/ai-text-engine-gpt3-write-book/
+4. **Wired** — [AI Text Generator GPT-3 Is Learning Our Language—Fitfully](https://www.wired.com/story/ai-text-generator-gpt-3-learning-language-fitfully/) (2020; shared as "Did a Person Write This Headline, or a Machine?") — how far the program has come and how far it still has to go.
 
-5. **VentureBeat** — "OpenAI's GPT-3 is the most powerful language model ever built" (June 2020)
-   - https://venturebeat.com/2020/06/01/openai-makes-gpt-3-generally-available-through-api/
+5. **VentureBeat** — [OpenAI launches an API to commercialize its research](https://venturebeat.com/business/openai-launches-an-api-to-commercialize-its-research) (June 2020) — the launch of the OpenAI API, the first way outside users could try GPT-3.
 
-## Interview Q&A (Verifiable Sources)
+## Q&A (answers from the paper)
 
 **Q: What is the key insight of GPT-3?**
-A: That scaling up language models — in parameters, data, and compute — unlocks in-context learning, where the model can perform new tasks from just a few examples in the prompt without any weight updates. This was demonstrated by Tom Brown et al. at OpenAI in 2020.
+A (from the paper, Abstract and Section 1): Scaling up a language model, here to 175 billion parameters, makes it much better at in-context learning: it can do a new task from a task description and a few examples in the prompt, with no weight updates. The authors also find that the gap between zero-, one- and few-shot performance often grows with model size.
 
 **Q: How does few-shot learning differ from fine-tuning?**
-A: In fine-tuning, the model's weights are updated using gradient descent on task-specific data. In few-shot learning (as in GPT-3), the model's weights are frozen — it conditions on a text prompt containing examples and performs the task via next-token prediction. The paper explicitly states: "GPT-3 is applied without any gradient updates or fine-tuning."
+A (from the paper, Abstract and Section 2): In fine-tuning, the model's weights are updated by gradient descent on task-specific data. In the few-shot setting, the weights stay frozen: the model reads a text prompt with examples and does the task by predicting the next tokens. The abstract says: "For all tasks, GPT-3 is applied without any gradient updates or fine-tuning."
 
-**Q: What are the three evaluation settings introduced?**
-A: Zero-shot (task description only), one-shot (one example), and few-shot (K examples). Performance improves consistently across these settings with model scale.
+**Q: What are the three evaluation settings?**
+A (from the paper, Section 2): Zero-shot (a task description only), one-shot (one example) and few-shot (as many examples as fit in the 2,048-token context window, typically 10 to 100). For most tasks, performance scales fairly smoothly with model size in all three settings.
 
 **Q: What are some limitations noted in the paper?**
-A: The authors note GPT-3 struggles with some tasks (e.g., certain reading comprehension benchmarks), has issues with training on web corpora (potential memorization), and can generate text that is difficult to distinguish from human-written text, raising societal concerns.
+A (from the paper, Sections 4, 5 and 6): Long GPT-3 samples can repeat themselves, lose coherence or contradict themselves. GPT-3 does little better than chance on some "comparison" tasks (WiC, ANLI) and on some reading comprehension tasks such as QuAC and RACE. Some test sets may have leaked into the web training data (Section 4). The authors also discuss misuse, bias and energy use (Section 6).
 
 ## Common Misconceptions
 
@@ -42,7 +37,7 @@ A: The authors note GPT-3 struggles with some tasks (e.g., certain reading compr
 
 2. **"GPT-3 was the first to do few-shot learning."** — In-context learning at scale was popularized by GPT-3, but the concept of meta-learning and few-shot learning predates it (e.g., MAML, matching networks). GPT-3's contribution was showing that *scale alone* can achieve this without specialized architectures.
 
-3. **"Bigger is always better."** — While GPT-3 showed strong scaling, the paper also identifies tasks where larger models don't help (e.g., anagram manipulation) and discusses societal risks of scale. Later work (Chinchilla) showed data quality and quantity matter as much as parameter count.
+3. **"Bigger is always better."** — Not for every task. In the word-scrambling tests (Section 3.9.2), scores on anagrams and the other tasks do improve with model size, but no model of any size can reverse the letters of a word. The paper also discusses the societal risks of scale. Later work (Chinchilla) showed that, for a fixed compute budget, the number of training tokens matters as much as the parameter count.
 
 ## Real Citations
 

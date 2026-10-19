@@ -26,18 +26,22 @@ This notebook demonstrates the **in-context learning** paradigm introduced by GP
 - Each sample: `(text, label)` where label ∈ {positive, negative}.
 
 ### 4. Prompt Construction
-- **Zero-shot:** `Task: Classify the sentiment as positive or negative.\nSentence: {text}\nSentiment:`
+- **Zero-shot:** `TASK_DESCRIPTION`, a blank line, then `Sentence: {text}` and `Sentiment:`, where `TASK_DESCRIPTION = "Classify the sentiment of the sentence as positive or negative."`
 - **Few-shot:** Prepend K labeled examples:
   ```
-  Task: Classify the sentiment as positive or negative.
+  Classify the sentiment of the sentence as positive or negative.
+
   Sentence: {text_1}
   Sentiment: {label_1}
+
   Sentence: {text_2}
   Sentiment: {label_2}
+
   ...
   Sentence: {query_text}
   Sentiment:
   ```
+- The K examples are drawn at random from the 20-sentence demonstration pool, anew for every query.
 - The model is expected to generate "positive" or "negative" as the next token.
 
 ### 5. Inference Function
@@ -48,21 +52,21 @@ This notebook demonstrates the **in-context learning** paradigm introduced by GP
 
 ### 6. Few-Shot Evaluation Sweep
 - Evaluate at K = 0, 1, 2, 4, 8, 16 in-context examples.
-- For each K, randomly sample K demonstration examples and evaluate on the full test set.
-- Report accuracy for each K.
+- For each K, run 3 trials over the full 30-sentence test set (each query gets its own random K examples) and average the accuracy.
+- Report the mean and per-trial accuracy for each K. The sweep itself is a plain loop over `k_values` in the cell.
 
 ### 7. Visualization
 - Plot accuracy vs. number of in-context examples (K).
-- This replicates the key figure from the paper showing the scaling relationship.
+- This mirrors, at toy scale, the paper's in-context learning curves (accuracy vs number of examples, e.g. Figure 1.2).
 
 ## Key Functions/Classes
 
 | Function | Purpose |
 |---|---|
-| `construct_prompt(examples, query)` | Builds the text prompt with K examples + query |
-| `predict_sentiment(model, tokenizer, prompt)` | Runs forward pass, compares token probabilities |
-| `evaluate_few_shot(model, tokenizer, demos, test_set, K)` | Evaluates accuracy at a given K |
-| `run_scaling_sweep(model, tokenizer, demos, test_set, K_values)` | Runs the full K sweep and returns accuracies |
+| `construct_prompt(examples, query_text, k)` | Builds the text prompt with k random examples + query |
+| `get_token_id(token_text)` | Token id of " positive" / " negative" |
+| `predict_sentiment(model, tokenizer, prompt, device)` | Runs forward pass, compares the two label-token probabilities |
+| `evaluate_few_shot(model, tokenizer, demo_pool, eval_set, k, device, n_trials=3)` | Mean accuracy (and per-trial accuracies) at a given k |
 
 ## Data Flow / Shapes
 
@@ -75,8 +79,8 @@ Input text (str) → Prompt construction (str) → Tokenization (tensor[1, seq_l
 ## Deliberate Simplifications vs Full Paper
 
 1. **Model size:** We use GPT-2 (124M) instead of GPT-3 (175B). The in-context learning effect is weaker at small scale but still observable.
-2. **Single task:** We evaluate only sentiment classification. The paper evaluates 50+ tasks.
+2. **Single task:** We evaluate only sentiment classification. The paper evaluates over two dozen NLP datasets plus several new tasks.
 3. **Token-level comparison:** We compare probabilities of "positive"/"negative" tokens rather than free generation. This is a cleaner evaluation for small models.
-4. **Small dataset:** We use ~50 hand-crafted sentences rather than standard benchmarks (e.g., SST-2).
+4. **Small dataset:** We use 50 hand-written sentences (20 for examples, 30 for testing) rather than standard benchmarks (e.g., SST-2).
 5. **No few-shot fine-tuning comparison:** The paper compares against fine-tuned models; we focus solely on the in-context scaling effect.
 6. **Single model size:** The paper sweeps across model sizes (125M to 175B). We use a single model and sweep over K only.

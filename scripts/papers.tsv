@@ -78,7 +78,7 @@ num	short	year	domain	title	folder	kaggle
 077	ALBERT	2019	language	ALBERT: A Lite BERT for Self-supervised Learning	077_albert-lite-bert	albert-a-lite-bert-for-self-supervised-learning
 078	DistilBERT	2019	language	DistilBERT: A Distilled Version of BERT	078_distilbert-distilled-version-of-bert	distilbert-a-distilled-version-of-bert
 079	T5	2019	language	Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)	079_exploring-limits-transfer-learning-text-to-text	exploring-transfer-learning-t5
-080	GPT-3	2020	language	Language Models are Few-Shot Learners (GPT-3)	080_language-models-few-shot-learners-gpt3	language-models-few-shot-learners-gpt3
+080	GPT-3	2020	language	Language Models are Few-Shot Learners (GPT-3)	080_language-models-few-shot-learners-gpt3	language-models-are-few-shot-learners-gpt-3
 081	ViT	2020	multimodal	An Image is Worth 16x16 Words (Vision Transformer)	081_image-worth-16x16-words-vision-transformer	an-image-is-worth-16x16-words-vision-transformer
 082	CLIP	2021	multimodal	Learning Transferable Visual Models From Natural Language Supervision (CLIP)	082_learning-transferable-visual-models-clip	082-learning-transferable-visual-models-clip
 083	DALL-E	2021	generative	Zero-Shot Text-to-Image Generation (DALL-E)	083_zero-shot-text-to-image-generation-dall-e	zero-shot-text-to-image-generation-dall-e
