@@ -12,9 +12,9 @@ The notebook implements a simplified **selective state-space model (S6)** from s
 ## Section-by-Section Breakdown
 
 ### 1. Imports and Setup
-- `torch`, `torch.nn`, `torch.nn.functional`, `math`, `time`, `functools`
+- `torch`, `torch.nn`, `torch.nn.functional`, `math`, `time`, `random`, `warnings`
 - Device selection (cuda if available, else cpu)
-- Reproducibility: `torch.manual_seed(42)`
+- Reproducibility: `torch.manual_seed(42)`, `random.seed(42)`
 
 ### 2. State Space Model (S4) — Baseline LTI
 **Class: `S4Layer`**
@@ -26,6 +26,7 @@ The notebook implements a simplified **selective state-space model (S6)** from s
   - Compute via recurrence: `h_t = A_bar * h_{t-1} + B_bar * x_t`, `y_t = C * h_t`
   - LTI: B, C, dt are fixed (not input-dependent)
 - Output shape: `(B, L, D)`
+- Note: `S4Layer` is defined for reference but is not trained or benchmarked in the notebook.
 
 ### 3. Selective State Space Model (S6) — Mamba's Core
 **Class: `SelectiveSSM`**
@@ -80,12 +81,12 @@ The notebook implements a simplified **selective state-space model (S6)** from s
 ### 8. Training Loop
 - Adam optimizer, lr=1e-3
 - Train both Mamba and Transformer on each toy task
-- 50-100 epochs, batch size 32
+- 50 epochs of 10 batches each, batch size 32, sequence length 64
 - Track and plot training loss
 
 ### 9. Speed and Memory Benchmark
 - For sequence lengths [256, 512, 1024, 2048, 4096]:
-  - Measure forward+backward time (averaged over 10 runs)
+  - Measure forward+backward time (2 warm-up runs, then the average of 3 runs), batch size 4
   - Measure peak GPU memory with `torch.cuda.max_memory_allocated()`
   - Compare Mamba vs Transformer
 - Plot: time vs sequence length, memory vs sequence length
@@ -107,8 +108,9 @@ The notebook implements a simplified **selective state-space model (S6)** from s
 | `MambaLM` | Language model: embedding + Mamba blocks + output head |
 | `TransformerBlock` | Baseline: multi-head attention + FFN |
 | `TransformerLM` | Baseline language model |
-| `selective_copy_task` | Generate toy data for selective copy |
-| `induction_head_task` | Generate toy data for induction heads |
+| `generate_selective_copy` | Generate toy data for selective copy |
+| `generate_induction_heads` | Generate toy data for induction heads |
+| `train_model` | Adam training loop that returns the per-epoch losses |
 | `benchmark_model` | Measure time and memory at varying seq lengths |
 
 ## Data Flow and Shapes
