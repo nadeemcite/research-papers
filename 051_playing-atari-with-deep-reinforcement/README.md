@@ -102,13 +102,27 @@ We implement DQN on **CartPole-v1** (a classic control task with a 4-number stat
 - MLP with 2 hidden layers of 128 units instead of the 2-conv + 1-FC CNN
 - 600 episodes, Adam with learning rate 2.5e-4, batch size 64
 - Replay buffer of 10,000 transitions instead of 1,000,000 frames
-- Target network copied every 100 steps (from the 2015 Nature version; the 2013 paper has none)
+- Target network copied every 250 steps (from the 2015 Nature version; the 2013 paper has none)
 - Huber (smooth L1) loss and gradient clipping at 10, instead of plain squared error
 - ε decays by ×0.995 per episode (about 0.049 after 600 episodes) instead of 1 → 0.1 over a million frames
 
 ### What the Notebook Result Shows
 
-The agent **partly learned CartPole but did not solve it** in the saved run. The 50-episode training average peaked at **478.4** at episode 500, then dropped to **351.5** by episode 600. With exploration turned off (ε = 0), the trained agent averaged **173.1 ± 3.2** over 10 episodes, only 36.4% of the 475 "solved" threshold. In the demo episode the pole never tilted past 9.9°, but the cart drifted close to the edge of the track. The Q-value plot shows the right preference (push right when the pole leans right), but only by a small margin.
+The main run (seed 42) **learned CartPole slowly and did not solve it**. The 50-episode training average went from 18.4 (episode 50) to 164.6 (episode 600). With exploration turned off (ε = 0), the trained agent averaged **197.3 ± 7.2** over 20 episodes, 41.5% of the 475 "solved" threshold, and none of the 20 episodes reached the 500 cap. In the demo episode the pole never tilted past 7.8°, but the cart drifted to the edge of the track.
+
+The notebook then asks what the paper's ideas buy, with a small ablation: the same agent, five seeds each, in three versions.
+
+| Version | Mean of last-50 average, 5 seeds | Worst seed | Best seed |
+|---|---|---|---|
+| Full DQN | 269.9 | 58.7 | 457.5 |
+| No target network | 9.6 | 9.4 | 9.7 |
+| Tiny buffer (last 64 transitions) | 351.6 | 82.0 | 495.0 |
+
+- **The target network is essential here.** Without it all five seeds stay at about 9.6 reward for all 600 episodes and never learn.
+- **Run-to-run variance is huge.** The same full-DQN code finishes anywhere from 58.7 to 457.5 depending on the seed.
+- **Replay did not show a benefit on CartPole.** The tiny-buffer version did at least as well on average, though with five seeds and this spread the difference is within noise. CartPole is simple enough that correlated minibatches are tolerable; the notebook does not test Atari.
+
+The notebook also plots the value the network predicts at each step against the discounted return it actually collects. The network predicts about 100 (the value of surviving forever) throughout an episode that ends in failure after 207 steps, so it does not see the failure coming.
 
 ## Influence
 
@@ -126,6 +140,6 @@ The agent **partly learned CartPole but did not solve it** in the saved run. The
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/051_playing-atari-with-deep-reinforcement/solution.ipynb) | From-scratch PyTorch DQN on CartPole-v1 (MLP Q-network, replay buffer, target network, ε-greedy), with the training loop, plots and a greedy evaluation |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/051_playing-atari-with-deep-reinforcement/solution.ipynb) | From-scratch PyTorch DQN on CartPole-v1 (MLP Q-network, replay buffer, target network, ε-greedy), with the training loop, plots, a greedy evaluation and a five-seed ablation |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
 | [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |

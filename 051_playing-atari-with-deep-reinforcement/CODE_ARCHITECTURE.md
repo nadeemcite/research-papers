@@ -27,7 +27,7 @@ It also adds a target network (a periodically updated copy for stable targets) a
   - `gamma = 0.99` — discount factor
   - `buffer_size = 10000` — replay buffer capacity (the paper used 1M frames)
   - `batch_size = 64` — minibatch size for training
-  - `target_update_freq = 100` — steps between target network updates (the 2015 Nature version used 10,000; the 2013 paper had no separate target network)
+  - `target_update_freq = 250` — steps between target network updates (the 2015 Nature version used 10,000; the 2013 paper had no separate target network)
   - `epsilon_start = 1.0` — initial exploration rate
   - `epsilon_end = 0.01` — minimum exploration rate (not reached: ε is about 0.049 after 600 episodes)
   - `epsilon_decay = 0.995` — per-episode decay rate
@@ -58,11 +58,11 @@ It also adds a target network (a periodically updated copy for stable targets) a
 - **Simplification vs paper**: The 2013 paper used a CNN (2 conv layers + 1 fully connected hidden layer of 256 units) for pixel inputs; 3 conv + 2 FC is the 2015 Nature version. We use an MLP for the 4-dim CartPole state. The Q-learning algorithm is identical.
 
 ### 5. Experience Replay Buffer
-- **Purpose**: Store transitions (s, a, r, s', done) and sample random minibatches to decorrelate training updates.
-- **Key class**: `ReplayBuffer` with `push(state, action, reward, next_state, done)` and `sample(batch_size)` methods
+- **Purpose**: Store transitions (s, a, r, s', terminated) and sample random minibatches to decorrelate training updates.
+- **Key class**: `ReplayBuffer` with `push(state, action, reward, next_state, terminated)` and `sample(batch_size)` methods
 - **Implementation**: Uses `collections.deque` with maxlen for automatic eviction of old transitions
 - **Data flow**: Agent collects transitions → buffer → random sampling → training minibatch
-- **Key detail**: The `sample()` method returns tensors ready for the network. The `done` flag is used to zero out the target for terminal states (no future reward).
+- **Key detail**: The `sample()` method returns tensors ready for the network. The stored flag is `terminated` (a real failure), which zeroes the future reward; hitting the 500-step time limit is not treated as a failure.
 
 ### 6. Target Network
 - **Purpose**: A frozen copy of the Q-network used to compute stable training targets.
@@ -84,11 +84,11 @@ It also adds a target network (a periodically updated copy for stable targets) a
     for each step:
       1. Select action a via ε-greedy
       2. Execute a, observe reward r and next state s'
-      3. Store (s, a, r, s', done) in replay buffer
+      3. Store (s, a, r, s', terminated) in replay buffer
       4. If buffer has at least min_buffer_size (500) samples, call optimize_model:
          a. Sample random minibatch from buffer
          b. Compute current Q-values: Q(s, a; θ)
-         c. Compute target: y = r + γ * max_a' Q(s', a'; θ⁻) * (1 - done)
+         c. Compute target: y = r + γ * max_a' Q(s', a'; θ⁻) * (1 - terminated)
          d. Loss = Huber / smooth L1 (y, Q(s, a; θ))
          e. Backprop, clip gradient norm at 10, update θ (Adam)
       5. Every target_update_freq (100) steps: copy θ → θ⁻
@@ -97,7 +97,7 @@ It also adds a target network (a periodically updated copy for stable targets) a
     log episode reward
   ```
 - **Tracking**: Episode rewards, epsilon values, losses logged per episode
-- **Key detail**: The target computation uses the target network (θ⁻), not the policy network (θ). The `done` flag zeros the future reward term for terminal states.
+- **Key detail**: The target computation uses the target network (θ⁻), not the policy network (θ). The The stored flag is `terminated`, not `terminated or truncated`: only a real failure zeroes the future reward, the 500-step time limit does not.
 
 ### 9. Visualization: Reward Curve
 - **Purpose**: Plot episode reward over training. Should show an upward trend as the agent learns to balance the pole longer.
@@ -110,8 +110,27 @@ It also adds a target network (a periodically updated copy for stable targets) a
 - **Purpose**: Plot the Q-learning loss over training steps. Should decrease as Q-values stabilize.
 
 ### 12. Evaluation
-- **Purpose**: Run the trained agent with ε=0 (pure greedy) for several episodes and report average reward.
-- **Key detail**: This measures the agent's learned policy without exploration noise.
+- **Purpose**: Run the trained agent with ε=0 (pure greedy) for 20 episodes and report the average, spread and how many episodes reached the 500 cap.
+- **Key function**: `evaluate_policy(net, n_episodes=20, seed0=1000)` returns the list of episode rewards.
+- **Key detail**: This measures the agent's learned policy without exploration noise. In the saved run the average is 197.3 ± 7.2, so the main run does not solve CartPole-v1 (475).
+
+### 13. Predicted Value vs. Actual Return
+- **Purpose**: Check the network's predictions against what really happens. One episode is run with the greedy policy; at every step the notebook records `max Q(s, a)` and the gap `|Q(left) - Q(right)|`.
+- **Key detail**: The actual discounted return from each step is computed backwards from the rewards (`G_t = r_t + γ G_{t+1}`). With γ = 0.99 and +1 per step, surviving forever is worth 1 / (1 - γ) = 100. The prediction stays near 100 the whole episode while the real return falls to 0 at the end, so the agent does not see the failure coming.
+
+### 14. Trained Agent Demonstration
+- **Purpose**: One greedy episode, plotting cart position and pole angle over time.
+- **Key detail**: The pole stays within the ±12° limit but the cart drifts to the edge of the track (±2.4), which ends the episode.
+
+### 15. Ablation: Target Network and Replay
+- **Purpose**: Test what the paper's ideas buy by removing them one at a time.
+- **Key function**: `run_dqn(seed, buffer_cap, min_buffer, target_update)` trains a fresh agent with the same recipe and returns the 600 episode rewards.
+- **Versions** (5 seeds each, seeds 0–4): full DQN; no target network (`target_update = 1`, the target is refreshed at every step); tiny buffer (`buffer_cap = 64`, so minibatches are only the most recent transitions).
+- **Key detail**: Each version uses the same recipe and episode count as the main run.
+
+### 16. Ablation Results
+- **Purpose**: Two plots: mean learning curves (50-episode moving average, shaded between best and worst seed) and the last-50-episode score of every run.
+- **Result**: Full DQN averages 269.9 (58.7 to 457.5), no target network 9.6 (9.4 to 9.7), tiny buffer 351.6 (82.0 to 495.0). The target network is essential on CartPole, the benefit of replay is not visible, and seed-to-seed variance is large.
 
 ## Key Functions/Classes Summary
 
@@ -120,6 +139,8 @@ It also adds a target network (a periodically updated copy for stable targets) a
 | `QNetwork` | nn.Module | (B, 4) | (B, 2) | 3-layer MLP, outputs Q-values per action |
 | `ReplayBuffer` | Class | — | — | Stores transitions, samples random minibatches |
 | `select_action` | Function | (4,) | int | ε-greedy action selection |
+| `evaluate_policy` | Function | network | list of rewards | Runs the greedy policy for N episodes |
+| `run_dqn` | Function | seed, buffer and target settings | list of rewards | Trains a fresh agent for the ablation |
 | `optimize_model` | Function | replay buffer | scalar | One DQN update: Huber (smooth L1) loss between target and predicted Q-values, gradient clipping at 10, Adam step |
 
 ## Data Flow Diagram
@@ -129,7 +150,7 @@ State s ──► ε-greedy ──► Action a ──► Environment
                                          |
                                     Reward r, Next state s'
                                          |
-                                    Store (s,a,r,s',done) in Replay Buffer D
+                                    Store (s,a,r,s',terminated) in Replay Buffer D
                                          |
                               ┌──────────┴──────────┐
                               |                      |
@@ -156,7 +177,7 @@ State s ──► ε-greedy ──► Action a ──► Environment
 1. **Environment**: CartPole-v1 (4-dim state, 2 actions) instead of Atari 2600 (84×84×4 pixels, 4–18 actions) — CPU tractable
 2. **Network**: MLP instead of CNN — appropriate for the low-dimensional CartPole state
 3. **Replay buffer**: 10,000 capacity instead of 1,000,000 — sufficient for CartPole
-4. **Target update frequency**: Every 100 steps instead of 10,000 (2015 Nature version; the 2013 paper had no separate target network) — fits the smaller problem
+4. **Target update frequency**: Every 250 steps instead of 10,000 (2015 Nature version; the 2013 paper had no separate target network) — fits the smaller problem
 5. **Frame preprocessing**: None — CartPole provides a clean 4-dim state; Atari requires frame stacking, grayscaling, and resizing
 6. **Training length**: 600 episodes instead of 10 million frames
 7. **No frame skipping**: Atari DQN uses frame skip of 4; not needed for CartPole
