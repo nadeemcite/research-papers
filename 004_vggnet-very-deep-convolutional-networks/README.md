@@ -14,7 +14,9 @@ permalink: "/004_vggnet-very-deep-convolutional-networks/"
 
 ## Summary
 
-VGGNet is a careful study of how the **depth** of a convolutional network affects its accuracy on large-scale image recognition. Simonyan and Zisserman kept the rest of the design fixed and used only very small 3×3 convolution filters throughout, then increased depth step by step from 11 to 19 weight layers. Accuracy improved significantly with depth, and the deepest configurations, now known as **VGG-16** and **VGG-19**, set the template for a simple, uniform ConvNet: stacks of 3×3 convolutions with stride 1, 2×2 max-pooling between stages, the number of channels doubling after each pool, and three fully connected layers at the end. The team placed 1st in localization and 2nd in classification at ILSVRC 2014, and the released models transferred well to other datasets, which made VGG one of the most widely used backbones and feature extractors in computer vision.
+VGGNet is a careful study of how the **depth** of a convolutional network affects its accuracy on large-scale image recognition. Simonyan and Zisserman kept the rest of the design fixed and used only very small 3×3 convolution filters throughout, then increased depth step by step from 11 to 19 weight layers. Accuracy improved significantly with depth.
+
+The deepest configurations, now known as **VGG-16** and **VGG-19**, set the template for a simple, uniform ConvNet: stacks of 3×3 convolutions with stride 1, 2×2 max-pooling between stages, the number of channels doubling after each pool, and three fully connected layers at the end. The team placed 1st in localization and 2nd in classification at ILSVRC 2014, and the released models transferred well to other datasets, which made VGG one of the most widely used backbones (the base network that other models are built on) and feature extractors in computer vision.
 
 ## What Problem Does It Solve
 
@@ -55,6 +57,20 @@ Conv3-256 → Conv3-256 → Conv3-256 → MaxPool
 
 Official VGG page: https://robots.ox.ac.uk/~vgg/research/very_deep/
 
+### Simplifications in This Notebook
+
+- **CIFAR-10** (32×32 images, 10 classes) instead of ImageNet (224×224 crops, 1,000 classes)
+- A VGG-D-style stack of 13 3×3 conv layers, but with a small head (FC-512 → FC-512 → FC-10) instead of FC-4096 → FC-4096 → FC-1000; about 15.3M parameters
+- **BatchNorm** after every conv layer (the paper did not use it)
+- SGD with momentum 0.9, weight decay 5e-4 and learning rate 0.01 as in the paper, but a cosine schedule for only 20 epochs (the paper trained for 74 epochs)
+- One network, no multi-scale training and no multi-crop test
+
+### What the Notebook Result Shows
+
+**The training in the saved run failed.** From epoch 2 to epoch 20, the train loss stayed at about 2.3026 (the value for random guessing over 10 classes, ln 10). The test accuracy was exactly **10.00%** in every epoch, which is chance level. So this run does **not** show VGGNet learning; it needs a code fix and a re-run.
+
+The parts that do not need training still work. Three stacked 3×3 convs with 64 channels use 110,592 weights, while one 7×7 conv uses 200,704 (44.9% fewer), and the stack has 3 ReLUs instead of 1. The "plain 5×5 CNN" in the notebook has fewer parameters (10.87M vs 15.25M), but only because it has 5 conv layers and a single small classifier layer, so it is not a like-for-like test.
+
 ## Influence
 
 VGGNet placed **1st in localization** and **2nd in classification** at ILSVRC 2014, but its real impact was proving that a simple, deep, uniform design could rival hand-crafted complexity. It became a go-to backbone for transfer learning, object detection (Faster R-CNN), segmentation (FCN), and style transfer. Its 3×3 stacking philosophy influenced ResNet, DenseNet, and nearly every ConvNet that followed.
@@ -68,4 +84,4 @@ VGGNet placed **1st in localization** and **2nd in classification** at ILSVRC 20
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/004_vggnet-very-deep-convolutional-networks/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, Q&A (answers from the paper), and common misconceptions about the paper |

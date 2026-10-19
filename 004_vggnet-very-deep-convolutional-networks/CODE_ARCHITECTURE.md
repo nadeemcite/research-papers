@@ -13,78 +13,49 @@ A self-contained PyTorch notebook that builds a small VGG-style network, trains 
 
 ### 1. Setup and reproducibility
 - Imports: `torch`, `torchvision`, `torch.nn`, `torch.optim`, `matplotlib`, `numpy`.
-- Set random seed for reproducibility.
+- `seed_everything(42)` sets the random seeds and makes cuDNN deterministic.
 - Detect GPU/CUDA and set `device`.
 
-### 2. CIFAR-10 data loaders
-- `torchvision.datasets.CIFAR10` with standard normalization (`mean=(0.4914, 0.4822, 0.4465)`, `std=(0.2470, 0.2435, 0.2616)`).
-- Train/validation split and a `test_loader`.
-- Data augmentation: random crop + horizontal flip for training.
+### 2. VGG block and network builder
+- `make_vgg_block(in_channels, out_channels, num_convs=2, use_1x1=False)` stacks `num_convs` 3×3 convs (padding 1), each followed by `BatchNorm2d` and `ReLU`, then `MaxPool2d(2, 2)`. `use_1x1` can add a 1×1 conv (like configuration C); it is not used here.
+- `class VGG(nn.Module)` takes the conv `features` and adds the classifier: FC-512 → ReLU → Dropout(0.5) → FC-512 → ReLU → Dropout(0.5) → FC-10. `_initialize_weights()` uses Kaiming-normal init for conv and linear layers.
+- `cfg_cifar_d` follows VGG-D: 5 blocks with 2, 2, 3, 3, 3 convs and 64, 128, 256, 512, 512 channels (13 conv + 3 FC = 16 weight layers). `build_vgg_from_cfg(cfg)` builds the conv part. Total: about 15.25M parameters.
+- A dummy `(2, 3, 32, 32)` batch checks the output shape `(2, 10)`.
 
-### 3. VGG block builder
-Helper `make_vgg_block(in_channels, out_channels, num_convs, use_batchnorm=True)`:
-- Stacks `num_convs` 3×3 convolutions with same padding.
-- Optional `BatchNorm2d` after each conv for training stability.
-- `ReLU` after each conv.
-- Final `MaxPool2d(2, 2)`.
+### 3. CIFAR-10 data loaders
+- `get_cifar10_loaders(batch_size=128, num_workers=2)` uses `torchvision.datasets.CIFAR10` with normalization `mean=(0.4914, 0.4822, 0.4465)`, `std=(0.2470, 0.2435, 0.2616)`.
+- Training augmentation: random crop (padding 4) + horizontal flip. There is no validation split: only `train_loader` (391 batches) and `test_loader` (79 batches).
 
-### 4. Full VGG-style network
-Class `VGGNetSmall`:
-- 4 blocks:
-  - Block 1: 64 channels, 2 convs
-  - Block 2: 128 channels, 2 convs
-  - Block 3: 256 channels, 3 convs
-  - Block 4: 512 channels, 3 convs
-- Global average pooling or flatten, then classifier:
-  - FC-512 → ReLU → Dropout(0.5) → FC-10
-- Reason: on 32×32 images the original 4096-unit fully connected layers would over-parameterize and overfit.
-
-### 5. Training loop
+### 4. Training loop
 - Loss: `CrossEntropyLoss`.
-- Optimizer: SGD with momentum `0.9`, weight decay `5e-4`, cosine or step LR schedule.
-- Loop records train/validation loss and accuracy per epoch.
-- Early stopping or fixed epochs (e.g., 30–50 for a notebook demo).
+- Optimizer: SGD, learning rate 0.01, momentum 0.9, weight decay 5e-4, with `CosineAnnealingLR(T_max=20)`.
+- `train_epoch` and `evaluate` return average loss and accuracy. The loop runs a fixed 20 epochs and records train/test loss and accuracy.
 
-### 6. Evaluation and plots
-- Test-set accuracy.
-- Matplotlib line plots:
-  - Train vs. validation loss over epochs.
-  - Train vs. validation accuracy over epochs.
+### 5. Training curves
+- Matplotlib plots of train vs. test loss and train vs. test accuracy per epoch.
 
-### 7. Filter visualization
-- Extract weights from the first convolutional layer (`conv1_1`).
-- Plot the first 64 filters as 3×3 RGB grids.
+### 6. Filter visualization
+- `plot_filters(weights)` shows the 64 filters of the first conv layer (3×3, averaged over the RGB channels and shown in grayscale).
+
+### 7. Parameter count: VGG-style vs. plain CNN
+- `class Plain5x5CNN` has five 5×5 conv layers (one per stage) and a single FC-10 layer. The cell prints both parameter counts and their ratio.
 
 ### 8. Receptive-field / parameter-count demo
-- A short cell that compares:
-  - one 7×7 convolution vs. three stacked 3×3 convolutions for the same receptive field.
-- Prints parameters for each and the parameter savings.
+- Compares three stacked 3×3 convs with one 7×7 conv for C = 64 channels and prints the parameter savings and the number of ReLUs.
 
-### 9. (Optional) Kaggle output cell
-- Auto-injected by `kaggle_validator.py`: copies `__notebook__.ipynb` to `/kaggle/working/` so the executed notebook can be downloaded with all outputs.
+### 9. Summary
+- A markdown summary of what the notebook built and what the saved run shows.
 
 ## Key functions / classes
 
-- `make_vgg_block(in_channels, out_channels, num_convs, use_batchnorm)`  
-  Returns a `nn.Sequential` block of `Conv2d → [BN] → ReLU` repeated `num_convs` times, ending with `MaxPool2d`.
-
-- `class VGGNetSmall(nn.Module)`  
-  Assembles blocks, classifier head, and defines `forward(x)`.
-
-- `train_epoch(model, loader, criterion, optimizer, device)`  
-  Single training epoch; returns average loss and accuracy.
-
-- `evaluate(model, loader, criterion, device)`  
-  Validation/test evaluation; returns average loss and accuracy.
-
-- `plot_history(history)`  
-  Plots loss and accuracy curves.
-
-- `visualize_filters(model)`  
-  Plots first-layer filters.
-
-- `receptive_field_comparison()`  
-  Prints parameter counts for 7×7 vs. 3×3 stack.
+- `make_vgg_block(in_channels, out_channels, num_convs=2, use_1x1=False)` — returns a `nn.Sequential` of `Conv2d → BatchNorm2d → ReLU` repeated `num_convs` times, ending with `MaxPool2d`.
+- `class VGG(nn.Module)` — conv features plus the 3-layer FC classifier; defines `forward(x)`.
+- `build_vgg_from_cfg(cfg)` — builds the conv features from a list of `(in_c, out_c, n_convs, use1x1)` tuples.
+- `get_cifar10_loaders(batch_size, num_workers)` — returns the train and test loaders.
+- `train_epoch(model, loader, criterion, optimizer, device)` — one training epoch; returns average loss and accuracy.
+- `evaluate(model, loader, criterion, device)` — test evaluation; returns average loss and accuracy.
+- `plot_filters(weights, title, ncols=8)` — plots first-layer filters.
+- `class Plain5x5CNN(nn.Module)` — the comparison network with 5×5 filters.
 
 ## Data flow and shapes
 
@@ -93,15 +64,15 @@ Class `VGGNetSmall`:
 - Block 2: `(B, 128, 16, 16)` → pool → `(B, 128, 8, 8)`.
 - Block 3: `(B, 256, 8, 8)` → pool → `(B, 256, 4, 4)`.
 - Block 4: `(B, 512, 4, 4)` → pool → `(B, 512, 2, 2)`.
-- Flatten / global pool: `(B, 512)` or `(B, 512*2*2)`.
-- Classifier output: `(B, 10)`.
+- Block 5: `(B, 512, 2, 2)` → pool → `(B, 512, 1, 1)`.
+- Flatten: `(B, 512)` → FC-512 → FC-512 → `(B, 10)`.
 
 ## Deliberate simplifications vs. the full paper
 
-- **CIFAR-10 instead of ImageNet**: 32×32 colour images, 10 classes. The original paper used 224×224 ImageNet with 1,000 classes.
-- **Smaller classifier head**: FC-512 instead of the original FC-4096. This keeps the notebook feasible to run in minutes while still demonstrating the architecture.
-- **Fewer total layers**: 11–13 weight layers instead of 16–19. The design principle (3×3 stacking, doubling channels) is preserved.
-- **Single model, not an ensemble**: The paper reports best results with 7-model ensembles and multi-crop evaluation. The notebook trains a single network and evaluates on center crops.
-- **BatchNorm added**: The original paper predates batch normalization (introduced by Ioffe & Szegedy in 2015). Adding it makes the small-scale demo train reliably without changing the core VGG idea.
+- **CIFAR-10 instead of ImageNet**: 32×32 colour images, 10 classes. The original paper used 224×224 ImageNet crops with 1,000 classes.
+- **Smaller classifier head**: FC-512 instead of the original FC-4096.
+- **Single model, not an ensemble**: The paper's ILSVRC submission was a 7-net ensemble, and its best result used 2 nets with multi-crop and dense evaluation. The notebook trains one network and tests on the plain 32×32 test images.
+- **Short schedule**: 20 epochs with cosine annealing instead of 74 epochs with step decay.
+- **BatchNorm added**: The original paper predates batch normalization (Ioffe & Szegedy, 2015).
 
-The notebook therefore teaches the VGG design recipe — deep stacks of 3×3 convs, channel doubling, small classifier — rather than reproducing the full ILSVRC 2014 submission.
+The notebook therefore teaches the VGG design recipe — deep stacks of 3×3 convs, channel doubling, small classifier — rather than reproducing the full ILSVRC 2014 submission. Note: in the saved run the training did not learn (test accuracy stayed at 10%); see the README.
