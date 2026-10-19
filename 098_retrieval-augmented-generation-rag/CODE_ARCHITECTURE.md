@@ -28,20 +28,20 @@ This notebook implements a compact end-to-end RAG pipeline that mirrors the core
 - **Deliberate simplification:** The original paper uses two separate encoders (one for questions, one for passages) trained with contrastive learning. We use a single pre-trained bi-encoder for simplicity — the retriever is not fine-tuned end-to-end with the generator (the toy scale makes joint fine-tuning impractical).
 
 ### 4. RAG Generator (BART Analog)
-- Uses `google/flan-t5-base` (250M params) as the seq2seq generator — a smaller stand-in for BART-large (400M).
+- Uses `google/flan-t5-base` (247.6M params) as the seq2seq generator — a smaller stand-in for BART-large (400M).
 - The generator takes a formatted prompt: `"question: <query> context: <retrieved_passage>"` and generates an answer.
 - This mirrors the paper's approach of concatenating the retrieved passage with the query as input to the seq2seq model.
 
 ### 5. RAG-Sequence Implementation
 - Retrieves top-k passages for a query.
 - For each retrieved passage, runs the generator independently to produce a candidate answer.
-- Scores each candidate by combining retrieval probability p(z|x) (softmax of retrieval scores) and generation probability p(y|x,z) (generator log-probability).
-- Returns the highest-scoring answer — this is the RAG-Sequence marginalization: argmax_y Σ_i p(z_i|x) · p(y|x, z_i).
+- Scores each candidate as retrieval probability p(z\|x) (softmax of retrieval scores) **plus** the generator log-probability log p(y\|x,z).
+- Returns the highest-scoring single candidate. This is a simplification: the paper's RAG-Sequence sums over documents, argmax_y Σ_i p(z_i\|x) · p(y\|x, z_i), and the notebook's score mixes a probability with a log-probability.
 - **Key function:** `rag_sequence_answer(query, k=5)` — returns the best answer, all candidates, and their scores.
 
 ### 6. RAG-Token Implementation
 - Retrieves top-k passages for a query.
-- Uses beam search where at each generation step, the next-token distribution is the weighted sum of per-document next-token distributions.
+- At each generation step, the next-token distribution is the weighted sum of the per-document next-token distributions (greedy decoding).
 - This allows different documents to influence different tokens in the output.
 - **Key function:** `rag_token_answer(query, k=5)` — returns the RAG-Token answer with per-step document contributions.
 - **Deliberate simplification:** Full RAG-Token beam search requires custom beam search code that interleaves retriever weights at each step. We implement a greedy version that computes per-token weighted distributions, which captures the core idea.
@@ -55,7 +55,7 @@ This notebook implements a compact end-to-end RAG pipeline that mirrors the core
 - Tests the pipeline on 5 knowledge-intensive questions.
 - Prints answers from: (a) parametric-only, (b) RAG-Sequence, (c) RAG-Token.
 - Shows which passages were retrieved for each query.
-- Demonstrates that RAG produces more factual, grounded answers than the parametric baseline.
+- In the saved run, both RAG versions answer all 5 questions correctly and the parametric-only baseline gets all 5 wrong.
 
 ### 9. Retrieval Quality Analysis
 - Visualizes retrieval scores for sample queries.
@@ -63,20 +63,21 @@ This notebook implements a compact end-to-end RAG pipeline that mirrors the core
 - Demonstrates the retriever's ability to find relevant passages.
 
 ### 10. Knowledge Update Demonstration
-- Shows that updating the document index (adding/removing passages) immediately changes answers without retraining.
-- This demonstrates the key advantage of non-parametric memory.
+- Adds a new passage to the index and asks the same question again, to show that knowledge can be updated without retraining.
+- Note: in the saved run the answer did not change ("New York Harbor" before and after), because an unrelated passage still ranked first. The printed message says otherwise; this needs a code fix and a re-run.
 
 ## Key Functions/Classes
 
 | Function | Purpose |
 |---|---|
-| `encode_documents(docs)` | Encodes passages into dense vectors, builds FAISS index |
+| (cell 6, no function) | Encodes passages into dense vectors, builds the FAISS index |
 | `retrieve(query, k=5)` | Top-k retrieval from the FAISS index |
 | `format_prompt(query, passage)` | Formats query + passage as generator input |
 | `rag_sequence_answer(query, k=5)` | RAG-Sequence: best of k per-document answers |
 | `rag_token_answer(query, k=5)` | RAG-Token: per-token weighted marginalization |
 | `parametric_answer(query)` | Baseline: generation without retrieval |
-| `compute_logprob(generator, input_text, output_text)` | Computes log p(y|x,z) for scoring |
+| `generate_answer(prompt, max_new_tokens=64)` | Greedy generation with Flan-T5 |
+| `compute_logprob(prompt, answer)` | Computes log p(y\|x,z) for scoring |
 
 ## Data Flow / Shapes
 
@@ -94,8 +95,8 @@ Query (str)
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Retriever:** Single pre-trained bi-encoder (`all-MiniLM-L6-v2`) instead of DPR's dual-encoder with contrastive training. No end-to-end retriever fine-tuning.
-2. **Generator:** `flan-t5-base` (250M) instead of `bart-large` (400M). Not fine-tuned on downstream tasks (the paper fine-tunes on NQ/TriviaQA/WebQ).
+1. **Retriever:** Single pre-trained sentence encoder (`all-MiniLM-L6-v2`) instead of DPR's two BERT encoders. No end-to-end retriever fine-tuning.
+2. **Generator:** `flan-t5-base` (247.6M) instead of `bart-large` (400M). Not fine-tuned on downstream tasks (the paper fine-tunes on NQ/TriviaQA/WebQ).
 3. **Index:** ~40 toy passages instead of 21M Wikipedia passages. FAISS-cpu instead of FAISS-GPU.
 4. **RAG-Token:** Greedy decoding instead of full beam search with per-step document marginalization (the concept is the same; beam search adds significant complexity for marginal quality gain at this scale).
 5. **No end-to-end fine-tuning:** The paper jointly fine-tunes retriever + generator. We use off-the-shelf models and demonstrate the inference-time RAG pipeline, which is how RAG is most commonly deployed in practice today.
