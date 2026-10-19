@@ -3,32 +3,33 @@ title: "He Init / PReLU: Talk & Q&A"
 parent: "007 He Init / PReLU"
 nav_order: 2
 ---
-# TALK — Delving Deep into Rectifiers
+# TALK — Delving Deep into Rectifiers: Context, Discussion, and Q&A
+
+**Paper:** [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification (arXiv:1502.01852)](https://arxiv.org/abs/1502.01852)
 
 ## Verifiable press / blog coverage
 
-* **arXiv trackbacks:** The paper has 16 blog links listed at `https://arxiv.org/tb/1502.01852`. (arXiv's trackback page is the canonical source; specific blog URLs rotate over time.)
-* **The Morning Paper** by Adrian Colyer discussed the paper's initialization analysis: https://blog.acolyer.org/2016/04/20/delving-deep-into-rectifiers-surpassing-human-level-performance-on-imagenet-classification/
-* **PyTorch documentation for `torch.nn.init.kaiming_normal_`** explicitly cites this paper: https://pytorch.org/docs/stable/nn.init.html#torch.nn.init.kaiming_normal_
-* **TensorFlow/Keras docs** for `tf.keras.initializers.HeNormal` reference the He et al. paper: https://www.tensorflow.org/api_docs/python/tf/keras/initializers/HeNormal
-* **DeepLearning.ai / Towards DataScience** explainers on He initialization commonly reference this paper when contrasting it with Xavier initialization.
+* [The Morning Paper: "Optimisation and training techniques for deep learning"](https://blog.acolyer.org/2017/03/01/optimisation-and-training-techniques-for-deep-learning/) (Adrian Colyer, March 2017) — covers this paper in a post about the training-technique papers on the "top 100 awesome deep learning papers" list, explaining PReLU and the new initialization.
+* [arXiv trackbacks for 1502.01852](https://arxiv.org/tb/1502.01852) — arXiv's list of blog posts that link to the paper.
+* [PyTorch documentation for `torch.nn.init.kaiming_normal_`](https://pytorch.org/docs/stable/nn.init.html#torch.nn.init.kaiming_normal_) — cites this paper and says it is "also known as He initialization".
+* [Keras documentation: `HeNormal` initializer](https://keras.io/api/layers/initializers/#henormal-class) — the Keras He initializers reference He et al., 2015.
 
-## Interview-style Q&A
+## Q&A (answers from the paper)
 
 **Q: What was the most surprising result in this paper?**  
-A: That a team could train a 22-layer (and even a 30-layer) ReLU network from scratch without layer-wise pre-training, and that the single-model result beat all existing multi-model results on ImageNet at the time. The 4.94% top-5 error was also the first published number to exceed the reported human-level top-5 error of 5.1%.
+A (from the paper, Abstract, Section 1 and Section 4): The best single model reached 5.71% top-5 error, better than all existing multi-model results. The multi-model result reached 4.94% top-5 test error on ImageNet 2012, a 26% relative improvement over GoogLeNet (6.66%). The authors say that, to their knowledge, this is the first result to surpass the reported human-level performance (5.1%). Their initialization also let them train very deep models (e.g., 30 weight layers) from scratch.
 
 **Q: Is PReLU just a fancy Leaky ReLU?**  
-A: Not quite. Leaky ReLU fixes the negative slope (usually 0.01). PReLU makes that slope a learnable parameter. The paper shows that the network learns different slopes for different layers and channels, and that this modest change yields a measurable accuracy gain with almost no extra compute or overfitting risk.
+A (from the paper, Section 2.1): Not quite. If the negative slope `a_i` is small and fixed, PReLU becomes Leaky ReLU. In PReLU the slope is learned, per channel or shared per layer. The learned slopes differ by layer: for example, the first conv layer learned slopes of 0.681 and 0.596, well above 0 (Table 1). On their 14-layer test model, PReLU gave a 1.2% top-1 gain over ReLU with nearly zero extra computation.
 
 **Q: Why is the magic number `2` in He initialization?**  
-A: ReLU zeros out half of its inputs, so the expected squared activation is half the variance of the pre-activation. To keep the variance constant through the layer, the weight variance must be doubled relative to the linear/Xavier assumption. Hence `Var(W) = 2/fan_in`.
+A (from the paper, Section 2.2): ReLU sets the negative half of its input to zero, so `E[x²] = ½ Var[y]`. To keep the variance the same from layer to layer, each factor `½ n_l Var[w_l]` must be 1, which gives `Var[w_l] = 2 / n_l`. The linear ("Xavier") case has no factor of ½, so it uses `1 / n_l`.
 
 **Q: Should I always use He initialization for every network?**  
-A: It is the right default for ReLU-like activations. For linear/tanh/sigmoid activations, Xavier/Glorot initialization is still appropriate because the `2` correction factor does not apply.
+A (general background, not from the paper): It is the usual default for ReLU-like activations. For PReLU the paper's formula becomes `2 / ((1 + a²) n_l)`. For tanh or sigmoid, Xavier/Glorot initialization is still the common choice, because the factor of 2 comes from the ReLU.
 
 **Q: Did the paper invent ResNet?**  
-A: No. ResNet (also by Kaiming He and colleagues) came later, in 2015. This paper showed that deep rectifier nets *could* be trained with proper initialization; ResNet then showed how to train even deeper nets by adding identity skip connections.
+A (general background, not from the paper): No. ResNet (also by Kaiming He and colleagues) came later, in December 2015. This paper showed that deep rectifier nets could be trained with a proper initialization; ResNet then trained even deeper nets by adding identity skip connections.
 
 ## Common misconceptions
 

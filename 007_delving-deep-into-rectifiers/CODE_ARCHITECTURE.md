@@ -18,7 +18,7 @@ nav_order: 1
 | 7. Loss/accuracy plots | Side-by-side convergence |
 | 8. Activation variance | Per-layer variance over training |
 | 9. Gradient norms | Per-layer gradient magnitude over training |
-| 10. Deeper stress test | 10 vs 20 layers to show Xavier stalls/degrades |
+| 10. Deeper stress test | 10 vs 20 layers, He vs Xavier, 30 epochs each |
 | 11. PReLU optional | Learnable slope with He-style factor |
 | 12. Summary | Recap of formulas |
 

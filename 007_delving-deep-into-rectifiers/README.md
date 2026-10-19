@@ -14,7 +14,11 @@ permalink: "/007_delving-deep-into-rectifiers/"
 
 ## Summary
 
-This paper introduced two practical advances that made very deep rectifier networks trainable at scale. First, the authors proposed **Parametric ReLU (PReLU)**, a generalization of ReLU in which the slope of the negative half is no longer fixed at 0 (or 0.01 for Leaky ReLU) but is learned jointly with the rest of the model. PReLU adds only one extra parameter per channel and improves model fitting with almost no extra compute. Second, the paper derived **He initialization**, a theoretically grounded weight initialization that accounts for the fact that ReLU zeros-out half of its inputs. Instead of the Xavier/Glorot rule `Var(W)=1/fan_in`, He initialization uses `Var(W)=2/fan_in` for ReLU, so the variance of activations stays roughly constant across many layers. When combined with SPP-net-style architectures, PReLU-nets reached **4.94% top-5 error on ImageNet 2012**, the first result reported to surpass human-level performance on that benchmark.
+This paper introduced two practical advances that made very deep rectifier networks trainable at scale. First, the authors proposed **Parametric ReLU (PReLU)**, a generalization of ReLU in which the slope of the negative half is no longer fixed at 0 (or 0.01 for Leaky ReLU) but is learned jointly with the rest of the model. PReLU adds only one extra parameter per channel and improves model fitting with almost no extra compute.
+
+Second, the paper derived **He initialization**, a theoretically grounded weight initialization that accounts for the fact that ReLU zeros-out half of its inputs. Instead of the Xavier/Glorot rule `Var(W)=1/fan_in`, He initialization uses `Var(W)=2/fan_in` for ReLU, so the variance of activations stays roughly constant across many layers.
+
+When combined with SPP-net-style architectures, PReLU-nets reached **4.94% top-5 error on ImageNet 2012**, the first result reported to surpass human-level performance on that benchmark.
 
 ## What Problem Does It Solve
 
@@ -35,6 +39,18 @@ Deep networks with ReLU activations were especially tricky because ReLU literall
 * The derivation is given for both forward propagation and back-propagation, showing that keeping either the forward signal or the backward gradient stable is sufficient for the other to remain stable as well.
 * The authors trained extremely deep models (up to 30 weight layers) directly from scratch, whereas prior work either stalled or needed layer-wise pre-training with Xavier-style initialization.
 
+### Simplifications in This Notebook
+
+- A plain **NumPy MLP** (64 units per layer) on the 2-D **make_moons** toy dataset (1,600 train and 400 test points), instead of large CNNs on ImageNet
+- Plain mini-batch SGD (learning rate 0.05, batch size 64); He init `std = sqrt(2/fan_in)` vs the "Xavier" rule `std = sqrt(1/fan_in)` used in the paper's comparison
+- PReLU is only tried once, in a short extra cell
+
+### What the Notebook Result Shows
+
+On this easy task, both initializations train. With 10 layers and 100 epochs, He and Xavier both reached **97.25%** test accuracy. In the shorter 30-epoch stress test, He reached 97.25% at both 10 and 20 layers, while Xavier reached 95.25% (10 layers) and 95.50% (20 layers). The 10-layer PReLU network with He-style init reached 96.5% after 80 epochs.
+
+So He init was a bit better in the short runs, but Xavier did **not** stall here. The paper's big difference (Xavier completely stalls on a 30-layer model) needs much deeper networks than this toy run.
+
 ## Influence
 
 The He initialization rule became the de-facto default for ReLU networks in PyTorch (`torch.nn.init.kaiming_normal_`) and TensorFlow/Keras (`he_normal`). PReLU, an early learned activation function, is part of the line of work on improved rectifier alternatives that later produced activations such as ELU, GELU, and Swish, and the paper's analysis remains a standard reference for why deep networks need careful weight scaling.
@@ -48,4 +64,4 @@ The He initialization rule became the de-facto default for ReLU networks in PyTo
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/007_delving-deep-into-rectifiers/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
