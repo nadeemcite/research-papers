@@ -10,7 +10,7 @@ permalink: "/051_playing-atari-with-deep-reinforcement/"
 - **Paper:** [Playing Atari with Deep Reinforcement Learning](https://arxiv.org/abs/1312.5602)
 - **Authors:** Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller
 - **Lab, year:** DeepMind, 2013 (NIPS Deep Learning Workshop)
-- **Video:** YouTube Short coming on 19 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/_p8vVcWi_hA) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
