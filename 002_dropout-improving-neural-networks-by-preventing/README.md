@@ -9,7 +9,7 @@ permalink: "/002_dropout-improving-neural-networks-by-preventing/"
 
 - **Paper:** [Improving neural networks by preventing co-adaptation of feature detectors](https://arxiv.org/abs/1207.0580)
 - **Authors:** Geoffrey E. Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, Ruslan R. Salakhutdinov
-- **Year:** 2012
+- **Lab, year:** University of Toronto, 2012
 - **Video:** YouTube Short coming on 24 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
@@ -20,7 +20,9 @@ Large neural networks trained on small datasets have a chronic problem: they mem
 
 Imagine you're studying for a big exam by memorizing the exact questions from your practice test instead of understanding the concepts. You ace the practice test, but on the real exam with new questions, you fail. That's called **overfitting** — your brain memorized instead of learned.
 
-Neural networks have the exact same problem. When you train a big neural network on a small amount of data, it memorizes the training examples instead of learning the general patterns. So it does great on the data it's seen, but badly on new data. Dropout solves this by randomly turning off about half the "brain cells" (neurons) every time the network looks at a new training example. It's like a soccer team where the coach randomly benches half the players at every practice — no player can rely on a specific teammate always being there, so every player has to learn to be good on their own. By the time the real game comes, the whole team is stronger because each player learned to handle many different situations independently.
+Neural networks have the exact same problem. When you train a big neural network on a small amount of data, it memorizes the training examples instead of learning the general patterns. So it does great on the data it's seen, but badly on new data.
+
+Dropout solves this by randomly turning off about half the "brain cells" (neurons) every time the network looks at a new training example. It's like a soccer team where the coach randomly benches half the players at every practice — no player can rely on a specific teammate always being there, so every player has to learn to be good on their own. By the time the real game comes, the whole team is stronger because each player learned to handle many different situations independently.
 
 ## Core Idea
 
@@ -49,6 +51,19 @@ The breakthrough insight is that **neurons should not depend on each other too m
 - For ImageNet: AlexNet-style convolutional networks with dropout in fully connected layers.
 - Optimizer: SGD with momentum, learning rate tuned per task.
 
+### Simplifications in This Notebook
+
+- **Fashion-MNIST** instead of the paper's MNIST, TIMIT, Reuters, CIFAR-10 and ImageNet experiments
+- A small MLP (784 → 256 → 128 → 10, ReLU) trained with Adam (learning rate 1e-3) for 25 epochs
+- PyTorch's `nn.Dropout`, which scales the kept units up by 1/(1−p) during training instead of halving the weights at test time (the result is the same on average)
+- No max-norm weight constraint (the paper uses one)
+
+### What the Notebook Result Shows
+
+After 25 epochs, the model **without** dropout reached 95.04% train accuracy and 89.17% test accuracy (a gap of 5.87 points). The model **with** dropout (p = 0.5) reached 90.85% train and 88.22% test accuracy (a gap of 2.63 points).
+
+So dropout cut the overfitting gap by more than half, and its final test loss was lower (0.3235 vs 0.3661). Without dropout, the test loss stopped improving at about 0.32 (epochs 9 to 16) and then rose to 0.3661, while the train loss kept falling: a clear sign of overfitting. But in this short run, dropout did **not** give higher test accuracy: it was about 1 point lower. The paper's big gains came from larger networks trained for much longer.
+
 ## Influence
 
 Dropout became one of the most widely used regularization techniques in deep learning. It is simple to implement, adds almost no computational cost, and dramatically improves generalization across vision, speech, and NLP tasks. The 2012 ImageNet win by AlexNet used dropout in the fully connected layers, helping establish deep learning as the dominant approach in computer vision. The follow-up JMLR paper (2014) provided a more thorough analysis and is one of the most cited deep-learning papers of all time.
@@ -69,4 +84,4 @@ Dropout became one of the most widely used regularization techniques in deep lea
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/002_dropout-improving-neural-networks-by-preventing/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, a talk, Q&A (answers from the paper), and common misconceptions about the paper |
