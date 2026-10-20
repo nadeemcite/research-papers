@@ -7,95 +7,73 @@ nav_order: 1
 
 ## Goal
 
-The notebook implements a Wide Residual Network (WRN) from scratch in PyTorch, trains it on CIFAR-10 (or a synthetic fallback with the same 3×32×32 shape when CIFAR-10 is unavailable), and compares accuracy and training speed against a deep-narrow ResNet of similar parameter count. It also demonstrates the effect of dropout inside residual blocks.
+The notebook implements the paper's WRN-n-k architecture from scratch in PyTorch and trains seven models on **real CIFAR-10** on a single GPU (a Kaggle T4) with one identical recipe. It compares networks that grow *wider* (WRN-16-1/2/4/8) with networks that grow *deeper* (WRN-16/28/40/52-1), then runs a lesion study (switch off one residual block at a time) and shows the best model's predictions. Dropout is implemented in the block but not used in the main comparison.
 
 ## Section-by-section breakdown
 
-### 1. Setup and data loading
-- Imports `torch`, `torchvision`, `matplotlib`, `numpy`.
-- Attempts to load CIFAR-10 from a local `./data/cifar-10-batches-py` directory (no download during execution to avoid hanging on slow connections).
-- If CIFAR-10 is not present, falls back to a **synthetic dataset** with the same shape (3×32×32 images, 10 classes) and class-conditional signal so the models can learn. This allows the architecture comparison to run on any CPU without network dependencies.
-- Batch size 64, standard normalization and augmentation (random crop + horizontal flip) for real CIFAR-10.
+### 1. Setup
+- Imports `torch`, `torchvision`, `numpy`, `matplotlib`; picks the GPU if present and prints its name; sets `cudnn.benchmark`.
+- One shared recipe: `EPOCHS = 20`, `BATCH_SIZE = 256`, `PEAK_LR = 0.2`, weight decay `5e-4`, Nesterov momentum `0.9`, label smoothing `0.1`, mixed precision on CUDA.
+- `WIDE_CONFIGS = [(16,1), (16,2), (16,4), (16,8)]` and `DEEP_CONFIGS = [(16,1), (28,1), (40,1), (52,1)]`.
 
-### 2. Basic pre-activation residual block
-- Implements the "basic" residual block with **pre-activation** ordering: `BN → ReLU → Conv → BN → ReLU → Conv`, following He et al. (2016) identity-mapping variant.
-- The shortcut is identity when in/out channels match; otherwise a 1×1 conv (no bias) projects dimensions.
-- Stride of 2 in the first conv of a stage halves spatial resolution.
+### 2. CIFAR-10 on the GPU
+- `load_cifar(train)` reads CIFAR-10 with `torchvision.datasets.CIFAR10`. On Kaggle, if the dataset `pankrzysiu/cifar10-python` is attached, it is read from `/kaggle/input/cifar10-python` (about 3 seconds); otherwise torchvision downloads it into `./data`, which can take many minutes from a slow server.
+- The 50,000 + 10,000 images are stored as `uint8` tensors on the GPU. `normalize` applies the per-channel mean and standard deviation from the training set.
+- `augment(x)` does the paper's augmentation in a batched way on the GPU: 4-pixel reflect padding, random 32×32 crop, random horizontal flip. A figure shows training images next to their augmented versions.
 
-### 3. Wide residual block
-- Same structure as the basic block but the number of output channels is multiplied by the **widening factor k**.
-- Optional **dropout** between the two convolutions (the paper's key regularization contribution).
-- `WideResidualBlock(in_ch, out_ch, stride, dropout_p)`.
+### 3. The WRN-n-k architecture
+- `WideBasicBlock(c_in, c_out, stride, dropout)` is the pre-activation block: BN → ReLU → conv3×3 → (dropout) → BN → ReLU → conv3×3, with a 1×1 projection shortcut when the shape changes. An `enabled` flag lets the lesion study keep only the shortcut path.
+- `WideResNet(depth, k, num_classes, dropout)` builds an initial 3×3 conv with 16 channels, then three groups of `N = (depth − 4) / 6` blocks with `16k`, `32k`, `64k` channels (strides 1, 2, 2), then BN-ReLU, global average pooling and a linear layer. Convolutions use Kaiming initialisation.
+- `count_params(model)` and a table print the parameters and block count of all seven models (0.18M to 10.96M).
 
-### 4. Network builders
-- `WideResNet(depth, widen_factor, dropout_p, num_classes)`:
-  - Computes `N = (depth - 4) / 6` blocks per stage (3 stages).
-  - Initial conv: 16 channels.
-  - Stage 1: 16×k channels, stride 1.
-  - Stage 2: 32×k channels, stride 2.
-  - Stage 3: 64×k channels, stride 2.
-  - Global average pool + FC layer.
-- `DeepNarrowResNet(depth, num_classes)`: standard thin ResNet with k=1 for comparison.
+### 4. Training recipe
+- `evaluate(model, bs)` returns the test accuracy and the logits.
+- `train(depth, k, epochs, dropout, seed)` trains with SGD (Nesterov), a `OneCycleLR` schedule, label smoothing and mixed precision. It records test accuracy and **wall-clock training time** (evaluation excluded) after every epoch, and prints progress every 5 epochs.
 
-### 5. Parameter count check
-- WRN-16-2: ~691K parameters (16 layers, width factor 2).
-- DeepNarrow-40: ~564K parameters (40 layers, width factor 1).
-- Comparable parameter counts with very different depth/width tradeoffs.
+### 5. The race: wider vs. deeper
+- A loop trains every distinct configuration once and stores the results and models.
+- A three-panel figure plots accuracy against parameters, accuracy against total training time, and the learning curves against wall-clock time.
+- A head-to-head table compares WRN-16-2 with WRN-40-1 and WRN-52-1 (similar parameter counts): accuracy difference and speed-up.
 
-### 6. Training loop
-- SGD with Nesterov momentum 0.9, weight decay 5e-4.
-- Cosine annealing learning rate schedule.
-- Cross-entropy loss.
-- Reusable `train_epoch`/`evaluate` functions tracking loss and accuracy.
-- 3 epochs for CPU feasibility; the paper used 200 epochs.
+### 6. Lesion study
+- `lesion(model)` switches off each residual block in turn (keeping its shortcut) and measures the accuracy drop on the test set.
+- Bar charts for WRN-52-1 (24 blocks) and WRN-16-8 (6 blocks), with dotted lines at the resolution changes, and a printed count of blocks whose removal costs under 1 point. This follows the spirit of Veit et al. (2016) and is a way to look at the paper's diminishing feature reuse idea.
 
-### 7. Comparison: Wide vs Deep-Narrow
-- Train WRN-16-2 (wide, 16 layers, k=2) vs DeepNarrow-40 (thin, 40 layers, k=1).
-- Plot training/test accuracy and loss curves on the same axes.
-- Bar chart of per-epoch training time.
-- Expected: WRN-16-2 trains faster per epoch (~13s vs ~21s on CPU) while achieving comparable accuracy.
+### 7. What the best network sees
+- A grid of 24 random test predictions, the 16 most confident mistakes, and a normalised confusion matrix. The printout gives per-class accuracy and the most common confusion.
 
-### 8. Effect of dropout in residual blocks
-- Train WRN-16-2 with and without dropout (p=0.3) and compare.
-- Expected: dropout provides regularization, especially for wider networks.
-
-### 9. Summary
-- Side-by-side accuracy curves and final test accuracies for all comparisons.
+### 8. Summary
+- Text with the simplifications and the results of the saved run, and a printed summary table of accuracy and training time for all models.
 
 ## Key functions / classes
 
-- `BasicPreActBlock(in_ch, out_ch, stride)` — standard thin pre-activation residual block
-- `WideResidualBlock(in_ch, out_ch, stride, dropout_p)` — wide block with optional dropout
-- `WideResNet(depth, widen_factor, dropout_p, num_classes)` — full WRN builder
-- `DeepNarrowResNet(depth, num_classes)` — comparison thin ResNet
-- `train_epoch(model, loader, criterion, optimizer, device)` — one epoch of training
-- `evaluate(model, loader, criterion, device)` — evaluation on test set
-- `count_parameters(model)` — returns total trainable parameter count
-- `train_model(model, tr, te, epochs, lr, device, name)` — full training with history tracking
+- `WideBasicBlock(c_in, c_out, stride, dropout)`: the paper's `B(3,3)` block, with an `enabled` switch.
+- `WideResNet(depth, k, num_classes, dropout)`: the full WRN builder.
+- `count_params(model)`: trainable parameter count.
+- `load_cifar(train)`, `normalize(x_u8)`, `augment(x)`: GPU data pipeline.
+- `evaluate(model, bs)`, `train(depth, k, epochs, dropout, seed)`: evaluation and the training recipe.
+- `lesion(model)`: per-block removal study.
 
 ## Data flow and shapes
 
-Input image: `(B, 3, 32, 32)`
+For WRN-16-2 (`k = 2`, `N = 2` blocks per group):
 
-Initial conv: `(B, 16, 32, 32)`
+- Input: `(B, 3, 32, 32)`
+- Initial conv: `(B, 16, 32, 32)`
+- Group 1 (stride 1): `(B, 32, 32, 32)`, 2 blocks
+- Group 2 (stride 2): `(B, 64, 16, 16)`, 2 blocks
+- Group 3 (stride 2): `(B, 128, 8, 8)`, 2 blocks
+- BN-ReLU, global average pool: `(B, 128)`
+- Linear layer: `(B, 128)` → `(B, 10)`
 
-Stage 1 (stride 1, k=2): `(B, 32, 32, 32)` × N blocks
+Depth follows the paper's convention `n = 6N + 4`, so WRN-16 has `N = 2` blocks per group (6 blocks in total) and WRN-52 has `N = 8` (24 blocks).
 
-Stage 2 (stride 2, k=2): `(B, 64, 16, 16)` × N blocks
+## Deliberate simplifications vs. the paper
 
-Stage 3 (stride 2, k=2): `(B, 128, 8, 8)` × N blocks
-
-Global average pool: `(B, 128)`
-
-FC: `(B, 128)` → `(B, 10)`
-
-For WRN-16-2: N = (16-4)/6 = 2 blocks per stage, total 6 blocks = 12 conv layers + initial conv + FC = ~16 layers.
-
-## Deliberate simplifications vs. full paper
-
-- The paper trains for 200 epochs with cosine annealing on multiple GPUs; we use 3 epochs for CPU feasibility. The relative comparison (wide vs narrow) still holds.
-- The paper tests on CIFAR-10, SVHN, COCO, and ImageNet; we use CIFAR-10 or a synthetic fallback.
-- We use k=2 (paper recommended k=10) with depth=16 to keep CPU runtime under 10 minutes. The paper's WRN-28-10 would be too slow on CPU.
-- The paper's full ablation studies (convolution type, B(3,3) vs B(3,1,3), number of convs per block) are not reproduced; we focus on the width vs depth comparison and dropout effect.
-- He initialization and standard PyTorch BN are used instead of custom implementations.
-- On Kaggle GPU, the notebook will automatically use real CIFAR-10 if the data directory exists; otherwise the synthetic dataset is used.
+- **20 epochs, not 200.** The paper uses step decay (×0.2 at epochs 60, 120, 160), batch size 128 and learning rate 0.1. The notebook uses a one-cycle schedule with peak 0.2, batch 256 and label smoothing so that seven models fit in about 25 minutes. The accuracies are lower than the paper's.
+- **Mixed precision and GPU-side augmentation** for speed.
+- **Largest model WRN-16-8.** The paper's best CIFAR-10 model is WRN-28-10 (3.89% error with dropout).
+- **No dropout in the main comparison,** and no SVHN, COCO or ImageNet experiments.
+- **One seed per model.** The paper reports medians over 5 runs; differences of a few tenths of a point here are noise.
+- **No ResNet-1001 baseline,** so the paper's comparison with very deep thin networks is not reproduced. The notebook tests the width-vs-depth idea at small scale.
+- **No convolution-type ablations** (B(3,1,3), B(3,3,3), and so on).
