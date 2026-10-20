@@ -7,7 +7,7 @@ nav_order: 2
 
 ## Verifiable press and blog coverage
 
-- The paper’s original arXiv release (26 August 2015) was picked up by the media after its CVPR 2016 acceptance. The peer-reviewed conference version is *Image Style Transfer Using Convolutional Neural Networks*, published in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016, pp. 2414–2423. Official Open Access page: <https://openaccess.thecvf.com/content_cvpr_2016/html/Gatys_Image_Style_Transfer_CVPR_2016_paper.html>
+- The paper was first released on arXiv on 26 August 2015. The peer-reviewed conference version is *Image Style Transfer Using Convolutional Neural Networks*, published in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016, pp. 2414–2423. Official Open Access page: <https://openaccess.thecvf.com/content_cvpr_2016/html/Gatys_Image_Style_Transfer_CVPR_2016_paper.html>
 - Google AI (Google Brain) blog post *Supercharging Style Transfer* (October 2016) explicitly cites the paper as the foundational work and describes follow-up research by Dumoulin, Shlens and Kudlur on multi-style networks. Source: <https://research.google/blog/supercharging-style-transfer/>
 - Wikipedia’s *Neural style transfer* article traces the field back to this paper and lists the original VGG-19 hyperparameters. Source: <https://en.wikipedia.org/wiki/Neural_style_transfer>
 - The PyTorch official tutorial *Neural Transfer Using PyTorch* is a direct implementation of the same algorithm and cites Gatys et al. Source: <https://pytorch.org/tutorials/advanced/neural_style_tutorial.html>
@@ -38,7 +38,7 @@ A (from the CVPR 2016 version, Section 4): For images of about 512 × 512 pixels
 - *Misconception:* Content and style can be perfectly separated.  
   *Correction:* They cannot. The loss function trades the two objectives off; different `α/β` ratios give visually different results, and there is usually no image that perfectly satisfies both constraints.
 - *Misconception:* Any CNN works equally well.  
-  *Correction:* The paper specifically found that VGG-19 works well, and that replacing max pooling with average pooling matters. AlexNet, for example, does not produce good style transfer (noted in later literature).
+  *Correction:* The paper uses VGG-19 and says that replacing max pooling with average pooling gives "slightly more appealing results". The paper reports results with VGG-19 only; it does not compare other networks.
 
 ## Real citations (original paper and direct follow-ups)
 

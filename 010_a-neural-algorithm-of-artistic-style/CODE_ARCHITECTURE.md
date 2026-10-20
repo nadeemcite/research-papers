@@ -17,7 +17,7 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
 - Set deterministic seeds for reproducibility where possible.
 
 ### 2. Download content and style images
-- Two helper functions download images from public URLs (or load from local paths if present) and resize them.
+- Helper functions: `download_image(url)` fetches a URL, `make_synthetic_image(kind, size)` builds a fallback image, and `load_image(source, kind)` picks between them; `resize_and_crop` then resizes and centre-crops.
 - Images are resized to a configurable `IMAGE_SIZE` (default 256 px on the smaller side, keeping aspect ratio; a square crop can also be applied for simplicity).
 - We avoid using local files that do not exist on Kaggle; URLs are fetched over the network or a small synthetic image is generated as a fallback.
 
@@ -25,13 +25,13 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
 - Convert PIL images to tensors with `torchvision.transforms.ToTensor()`.
 - Normalise with ImageNet mean `[0.485, 0.456, 0.406]` and std `[0.229, 0.224, 0.225]` so that the pretrained VGG19 receives the expected input distribution.
 - Add a batch dimension and move to the device.
-- Provide an inverse transform for display: un-normalise, clamp to `[0, 1]`, convert to PIL.
+- Provide an inverse transform for display: un-normalise, clamp to `[0, 1]`, convert to PIL (`denormalize`, `tensor_to_pil`).
 
 ### 4. Load VGG19 and build a feature extractor
 - Load `torchvision.models.vgg19(weights=VGG19_Weights.IMAGENET1K_V1)`.
 - Keep only the feature extractor (`model.features`) and replace every `MaxPool2d` with `AvgPool2d` to match the paper.
 - Freeze all parameters and set to evaluation mode.
-- Register forward hooks (or build a small `Sequential` wrapper) to capture activations at:
+- Loop over the layers in `VGGFeatures.forward` and keep the activations of:
   - `conv4_2` → content representation
   - `conv1_1`, `conv2_1`, `conv3_1`, `conv4_1`, `conv5_1` → style representation
 - Return a dictionary keyed by layer name.
@@ -43,9 +43,9 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
 
 ### 6. Style loss
 - For each selected layer, compute the Gram matrix of the generated image features and the target style features.
-- Normalise by the number of elements in the feature map (`N * C * H * W` style: `1 / (4 * N_l^2 * M_l^2)` where `M_l = H * W`).
+- The code divides each Gram matrix by `C * H * W` and compares the two Gram matrices with `torch.mean` of the squared difference. This is a simpler normalisation than the paper's `1 / (4 N_l^2 M_l^2)` factor, so the absolute loss values (and the best `beta`) differ from the paper's.
 - Weight layers equally (`1 / number_of_layers`) and sum them.
-- Formula per layer: `E_l = (1 / (4 N_l^2 M_l^2)) * \|\|G_x - G_a\|\|_F^2`.
+- Per layer: `E_l = mean((G_x - G_a)^2)`, where `G` is the Gram matrix divided by `C * H * W`. The paper's version is `E_l = (1 / (4 N_l^2 M_l^2)) * \|\|G_x - G_a\|\|_F^2`.
 
 ### 7. Total loss and optimisation loop
 - Start from the content image (with a small amount of noise) as the initial generated image.
@@ -56,7 +56,7 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
   3. computes content + style loss,
   4. back-propagates,
   5. prints loss values every 50 steps,
-  6. clamps pixel values to `[0, 1]` inside the closure to keep a valid image.
+  6. clamps the normalised pixel values to `[-3, 3]` inside the closure to keep the image in a sensible range.
 - Run for `NUM_STEPS` (default 300; can be reduced on CPU to keep runtime reasonable).
 
 ### 8. Visualisation
@@ -65,7 +65,7 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
 
 ### 9. Reproducibility / runtime notes
 - VGG19 weights are downloaded automatically by `torchvision`.
-- On a CPU the notebook will run slowly; the Colab/Kaggle GPU flag is enabled in `kernel-metadata.json`.
+- On a CPU the notebook runs in about two minutes at 256 px; a GPU is faster.
 - Image size is deliberately kept modest to fit free-tier GPU memory and runtime limits.
 - If the chosen URLs are unavailable, the notebook falls back to synthetic images so that the code path still executes without errors.
 
@@ -73,14 +73,18 @@ Produce a self-contained, Colab-runnable notebook that implements the optimisati
 
 | Name | Role |
 |---|---|
-| `load_image(url, size)` | Downloads/loads an image and resizes it. |
-| `preprocess(img)` | PIL → normalised tensor. |
+| `download_image(url)` | Fetches an image from a URL, or returns `None` on failure. |
+| `make_synthetic_image(kind, size)` | Builds a procedural fallback image. |
+| `load_image(source, kind)` | Downloads the image, or falls back to the synthetic one. |
+| `get_image_size(img)`, `resize_and_crop(img)` | Resize so the smaller side is `IMAGE_SIZE`, then centre-crop to a square. |
+| `preprocess(img)` | PIL → normalised tensor (a `T.Compose`). |
 | `denormalize(tensor)` | Normalised tensor → displayable `[0,1]` image. |
-| `VGGFeatures` | Wrapper around VGG19 features with average pooling and forward hooks to capture named-layer activations. |
+| `tensor_to_pil(tensor)` | Denormalises and converts to a PIL image for plotting. |
+| `VGGFeatures` | Wrapper around VGG19 features with average pooling; its `forward` loops over the layers and returns the named activations. |
 | `gram_matrix(features)` | Computes the normalised Gram matrix for style representation. |
 | `content_loss(gen_features, content_features)` | Squared-error loss at `conv4_2`. |
 | `style_loss(gen_features, style_grams)` | Layer-wise Gram-matrix MSE, equally weighted. |
-| `run_style_transfer(...)` | Main loop using LBFGS; returns the optimised image tensor. |
+| LBFGS loop (cell 12, no function) | Runs 300 steps with a `closure` that computes the loss and updates `input_tensor` in place. |
 
 ## Data flow and tensor shapes
 
