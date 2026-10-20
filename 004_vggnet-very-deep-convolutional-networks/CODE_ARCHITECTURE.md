@@ -18,18 +18,18 @@ A self-contained PyTorch notebook that builds a small VGG-style network, trains 
 
 ### 2. VGG block and network builder
 - `make_vgg_block(in_channels, out_channels, num_convs=2, use_1x1=False)` stacks `num_convs` 3×3 convs (padding 1), each followed by `BatchNorm2d` and `ReLU`, then `MaxPool2d(2, 2)`. `use_1x1` can add a 1×1 conv (like configuration C); it is not used here.
-- `class VGG(nn.Module)` takes the conv `features` and adds the classifier: FC-512 → ReLU → Dropout(0.5) → FC-512 → ReLU → Dropout(0.5) → FC-10. `_initialize_weights()` uses Kaiming-normal init for conv and linear layers.
+- `class VGG(nn.Module)` takes the conv `features` and adds the classifier: FC-512 → ReLU → Dropout(0.5) → FC-512 → ReLU → Dropout(0.5) → FC-10. `_initialize_weights()` uses Kaiming-normal init for the conv layers and sets BatchNorm to weight 1, bias 0. The `Linear` layers keep PyTorch's default init: Kaiming `fan_out` init on the final `Linear(512, 10)` produced huge logits and left the network stuck at chance.
 - `cfg_cifar_d` follows VGG-D: 5 blocks with 2, 2, 3, 3, 3 convs and 64, 128, 256, 512, 512 channels (13 conv + 3 FC = 16 weight layers). `build_vgg_from_cfg(cfg)` builds the conv part. Total: about 15.25M parameters.
 - A dummy `(2, 3, 32, 32)` batch checks the output shape `(2, 10)`.
 
 ### 3. CIFAR-10 data loaders
-- `get_cifar10_loaders(batch_size=128, num_workers=2)` uses `torchvision.datasets.CIFAR10` with normalization `mean=(0.4914, 0.4822, 0.4465)`, `std=(0.2470, 0.2435, 0.2616)`.
+- `get_cifar10_loaders(batch_size=128, num_workers=2)` uses `torchvision.datasets.CIFAR10` (read from the attached Kaggle dataset `pankrzysiu/cifar10-python` when it is present, otherwise downloaded) with normalization `mean=(0.4914, 0.4822, 0.4465)`, `std=(0.2470, 0.2435, 0.2616)`.
 - Training augmentation: random crop (padding 4) + horizontal flip. There is no validation split: only `train_loader` (391 batches) and `test_loader` (79 batches).
 
 ### 4. Training loop
 - Loss: `CrossEntropyLoss`.
-- Optimizer: SGD, learning rate 0.01, momentum 0.9, weight decay 5e-4, with `CosineAnnealingLR(T_max=20)`.
-- `train_epoch` and `evaluate` return average loss and accuracy. The loop runs a fixed 20 epochs and records train/test loss and accuracy.
+- Optimizer: SGD, learning rate 0.01, momentum 0.9, weight decay 5e-4, with `CosineAnnealingLR` over the same number of epochs (`T_max` = 20 on a GPU, 3 on a CPU).
+- `train_epoch` and `evaluate` return average loss and accuracy. The loop runs 20 epochs on a GPU (3 on a CPU, where an epoch takes about 20 minutes), records train/test loss and accuracy, and prints the time of each epoch.
 
 ### 5. Training curves
 - Matplotlib plots of train vs. test loss and train vs. test accuracy per epoch.
@@ -72,7 +72,7 @@ A self-contained PyTorch notebook that builds a small VGG-style network, trains 
 - **CIFAR-10 instead of ImageNet**: 32×32 colour images, 10 classes. The original paper used 224×224 ImageNet crops with 1,000 classes.
 - **Smaller classifier head**: FC-512 instead of the original FC-4096.
 - **Single model, not an ensemble**: The paper's ILSVRC submission was a 7-net ensemble, and its best result used 2 nets with multi-crop and dense evaluation. The notebook trains one network and tests on the plain 32×32 test images.
-- **Short schedule**: 20 epochs with cosine annealing instead of 74 epochs with step decay.
+- **Short schedule**: 20 epochs with cosine annealing instead of 74 epochs with step decay (3 epochs on a CPU).
 - **BatchNorm added**: The original paper predates batch normalization (Ioffe & Szegedy, 2015).
 
-The notebook therefore teaches the VGG design recipe — deep stacks of 3×3 convs, channel doubling, small classifier — rather than reproducing the full ILSVRC 2014 submission. Note: in the saved run the training did not learn (test accuracy stayed at 10%); see the README.
+The notebook therefore teaches the VGG design recipe — deep stacks of 3×3 convs, channel doubling, small classifier — rather than reproducing the full ILSVRC 2014 submission. In the saved GPU run the network reaches 88.57% test accuracy; see the README.

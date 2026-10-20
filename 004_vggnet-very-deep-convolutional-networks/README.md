@@ -62,14 +62,18 @@ Official VGG page: https://robots.ox.ac.uk/~vgg/research/very_deep/
 - **CIFAR-10** (32×32 images, 10 classes) instead of ImageNet (224×224 crops, 1,000 classes)
 - A VGG-D-style stack of 13 3×3 conv layers, but with a small head (FC-512 → FC-512 → FC-10) instead of FC-4096 → FC-4096 → FC-1000; about 15.3M parameters
 - **BatchNorm** after every conv layer (the paper did not use it)
-- SGD with momentum 0.9, weight decay 5e-4 and learning rate 0.01 as in the paper, but a cosine schedule for only 20 epochs (the paper trained for 74 epochs)
+- SGD with momentum 0.9, weight decay 5e-4 and learning rate 0.01 as in the paper, but a cosine schedule for only 20 epochs (the paper trained for 74 epochs; on a CPU the notebook falls back to 3 epochs)
 - One network, no multi-scale training and no multi-crop test
 
 ### What the Notebook Result Shows
 
-**The training in the saved run failed.** From epoch 2 to epoch 20, the train loss stayed at about 2.3026 (the value for random guessing over 10 classes, ln 10). The test accuracy was exactly **10.00%** in every epoch, which is chance level. So this run does **not** show VGGNet learning; it needs a code fix and a re-run.
+The network learned. On a Kaggle T4 GPU the 20-epoch run took about 8 minutes (about 25 s per epoch) and the **test accuracy rose from 51.4% to 88.57%**. The train accuracy reached 94.0%, so there is some overfitting (a gap of about 5.5 points), which is normal for a model this size without strong regularisation.
 
-The parts that do not need training still work. Three stacked 3×3 convs with 64 channels use 110,592 weights, while one 7×7 conv uses 200,704 (44.9% fewer), and the stack has 3 ReLUs instead of 1. The "plain 5×5 CNN" in the notebook has fewer parameters (10.87M vs 15.25M), but only because it has 5 conv layers and a single small classifier layer, so it is not a like-for-like test.
+An earlier version of the notebook stayed at 10% accuracy for the whole run. The cause was the weight initialisation: Kaiming initialisation on the final `Linear(512, 10)` layer gave huge starting logits (a loss near 8), and the classifier then stopped learning. The final layer now keeps PyTorch's default initialisation, and the run trains normally. Initialisation matters for deep plain networks; the paper itself initialised its deeper nets from a trained shallower one (Section 3.1).
+
+The parts that do not need training are unchanged. Three stacked 3×3 convs with 64 channels use 110,592 weights, while one 7×7 conv uses 200,704 (44.9% fewer), and the stack has 3 ReLUs instead of 1. The "plain 5×5 CNN" in the notebook has fewer parameters (10.87M vs 15.25M), but only because it has 5 conv layers and a single small classifier layer, so it is not a like-for-like test.
+
+This is a small CIFAR-10 model with BatchNorm and one seed, not the paper's ImageNet result. The saved numbers can shift a little between runs. On a CPU the notebook runs 3 epochs instead of 20 (about 20 minutes per epoch, reaching about 71%).
 
 ## Influence
 
