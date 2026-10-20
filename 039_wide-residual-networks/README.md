@@ -48,7 +48,7 @@ The notebook trains seven WRNs on real CIFAR-10 with one identical recipe (20 ep
 
 - **Width beat depth at a similar budget.** WRN-16-2 (0.69M parameters) scored 2.19 points higher than WRN-40-1 (0.56M) and 1.59 points higher than WRN-52-1 (0.76M), and trained 1.5× and 1.9× faster. This is the paper's main claim in miniature.
 - **Depth at width 1 helped only a little:** going from 6 to 24 blocks added under 2 points while training took about three times as long.
-- **Lesion study:** in the 24-block thin network, 5 of 24 blocks could be switched off one at a time with under 1 point of accuracy loss (median drop 1.89 points). In the 6-block WRN-16-8 none could (median drop 78 points). This is consistent with diminishing feature reuse, but the networks differ in depth, so it is suggestive and not a controlled test.
+- **Lesion study:** in the 24-block thin network, a handful of blocks (5 in the saved run, 6 in a Kaggle re-run) could be switched off one at a time with under 1 point of accuracy loss (median drop about 2 points). In the 6-block WRN-16-8 none could (median drop 78 points). This is consistent with diminishing feature reuse, but the networks differ in depth, so it is suggestive and not a controlled test.
 - **Limits:** one seed per model, so differences of a few tenths of a point are noise, and a re-run can shift the numbers slightly. The notebook does not train a 1000-layer ResNet, so it does not test the paper's comparison against ResNet-1001, and it does not test dropout.
 
 ## Influence
