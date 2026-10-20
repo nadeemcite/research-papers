@@ -3,7 +3,7 @@ num	short	banner	status	shorts_url	release_date
 022	GAN	assets/banners/022.jpg	public	https://youtube.com/shorts/aGXecMt314w	2026-10-17
 032	YOLO	assets/banners/032.jpg	public	https://youtube.com/shorts/ZznC1w2mElY	2026-10-18
 051	DQN	assets/banners/051.jpg	public	https://youtube.com/shorts/_p8vVcWi_hA	2026-10-19
-080	GPT-3	assets/banners/080.jpg	private		2026-10-20
+080	GPT-3	assets/banners/080.jpg	public	https://youtube.com/shorts/N6kmRrwHFL8	2026-10-20
 010	Style Transfer	assets/banners/010.jpg	private		2026-10-21
 061	AlphaZero	assets/banners/061.jpg	private		2026-10-22
 001	Word2Vec	assets/banners/001.jpg	private		2026-10-23

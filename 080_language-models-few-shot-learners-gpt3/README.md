@@ -10,7 +10,7 @@ permalink: "/080_language-models-few-shot-learners-gpt3/"
 - **Paper:** [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
 - **Authors:** Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, Dario Amodei
 - **Lab, year:** OpenAI, 2020
-- **Video:** YouTube Short coming on 20 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/N6kmRrwHFL8) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

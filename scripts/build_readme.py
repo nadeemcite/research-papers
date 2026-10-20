@@ -249,14 +249,22 @@ def build_readme(papers):
     L.append('## Watch: Backprop Daily\n')
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
-    L.append('<table><tr>')
-    for vid, label, folder in [('aGXecMt314w', 'GANs: Two AIs Fight Until Fakes Look Real', '022_generative-adversarial-networks-gan'),
-                               ('4iKss2ffzHI', 'Attention Is All You Need: The Paper That Changed AI Forever',
-                                '020_attention-is-all-you-need-transformer')]:
+    L.append('<table>')
+    shorts = [('N6kmRrwHFL8', 'GPT-3: AI That Learns From Just Few Examples', '080_language-models-few-shot-learners-gpt3'),
+              ('_p8vVcWi_hA', 'This AI Learned Video Games From Pixels: DQN Explained', '051_playing-atari-with-deep-reinforcement'),
+              ('ZznC1w2mElY', 'YOLO: AI Sees Everything in One Look', '032_you-only-look-once-yolo'),
+              ('aGXecMt314w', 'GANs: Two AIs Fight Until Fakes Look Real', '022_generative-adversarial-networks-gan'),
+              ('4iKss2ffzHI', 'Attention Is All You Need: The Paper That Changed AI Forever',
+               '020_attention-is-all-you-need-transformer')]
+    for i, (vid, label, folder) in enumerate(shorts):
+        if i % 2 == 0:
+            L.append('<tr>')
         L.append(f'<td align="center" width="50%"><a href="https://www.youtube.com/shorts/{vid}">'
                  f'<img src="https://img.youtube.com/vi/{vid}/hqdefault.jpg" alt="{label}" width="320"></a><br>'
                  f'<b>{label}</b><br><sub><a href="{folder}/">notebook</a></sub></td>')
-    L.append('</tr></table>\n')
+        if i % 2 == 1 or i == len(shorts) - 1:
+            L.append('</tr>')
+    L.append('</table>\n')
     L.append('More at **[youtube.com/@BackpropDaily](https://www.youtube.com/@BackpropDaily?sub_confirmation=1)**.\n')
     L.append('## About me\n')
     L.append('I\'m **Nadeem Sajjad**, a Senior AI Engineer and forward-deployed engineer with 12+ years across startups '
