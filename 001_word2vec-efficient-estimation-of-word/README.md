@@ -57,14 +57,14 @@ Strip the neural network language model down to almost nothing. No hidden layers
 
 ### What the Notebook Result Shows
 
-The training loss fell from **4.1584** (epoch 1) to **2.3532** (epoch 80), so the model did learn something. But with only 112 tokens, the vectors are not good. The nearest neighbours of "king" are mostly common words ("to" 0.798, "war" 0.791, "ruled" 0.782), and the analogies fail: king − queen + prince gives "to" first ("princess" is third), and princess − prince + queen gives "with" instead of "king". Only "knight" and "dragon" end up as each other's closest word (0.888). The paper's analogy results need millions to billions of words.
+The training loss fell from **4.1584** (epoch 1) to **2.3532** (epoch 80), so the model did learn something. But with only 112 tokens, the vectors are not good. The nearest neighbours of "king" are mostly common words ("to" 0.798, "war" 0.791, "ruled" 0.782), and the analogies fail: queen − king + prince gives "of" first and "princess" is not in the top five, and prince − princess + queen gives "brave" first and "king" is not in the top five. Only "knight" and "dragon" end up as each other's closest word (0.888). The paper's analogy results need millions to billions of words.
 
 ## Influence
 
 Word2Vec was a watershed moment for NLP. It demonstrated that meaningful semantic representations could be learned from raw text at scale, without labels. The word analogy discovery (`king − man + woman = queen`) became one of the most iconic results in machine learning, proving that vector spaces encode structured relationships. Word2Vec embeddings became the default input representation for NLP tasks (sentiment analysis, machine translation, named entity recognition) for years, until contextual embeddings (ELMo, BERT) superseded them. The Skip-gram + negative sampling recipe also directly inspired embedding methods in other domains — node2vec for graphs, item2vec for recommendations, and more.
 
 - **GloVe** (Pennington et al., 2014) — an alternative based on global co-occurrence matrices
-- **FastText** (Mikolov et al., 2016) — extends Word2Vec to subword units
+- **FastText** (Bojanowski et al., 2017) — extends Word2Vec to subword units
 - **ELMo / BERT** — contextual embeddings that replaced static Word2Vec vectors
 - **Item2Vec, node2vec, doc2vec** — the "2vec" pattern spread across domains
 - The concept of learning dense representations from self-supervised objectives became foundational to modern deep learning
