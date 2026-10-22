@@ -10,7 +10,7 @@ permalink: "/010_a-neural-algorithm-of-artistic-style/"
 - **Paper:** [A Neural Algorithm of Artistic Style](https://arxiv.org/abs/1508.06576)
 - **Authors:** Leon A. Gatys, Alexander S. Ecker, Matthias Bethge
 - **Lab, year:** University of Tübingen, Bernstein Center, MPI for Biological Cybernetics, 2015 (CVPR 2016 version: *Image Style Transfer Using Convolutional Neural Networks*)
-- **Video:** YouTube Short coming on 21 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/5BnOUtvBiNQ) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
@@ -44,7 +44,7 @@ The paper solves this separation problem by borrowing the brain-like processing 
 
 ### What the Notebook Result Shows
 
-Over the run, the content loss fell from 7.46e-04 (step 50) to 2.50e-04 (step 300) and the style loss from 4.64e-07 to 6.75e-08. The generated image keeps the dancer's pose and outline from the content photo and takes on the blue-grey colours and some brush-like texture of the cubist painting. The large geometric shapes of the painting do not appear: because the notebook starts from the content photo, the result looks more like a recoloured, textured photo than a full repaint.
+Over the run, the content loss fell from 7.7752e-04 (step 50) to 2.5022e-04 (step 300) and the style loss from 4.5527e-07 to 6.7222e-08. A re-run gives slightly different numbers because L-BFGS is not deterministic. The generated image keeps the dancer's pose and outline from the content photo and takes on the blue-grey colours and some brush-like texture of the cubist painting. The large geometric shapes of the painting do not appear: because the notebook starts from the content photo, the result looks more like a recoloured, textured photo than a full repaint.
 
 ## Influence
 

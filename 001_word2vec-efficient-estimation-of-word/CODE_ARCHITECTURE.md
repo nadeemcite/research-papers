@@ -30,7 +30,7 @@ nav_order: 1
 ### 4. Negative Sampling Distribution
 - Compute unigram frequency distribution from the corpus.
 - Raise to the 0.75 power and normalize (this downweights frequent words, upweights rare ones).
-- **Function:** `build_negative_sampling_table(freqs, table_size=1e8)` → lookup table for O(1) negative sampling.
+- **Function:** `build_negative_sampling_table(freqs, table_size=1_000_000)` → lookup table for O(1) negative sampling.
 - **Data flow:** `word_counts [V]` → `p(w)^0.75` → normalized → sampling table
 
 ### 5. Model Parameters (Embedding Matrices)
@@ -94,9 +94,9 @@ nav_order: 1
 |---|---|---|---|
 | Corpus size | 1.6 billion words (Google News) | ~1,000–5,000 words (small text) | Runnable in minutes on Colab; still demonstrates the mechanism |
 | Vocabulary | 3 million words | ~200–500 words | Same — keeps training fast and visualization readable |
-| Embedding dim | 100–1000 | 50–100 | Small vocab doesn't need high dimensions |
+| Embedding dim | 100–1000 | 50 | Small vocab doesn't need high dimensions |
 | Subsampling of frequent words | Yes (improves quality) | Omitted | Adds complexity without changing the core algorithm |
 | Negative samples (k) | 5–15 | 5 | Standard value, sufficient for small corpus |
 | Hierarchical softmax | Also proposed in paper | Not implemented | Negative sampling is more commonly used and simpler to implement |
-| Training epochs | 1–5 passes over billions of words | 50–100 epochs over small corpus | Small corpus needs more passes to converge |
+| Training epochs | 1–5 passes over billions of words | 80 epochs over small corpus | Small corpus needs more passes to converge |
 | Evaluation | Google analogy test set (20k pairs) | Manual nearest-neighbor + analogy checks | Full test set requires large pretrained vectors |

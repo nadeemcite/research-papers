@@ -210,14 +210,15 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/5BnOUtvBiNQ"><img src="https://img.youtube.com/vi/5BnOUtvBiNQ/hqdefault.jpg" alt="Turn Any Photo Into a Painting: Neural Style Transfer" width="320"></a><br><b>Turn Any Photo Into a Painting: Neural Style Transfer</b><br><sub><a href="010_a-neural-algorithm-of-artistic-style/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/N6kmRrwHFL8"><img src="https://img.youtube.com/vi/N6kmRrwHFL8/hqdefault.jpg" alt="GPT-3: AI That Learns From Just Few Examples" width="320"></a><br><b>GPT-3: AI That Learns From Just Few Examples</b><br><sub><a href="080_language-models-few-shot-learners-gpt3/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/_p8vVcWi_hA"><img src="https://img.youtube.com/vi/_p8vVcWi_hA/hqdefault.jpg" alt="This AI Learned Video Games From Pixels: DQN Explained" width="320"></a><br><b>This AI Learned Video Games From Pixels: DQN Explained</b><br><sub><a href="051_playing-atari-with-deep-reinforcement/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/ZznC1w2mElY"><img src="https://img.youtube.com/vi/ZznC1w2mElY/hqdefault.jpg" alt="YOLO: AI Sees Everything in One Look" width="320"></a><br><b>YOLO: AI Sees Everything in One Look</b><br><sub><a href="032_you-only-look-once-yolo/">notebook</a></sub></td>
-<td align="center" width="50%"><a href="https://www.youtube.com/shorts/aGXecMt314w"><img src="https://img.youtube.com/vi/aGXecMt314w/hqdefault.jpg" alt="GANs: Two AIs Fight Until Fakes Look Real" width="320"></a><br><b>GANs: Two AIs Fight Until Fakes Look Real</b><br><sub><a href="022_generative-adversarial-networks-gan/">notebook</a></sub></td>
 </tr>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/aGXecMt314w"><img src="https://img.youtube.com/vi/aGXecMt314w/hqdefault.jpg" alt="GANs: Two AIs Fight Until Fakes Look Real" width="320"></a><br><b>GANs: Two AIs Fight Until Fakes Look Real</b><br><sub><a href="022_generative-adversarial-networks-gan/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/4iKss2ffzHI"><img src="https://img.youtube.com/vi/4iKss2ffzHI/hqdefault.jpg" alt="Attention Is All You Need: The Paper That Changed AI Forever" width="320"></a><br><b>Attention Is All You Need: The Paper That Changed AI Forever</b><br><sub><a href="020_attention-is-all-you-need-transformer/">notebook</a></sub></td>
 </tr>
 </table>

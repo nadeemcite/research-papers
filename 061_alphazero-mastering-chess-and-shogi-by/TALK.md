@@ -67,4 +67,4 @@ A: DeepMind did not release the AlphaZero program. The open-source [Leela Chess 
 - Schrittwieser, J., Antonoglou, I., Hubert, T., et al. (2020). Mastering Atari, Go, chess and shogi by planning with a learned model (MuZero). Nature, 588, 604–609. (Extends AlphaZero to learn the rules)
 - Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo Planning. ECML. (UCT — the MCTS selection algorithm used by AlphaZero)
 - Browne, C., Powley, E., Whitehouse, D., et al. (2012). A Survey of Monte Carlo Tree Search Methods. IEEE TCIAIG, 4(1), 1–43. (MCTS survey)
-- Pascutto, G. et al. Leela Zero / Leela Chess Zero. https://lczero.org/ (Open-source AlphaZero implementation)
+- Leela Chess Zero (lc0), community project. https://lczero.org/ (Open-source AlphaZero-style chess engine; the separate Leela Zero for Go was written by Gian-Carlo Pascutto)
