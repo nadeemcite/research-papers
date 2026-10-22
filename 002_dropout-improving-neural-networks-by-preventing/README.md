@@ -47,7 +47,7 @@ The breakthrough insight is that **neurons should not depend on each other too m
 
 ### Training Setup (from the paper)
 - Tested on MNIST, CIFAR-10, ImageNet, and speech recognition tasks.
-- For MNIST: fully connected networks with ReLU/sigmoid activations.
+- For MNIST: fully connected networks with logistic (sigmoid) units. The notebook uses ReLU instead.
 - For ImageNet: AlexNet-style convolutional networks with dropout in fully connected layers.
 - Optimizer: SGD with momentum, learning rate tuned per task.
 

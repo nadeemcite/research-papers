@@ -15,7 +15,7 @@ nav_order: 1
 ### 1. Setup & Imports
 - Import PyTorch, torchvision, NumPy, and Matplotlib.
 - Set a random seed for reproducibility.
-- Detect GPU (`cuda`) if available; Kaggle kernels provide a GPU runtime for this notebook.
+- Detect GPU (`cuda`) if available; uses a GPU if available; the Kaggle version runs on CPU.
 
 ### 2. Dataset Loading (Fashion-MNIST)
 - Use `torchvision.datasets.FashionMNIST` with `torchvision.transforms.ToTensor()`.
@@ -39,7 +39,7 @@ nav_order: 1
 
 ### 5. Training Two Models
 - Create two identical MLPs: `model_no_dropout` with `p=0.0` and `model_dropout` with `p=0.5`.
-- Train both for the same number of epochs (e.g., 20–30) using the same optimizer and learning rate.
+- Train both for the same number of epochs (25) using the same optimizer and learning rate.
 - Record training loss and test loss per epoch for both models.
 
 ### 6. Side-by-Side Loss Plot
@@ -49,11 +49,11 @@ nav_order: 1
 
 ### 7. Accuracy Comparison
 - Print final train/test accuracy for both models.
-- Optionally show a small confusion matrix or per-class accuracy for the dropout model.
+- There is no confusion matrix or per-class breakdown.
 
 ### 8. Dropout Mask Visualization (Optional)
-- For a single forward pass in train mode, capture and visualize which neurons were dropped.
-- This is purely illustrative; it is not required by the code template but helps explain the method.
+- For a single forward pass in train mode, count the first-layer units that are zero (232 of 256 in the saved run). The notebook only prints this count and does not plot it.
+- The count also includes units that ReLU had already set to zero, so it is higher than the 50% dropout rate.
 
 ---
 
@@ -63,9 +63,9 @@ nav_order: 1
 |---|---|
 | `get_fashion_mnist_loaders(batch_size)` | Download and prepare train/test DataLoaders |
 | `MLP(input_dim, hidden_dims, num_classes, dropout_p)` | Defines the MLP with optional dropout layers |
-| `train_epoch(model, loader, optimizer, criterion, device)` | Runs one training epoch, returns avg loss |
+| `train_epoch(model, loader, optimizer, criterion, device)` | Runs one training epoch, returns average loss and accuracy |
 | `evaluate(model, loader, criterion, device)` | Runs inference, returns avg loss and accuracy |
-| `plot_losses(history)` | Plots train/test curves for both models |
+| `plot_losses(hist_no_dropout, hist_dropout)` | Plots train/test curves for both models |
 
 ---
 
@@ -73,10 +73,10 @@ nav_order: 1
 
 | Simplification | Original Paper | Notebook | Why |
 |---|---|---|---|
-| Dataset | MNIST, CIFAR-10, ImageNet, speech | Fashion-MNIST (10 classes, 28×28) | Small, quick, and well-known toy dataset |
+| Dataset | MNIST, TIMIT, Reuters, CIFAR-10, ImageNet | Fashion-MNIST (10 classes, 28×28) | Small, quick, and well-known toy dataset |
 | Model | Large conv nets + fully connected | Small 2-hidden-layer MLP | Demonstrates dropout concept without CNN complexity |
-| Dropout rate | Input `0.8`, hidden `0.5` tested | Hidden `0.5`, input `0.0` | Input dropout less critical for grayscale images; hidden `0.5` is standard |
-| Epochs | Trained to convergence | 20–30 epochs | Enough to show overfitting gap; keeps runtime reasonable |
-| Weight scaling | Exact averaging over 2^H networks | Multiply weights by `p` at test time | Standard PyTorch `nn.Dropout` already handles this automatically |
-| Tasks | Vision, speech, bioinformatics | Single classification task | Keeps notebook self-contained and focused |
+| Dropout rate | Keep probability 0.8 (drop 0.2) for inputs, drop 0.5 for hidden units | Drop 0.5 for hidden units, no input dropout | Input dropout less critical for grayscale images; hidden `0.5` is standard |
+| Epochs | Trained to convergence | 25 epochs | Enough to show overfitting gap; keeps runtime reasonable |
+| Weight scaling | Approximate averaging over the 2^H thinned networks with a "mean network": keep all units and halve their outgoing weights at test time | Inverted dropout: kept units are scaled by 1/(1−p) during training and nothing changes at test time | PyTorch `nn.Dropout` does this automatically; the result is equivalent |
+| Tasks | Vision, speech, text | Single classification task | Keeps notebook self-contained and focused |
 | Evaluation metric | Benchmark records | Train/test accuracy + loss curves | Sufficient to demonstrate regularization effect |

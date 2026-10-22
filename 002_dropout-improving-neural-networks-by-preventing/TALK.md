@@ -11,7 +11,7 @@ nav_order: 2
 
 ## Notable Press Coverage, Blog Posts, and Announcements
 
-1. **Journal of Machine Learning Research (JMLR) follow-up (2014)** — The authors expanded the arXiv preprint into the longer paper "Dropout: A Simple Way to Prevent Neural Networks from Overfitting," published in JMLR volume 15. [JMLR page](https://jmlr.org/papers/v15/srivastava14a.html) \| [PDF](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
+1. **Journal of Machine Learning Research (JMLR) follow-up (2014)** — The authors expanded the arXiv preprint into the longer paper "Dropout: A Simple Way to Prevent Neural Networks from Overfitting," published in JMLR volume 15. [JMLR page](https://jmlr.org/papers/v15/srivastava14a.html) · [PDF](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
 
 2. **Nitish Srivastava's Dropout page (University of Toronto)** — The first author's page lists both papers, model config files for MNIST, CIFAR-10, CIFAR-100, SVHN and TIMIT, and his code: [Dropout page](https://www.cs.toronto.edu/~nitish/dropout/)
 
@@ -55,6 +55,6 @@ A (from the paper, main text): The authors say sexual reproduction breaks up set
 
 3. **"Dropout and L2 are the same thing."** — They are different mechanisms. Dropout is stochastic and breaks co-adaptation; L2 is deterministic and penalizes large weights. They can complement each other.
 
-4. **"You should set dropout to 0.5 everywhere."** — 0.5 is a good default for hidden layers, but input layers often use 0.8, and CNNs may use much lower dropout. The optimal rate depends on the architecture and dataset.
+4. **"You should set dropout to 0.5 everywhere."** — 0.5 is a good default for hidden layers, but input layers often keep 80% of their units (drop rate 0.2), and CNNs may use much lower dropout. The optimal rate depends on the architecture and dataset.
 
-5. **"Dropout slows down training because it trains many networks."** — Each mini-batch trains one random sub-network, so a single forward/backward pass is actually cheaper (fewer active neurons). The total training time is usually similar to or less than training the full network without dropout.
+5. **"Dropout slows down training because it trains many networks."** — Dropout usually makes training slower, not faster: the noisy updates need more epochs (the 2014 JMLR paper reports 2–3× longer training). Each pass costs about the same as without dropout, because frameworks still compute the full dense layers.
