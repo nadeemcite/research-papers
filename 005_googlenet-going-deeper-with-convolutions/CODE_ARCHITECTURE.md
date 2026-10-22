@@ -10,7 +10,7 @@ This notebook builds a **minimal but faithful Inception-style network** from scr
 ## Notebook sections
 
 ### 1. Setup and dataset
-- Install standard packages (`torch`, `torchvision`, `matplotlib`).
+- Import `torch`, `torchvision` and `matplotlib` (preinstalled on Kaggle).
 - Load CIFAR-10 (32×32 colour images, 10 classes) and normalize to `[-1, 1]`.
 - Define small training/validation dataloaders.
 
@@ -29,7 +29,7 @@ Because the full 22-layer GoogLeNet is large and needs 224×224 inputs, this not
 - Stage 1: two Inception modules with increasing 3×3/5×5 capacity.
 - Downsample: maxpool 2×2/2.
 - Stage 2: two more Inception modules.
-- Global average pooling → dropout → linear → softmax.
+- Global average pooling → dropout → linear (the softmax is inside `CrossEntropyLoss`).
 No auxiliary classifiers are included — they are omitted as a deliberate simplification because CIFAR-10 is small and the network is shallow.
 
 ### 4. Plain baseline CNN
@@ -43,19 +43,20 @@ No auxiliary classifiers are included — they are omitted as a deliberate simpl
 ### 6. Analysis cell
 - Print total trainable parameters of Inception model and plain CNN.
 - Plot per-epoch loss/accuracy curves.
-- Print a sample of predictions.
+- Plot 10 test images with the predicted and true labels.
+- Evaluate both models on the held-out test set and print test accuracy and loss.
 
 ## Data flow / shapes
 
 ```
 Input image:  [B, 3, 32, 32]
 Stem:         [B, 64, 16, 16]  (conv + maxpool)
-Stage 1 A:    [B, 256, 16, 16]
-Stage 1 B:    [B, 480, 16, 16]
-Pool:         [B, 480, 8, 8]
-Stage 2 A:    [B, 512, 8, 8]
-Stage 2 B:    [B, 512, 8, 8]
-GlobalAvgPool:[B, 512, 1, 1]
+Inception 3a: [B, 112, 16, 16]
+Inception 3b: [B, 192, 16, 16]
+Pool:         [B, 192, 8, 8]
+Inception 4a: [B, 224, 8, 8]
+Inception 4b: [B, 256, 8, 8]
+GlobalAvgPool:[B, 256, 1, 1]
 Classifier:   [B, 10]
 ```
 
@@ -64,8 +65,8 @@ Classifier:   [B, 10]
 | Paper detail | Simplification in notebook | Why |
 |---|---|---|
 | 224×224 ImageNet input | 32×32 CIFAR-10 input | Faster Kaggle validation; still exercises all architectural ideas. |
-| Full 22-layer GoogLeNet (9 Inception modules, two classifiers) | 4 Inception modules, one classifier | Fits CIFAR-10 scale and runtime limits; module math is identical. |
+| Full 22-layer GoogLeNet (9 Inception modules, one main classifier plus two auxiliary ones) | 4 Inception modules, one classifier | Fits CIFAR-10 scale and runtime limits; module math is identical. |
 | Auxiliary classifiers | Omitted | Shallow mini-network and small dataset make vanishing gradients unlikely. |
 | 7×7/2 initial conv and two early 1×1/3×3 stem convolutions | Single 3×3 stem + one maxpool | CIFAR-10 resolution does not need the original large-field stem. |
-| Exact GoogLeNet channel counts | Scaled down but same branching ratios | Keeps the design pattern while matching memory constraints. |
-| Local Response Normalization | Replaced by BatchNorm | BatchNorm is the modern equivalent and more stable to train from scratch. |
+| Exact GoogLeNet channel counts | Scaled-down channel counts | Keeps the design pattern while matching memory constraints. |
+| Local Response Normalization | Replaced by BatchNorm | BatchNorm is a replacement, not an equivalent, and makes training from scratch more stable. |
