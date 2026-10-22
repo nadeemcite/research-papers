@@ -11,7 +11,7 @@ nav_order: 2
 
 - [Official VGG project page](https://robots.ox.ac.uk/~vgg/research/very_deep/) (Visual Geometry Group, University of Oxford) — the paper, the trained models and the ILSVRC 2014 submission details.
 - [arXiv page](https://arxiv.org/abs/1409.1556) — the paper (published at ICLR 2015).
-- [ILSVRC 2014 results](https://image-net.org/challenges/LSVRC/2014/results) — the official results of the ImageNet 2014 challenge.
+- [ILSVRC 2014 results](https://image-net.org/challenges/LSVRC/2014/results.php) — the official results of the ImageNet 2014 challenge.
 - [The New York Times, Bits blog: "Computer Eyesight Gets a Lot More Accurate"](https://web.archive.org/web/20150316003114/http://bits.blogs.nytimes.com/2014/08/18/computer-eyesight-gets-a-lot-more-accurate/) (18 August 2014, archived copy) — reports the ImageNet 2014 results; it names Oxford University among the winners and says error rates were cut in half.
 
 ## Q&A (answers from the paper)
@@ -43,5 +43,5 @@ A (from the paper, Sections 3.1 and 3.3): Training used batch size 256, momentum
 
 - Simonyan, K., & Zisserman, A. (2015). [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556). ICLR 2015.
 - [Official VGG page](https://robots.ox.ac.uk/~vgg/research/very_deep/)
-- [ILSVRC 2014 results](https://image-net.org/challenges/LSVRC/2014/results)
+- [ILSVRC 2014 results](https://image-net.org/challenges/LSVRC/2014/results.php)
 - [NYT Bits blog (archived)](https://web.archive.org/web/20150316003114/http://bits.blogs.nytimes.com/2014/08/18/computer-eyesight-gets-a-lot-more-accurate/)

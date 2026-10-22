@@ -29,7 +29,7 @@ A self-contained PyTorch notebook that builds a small VGG-style network, trains 
 ### 4. Training loop
 - Loss: `CrossEntropyLoss`.
 - Optimizer: SGD, learning rate 0.01, momentum 0.9, weight decay 5e-4, with `CosineAnnealingLR` over the same number of epochs (`T_max` = 20 on a GPU, 3 on a CPU).
-- `train_epoch` and `evaluate` return average loss and accuracy. The loop runs 20 epochs on a GPU (3 on a CPU, where an epoch takes about 20 minutes), records train/test loss and accuracy, and prints the time of each epoch.
+- `train_epoch` and `evaluate` return average loss and accuracy. The loop runs 20 epochs on a GPU (3 on a CPU, where an epoch is much slower), records train/test loss and accuracy, and prints the time of each epoch.
 
 ### 5. Training curves
 - Matplotlib plots of train vs. test loss and train vs. test accuracy per epoch.

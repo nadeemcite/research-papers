@@ -16,7 +16,7 @@ permalink: "/004_vggnet-very-deep-convolutional-networks/"
 
 VGGNet is a careful study of how the **depth** of a convolutional network affects its accuracy on large-scale image recognition. Simonyan and Zisserman kept the rest of the design fixed and used only very small 3×3 convolution filters throughout, then increased depth step by step from 11 to 19 weight layers. Accuracy improved significantly with depth.
 
-The deepest configurations, now known as **VGG-16** and **VGG-19**, set the template for a simple, uniform ConvNet: stacks of 3×3 convolutions with stride 1, 2×2 max-pooling between stages, the number of channels doubling after each pool, and three fully connected layers at the end. The team placed 1st in localization and 2nd in classification at ILSVRC 2014, and the released models transferred well to other datasets, which made VGG one of the most widely used backbones (the base network that other models are built on) and feature extractors in computer vision.
+The deepest configurations, now known as **VGG-16** and **VGG-19**, set the template for a simple, uniform ConvNet: stacks of 3×3 convolutions with stride 1, 2×2 max-pooling between stages, the number of channels doubling after each pool up to 512, and three fully connected layers at the end. The team placed 1st in localization and 2nd in classification at ILSVRC 2014, and the released models transferred well to other datasets, which made VGG one of the most widely used backbones (the base network that other models are built on) and feature extractors in computer vision.
 
 ## What Problem Does It Solve
 
@@ -73,7 +73,7 @@ An earlier version of the notebook stayed at 10% accuracy for the whole run. The
 
 The parts that do not need training are unchanged. Three stacked 3×3 convs with 64 channels use 110,592 weights, while one 7×7 conv uses 200,704 (44.9% fewer), and the stack has 3 ReLUs instead of 1. The "plain 5×5 CNN" in the notebook has fewer parameters (10.87M vs 15.25M), but only because it has 5 conv layers and a single small classifier layer, so it is not a like-for-like test.
 
-This is a small CIFAR-10 model with BatchNorm and one seed, not the paper's ImageNet result. The saved numbers can shift a little between runs. On a CPU the notebook runs 3 epochs instead of 20 (about 20 minutes per epoch, reaching about 71%).
+This is a small CIFAR-10 model with BatchNorm and one seed, not the paper's ImageNet result. The saved numbers can shift a little between runs. On a CPU the notebook runs 3 epochs instead of 20.
 
 ## Influence
 
