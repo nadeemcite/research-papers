@@ -11,7 +11,8 @@ This notebook builds a **minimal but faithful Inception-style network** from scr
 
 ### 1. Setup and dataset
 - Import `torch`, `torchvision` and `matplotlib` (preinstalled on Kaggle).
-- Load CIFAR-10 (32×32 colour images, 10 classes) and normalize to `[-1, 1]`.
+- Load CIFAR-10 (32×32 colour images, 10 classes) and normalize to `[-1, 1]`. On Kaggle it is read from the attached dataset `pankrzysiu/cifar10-python` (a few seconds); elsewhere torchvision downloads it.
+- Training images use a random 32×32 crop from a 4-pixel-padded image plus a horizontal flip; validation and test images are plain. Seeds are fixed.
 - Define small training/validation dataloaders.
 
 ### 2. Inception building block
@@ -36,8 +37,8 @@ No auxiliary classifiers are included — they are omitted as a deliberate simpl
 - Same number of stages and target output channels, but no parallel branches or 1×1 bottlenecks. Built from stacked 3×3 conv + BN + ReLU blocks.
 
 ### 5. Training loop
-- Cross-entropy loss, Adam optimizer, small learning rate.
-- Trains for a few epochs on CPU/GPU with progress prints.
+- Cross-entropy loss, Adam optimizer (learning rate 1e-3) with a cosine decay to zero.
+- Trains both models for 20 epochs (about 13 s per epoch on a T4) with progress and time prints.
 - Tracks train/validation loss and accuracy.
 
 ### 6. Analysis cell

@@ -50,14 +50,14 @@ It's like a Swiss Army knife that has a big blade, a small blade, and a scissors
 
 - **CIFAR-10** (32×32 images, 10 classes) instead of ImageNet (224×224, 1,000 classes); 45,000 train, 5,000 validation and 10,000 test images
 - A small "MiniGoogLeNet": a 3×3 conv stem and two Inception stages instead of 9 Inception modules
-- **BatchNorm** after every conv (the paper did not use it), no auxiliary classifiers, no data augmentation
-- Adam (learning rate 1e-3) for only 5 epochs, instead of the paper's SGD with momentum 0.9
+- **BatchNorm** after every conv (the paper did not use it), no auxiliary classifiers; the training images get only random crops and horizontal flips
+- Adam (learning rate 1e-3, cosine decay) for only 20 epochs, instead of the paper's SGD with momentum 0.9
 
 ### What the Notebook Result Shows
 
-The MiniGoogLeNet has **304,122** parameters, while the plain 3×3 CNN baseline has **1,167,210** (3.84× more). After 5 epochs, the Inception model reached **77.0%** test accuracy and the plain CNN **76.5%**.
+The MiniGoogLeNet has **304,122** parameters, while the plain 3×3 CNN baseline has **1,167,210** (3.84× more). After 20 epochs on a Kaggle T4 GPU (about 13 s per epoch), the Inception model reached **87.1%** test accuracy (loss 0.3965) and the plain CNN **87.8%** (loss 0.3752). An earlier 5-epoch run without augmentation reached only about 77% for both.
 
-So the Inception network matched the plain CNN with about a quarter of the parameters. That is the paper's main point on a small scale. The 0.5-point accuracy gap is tiny and could change with another random seed.
+So the Inception network came within about a point of the plain CNN with about a quarter of the parameters. That is the paper's efficiency point on a small scale. The plain CNN was slightly ahead on accuracy here, but it is one seed per model and a gap this small is within run-to-run noise, so the result supports parameter efficiency, not an accuracy win.
 
 ## Influence
 
