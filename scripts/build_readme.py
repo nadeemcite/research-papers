@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('5BnOUtvBiNQ', 'Turn Any Photo Into a Painting: Neural Style Transfer', '010_a-neural-algorithm-of-artistic-style'),
+    shorts = [('Jc-9wO_qVKM', 'This AI Taught Itself Chess From Zero: AlphaZero', '061_alphazero-mastering-chess-and-shogi-by'),
+              ('5BnOUtvBiNQ', 'Turn Any Photo Into a Painting: Neural Style Transfer', '010_a-neural-algorithm-of-artistic-style'),
               ('N6kmRrwHFL8', 'GPT-3: AI That Learns From Just Few Examples', '080_language-models-few-shot-learners-gpt3'),
               ('_p8vVcWi_hA', 'This AI Learned Video Games From Pixels: DQN Explained', '051_playing-atari-with-deep-reinforcement'),
               ('ZznC1w2mElY', 'YOLO: AI Sees Everything in One Look', '032_you-only-look-once-yolo'),

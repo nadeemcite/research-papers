@@ -10,7 +10,7 @@ permalink: "/061_alphazero-mastering-chess-and-shogi-by/"
 - **Paper:** [Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm](https://arxiv.org/abs/1712.01815)
 - **Authors:** David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew Lai, Arthur Guez, Marc Lanctot, Laurent Sifre, Dharshan Kumaran, Thore Graepel, Timothy Lillicrap, Karen Simonyan, Demis Hassabis
 - **Lab, year:** DeepMind, 2017 (Science, 2018)
-- **Video:** YouTube Short coming on 22 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/Jc-9wO_qVKM) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
