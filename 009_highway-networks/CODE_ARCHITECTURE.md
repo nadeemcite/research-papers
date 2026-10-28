@@ -24,7 +24,7 @@ Build a fully-connected Highway layer from raw PyTorch operations, stack 20 High
 | **Experiment: depth = 20** | Train both networks for 10 epochs, then plot training loss and validation accuracy inline. In the saved run Highway ends at 96.3% (best 97.4%), while the plain MLP peaks at 86.0% in epoch 3 and drops to 67.6% by epoch 10. |
 | **Gradient-flow diagnostic** | After a forward/backward pass, record the L2 norm of the gradient of every weight tensor and show them as a log-scale line plot. Saved run: mean 0.131 (Highway, 42 tensors) vs 2.175 (plain, 22 tensors), a one-batch snapshot. |
 | **Transform-gate inspection** | For one validation batch, print mean `T(x)` per layer and plot it as a bar chart. Saved run: between 0.03 and 0.15 per layer, so most layers mostly carry their input. |
-| **Summary / take-aways** | Bullet-point recap of the idea. Its result bullet still quotes an earlier run (97.2% vs 95.6%). The saved outputs show this run: Highway trained smoothly (96.3% final, 97.4% best), the plain MLP trained unstably (86.0% peak, 67.6% final). This is one unseeded run, so exact numbers vary run to run. |
+| **Summary / take-aways** | Bullet-point recap of the idea, with a "What the run above shows" section that quotes this run's numbers: Highway trained smoothly (96.3% final, 97.4% best), the plain MLP trained unstably (86.0% peak, 67.6% final). This is one unseeded run, so exact numbers vary run to run. |
 
 ## 3. Key functions/classes
 

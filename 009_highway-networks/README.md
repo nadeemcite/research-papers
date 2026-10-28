@@ -48,7 +48,7 @@ The notebook trains a 20-layer Highway MLP and a plain 20-layer MLP on MNIST (hi
 - **Gradient check:** one forward/backward pass after training gave a mean weight-gradient norm of 0.131 for Highway and 2.175 for the plain net. This is a single snapshot, so read it as a sanity check, not as proof.
 - **Gates:** the mean transform-gate value per Highway layer stayed between 0.03 and 0.15, so most layers mostly carried their input forward.
 
-This is one unseeded run, so the exact numbers change from run to run. The plain network is not parameter-matched, so treat this as an illustration of the effect, not a controlled comparison. The notebook's closing Summary cell still quotes an earlier run (97.2% vs 95.6%); the printed outputs in the notebook are the numbers for this run.
+This is one unseeded run, so the exact numbers change from run to run. The plain network is not parameter-matched, so treat this as an illustration of the effect, not a controlled comparison.
 
 ## Influence
 
