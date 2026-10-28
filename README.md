@@ -210,18 +210,27 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/p2LGxyhIRKw"><img src="https://img.youtube.com/vi/p2LGxyhIRKw/hqdefault.jpg" alt="He Init and PReLU: Good Starts Make Deep Nets Work" width="320"></a><br><b>He Init and PReLU: Good Starts Make Deep Nets Work</b><br><sub><a href="007_delving-deep-into-rectifiers/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/4qH2qFBaSrA"><img src="https://img.youtube.com/vi/4qH2qFBaSrA/hqdefault.jpg" alt="GoogLeNet: Look Near and Far at Once" width="320"></a><br><b>GoogLeNet: Look Near and Far at Once</b><br><sub><a href="005_googlenet-going-deeper-with-convolutions/">notebook</a></sub></td>
+</tr>
+<tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/Jd5UUEDFk_o"><img src="https://img.youtube.com/vi/Jd5UUEDFk_o/hqdefault.jpg" alt="VGGNet: Very Deep Convolutional Networks" width="320"></a><br><b>VGGNet: Very Deep Convolutional Networks</b><br><sub><a href="004_vggnet-very-deep-convolutional-networks/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/cDJpFmFXO2I"><img src="https://img.youtube.com/vi/cDJpFmFXO2I/hqdefault.jpg" alt="Dropout: Preventing Co-adaptation of Feature Detectors" width="320"></a><br><b>Dropout: Preventing Co-adaptation of Feature Detectors</b><br><sub><a href="002_dropout-improving-neural-networks-by-preventing/">notebook</a></sub></td>
+</tr>
+<tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/p1r0DlmAu8Y"><img src="https://img.youtube.com/vi/p1r0DlmAu8Y/hqdefault.jpg" alt="Word2Vec: Efficient Estimation of Word Representations" width="320"></a><br><b>Word2Vec: Efficient Estimation of Word Representations</b><br><sub><a href="001_word2vec-efficient-estimation-of-word/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/Jc-9wO_qVKM"><img src="https://img.youtube.com/vi/Jc-9wO_qVKM/hqdefault.jpg" alt="This AI Taught Itself Chess From Zero: AlphaZero" width="320"></a><br><b>This AI Taught Itself Chess From Zero: AlphaZero</b><br><sub><a href="061_alphazero-mastering-chess-and-shogi-by/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/5BnOUtvBiNQ"><img src="https://img.youtube.com/vi/5BnOUtvBiNQ/hqdefault.jpg" alt="Turn Any Photo Into a Painting: Neural Style Transfer" width="320"></a><br><b>Turn Any Photo Into a Painting: Neural Style Transfer</b><br><sub><a href="010_a-neural-algorithm-of-artistic-style/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/N6kmRrwHFL8"><img src="https://img.youtube.com/vi/N6kmRrwHFL8/hqdefault.jpg" alt="GPT-3: AI That Learns From Just Few Examples" width="320"></a><br><b>GPT-3: AI That Learns From Just Few Examples</b><br><sub><a href="080_language-models-few-shot-learners-gpt3/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/_p8vVcWi_hA"><img src="https://img.youtube.com/vi/_p8vVcWi_hA/hqdefault.jpg" alt="This AI Learned Video Games From Pixels: DQN Explained" width="320"></a><br><b>This AI Learned Video Games From Pixels: DQN Explained</b><br><sub><a href="051_playing-atari-with-deep-reinforcement/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/ZznC1w2mElY"><img src="https://img.youtube.com/vi/ZznC1w2mElY/hqdefault.jpg" alt="YOLO: AI Sees Everything in One Look" width="320"></a><br><b>YOLO: AI Sees Everything in One Look</b><br><sub><a href="032_you-only-look-once-yolo/">notebook</a></sub></td>
-<td align="center" width="50%"><a href="https://www.youtube.com/shorts/aGXecMt314w"><img src="https://img.youtube.com/vi/aGXecMt314w/hqdefault.jpg" alt="GANs: Two AIs Fight Until Fakes Look Real" width="320"></a><br><b>GANs: Two AIs Fight Until Fakes Look Real</b><br><sub><a href="022_generative-adversarial-networks-gan/">notebook</a></sub></td>
 </tr>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/aGXecMt314w"><img src="https://img.youtube.com/vi/aGXecMt314w/hqdefault.jpg" alt="GANs: Two AIs Fight Until Fakes Look Real" width="320"></a><br><b>GANs: Two AIs Fight Until Fakes Look Real</b><br><sub><a href="022_generative-adversarial-networks-gan/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/4iKss2ffzHI"><img src="https://img.youtube.com/vi/4iKss2ffzHI/hqdefault.jpg" alt="Attention Is All You Need: The Paper That Changed AI Forever" width="320"></a><br><b>Attention Is All You Need: The Paper That Changed AI Forever</b><br><sub><a href="020_attention-is-all-you-need-transformer/">notebook</a></sub></td>
 </tr>
 </table>

@@ -6,8 +6,10 @@ num	short	banner	status	shorts_url	release_date
 080	GPT-3	assets/banners/080.jpg	public	https://youtube.com/shorts/N6kmRrwHFL8	2026-10-20
 010	Style Transfer	assets/banners/010.jpg	public	https://youtube.com/shorts/5BnOUtvBiNQ	2026-10-21
 061	AlphaZero	assets/banners/061.jpg	public	https://youtube.com/shorts/Jc-9wO_qVKM	2026-10-22
-001	Word2Vec	assets/banners/001.jpg	private		2026-10-23
-002	Dropout	assets/banners/002.jpg	private		2026-10-24
-004	VGGNet	assets/banners/004.jpg	private		2026-10-25
-005	GoogLeNet	assets/banners/005.jpg	private		2026-10-26
-007	He init	assets/banners/007.jpg	private		2026-10-27
+001	Word2Vec	assets/banners/001.jpg	public	https://youtube.com/shorts/p1r0DlmAu8Y	2026-10-23
+002	Dropout	assets/banners/002.jpg	public	https://youtube.com/shorts/cDJpFmFXO2I	2026-10-24
+004	VGGNet	assets/banners/004.jpg	public	https://youtube.com/shorts/Jd5UUEDFk_o	2026-10-25
+005	GoogLeNet	assets/banners/005.jpg	public	https://youtube.com/shorts/4qH2qFBaSrA	2026-10-26
+007	He init	assets/banners/007.jpg	public	https://youtube.com/shorts/p2LGxyhIRKw	2026-10-27
+009	Highway Nets	assets/banners/009.jpg	private		2026-10-28
+008	ResNet	assets/banners/008.jpg	private		2026-10-29

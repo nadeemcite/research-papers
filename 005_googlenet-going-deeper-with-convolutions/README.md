@@ -10,7 +10,7 @@ permalink: "/005_googlenet-going-deeper-with-convolutions/"
 - **Paper:** [Going Deeper with Convolutions](https://arxiv.org/abs/1409.4842)
 - **Authors:** Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, Andrew Rabinovich
 - **Lab, year:** Google, 2014 (CVPR 2015)
-- **Video:** YouTube Short coming on 26 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/4qH2qFBaSrA) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

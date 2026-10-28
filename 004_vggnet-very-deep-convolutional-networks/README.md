@@ -10,7 +10,7 @@ permalink: "/004_vggnet-very-deep-convolutional-networks/"
 - **Paper:** [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556)
 - **Authors:** Karen Simonyan, Andrew Zisserman
 - **Lab, year:** Visual Geometry Group, University of Oxford, 2014 (ICLR 2015)
-- **Video:** YouTube Short coming on 25 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/Jd5UUEDFk_o) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

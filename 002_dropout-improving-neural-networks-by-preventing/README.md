@@ -10,7 +10,7 @@ permalink: "/002_dropout-improving-neural-networks-by-preventing/"
 - **Paper:** [Improving neural networks by preventing co-adaptation of feature detectors](https://arxiv.org/abs/1207.0580)
 - **Authors:** Geoffrey E. Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever, Ruslan R. Salakhutdinov
 - **Lab, year:** University of Toronto, 2012
-- **Video:** YouTube Short coming on 24 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/cDJpFmFXO2I) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

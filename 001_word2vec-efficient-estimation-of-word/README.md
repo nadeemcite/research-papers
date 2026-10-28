@@ -10,7 +10,7 @@ permalink: "/001_word2vec-efficient-estimation-of-word/"
 - **Paper:** [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/abs/1301.3781)
 - **Authors:** Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean
 - **Lab, year:** Google, 2013
-- **Video:** YouTube Short coming on 23 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/p1r0DlmAu8Y) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

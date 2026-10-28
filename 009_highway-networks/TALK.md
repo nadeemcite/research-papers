@@ -11,7 +11,7 @@ nav_order: 2
 - **Full follow-up paper:** *Training Very Deep Networks* — https://arxiv.org/abs/1507.06228 (authors: Srivastava, Greff, Schmidhuber).
 - **Author institutional affiliation:** The Swiss AI Lab IDSIA / Università della Svizzera italiana (USI) / SUPSI.
 - **Acknowledged funding/hardware:** EU project NASCENCE (FP7-ICT-317662) and NVIDIA Tesla K40 GPU donation.
-- **Related contemporaneous work cited in the paper:** FitNets (Romero et al., 2014), He initialization (He et al., 2015), batch normalization (Ioffe & Szegedy, 2015), ResNet (He et al., 2015) — ResNet was published shortly afterward and can be seen as a special case where the carry gate is always open.
+- **Related work the paper builds on or compares with:** Glorot & Bengio (2010) initialization, He et al. (2015) initialization, Simonyan & Zisserman (2014) very deep convolutional networks, and FitNets (Romero et al., 2014). The paper does not cite batch normalization or ResNet; ResNet came later.
 
 ## Interview-style Q&A
 
@@ -33,7 +33,7 @@ The ICML workshop abstract does not mention public code; the full paper (arXiv:1
 ## Common misconceptions
 
 - **Misconception:** “Highway Networks and ResNet are unrelated.”  
-  **Correction:** ResNet is closely related; a Highway block with `T(x) = 1/2` everywhere is not ResNet, but a block with a fixed fully-open carry path is mathematically equivalent to a residual block with `F(x) = H(x)/2`.
+  **Correction:** ResNet's `y = F(x) + x` is like a highway block whose carry path is always open, with no gate.
 - **Misconception:** “Highway layers increase parameters massively.”  
   **Correction:** Each Highway layer has two weight matrices (`W_H` and `W_T`), but the paper matches parameter counts to plain networks by adjusting layer widths for fair comparison.
 - **Misconception:** “The transform gate must always be 0 or 1.”  
@@ -45,3 +45,5 @@ The ICML workshop abstract does not mention public code; the full paper (arXiv:1
 2. R. K. Srivastava, K. Greff, and J. Schmidhuber, “Training Very Deep Networks,” arXiv:1507.06228 [cs.LG], 2015.
 3. K. He, X. Zhang, S. Ren, and J. Sun, “Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification,” arXiv:1502.01852, 2015.
 4. A. Romero, N. Ballas, S. E. Kahou, A. Chassang, C. Gatta, and Y. Bengio, “FitNets: Hints for Thin Deep Nets,” arXiv:1412.6550, 2014.
+5. X. Glorot and Y. Bengio, “Understanding the difficulty of training deep feedforward neural networks,” AISTATS, 2010.
+6. K. Simonyan and A. Zisserman, “Very Deep Convolutional Networks for Large-Scale Image Recognition,” arXiv:1409.1556, 2014.

@@ -4,18 +4,19 @@ nav_order: 9
 permalink: "/008_resnet-deep-residual-learning-for-image/"
 ---
 # ResNet — Deep Residual Learning for Image Recognition
+![ResNet banner](../assets/banners/008.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
 
-
-**arXiv:** [https://arxiv.org/abs/1512.03385](https://arxiv.org/abs/1512.03385)
-
-**Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research)
+- **Paper:** [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
+- **Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
+- **Lab, year:** Microsoft Research, 2015
+- **Video:** YouTube Short coming on 29 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-Residual networks (ResNets) introduced a simple but powerful idea: instead of asking a stack of layers to learn a direct mapping \(H(x)\), train them to learn the *residual* mapping \(F(x) = H(x) - x\) and add the input \(x\) back with a shortcut (skip) connection. By reformulating deep layers as residual functions, the paper showed that networks with hundreds or even thousands of layers can be optimized reliably, whereas plain (stacked) networks suffer from degradation—accuracy saturates and then drops as depth increases, even when overfitting is not the cause.
+Residual networks (ResNets) introduced a simple but powerful idea: instead of asking a stack of layers to learn a direct mapping `H(x)`, train them to learn the *residual* mapping `F(x) = H(x) - x` and add the input `x` back with a shortcut (skip) connection. By reformulating deep layers as residual functions, the paper showed that networks with hundreds or even thousands of layers can be optimized reliably, whereas plain (stacked) networks suffer from degradation—accuracy saturates and then drops as depth increases, even when overfitting is not the cause.
 
-The key method is the **residual block**. For an input \(x\), a block with weight layers computes \(F(x) + x\). When the dimensions of \(F(x)\) and \(x\) differ, a linear projection by \(1×1\) convolutions matches them. A deeper architecture is built by stacking these blocks, and experiments on ImageNet demonstrate that ResNets scale gracefully from 34 layers to 152 layers, winning the ILSVRC 2015 classification competition with a 3.57% top-5 test error. The same principle also produced 100+ layer networks that train well on CIFAR-10.
+The key method is the **residual block**. For an input `x`, a block with weight layers computes `F(x) + x`. When the dimensions of `F(x)` and `x` differ, a linear projection by `1×1` convolutions matches them. A deeper architecture is built by stacking these blocks, and experiments on ImageNet demonstrate that ResNets scale gracefully from 34 layers to 152 layers, winning the ILSVRC 2015 classification competition with a 3.57% top-5 test error. The same principle also produced 100+ layer networks that train well on CIFAR-10.
 
 ResNet’s influence is enormous: it replaced VGG-style plain stacks as the default backbone for vision, enabled much deeper architectures (ResNeXt, DenseNet, EfficientNet, transformers), and the skip-connection idea is now used in nearly every modern network, including attention models and diffusion backbones.
 
@@ -25,11 +26,30 @@ Imagine you are trying to send a message across a very long chain of whispering 
 
 In a normal deep network, every new layer has to rewrite the entire signal from scratch. As the network gets deeper, this becomes harder and harder, so accuracy stops improving and even drops. ResNet gives each layer an *express lane*—a shortcut that carries the original signal forward. A layer only has to learn the small change (the "residual") it wants to make to that signal. If a layer is not useful, it can simply let the signal pass through. Because the original information is never lost, the network can become much deeper without getting confused, much like letting every friend both whisper a small correction and pass the original message on unchanged.
 
+## Core Idea
+
+- **Learn the residual:** instead of fitting the desired mapping `H(x)` directly, a block fits `F(x) = H(x) - x` and outputs `F(x) + x`.
+- **Identity shortcut:** the skip connection adds no parameters (when shapes match) and gives gradients a direct path back through the network.
+- **Fixes degradation:** with shortcuts, a deeper network can do at least as well as a shallower one, because extra layers can learn `F(x) ≈ 0` and pass the signal through.
+
+## Key Method Details
+
+- **Block:** two `3×3` convolutions with batch normalization and ReLU, plus the shortcut: `y = relu(F(x) + x)`.
+- **Shape changes:** when the stride or channel count changes, the shortcut is a `1×1` convolution (a projection) so the two branches can be added.
+- **Depth:** 18, 34, 50, 101 and 152 layers on ImageNet (the deeper ones use three-layer bottleneck blocks). The paper also trains CIFAR-10 networks of 20 to 110 layers and one with 1202 layers.
+- **Result:** an ensemble of residual networks won ILSVRC 2015 classification with 3.57% top-5 test error.
+
+## Influence
+
+ResNet became the default backbone for vision and the template for deep architectures that followed (ResNeXt, DenseNet, EfficientNet). The identity skip connection is now in almost every deep model, including Transformers and diffusion U-Nets.
+
+## Notebook results
+
+The notebook trains an 18-layer-style PlainNet and ResNet (about 11M parameters each) on CIFAR-10 for 25 epochs with SGD, learning rate 0.1, momentum 0.9, weight decay 5e-4, a step schedule, and random-crop plus flip augmentation. They finish **tied**: PlainNet **91.18%** and ResNet **91.08%** test accuracy. At 18 layers with batch normalization there is no degradation to fix, so this toy does not reproduce the paper's gap; the paper's comparison uses deeper plain networks (20 vs 56 layers on CIFAR-10).
+
 ---
 
 ## Resources
-
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/resnet-deep-residual-learning)
 
 | File | Description |
 |------|-------------|

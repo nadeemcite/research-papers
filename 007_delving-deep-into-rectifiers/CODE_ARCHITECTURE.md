@@ -61,8 +61,8 @@ Backward:           dL/dlogits (B, 2) -> dW_i (fan_in, fan_out), db_i (fan_out,)
 
 ## Deliberate simplifications vs. full paper
 
-1. **Dataset:** We use a 2-D toy problem instead of ImageNet. This keeps runtime under a minute while still demonstrating vanishing/exploding signal behavior.
+1. **Dataset:** We use a 2-D toy problem instead of ImageNet. This keeps runtime short and lets us track activation variance and gradient norms per layer. At 10 layers the toy does not show clear vanishing or exploding signals; the He-vs-Xavier difference is a modest early-training gap (about 2 points at 30 epochs, tied at 100).
 2. **Architecture:** We implement fully-connected MLPs rather than the paper's convolutional SPP-net variants. He initialization applies to both; the math is identical for `fan_in`.
 3. **No batch normalization:** The paper predates BN and aims to show that careful init alone can train deep nets. We stick to that spirit.
 4. **PReLU is optional:** The main diagnostic experiment uses plain ReLU so the contrast between He and Xavier is clearest; PReLU is exercised in a short follow-up cell.
-5. **SGD only:** We omit momentum/weight-decay schedules so the focus stays on initialization. The formulas are documented in the README.
+5. **Plain SGD for the weights:** We omit momentum and weight decay for the weights so the focus stays on initialization. The one exception is the PReLU slope `a` in the optional follow-up, which is updated with momentum 0.9. The formulas are documented in the README.

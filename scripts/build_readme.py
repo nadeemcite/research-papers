@@ -250,7 +250,12 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('Jc-9wO_qVKM', 'This AI Taught Itself Chess From Zero: AlphaZero', '061_alphazero-mastering-chess-and-shogi-by'),
+    shorts = [('p2LGxyhIRKw', 'He Init and PReLU: Good Starts Make Deep Nets Work', '007_delving-deep-into-rectifiers'),
+              ('4qH2qFBaSrA', 'GoogLeNet: Look Near and Far at Once', '005_googlenet-going-deeper-with-convolutions'),
+              ('Jd5UUEDFk_o', 'VGGNet: Very Deep Convolutional Networks', '004_vggnet-very-deep-convolutional-networks'),
+              ('cDJpFmFXO2I', 'Dropout: Preventing Co-adaptation of Feature Detectors', '002_dropout-improving-neural-networks-by-preventing'),
+              ('p1r0DlmAu8Y', 'Word2Vec: Efficient Estimation of Word Representations', '001_word2vec-efficient-estimation-of-word'),
+              ('Jc-9wO_qVKM', 'This AI Taught Itself Chess From Zero: AlphaZero', '061_alphazero-mastering-chess-and-shogi-by'),
               ('5BnOUtvBiNQ', 'Turn Any Photo Into a Painting: Neural Style Transfer', '010_a-neural-algorithm-of-artistic-style'),
               ('N6kmRrwHFL8', 'GPT-3: AI That Learns From Just Few Examples', '080_language-models-few-shot-learners-gpt3'),
               ('_p8vVcWi_hA', 'This AI Learned Video Games From Pixels: DQN Explained', '051_playing-atari-with-deep-reinforcement'),
