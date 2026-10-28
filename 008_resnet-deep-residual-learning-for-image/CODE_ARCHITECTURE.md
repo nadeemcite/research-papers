@@ -13,8 +13,8 @@ The notebook implements a residual block and a small ResNet-style network from s
 
 ### 1. Setup and data loading
 - `torch`, `torchvision`, `matplotlib` and `numpy` are imported.
-- CIFAR-10 is downloaded through torchvision (progress bars silenced) and normalized, with random-crop and horizontal-flip augmentation on the training set. Standard train/test splits, batch size 128.
-- The download is the slow part of a fresh run; the training itself took about 17 to 18 minutes per model on a Kaggle GPU.
+- CIFAR-10 is read from the attached Kaggle dataset `pankrzysiu/cifar10-python` when present (otherwise torchvision downloads it, progress bars silenced) and normalized, with random-crop and horizontal-flip augmentation on the training set. Standard train/test splits, batch size 128.
+- Training took about 19 to 20 minutes per model on a Kaggle GPU (1142 s PlainNet, 1222 s ResNet).
 
 ### 2. Plain building block (baseline)
 - `ConvBlock`: two `3×3` convolutions, each followed by batch normalization and ReLU.
@@ -39,7 +39,7 @@ The notebook implements a residual block and a small ResNet-style network from s
 ### 6. Comparison plots
 - Train/test accuracy curves for plain net vs. ResNet on the same axes.
 - Per-epoch loss curves in a second panel.
-- Result: the two networks end tied (PlainNet 91.18%, ResNet 91.08% test accuracy). At 18 layers with batch normalization there is no degradation gap; PlainNet starts faster in the first epoch and ResNet catches up by about epoch 15.
+- Result: the two networks end within a point of each other (PlainNet 91.37%, ResNet 90.70% test accuracy; one unseeded run each, so the gap is noise). At 18 layers with batch normalization there is no degradation gap; PlainNet starts faster in the first epoch (46.0% vs 32.9% test accuracy) and ResNet trails at epoch 15 (84.7% vs 87.9%) before the two finish close.
 
 ### 7. What to try next
 - Try CIFAR-style 20- and 56-layer networks to look for the degradation gap the paper reports.
@@ -79,7 +79,7 @@ Global average pool + FC: `(B, 512)` → `(B, 10)`
 
 ## Deliberate simplifications vs. full paper
 
-- The paper tests on ImageNet with ResNet-34/50/101/152; we use a ResNet-18-style small model on CIFAR-10 so a single GPU run finishes in under an hour (about 17 to 18 minutes per model on Kaggle).
+- The paper tests on ImageNet with ResNet-34/50/101/152; we use a ResNet-18-style small model on CIFAR-10 so a single GPU run finishes in under an hour (about 19 to 20 minutes per model on Kaggle).
 - We use standard PyTorch BN instead of reimplementing every detail of the paper’s weight initialization.
 - We keep a minimal plain-net baseline rather than reproducing VGG exactly.
 - The bottleneck block is not included; the basic two-conv block is enough to demonstrate skip connections.

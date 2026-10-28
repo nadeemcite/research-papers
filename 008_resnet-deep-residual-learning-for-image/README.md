@@ -45,7 +45,7 @@ ResNet became the default backbone for vision and the template for deep architec
 
 ## Notebook results
 
-The notebook trains an 18-layer-style PlainNet and ResNet (about 11M parameters each) on CIFAR-10 for 25 epochs with SGD, learning rate 0.1, momentum 0.9, weight decay 5e-4, a step schedule, and random-crop plus flip augmentation. They finish **tied**: PlainNet **91.18%** and ResNet **91.08%** test accuracy. At 18 layers with batch normalization there is no degradation to fix, so this toy does not reproduce the paper's gap; the paper's comparison uses deeper plain networks (20 vs 56 layers on CIFAR-10).
+The notebook trains an 18-layer-style PlainNet and ResNet (about 11M parameters each) on CIFAR-10 for 25 epochs with SGD, learning rate 0.1, momentum 0.9, weight decay 5e-4, a step schedule, and random-crop plus flip augmentation. They finish within a point of each other: PlainNet **91.37%** and ResNet **90.70%** test accuracy (one unseeded run each, so a gap that small is noise). At 18 layers with batch normalization there is no degradation to fix, so this toy does not reproduce the paper's gap; the paper's comparison uses deeper plain networks (20 vs 56 layers on CIFAR-10).
 
 ---
 
