@@ -14,9 +14,13 @@ permalink: "/009_highway-networks/"
 
 ## Summary
 
-Highway networks were among the first practical demonstrations that feed-forward neural networks with hundreds of layers could be trained end-to-end with ordinary SGD. The key idea is to let each layer learn a smooth, data-dependent blend between transforming its input and simply carrying it forward. For every block, two functions are computed: a *block state* `H(x)` (a normal non-linear transformation) and a *transform gate* `T(x) = σ(W_T x + b_T)`. The layer then outputs `y = H(x)·T(x) + x·(1 − T(x))`. Because the transform gate is bounded in `[0, 1]`, the layer can act like a plain layer when `T ≈ 1`, act like an identity ("highway") when `T ≈ 0`, or interpolate anywhere in between. This gating mechanism is borrowed from LSTM memory cells, and the crucial initialization trick is to set the transform-gate bias to a negative value (e.g. −2 or −4) so the network starts by passing information forward almost unchanged. The authors showed that highway networks of up to 100 layers optimized well on MNIST, while plain networks got harder to train as depth grew. In Section 3.1 they also report that a 900-layer highway network had started training with no optimization difficulty so far; that run was preliminary. Highway networks are a direct precursor to ResNet: ResNet's `y = F(x) + x` is like a highway block whose carry path is always open, with no gate.
+Highway networks were among the first practical demonstrations that feed-forward neural networks with hundreds of layers could be trained end-to-end with ordinary SGD. The key idea is to let each layer learn a smooth, data-dependent blend between transforming its input and simply carrying it forward. For every block, two functions are computed: a *block state* `H(x)` (a normal non-linear transformation) and a *transform gate* `T(x) = σ(W_T x + b_T)`. The layer then outputs `y = H(x)·T(x) + x·(1 − T(x))`. Because the transform gate is bounded in `[0, 1]`, the layer can act like a plain layer when `T ≈ 1`, act like an identity ("highway") when `T ≈ 0`, or interpolate anywhere in between.
 
-## What problem does it solve
+This gating mechanism is borrowed from LSTM (long short-term memory, a kind of recurrent network) memory cells, and the crucial initialization trick is to set the transform-gate bias to a negative value (e.g. −2 or −4) so the network starts by passing information forward almost unchanged.
+
+The authors showed that highway networks of up to 100 layers optimized well on MNIST, while plain networks got harder to train as depth grew. In Section 3.1 they also report that a 900-layer highway network had started training with no optimization difficulty so far; that run was preliminary. Highway networks are a direct precursor to ResNet: ResNet's `y = F(x) + x` is like a highway block whose carry path is always open, with no gate.
+
+## What Problem Does It Solve
 
 Imagine you are trying to pass a whispered message around a classroom by having every student whisper it to the next. With only two or three students the message usually arrives intact, but with twenty students the message becomes a garbled mess. That garbling is exactly what happens to gradients and useful signals when you stack dozens of plain neural-network layers: the signal gets distorted or squeezed away, and the network becomes very hard to train.
 
@@ -35,13 +39,20 @@ Highway Networks solve this by giving the classroom an intercom system. Now each
 - **Cost:** each layer has two weight matrices instead of one, so a highway layer has about twice the parameters of a plain layer of the same width. The paper compares against plain networks of matched parameter count by adjusting the widths.
 - **Depth:** the paper's experiments go up to 100 layers, with a preliminary 900-layer run. The full version also reports CIFAR experiments.
 
+### What the Notebook Result Shows
+
+The notebook trains a 20-layer Highway MLP and a plain 20-layer MLP on MNIST (hidden width 64, 10 epochs, Adam with learning rate 1e-3, gate bias −2). These are the numbers from the saved Kaggle run:
+
+- **Highway trained smoothly.** It hit 93.9% validation accuracy after the first epoch, its best was **97.4%** (epoch 5), and it ended at **96.3%** after epoch 10.
+- **The plain deep net trained unstably.** It started at 34.5%, peaked at **86.0%** (epoch 3), then got worse and ended at **67.6%**. Its training loss went back up from 0.73 to 1.04.
+- **Gradient check:** one forward/backward pass after training gave a mean weight-gradient norm of 0.131 for Highway and 2.175 for the plain net. This is a single snapshot, so read it as a sanity check, not as proof.
+- **Gates:** the mean transform-gate value per Highway layer stayed between 0.03 and 0.15, so most layers mostly carried their input forward.
+
+This is one unseeded run, so the exact numbers change from run to run. The plain network is not parameter-matched, so treat this as an illustration of the effect, not a controlled comparison. The notebook's closing Summary cell still quotes an earlier run (97.2% vs 95.6%); the printed outputs in the notebook are the numbers for this run.
+
 ## Influence
 
 Highway networks showed that depth is an optimization problem that gating a skip path can solve, and they arrived months before ResNet. ResNet drops the gate and keeps an always-open identity path, which is simpler and cheaper, and it became the standard. The gating idea lives on in LSTM-style and GRU-style cells, in gated convolutions, and in the gated feed-forward layers of many modern Transformers.
-
-## Notebook results
-
-The notebook trains a 20-layer Highway MLP and a plain 20-layer MLP on MNIST (hidden width 64, 10 epochs, Adam with learning rate 1e-3, gate bias −2). The Highway network reaches **97.2%** validation accuracy against **95.6%** for the plain network, and it is already at 94.3% after the first epoch while the plain network starts near chance (11.4%) and catches up over the following epochs. The plain network is not parameter-matched, so treat this as an illustration of the effect, not a controlled comparison.
 
 ---
 
@@ -52,4 +63,4 @@ The notebook trains a 20-layer Highway MLP and a plain 20-layer MLP on MNIST (hi
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/009_highway-networks/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
