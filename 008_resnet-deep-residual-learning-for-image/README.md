@@ -47,6 +47,21 @@ ResNet became the default backbone for vision and the template for deep architec
 
 The notebook trains an 18-layer-style PlainNet and ResNet (about 11M parameters each) on CIFAR-10 for 25 epochs with SGD, learning rate 0.1, momentum 0.9, weight decay 5e-4, a step schedule, and random-crop plus flip augmentation. They finish within a point of each other: PlainNet **91.37%** and ResNet **90.70%** test accuracy (one unseeded run each, so a gap that small is noise). At 18 layers with batch normalization there is no degradation to fix, so this toy does not reproduce the paper's gap; the paper's comparison uses deeper plain networks (20 vs 56 layers on CIFAR-10).
 
+### Why they tie here (and why ResNet still matters)
+
+Think of stacking blocks into a tower. A short tower of 18 blocks stands fine with or without glue. Stack it to 34 or 56 blocks without glue and it starts to wobble, while a glued tower keeps standing. The shortcut in ResNet is the glue. Its win is not "a higher score at the same height". Its win is "you can build taller without the tower falling over."
+
+Our notebook is the short tower. At 18 layers with batch normalization the plain net trains fine, so both land in the same place. The paper says the same thing: its 18-layer plain and residual nets are comparably accurate, and the ResNet only converges faster. The gap shows up when depth grows:
+
+| ImageNet top-1 error (10-crop, validation) | Plain | ResNet |
+|---|---|---|
+| 18 layers | 27.94% | 27.88% |
+| 34 layers | 28.54% (worse than 18) | 25.03% (better than 18) |
+
+On CIFAR-10 the same pattern appears: plain-56 has higher training and test error than plain-20 (Figure 1), while a 110-layer ResNet reaches 6.43% test error (best run).
+
+**Takeaway:** a tie at 18 layers is expected; ResNet pays off when you go deeper.
+
 ---
 
 ## Resources

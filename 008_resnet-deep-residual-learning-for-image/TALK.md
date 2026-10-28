@@ -27,6 +27,9 @@ A: No. Skip connections are a general principle and appear in object detection (
 **Q: What is the practical depth limit ResNet demonstrated?**
 A: On CIFAR-10 the paper trained networks of more than 1000 layers. On ImageNet the strongest result came from a 152-layer model, with ResNet-101/152 showing clear gains over the 34-layer variant.
 
+**Q: In a small 18-layer test, ResNet didn't beat the plain net. Does that mean ResNet doesn't work?**
+A: No. At 18 layers a plain net still trains well, so there is nothing for the shortcuts to fix. The paper found the same: on ImageNet, plain-18 has 27.94% top-1 error and ResNet-18 has 27.88%, almost a tie. The difference shows up when you go deeper. Plain-34 gets worse (28.54%) than plain-18, while ResNet-34 gets better (25.03%). ResNet's real promise is that adding layers stops hurting. (Source: paper Section 4.1 and Table 2.)
+
 ## Common misconceptions
 
 - **"ResNet fixes the vanishing gradient problem."** It does not magically remove vanishing gradients; it gives gradients a direct path to propagate through shortcuts, which greatly stabilizes very deep networks.
