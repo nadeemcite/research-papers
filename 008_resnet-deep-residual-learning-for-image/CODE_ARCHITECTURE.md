@@ -83,4 +83,4 @@ Global average pool + FC: `(B, 512)` → `(B, 10)`
 - We use standard PyTorch BN instead of reimplementing every detail of the paper’s weight initialization.
 - We keep a minimal plain-net baseline rather than reproducing VGG exactly.
 - The bottleneck block is not included; the basic two-conv block is enough to demonstrate skip connections.
-- Full ImageNet-scale training (10-crop testing, scale jitter, 100 epochs, etc.) is omitted for runtime, but the architecture idea is preserved exactly.
+- Full ImageNet-scale training (10-crop testing, scale jitter, up to 60×10⁴ iterations, etc.) is omitted for runtime, but the architecture idea is preserved exactly.
