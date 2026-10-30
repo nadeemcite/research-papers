@@ -252,18 +252,18 @@ def build_readme(papers):
     L.append('<table>')
     shorts = [('HFxEYtTYozU', 'The Shortcut That Let AI Go 152 Layers Deep: ResNet', '008_resnet-deep-residual-learning-for-image'),
               ('s7nyHPKX-Fg', 'The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks', '009_highway-networks'),
-              ('p2LGxyhIRKw', 'He Init and PReLU: Good Starts Make Deep Nets Work', '007_delving-deep-into-rectifiers'),
-              ('4qH2qFBaSrA', 'GoogLeNet: Look Near and Far at Once', '005_googlenet-going-deeper-with-convolutions'),
-              ('Jd5UUEDFk_o', 'VGGNet: Very Deep Convolutional Networks', '004_vggnet-very-deep-convolutional-networks'),
-              ('cDJpFmFXO2I', 'Dropout: Preventing Co-adaptation of Feature Detectors', '002_dropout-improving-neural-networks-by-preventing'),
-              ('p1r0DlmAu8Y', 'Word2Vec: Efficient Estimation of Word Representations', '001_word2vec-efficient-estimation-of-word'),
+              ('p2LGxyhIRKw', 'The Starting Numbers That Beat Humans: He Initialization', '007_delving-deep-into-rectifiers'),
+              ('4qH2qFBaSrA', 'Small, Medium and Big Filters at Once: GoogLeNet', '005_googlenet-going-deeper-with-convolutions'),
+              ('Jd5UUEDFk_o', 'Tiny Filters, Deep Network: VGGNet Explained', '004_vggnet-very-deep-convolutional-networks'),
+              ('cDJpFmFXO2I', 'Switch Off Half the Brain to Get Smarter? Dropout', '002_dropout-improving-neural-networks-by-preventing'),
+              ('p1r0DlmAu8Y', 'King - Man + Woman = Queen? Word2Vec Explained', '001_word2vec-efficient-estimation-of-word'),
               ('Jc-9wO_qVKM', 'This AI Taught Itself Chess From Zero: AlphaZero', '061_alphazero-mastering-chess-and-shogi-by'),
               ('5BnOUtvBiNQ', 'Turn Any Photo Into a Painting: Neural Style Transfer', '010_a-neural-algorithm-of-artistic-style'),
-              ('N6kmRrwHFL8', 'GPT-3: AI That Learns From Just Few Examples', '080_language-models-few-shot-learners-gpt3'),
+              ('N6kmRrwHFL8', 'GPT-3: The AI That Learns From Just a Few Examples', '080_language-models-few-shot-learners-gpt3'),
               ('_p8vVcWi_hA', 'This AI Learned Video Games From Pixels: DQN Explained', '051_playing-atari-with-deep-reinforcement'),
-              ('ZznC1w2mElY', 'YOLO: AI Sees Everything in One Look', '032_you-only-look-once-yolo'),
-              ('aGXecMt314w', 'GANs: Two AIs Fight Until Fakes Look Real', '022_generative-adversarial-networks-gan'),
-              ('4iKss2ffzHI', 'Attention Is All You Need: The Paper That Changed AI Forever',
+              ('ZznC1w2mElY', 'YOLO: The AI That Sees Everything in One Look', '032_you-only-look-once-yolo'),
+              ('aGXecMt314w', 'Two AIs Fight Until Fakes Look Real: GANs Explained', '022_generative-adversarial-networks-gan'),
+              ('4iKss2ffzHI', 'The Paper That Changed AI Forever: Attention Is All You Need',
                '020_attention-is-all-you-need-transformer')]
     for i, (vid, label, folder) in enumerate(shorts):
         if i % 2 == 0:
