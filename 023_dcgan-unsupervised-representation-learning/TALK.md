@@ -15,23 +15,18 @@ nav_order: 2
    TensorFlow's official tutorials section features a DCGAN implementation guide, cementing the paper's architecture as a canonical reference implementation.  
    URL: https://www.tensorflow.org/tutorials/generative/dcgan
 
-3. **Google Research Blog — "Inceptionism: Going Deeper into Neural Networks" (2015)**  
-   While focused on visualization, this post referenced the growing capability of deep generative models including DCGANs, helping popularize the idea that neural networks learn interpretable internal representations.
-
-4. **Soumith Chintala — "How to Train a GAN? Tips and tricks to make GANs work"**  
+3. **Soumith Chintala — "How to Train a GAN? Tips and tricks to make GANs work"**  
    Co-author Soumith Chintala maintains a widely-referenced GitHub repo ("ganhacks") of practical GAN training tips, many derived directly from the DCGAN paper's empirical findings.  
    URL: https://github.com/soumith/ganhacks
 
-5. **Distill Pub / The GAN Zoo**  
-   DCGAN is listed as a foundational entry in the widely-cited "GAN Zoo" collection maintained by the community, which tracks the proliferation of GAN variants that followed.
-
-6. **indico Research Blog**  
-   Alec Radford and Luke Metz were at indico Research (a Boston-based ML startup) when the paper was written. indico's blog discussed the practical implications of stable GAN training for industry applications.
+4. **The GAN Zoo**  
+   DCGAN is listed in "The GAN Zoo", a community-maintained list of named GAN variants that tracks the proliferation of GANs that followed.  
+   URL: https://github.com/hindupuravinash/the-gan-zoo
 
 ## Interview Q&A
 
 **Q: What was the main motivation for DCGAN? Was it about generating better images, or something else?**  
-A: (Based on the paper's introduction and Soumith Chintala's public talks) The primary motivation was not just image generation quality, but *unsupervised representation learning*. The authors wanted to show that the discriminator's learned features could be repurposed for supervised tasks like CIFAR-10 and SVHN classification. GANs were notoriously unstable, and previous attempts to scale them with CNNs had failed. The architectural guidelines were the solution to that instability.
+A: (From the paper, Section 1) The primary motivation was not just image generation quality, but *unsupervised representation learning*. The authors wanted to show that the discriminator's learned features could be repurposed for supervised tasks like CIFAR-10 and SVHN classification. GANs were notoriously unstable, and previous attempts to scale them with CNNs had failed. The architectural guidelines were the solution to that instability.
 
 **Q: Why did you use LeakyReLU instead of ReLU in the discriminator?**  
 A: (From the paper, Section 3) The authors found LeakyReLU worked well in the discriminator, "especially for higher resolution modeling." This is in contrast to the original GAN paper which used maxout activations. The leaky slope of 0.2 was empirically chosen. ReLU was reserved for the generator.
@@ -66,7 +61,3 @@ A: (From the paper, Section 3) While BatchNorm was critical for preventing the g
 - Kingma, D. & Ba, J. (2014). "Adam: A Method for Stochastic Optimization." — The optimizer used with modified hyperparameters.
 - Maas, A. et al. (2013). "Rectifier Nonlinearities Improve Neural Network Acoustic Models." — Source of LeakyReLU.
 - Mikolov, T. et al. (2013). "Distributed Representations of Words and Phrases." — The word2vec vector arithmetic analogy the paper draws on.
-
-## Citation Count
-
-As of 2024, the DCGAN paper has been cited over 14,000 times on Google Scholar, making it one of the most influential papers in generative modeling.

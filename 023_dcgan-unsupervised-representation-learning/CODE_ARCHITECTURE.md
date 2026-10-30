@@ -7,123 +7,105 @@ nav_order: 1
 
 ## Overview
 
-This notebook implements the DCGAN architecture from Radford et al. (2015) following the paper's architectural guidelines. A convolutional generator and discriminator are trained adversarially on a small image dataset (Fashion-MNIST upscaled to 64×64), and the latent space is visualized through interpolation walks.
+This notebook implements the DCGAN architecture from Radford et al. (2015) following the paper's architectural guidelines. A convolutional generator and discriminator are trained adversarially on CIFAR-10 (RGB, resized to 64×64) for 15 epochs on a Kaggle Tesla T4, then the generator is probed with sample grids, a latent-space interpolation walk and a noise-averaging demo.
 
 ## Section-by-Section Breakdown
 
 ### 1. Setup & Imports
-- PyTorch, torchvision, matplotlib, numpy
-- Sets random seeds for reproducibility
-- Detects CUDA device
+- PyTorch, torchvision, matplotlib, numpy, plus `json`, `time` and a few standard-library helpers.
+- Seeds PyTorch and NumPy with 42 and picks CUDA when available (the Kaggle run used a Tesla T4).
+- On Kaggle only, registers an exit hook that copies the executed notebook (with outputs) to `/kaggle/working/executed_solution.ipynb`, so it can be downloaded with `kaggle kernels output`.
 
 ### 2. Hyperparameters
-- `latent_dim = 100` — dimension of the noise vector z (matches the paper)
-- `img_size = 64` — output image resolution (the paper used 64×64 for LSUN)
-- `channels = 1` — grayscale (Fashion-MNIST); the paper used 3-channel RGB
-- `ngf = 64` — number of generator feature maps (base multiplier)
-- `ndf = 64` — number of discriminator feature maps
-- `lr = 0.0002` — learning rate (paper found 0.001 too high)
-- `beta1 = 0.5` — Adam β₁ (reduced from default 0.9 for stability)
-- `batch_size = 128` — matches the paper
-- `num_epochs = 50` — reduced from paper's longer training for Kaggle time limits
-- `leaky_slope = 0.2` — LeakyReLU slope in discriminator
+- `latent_dim = 100`: noise vector size (as in the paper).
+- `img_channels = 3`, `img_size = 64`: 64×64 RGB output, the paper's resolution.
+- `feature_maps_g = 128`: generator base width, so its first layer has 128×8 = 1024 channels at 4×4, as in the paper.
+- `feature_maps_d = 64`: discriminator base width (64 → 512 channels).
+- `lr = 0.0002`, `beta1 = 0.5`: the paper's Adam settings.
+- `batch_size = 128`: as in the paper.
+- `num_epochs = 15`: 390 batches per epoch, 5,850 iterations in total, far fewer than the paper's ~117K (5 epochs on 3M LSUN images), to fit Kaggle's time limit.
+- `leak_slope = 0.2`: LeakyReLU slope in the discriminator.
 
 ### 3. Data Loading
-- Loads Fashion-MNIST via torchvision
-- Resizes images to 64×64 (required for the DCGAN architecture's 4 conv layers)
-- Normalizes to [-1, 1] range to match the generator's Tanh output
-- Creates DataLoader with batch_size=128
+- Loads the CIFAR-10 training set (50,000 images) from the attached Kaggle dataset `pankrzysiu/cifar10-python` at `/kaggle/input/cifar10-python` when present; elsewhere torchvision downloads it to `./data` with the progress bar silenced.
+- `Resize(64)` → `ToTensor()` → `Normalize(0.5, 0.5)` per channel, scaling pixels to [-1, 1] to match the generator's Tanh.
+- `DataLoader` with `shuffle=True`, `drop_last=True`, `num_workers=2`: 390 batches per epoch.
 
-**Data flow:** Fashion-MNIST 28×28 → Resize(64×64) → Normalize([-1,1]) → tensor [B, 1, 64, 64]
-
-**Simplification:** The paper trained on LSUN bedrooms (3M RGB images), ImageNet-1k, and a faces dataset. We use Fashion-MNIST (grayscale, 60K images) for reproducibility and speed on Kaggle.
+**Data flow:** CIFAR-10 32×32 RGB → Resize(64×64) → Normalize([-1, 1]) → tensor `[128, 3, 64, 64]`
 
 ### 4. Generator Network (G)
 
-Architecture (input → output shapes):
-1. **FC + reshape:** z [B, 100] → [B, ngf*8, 4, 4] (project and reshape to 4×4 spatial)
-2. **ConvTranspose2d:** ngf*8 → ngf*4, kernel 4, stride 2, pad 1 → [B, 256, 8, 8] + BatchNorm + ReLU
-3. **ConvTranspose2d:** ngf*4 → ngf*2, kernel 4, stride 2, pad 1 → [B, 128, 16, 16] + BatchNorm + ReLU
-4. **ConvTranspose2d:** ngf*2 → ngf, kernel 4, stride 2, pad 1 → [B, 64, 32, 32] + BatchNorm + ReLU
-5. **ConvTranspose2d:** ngf → channels, kernel 4, stride 2, pad 1 → [B, 1, 64, 64] + Tanh
+`z` is shaped `[B, 100, 1, 1]`, so the paper's "project and reshape" first layer is a `ConvTranspose2d` with kernel 4, stride 1, pad 0 (equivalent to a fully connected layer reshaped to 4×4).
 
-**Key design choices per paper:**
-- No BatchNorm on the final output layer (paper: "not applying batchnorm to the generator output layer")
-- ReLU everywhere except output (Tanh)
-- Fractional-strided convolutions (ConvTranspose2d) for upsampling — no pooling
-- No fully connected layers after the initial projection
+| Layer | Op | Output shape |
+|---|---|---|
+| 1 | ConvTranspose2d(100 → 1024, k4, s1, p0) + BatchNorm + ReLU | `[B, 1024, 4, 4]` |
+| 2 | ConvTranspose2d(1024 → 512, k4, s2, p1) + BatchNorm + ReLU | `[B, 512, 8, 8]` |
+| 3 | ConvTranspose2d(512 → 256, k4, s2, p1) + BatchNorm + ReLU | `[B, 256, 16, 16]` |
+| 4 | ConvTranspose2d(256 → 128, k4, s2, p1) + BatchNorm + ReLU | `[B, 128, 32, 32]` |
+| 5 | ConvTranspose2d(128 → 3, k4, s2, p1) + Tanh | `[B, 3, 64, 64]` |
 
-**Weight init:** Custom function initializes ConvTranspose2d weights from N(0, 0.02) and BatchNorm weights from N(1.0, 0.02), biases to 0.
+- 12,658,432 parameters.
+- No BatchNorm on the output layer, ReLU everywhere except the Tanh output, no pooling, no fully connected hidden layers.
 
 ### 5. Discriminator Network (D)
 
-Architecture (input → output shapes):
-1. **Conv2d:** channels → ndf, kernel 4, stride 2, pad 1 → [B, 64, 32, 32] + LeakyReLU(0.2) (no BatchNorm on first layer)
-2. **Conv2d:** ndf → ndf*2, kernel 4, stride 2, pad 1 → [B, 128, 16, 16] + BatchNorm + LeakyReLU(0.2)
-3. **Conv2d:** ndf*2 → ndf*4, kernel 4, stride 2, pad 1 → [B, 256, 8, 8] + BatchNorm + LeakyReLU(0.2)
-4. **Conv2d:** ndf*4 → ndf*8, kernel 4, stride 2, pad 1 → [B, 512, 4, 4] + BatchNorm + LeakyReLU(0.2)
-5. **Conv2d:** ndf*8 → 1, kernel 4, stride 1, pad 0 → [B, 1, 1, 1] → flatten → Sigmoid
+| Layer | Op | Output shape |
+|---|---|---|
+| 1 | Conv2d(3 → 64, k4, s2, p1) + LeakyReLU(0.2), no BatchNorm | `[B, 64, 32, 32]` |
+| 2 | Conv2d(64 → 128, k4, s2, p1) + BatchNorm + LeakyReLU(0.2) | `[B, 128, 16, 16]` |
+| 3 | Conv2d(128 → 256, k4, s2, p1) + BatchNorm + LeakyReLU(0.2) | `[B, 256, 8, 8]` |
+| 4 | Conv2d(256 → 512, k4, s2, p1) + BatchNorm + LeakyReLU(0.2) | `[B, 512, 4, 4]` |
+| 5 | Conv2d(512 → 1, k4, s1, p0) + Sigmoid | `[B, 1, 1, 1]` |
 
-**Key design choices per paper:**
-- No BatchNorm on the input layer (paper: "not applying batchnorm to the discriminator input layer")
-- LeakyReLU with slope 0.2 throughout
-- Strided convolutions for downsampling — no pooling
-- Final layer is a single sigmoid output (no fully connected hidden layers)
+- 2,765,568 parameters.
+- No BatchNorm on the input layer, strided convolutions instead of pooling, a single sigmoid output.
 
-### 6. Loss Function & Optimizers
-- **BCE Loss** (Binary Cross Entropy) — the standard GAN loss
-- Labels: real = 1, fake = 0
-- Two separate Adam optimizers (G and D), both with lr=0.0002, betas=(0.5, 0.999)
+### 6. Weight Initialization
+- `weights_init` draws every Conv/ConvTranspose weight from N(0, 0.02) and BatchNorm weights from N(1, 0.02) with zero bias. The notebook prints the first generator layer's weight std (0.0200) as a check.
 
-**Simplification:** The paper used the original GAN minimax loss. We use the BCE formulation which is mathematically equivalent but more numerically stable to implement.
+### 7. Loss Function & Optimizers
+- `nn.BCELoss` with labels real = 1, fake = 0.
+- D loss = BCE(D(real), 1) + BCE(D(G(z)), 0); G loss = BCE(D(G(z)), 1), the non-saturating form from the original GAN paper.
+- Two Adam optimizers, both `lr=0.0002`, `betas=(0.5, 0.999)`.
 
-### 7. Training Loop
+### 8. Training Loop
+For each batch:
+1. **Discriminator step:** real batch with label 1, a fresh fake batch (`G(z).detach()`) with label 0, backprop both, step D.
+2. **Generator step:** the same fake batch through the updated D with label 1, backprop, step G.
+3. Record both losses (5,850 values each).
 
-For each epoch, for each batch:
-1. **Train Discriminator:**
-   - Forward real images through D → loss with label 1
-   - Generate fake images with G → forward through D → loss with label 0
-   - Backprop total D loss, step optimizer
-2. **Train Generator:**
-   - Generate fake images → forward through D → loss with label 1 (want to fool D)
-   - Backprop G loss, step optimizer
-3. **Record losses** for plotting
-4. **Save generated samples** from fixed noise every few epochs for animation
+After epochs 1, 3, 6, 9, 12 and 15 it prints Loss_D, Loss_G, D(x) and D(G(z)) for the last batch and saves samples from a fixed batch of 64 noise vectors. At the end it prints the training time and writes the run's key numbers to `dcgan_results.json`.
 
-**Fixed noise:** A fixed batch of 64 noise vectors is used throughout training to visualize how the same latent points evolve.
+**This run:** 25.9 minutes. Last-epoch means: Loss_D 0.81, Loss_G 2.79 (last batch: 0.75 and 2.58, D(x) = 0.66, D(G(z)) = 0.09).
 
-### 8. Loss Curves
-- Plots generator and discriminator losses over training iterations
-- Shows the characteristic adversarial oscillation
+### 9. Loss Curves
+- Both losses per iteration, with a dashed line at log(2) ≈ 0.69 for reference (G's loss at the theoretical equilibrium; D's would be 2·log(2) ≈ 1.39).
+- In this run the losses oscillate and do not converge: Loss_G spikes to about 20 early, then swings between about 1 and 6, and between iterations ~4,600 and ~5,600 Loss_D repeatedly drops near 0 while the discriminator temporarily wins.
 
-### 9. Latent Space Interpolation Walk
-- Picks two random noise vectors z₁ and z₂
-- Linearly interpolates between them in N steps
-- Generates images at each interpolation point
-- Displays as a row showing smooth transitions — the "walking in the latent space" experiment from Section 6.1 of the paper
-
-### 10. Generated Sample Grid
-- Shows a grid of generated images from the trained generator
-- Demonstrates the diversity and quality of outputs
+### 10. Generated Samples Over Training
+- One 8×8 grid per saved checkpoint (epochs 1, 3, 6, 9, 12, 15), all from the same fixed noise.
 
 ### 11. Real vs Fake Comparison
-- Side-by-side display of real Fashion-MNIST images and generated images
-- Visual qualitative assessment
+- 32 real CIFAR-10 images next to 32 fresh samples. The samples are blurry, with CIFAR-like colours and layouts but no recognisable objects, and a faint grid-like texture in places.
 
-### 12. Summary
-- Recap of what was built
-- Key takeaways and comparison to the paper's findings
+### 12. Latent Space Walk (Interpolation)
+- Linearly interpolates between two random `z` vectors in 10 steps (the paper's Section 6.1 experiment). In this run the transition is gradual, with no sudden jumps.
+
+### 13. Latent Space Vector Arithmetic (averaging demo)
+- Compares 8 images from single noise vectors with 8 images from noise vectors averaged over 3 samples each. This only illustrates the averaging step behind the paper's face arithmetic (Section 6.3.2); the notebook does no concept arithmetic itself.
+
+### 14. Summary
+- Recap, a "What the run above shows" note with the numbers above, and a paper-vs-notebook table.
 
 ## Deliberate Simplifications vs Full Paper
 
 | Aspect | Paper | This Notebook |
 |--------|-------|---------------|
-| Dataset | LSUN bedrooms (3M RGB), ImageNet-1k, faces (350K) | Fashion-MNIST (60K grayscale) |
-| Image size | 64×64 RGB | 64×64 grayscale |
-| Training duration | 5+ epochs on 3M images (~15M images seen) | 50 epochs on 60K images (~3M images seen) |
-| Feature extraction eval | CIFAR-10 + SVHN with L2-SVM | Not included (focus on generation) |
-| Vector arithmetic | Face arithmetic (glasses, gender) | Latent interpolation walk only |
-| Guided backprop visualization | Discriminator feature viz | Not included |
-| Forgetting objects | Window feature dropout | Not included |
-
-The simplifications keep the notebook runnable within Kaggle's 30-minute GPU limit while demonstrating the core DCGAN architecture and training procedure.
+| Dataset | LSUN bedrooms (3M), ImageNet-1k, faces (350K) | CIFAR-10 train (50K RGB), resized from 32×32 to 64×64 |
+| Training length | ~117K iterations (5 epochs on LSUN) | 5,850 iterations (15 epochs) |
+| Noise prior | 100-dim uniform | 100-dim standard normal |
+| Generator width | 1024 channels at 4×4 | Same (`feature_maps_g = 128`) |
+| Feature extraction eval | CIFAR-10 and SVHN with an L2-SVM | Not included |
+| Vector arithmetic | Face concepts (smiles, glasses) | Noise-averaging demo only |
+| Guided backprop, "forgetting" windows | Included | Not included |
