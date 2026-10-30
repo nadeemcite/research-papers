@@ -10,7 +10,7 @@ permalink: "/008_resnet-deep-residual-learning-for-image/"
 - **Paper:** [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 - **Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
 - **Lab, year:** Microsoft Research, 2015
-- **Video:** YouTube Short coming on 29 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/HFxEYtTYozU) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

@@ -10,7 +10,7 @@ permalink: "/009_highway-networks/"
 - **Paper:** [Highway Networks](https://arxiv.org/abs/1505.00387) (full version: [Training Very Deep Networks](https://arxiv.org/abs/1507.06228))
 - **Authors:** Rupesh Kumar Srivastava, Klaus Greff, Jürgen Schmidhuber
 - **Lab, year:** IDSIA, 2015
-- **Video:** YouTube Short coming on 28 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/s7nyHPKX-Fg) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

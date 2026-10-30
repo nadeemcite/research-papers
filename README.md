@@ -210,6 +210,10 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/HFxEYtTYozU"><img src="https://img.youtube.com/vi/HFxEYtTYozU/hqdefault.jpg" alt="The Shortcut That Let AI Go 152 Layers Deep: ResNet" width="320"></a><br><b>The Shortcut That Let AI Go 152 Layers Deep: ResNet</b><br><sub><a href="008_resnet-deep-residual-learning-for-image/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/s7nyHPKX-Fg"><img src="https://img.youtube.com/vi/s7nyHPKX-Fg/hqdefault.jpg" alt="The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks" width="320"></a><br><b>The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks</b><br><sub><a href="009_highway-networks/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/p2LGxyhIRKw"><img src="https://img.youtube.com/vi/p2LGxyhIRKw/hqdefault.jpg" alt="He Init and PReLU: Good Starts Make Deep Nets Work" width="320"></a><br><b>He Init and PReLU: Good Starts Make Deep Nets Work</b><br><sub><a href="007_delving-deep-into-rectifiers/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/4qH2qFBaSrA"><img src="https://img.youtube.com/vi/4qH2qFBaSrA/hqdefault.jpg" alt="GoogLeNet: Look Near and Far at Once" width="320"></a><br><b>GoogLeNet: Look Near and Far at Once</b><br><sub><a href="005_googlenet-going-deeper-with-convolutions/">notebook</a></sub></td>
 </tr>

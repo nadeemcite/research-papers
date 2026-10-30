@@ -250,7 +250,9 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('p2LGxyhIRKw', 'He Init and PReLU: Good Starts Make Deep Nets Work', '007_delving-deep-into-rectifiers'),
+    shorts = [('HFxEYtTYozU', 'The Shortcut That Let AI Go 152 Layers Deep: ResNet', '008_resnet-deep-residual-learning-for-image'),
+              ('s7nyHPKX-Fg', 'The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks', '009_highway-networks'),
+              ('p2LGxyhIRKw', 'He Init and PReLU: Good Starts Make Deep Nets Work', '007_delving-deep-into-rectifiers'),
               ('4qH2qFBaSrA', 'GoogLeNet: Look Near and Far at Once', '005_googlenet-going-deeper-with-convolutions'),
               ('Jd5UUEDFk_o', 'VGGNet: Very Deep Convolutional Networks', '004_vggnet-very-deep-convolutional-networks'),
               ('cDJpFmFXO2I', 'Dropout: Preventing Co-adaptation of Feature Detectors', '002_dropout-improving-neural-networks-by-preventing'),
