@@ -2,7 +2,7 @@
   "arxiv_url": "https://arxiv.org/abs/1412.6980",
   "paper_title": "Adam: A Method for Stochastic Optimization",
   "authors": "Diederik P. Kingma and Jimmy Ba",
-  "year": 2015,
+  "year": 2014,
   "code_template": "numpy-adam-sgd-rmsprop-2d-contour",
   "kernel": "python3",
   "required_outputs": [

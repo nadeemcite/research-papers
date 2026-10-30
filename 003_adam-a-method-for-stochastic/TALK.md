@@ -9,7 +9,7 @@ nav_order: 2
 
 - The paper was published as a conference paper at **ICLR 2015** and is available on arXiv: https://arxiv.org/abs/1412.6980.
 - **fast.ai blog** — "AdamW and Super-convergence is now the fastest way to train neural nets" (July 2018) by Sylvain Gugger and Jeremy Howard discusses the history of Adam and the AdamW fix: https://www.fast.ai/posts/2018-07-02-adam-weight-decay.html.
-- **DeepSpeed blog** — "DeepSpeed with 1-bit Adam" (September 2020) shows large-scale distributed training improvements built on Adam: https://www.deepspeed.ai/2020/09/08/onebit-adam-blog-post.html.
+- **1-bit Adam paper** — Tang et al., "1-bit Adam: Communication Efficient Large-Scale Training with Adam's Convergence Speed" (2021), from the Microsoft DeepSpeed team, compresses Adam's communication for large-scale distributed training: https://arxiv.org/abs/2102.02888.
 - **Hugging Face paper page** for Adam includes a concise abstract and links: https://huggingface.co/papers/1412.6980.
 
 ## Talks, interviews, or podcasts
@@ -37,12 +37,13 @@ For some computer-vision tasks (especially image classification), carefully tune
 
 - **"Adam never needs a learning-rate schedule."** It does; the default `α` may be too high for some models, and cosine or step decay often improves final performance.
 - **"Adam always beats SGD."** Not universally true; on several benchmarks SGD with momentum matches or exceeds Adam when well tuned.
-- **"Weight decay in Adam works the same as in SGD."** Standard Adam couples weight decay with the adaptive scaling. The paper that introduced **AdamW** showed this is wrong and that decoupled weight decay works better.
+- **"Weight decay in Adam works the same as in SGD."** Standard Adam couples weight decay with the adaptive scaling. The paper that introduced **AdamW** ([Loshchilov & Hutter, "Decoupled Weight Decay Regularization"](https://arxiv.org/abs/1711.05101)) showed the two are not equivalent for Adam and that decoupled weight decay works better.
 - **"Bias correction is a minor detail."** In the first few steps it prevents the optimizer from taking absurdly large steps; it is part of what makes Adam stable early in training.
-- **"AdaMax is just Adam with a different norm."** Correct in spirit — AdaMax replaces the L2 second-moment estimate with an L∞ estimate, making it more robust but less commonly used.
+- **"AdaMax is a separate optimizer from a later paper."** It comes from the same paper (Section 7.1): AdaMax replaces Adam's L2-based second-moment estimate with an L∞ norm, giving a simpler update that needs no bias correction for that term. It is used much less often than Adam.
 
 ## Sources
 
 - Kingma, D. P., & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR 2015. https://arxiv.org/abs/1412.6980
 - Gugger, S., & Howard, J. (2018). AdamW and Super-convergence is now the fastest way to train neural nets. fast.ai. https://www.fast.ai/posts/2018-07-02-adam-weight-decay.html
-- Microsoft DeepSpeed (2020). DeepSpeed with 1-bit Adam. https://www.deepspeed.ai/2020/09/08/onebit-adam-blog-post.html
+- Tang, H., Gan, S., Awan, A. A., Rajbhandari, S., Li, C., Lian, X., Liu, J., Zhang, C., & He, Y. (2021). 1-bit Adam: Communication Efficient Large-Scale Training with Adam's Convergence Speed. https://arxiv.org/abs/2102.02888
+- Loshchilov, I., & Hutter, F. (2017). Decoupled Weight Decay Regularization. https://arxiv.org/abs/1711.05101

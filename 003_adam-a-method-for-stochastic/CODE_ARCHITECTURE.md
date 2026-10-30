@@ -7,86 +7,50 @@ nav_order: 1
 
 ## What the notebook builds
 
-A self-contained toy demo that implements the Adam update rule in pure NumPy, then compares it against vanilla SGD and RMSProp on a simple 2-D loss surface. The final cells animate or plot the optimization trajectories as contour plots.
+A small, self-contained demo that implements the SGD, RMSProp and Adam update rules in pure NumPy, runs all three on a 2-D tilted quadratic valley from the same starting point, and visualizes their paths as a contour plot plus an animated GIF of Adam's trajectory. Gradients are exact (no noise), so every run is deterministic and the whole notebook finishes in seconds on CPU.
 
 ## Notebook sections (in order)
 
-### 1. Setup and imports
-- `numpy`, `matplotlib`, `matplotlib.animation` (for the contour animation), and optional `IPython.display` for showing the animation inline.
+### 1. Imports and reproducibility
+- `numpy`, `matplotlib`, `PIL.Image` and `pathlib`. Seeds NumPy with 42 (not strictly needed, since nothing is random).
+- Creates `/tmp/adam_frames` as scratch space for the plot and animation frames.
+- On Kaggle only, registers an exit hook that copies the executed notebook (with outputs) to `/kaggle/working/executed_solution.ipynb`, so it can be downloaded with `kaggle kernels output`.
 
-### 2. Define the toy loss surface
-- A 2-D quadratic bowl `f(x, y) = 0.5·(a·x² + b·y²)` with different curvatures along each axis (e.g. `a=1`, `b=20`).
-- The asymmetric curvature makes global learning-rate tuning painful and highlights per-parameter scaling.
-- Helper functions:
-  - `loss_surface(X, Y)` — returns grid of loss values for contour plotting.
-  - `gradient(params)` — returns the analytical gradient vector `∇f(params)`.
+### 2. Toy 2-D loss surface and gradient
+- Loss: `L(x, y) = (x − 1)² + 5·(y − 0.5x)²`, a valley tilted along the line `y = 0.5x`, with its minimum `L = 0` at `(1, 0.5)`. The curvature across the valley is much larger than along it.
+- `loss_fn(theta)` returns the scalar loss; `grad_fn(theta)` returns the analytic gradient `[2(x − 1) − 5(y − 0.5x), 10(y − 0.5x)]`.
+- A 200×200 grid over `[−3, 3]²` (`X`, `Y`, `Z`) is precomputed for the contour plots.
 
-### 3. Vanilla SGD baseline
-- Update rule: `θ ← θ − α·g`.
-- Hyperparameters: `lr = 0.02` or similar; runs for a fixed number of steps.
-- Records `history` array of shape `(steps, 2)` for plotting.
+### 3. Optimizer implementations from scratch
+The update equations are written out in LaTeX, then implemented as one function per optimizer. Each step function calls `grad_fn` itself and returns the new `theta`; RMSProp and Adam keep their running averages in a `state` dict.
+- `sgd_step(theta, lr)`: `θ ← θ − lr·g`.
+- `rmsprop_step(theta, lr, state, beta=0.9, eps=1e-8)`: `v ← β·v + (1 − β)·g²`, then `θ ← θ − lr·g / (√v + ε)`.
+- `adam_step(theta, lr, state, t, beta1=0.9, beta2=0.999, eps=1e-8)`: updates `m` and `v`, bias-corrects them with `1 − β1^t` and `1 − β2^t`, then `θ ← θ − lr·m̂ / (√v̂ + ε)`.
 
-### 4. RMSProp baseline
-- Maintains a moving average of squared gradients: `v_t = β2·v_{t-1} + (1−β2)·g_t²`.
-- Update: `θ ← θ − α · g / (√v_t + ε)`.
-- Uses the same `β2 = 0.999`, `ε = 1e-8` as Adam for fair comparison.
+### 4. Training loop
+- `optimize(opt_name, n_iter=200, init=None)` starts at `[−2, 2]`, runs 200 steps of the chosen optimizer, and returns the trajectory `(201, 2)` and loss history `(201,)`.
+- Learning rates: **SGD 0.02**, **RMSProp 0.05** (`β = 0.9`), **Adam 0.05** (`β1 = 0.9`, `β2 = 0.999`, `ε = 1e-8`).
+- Final losses after 200 steps: SGD 9.1e-6, RMSProp 6.7e-3, Adam 3.7e-2.
 
-### 5. Adam optimizer from scratch
-Implemented as a small class or a loop with explicit state:
-- State variables:
-  - `m` — biased first-moment estimate, shape `(2,)`.
-  - `v` — biased second-moment estimate, shape `(2,)`.
-  - `t` — step counter starting from 1.
-- Update equations (elementwise):
-  - `m = β1*m + (1−β1)*g`
-  - `v = β2*v + (1−β2)*g*g`
-  - `m_hat = m / (1 − β1**t)`
-  - `v_hat = v / (1 − β2**t)`
-  - `theta = theta − α * m_hat / (sqrt(v_hat) + ε)`
-- Hyperparameters: `α=0.1` (larger than default because the problem is tiny and noise-free), `β1=0.9`, `β2=0.999`, `ε=1e-8`.
+### 5. Static contour plot of trajectories
+- Filled log-spaced contours of the loss with the three paths overlaid (SGD red, RMSProp cyan, Adam yellow), the start point and the minimum. Saved as `trajectories.png` and shown inline.
 
-### 6. Run all three optimizers
-- Each optimizer starts from the same initial point far from the optimum.
-- Each stores its parameter trajectory and loss history.
+### 6. Animation of the Adam trajectory
+- Renders one Matplotlib frame per Adam step (201 PNGs), keeps every second frame (101 frames), and assembles them into `adam_trajectory.gif` with Pillow (`duration=80` ms, looping). The GIF is embedded inline with `IPython.display.Image`.
 
-### 7. Plotting: static contour + trajectories
-- A single matplotlib figure showing the loss surface as filled contours.
-- Overlay the three trajectories with different colors/markers.
-- Print final loss and number of steps for each.
-
-### 8. Animation (optional but recommended)
-- `matplotlib.animation.FuncAnimation` that shows one frame per optimizer step.
-- Draws the same contour background, then animates the moving point for one optimizer at a time.
-- Saved as an HTML5 video or GIF and displayed inline.
-
-## Key functions / classes
-
-- `gradient(params)` → shape `(2,)`  
-  Returns `[a*x, b*y]` for the chosen quadratic bowl.
-- `run_sgd(theta0, lr, steps)` → `(history, losses)`  
-  Pure NumPy loop recording the SGD trajectory.
-- `run_rmsprop(theta0, lr, beta2, eps, steps)` → `(history, losses)`  
-  RMSProp loop.
-- `run_adam(theta0, lr, beta1, beta2, eps, steps)` → `(history, losses)`  
-  Full Adam with bias correction.
-- `plot_trajectories(...)` / `animate_optimizer(...)`  
-  Visualization helpers.
+### 7. Summary
+- Prints the start point, end point and final loss for each optimizer.
+- A closing markdown cell, *What the run above shows*, tabulates the results and explains them: on this noise-free toy, tuned SGD wins, RMSProp bounces around the minimum, and Adam is still converging after 200 steps.
 
 ## Data flow and shapes
 
-- Input: initial point `theta0` shape `(2,)`.
-- Per step:
-  - `g` shape `(2,)` → `m`, `v` shape `(2,)`.
-  - Bias-corrected `m_hat`, `v_hat` shape `(2,)`.
-  - Update `theta` shape `(2,)`.
-- History arrays: `(steps, 2)`.
-- Loss history: `(steps,)`.
+- `theta`, `g`, `m`, `v`, `m̂`, `v̂`: all shape `(2,)`.
+- Trajectory: `(n_iter + 1, 2)` = `(201, 2)`; loss history: `(201,)`.
+- Contour grid `X`, `Y`, `Z`: `(200, 200)`.
 
 ## Deliberate simplifications vs. the full paper
 
-- **2-D toy loss** instead of high-dimensional ML objectives. This makes the contours and trajectories easy to visualize.
-- **Noise-free, deterministic gradients** instead of stochastic mini-batch gradients. Keeps the animation stable and the comparison clean.
-- **A single fixed hyperparameter set** for each optimizer. The paper sweeps many settings on real models; here we pick sensible defaults that show the qualitative differences.
-- **No weight decay / decoupling**. AdamW is discussed in the README/TALK but not implemented; adding it would complicate the demo without changing the core idea.
-
-The notebook therefore captures the *essence* of Adam — momentum + per-parameter adaptive scaling + bias correction — without reproducing the full convergence experiments on ImageNet or language models.
+- **2-D toy loss** instead of the paper's logistic regression, multilayer networks and CNNs on MNIST, IMDB and CIFAR-10, so the paths are easy to see.
+- **Exact, noise-free gradients** instead of stochastic mini-batch gradients. This removes the noisy, high-dimensional, badly scaled setting Adam was designed for, which is why tuned SGD wins here.
+- **Hand-picked learning rates** (0.02 for SGD, 0.05 for RMSProp and Adam) instead of a hyperparameter sweep. Adam's `lr` is larger than the paper's default of 0.001 because the problem is tiny.
+- **No AdaMax, no weight decay or AdamW, no learning-rate schedule.** These are discussed in the README and TALK but not implemented.

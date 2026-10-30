@@ -4,23 +4,29 @@ nav_order: 4
 permalink: "/003_adam-a-method-for-stochastic/"
 ---
 # Adam — A Method for Stochastic Optimization
+![Adam banner](../assets/banners/003.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/adam-a-method-for-stochastic-optimization)
 
+- **Paper:** [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980)
+- **Authors:** Diederik P. Kingma, Jimmy Ba
+- **Lab, year:** University of Amsterdam & University of Toronto, 2014
+- **Video:** YouTube Short coming on 31 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
-**Paper:** Kingma, D. P., & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR 2015.  
-**arXiv:** https://arxiv.org/abs/1412.6980
+## Summary
 
-## What problem does it solve?
+Adam is a first-order gradient-based optimizer for stochastic objectives that combines two earlier ideas: **momentum**, which smooths the update direction with a running average of gradients, and **per-parameter adaptive step sizes** in the style of AdaGrad and RMSProp, which divide each update by a running estimate of the gradient's scale. It keeps exponential moving averages of the gradient (first moment) and the squared gradient (second moment), corrects both for their bias toward zero at initialization, and steps by their ratio. The result is an update whose size is roughly bounded by the learning rate, is invariant to rescaling the gradient, and needs little tuning. The paper also proves a regret bound in the online convex setting, introduces the infinity-norm variant **AdaMax**, and shows Adam matching or beating SGD with momentum, AdaGrad and RMSProp on logistic regression, multilayer networks and CNNs. It went on to become the default optimizer for most of deep learning.
+
+## What Problem Does It Solve
 
 Imagine you're blindfolded on a hilly trail and trying to find the lowest point in a valley. You feel the ground with your feet and take a step downhill. That's how neural networks learn — they feel the "slope" (gradient) and take a step. But the problem is: some parts of the hill are super steep and some are nearly flat. If you take the same-sized step everywhere, you'll overshoot on the steep parts and crawl on the flat parts. You need a smart way to take big steps on flat ground and tiny careful steps on steep ground.
 
 Adam solves this by giving each parameter its own personal step size that automatically adjusts. It's like hiking with a smart pedometer that remembers two things: which direction you've been heading (momentum) and how bumpy the ground has been (step size scaling). If the ground is consistently sloping one way, Adam takes confident steps. If the ground is bouncing up and down, Adam takes tiny careful steps so it doesn't fall over. And it has a special trick to avoid being too cautious at the very start when it hasn't seen enough of the trail yet. This made Adam the go-to "engine" for training almost every modern AI model.
 
-## The core insight
+## Core Idea
 
 Adam computes a **running estimate of the first moment** (mean gradient, i.e. momentum) and a **running estimate of the second moment** (mean squared gradient, i.e. per-parameter scale) of the gradient. It then divides the momentum step by the square root of the second moment, so parameters that historically bounce around get tiny steps and parameters with a consistent direction get larger steps. The clever twist is a **bias-correction term** in the first few iterations: because the moving averages are initialized at zero, early estimates are biased toward zero; Adam divides them by a correction factor that quickly converges to 1.
 
-## Key method details (for the code)
+## Key Method Details
 
 The algorithm, for parameter vector `θ`, gradient `g_t`, and step `t`:
 
@@ -36,19 +42,17 @@ Recommended defaults: `α = 0.001`, `β1 = 0.9`, `β2 = 0.999`, `ε = 10⁻⁸`.
 
 Adam is invariant to diagonal rescaling of the gradients, works with sparse gradients, non-stationary objectives, and naturally anneals step sizes as `v_t` accumulates history.
 
-## Why it mattered
+## Influence
 
-Adam became the default optimizer for a huge swath of deep learning — transformers, GANs, variational autoencoders, recommendation models — because it usually trains fast with little hyperparameter tuning. It also inspired later variants such as **AdamW** (which fixes weight-decay interaction) and **AMSGrad**. Even today, with newer flavors like `β1 = β2` modern variants, the Adam family remains the dominant optimizer in large-scale neural-network training.
+Adam became the default optimizer for a huge swath of deep learning — transformers, GANs, variational autoencoders, recommendation models — because it usually trains fast with little hyperparameter tuning. It also inspired later variants such as **AdamW** (which fixes weight-decay interaction) and **AMSGrad**. The Adam family, most often AdamW, remains the default optimizer for training large neural networks.
 
 ---
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/adam-a-method-for-stochastic-optimization)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/003_adam-a-method-for-stochastic/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/003_adam-a-method-for-stochastic/solution.ipynb) | From-scratch NumPy implementation of SGD, RMSProp and Adam on a 2-D toy loss, with a contour plot of the trajectories and an animated GIF of Adam's path |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
 | [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
