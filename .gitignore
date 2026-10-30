@@ -14,3 +14,6 @@ kernel-metadata.json
 # Local AI tool config
 .claude/
 .serena/
+
+# Local Python env (uv)
+.venv/
