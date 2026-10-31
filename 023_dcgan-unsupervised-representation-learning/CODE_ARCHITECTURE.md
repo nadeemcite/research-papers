@@ -13,7 +13,8 @@ This notebook implements the DCGAN architecture from Radford et al. (2015) follo
 
 ### 1. Setup & Imports
 - PyTorch, torchvision, matplotlib, numpy, plus `json`, `time` and a few standard-library helpers.
-- Seeds PyTorch and NumPy with 42 and picks CUDA when available (the Kaggle run used a Tesla T4).
+- Seeds PyTorch and NumPy with 42, turns on deterministic cuDNN kernels so a re-run reproduces the quoted numbers, and picks CUDA when available (the Kaggle run used a Tesla T4).
+- Shows figures as JPEG at 80 dpi so the saved notebook stays small.
 - On Kaggle only, registers an exit hook that copies the executed notebook (with outputs) to `/kaggle/working/executed_solution.ipynb`, so it can be downloaded with `kaggle kernels output`.
 
 ### 2. Hyperparameters
@@ -77,17 +78,17 @@ For each batch:
 
 After epochs 1, 3, 6, 9, 12 and 15 it prints Loss_D, Loss_G, D(x) and D(G(z)) for the last batch and saves samples from a fixed batch of 64 noise vectors. At the end it prints the training time and writes the run's key numbers to `dcgan_results.json`.
 
-**This run:** 25.9 minutes. Last-epoch means: Loss_D 0.81, Loss_G 2.79 (last batch: 0.75 and 2.58, D(x) = 0.66, D(G(z)) = 0.09).
+**This run:** 30 to 38 minutes of training across runs (the losses are identical from run to run). Last-epoch means: Loss_D 0.57, Loss_G 3.70 (last batch: 0.06 and 3.84, D(x) = 0.98, D(G(z)) = 0.03).
 
 ### 9. Loss Curves
 - Both losses per iteration, with a dashed line at log(2) ≈ 0.69 for reference (G's loss at the theoretical equilibrium; D's would be 2·log(2) ≈ 1.39).
-- In this run the losses oscillate and do not converge: Loss_G spikes to about 20 early, then swings between about 1 and 6, and between iterations ~4,600 and ~5,600 Loss_D repeatedly drops near 0 while the discriminator temporarily wins.
+- In this run the losses oscillate and do not converge: Loss_G spikes to about 24 early, then swings mostly between 1 and 7, and from about iteration 3,900 the spikes grow while Loss_D repeatedly drops near 0, so the discriminator ends ahead.
 
 ### 10. Generated Samples Over Training
 - One 8×8 grid per saved checkpoint (epochs 1, 3, 6, 9, 12, 15), all from the same fixed noise.
 
 ### 11. Real vs Fake Comparison
-- 32 real CIFAR-10 images next to 32 fresh samples. The samples are blurry, with CIFAR-like colours and layouts but no recognisable objects, and a faint grid-like texture in places.
+- 32 real CIFAR-10 images next to 32 fresh samples. The samples are blurry, with CIFAR-like colours and layouts but no clearly recognisable objects.
 
 ### 12. Latent Space Walk (Interpolation)
 - Linearly interpolates between two random `z` vectors in 10 steps (the paper's Section 6.1 experiment). In this run the transition is gradual, with no sudden jumps.
