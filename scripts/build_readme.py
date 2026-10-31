@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('HFxEYtTYozU', 'The Shortcut That Let AI Go 152 Layers Deep: ResNet', '008_resnet-deep-residual-learning-for-image'),
+    shorts = [('eBFMevtU7DM', 'How AI Learned to Dream Up Faces: DCGAN', '023_dcgan-unsupervised-representation-learning'),
+              ('HFxEYtTYozU', 'The Shortcut That Let AI Go 152 Layers Deep: ResNet', '008_resnet-deep-residual-learning-for-image'),
               ('s7nyHPKX-Fg', 'The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks', '009_highway-networks'),
               ('p2LGxyhIRKw', 'The Starting Numbers That Beat Humans: He Initialization', '007_delving-deep-into-rectifiers'),
               ('4qH2qFBaSrA', 'Small, Medium and Big Filters at Once: GoogLeNet', '005_googlenet-going-deeper-with-convolutions'),

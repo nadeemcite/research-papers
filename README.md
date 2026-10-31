@@ -210,31 +210,34 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/eBFMevtU7DM"><img src="https://img.youtube.com/vi/eBFMevtU7DM/hqdefault.jpg" alt="How AI Learned to Dream Up Faces: DCGAN" width="320"></a><br><b>How AI Learned to Dream Up Faces: DCGAN</b><br><sub><a href="023_dcgan-unsupervised-representation-learning/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/HFxEYtTYozU"><img src="https://img.youtube.com/vi/HFxEYtTYozU/hqdefault.jpg" alt="The Shortcut That Let AI Go 152 Layers Deep: ResNet" width="320"></a><br><b>The Shortcut That Let AI Go 152 Layers Deep: ResNet</b><br><sub><a href="008_resnet-deep-residual-learning-for-image/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/s7nyHPKX-Fg"><img src="https://img.youtube.com/vi/s7nyHPKX-Fg/hqdefault.jpg" alt="The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks" width="320"></a><br><b>The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks</b><br><sub><a href="009_highway-networks/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/p2LGxyhIRKw"><img src="https://img.youtube.com/vi/p2LGxyhIRKw/hqdefault.jpg" alt="The Starting Numbers That Beat Humans: He Initialization" width="320"></a><br><b>The Starting Numbers That Beat Humans: He Initialization</b><br><sub><a href="007_delving-deep-into-rectifiers/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/4qH2qFBaSrA"><img src="https://img.youtube.com/vi/4qH2qFBaSrA/hqdefault.jpg" alt="Small, Medium and Big Filters at Once: GoogLeNet" width="320"></a><br><b>Small, Medium and Big Filters at Once: GoogLeNet</b><br><sub><a href="005_googlenet-going-deeper-with-convolutions/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/Jd5UUEDFk_o"><img src="https://img.youtube.com/vi/Jd5UUEDFk_o/hqdefault.jpg" alt="Tiny Filters, Deep Network: VGGNet Explained" width="320"></a><br><b>Tiny Filters, Deep Network: VGGNet Explained</b><br><sub><a href="004_vggnet-very-deep-convolutional-networks/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/cDJpFmFXO2I"><img src="https://img.youtube.com/vi/cDJpFmFXO2I/hqdefault.jpg" alt="Switch Off Half the Brain to Get Smarter? Dropout" width="320"></a><br><b>Switch Off Half the Brain to Get Smarter? Dropout</b><br><sub><a href="002_dropout-improving-neural-networks-by-preventing/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/p1r0DlmAu8Y"><img src="https://img.youtube.com/vi/p1r0DlmAu8Y/hqdefault.jpg" alt="King - Man + Woman = Queen? Word2Vec Explained" width="320"></a><br><b>King - Man + Woman = Queen? Word2Vec Explained</b><br><sub><a href="001_word2vec-efficient-estimation-of-word/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/Jc-9wO_qVKM"><img src="https://img.youtube.com/vi/Jc-9wO_qVKM/hqdefault.jpg" alt="This AI Taught Itself Chess From Zero: AlphaZero" width="320"></a><br><b>This AI Taught Itself Chess From Zero: AlphaZero</b><br><sub><a href="061_alphazero-mastering-chess-and-shogi-by/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/5BnOUtvBiNQ"><img src="https://img.youtube.com/vi/5BnOUtvBiNQ/hqdefault.jpg" alt="Turn Any Photo Into a Painting: Neural Style Transfer" width="320"></a><br><b>Turn Any Photo Into a Painting: Neural Style Transfer</b><br><sub><a href="010_a-neural-algorithm-of-artistic-style/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/N6kmRrwHFL8"><img src="https://img.youtube.com/vi/N6kmRrwHFL8/hqdefault.jpg" alt="GPT-3: The AI That Learns From Just a Few Examples" width="320"></a><br><b>GPT-3: The AI That Learns From Just a Few Examples</b><br><sub><a href="080_language-models-few-shot-learners-gpt3/">notebook</a></sub></td>
-</tr>
-<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/_p8vVcWi_hA"><img src="https://img.youtube.com/vi/_p8vVcWi_hA/hqdefault.jpg" alt="This AI Learned Video Games From Pixels: DQN Explained" width="320"></a><br><b>This AI Learned Video Games From Pixels: DQN Explained</b><br><sub><a href="051_playing-atari-with-deep-reinforcement/">notebook</a></sub></td>
-<td align="center" width="50%"><a href="https://www.youtube.com/shorts/ZznC1w2mElY"><img src="https://img.youtube.com/vi/ZznC1w2mElY/hqdefault.jpg" alt="YOLO: The AI That Sees Everything in One Look" width="320"></a><br><b>YOLO: The AI That Sees Everything in One Look</b><br><sub><a href="032_you-only-look-once-yolo/">notebook</a></sub></td>
 </tr>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/ZznC1w2mElY"><img src="https://img.youtube.com/vi/ZznC1w2mElY/hqdefault.jpg" alt="YOLO: The AI That Sees Everything in One Look" width="320"></a><br><b>YOLO: The AI That Sees Everything in One Look</b><br><sub><a href="032_you-only-look-once-yolo/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/aGXecMt314w"><img src="https://img.youtube.com/vi/aGXecMt314w/hqdefault.jpg" alt="Two AIs Fight Until Fakes Look Real: GANs Explained" width="320"></a><br><b>Two AIs Fight Until Fakes Look Real: GANs Explained</b><br><sub><a href="022_generative-adversarial-networks-gan/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/4iKss2ffzHI"><img src="https://img.youtube.com/vi/4iKss2ffzHI/hqdefault.jpg" alt="The Paper That Changed AI Forever: Attention Is All You Need" width="320"></a><br><b>The Paper That Changed AI Forever: Attention Is All You Need</b><br><sub><a href="020_attention-is-all-you-need-transformer/">notebook</a></sub></td>
 </tr>
 </table>

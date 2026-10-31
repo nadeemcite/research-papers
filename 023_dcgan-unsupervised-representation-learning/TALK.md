@@ -7,34 +7,23 @@ nav_order: 2
 
 ## Verifiable Press & Blog Coverage
 
-1. **PyTorch Official Tutorial — "DCGAN Faces Tutorial"**  
-   The PyTorch documentation includes a hands-on DCGAN tutorial that implements the exact architecture from this paper for generating celebrity faces.  
-   URL: https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
+- **PyTorch tutorial:** [DCGAN Tutorial](https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html) — the official PyTorch tutorial builds a generator and discriminator following this paper's architecture and trains them on celebrity faces.
+- **TensorFlow tutorial:** [Deep Convolutional Generative Adversarial Network](https://www.tensorflow.org/tutorials/generative/dcgan) — TensorFlow's official tutorial trains a DCGAN to generate handwritten digits.
+- **ganhacks:** [How to Train a GAN? Tips and tricks to make GANs work](https://github.com/soumith/ganhacks) — co-author Soumith Chintala's repo of practical GAN training tips, which include using DCGAN-style architectures and the Adam optimizer.
+- **The GAN Zoo:** [the-gan-zoo](https://github.com/hindupuravinash/the-gan-zoo) — a community-maintained list of named GAN variants that includes DCGAN.
 
-2. **TensorFlow Official Tutorial — "Deep Convolutional Generative Adversarial Network"**  
-   TensorFlow's official tutorials section features a DCGAN implementation guide, cementing the paper's architecture as a canonical reference implementation.  
-   URL: https://www.tensorflow.org/tutorials/generative/dcgan
-
-3. **Soumith Chintala — "How to Train a GAN? Tips and tricks to make GANs work"**  
-   Co-author Soumith Chintala maintains a widely-referenced GitHub repo ("ganhacks") of practical GAN training tips, many derived directly from the DCGAN paper's empirical findings.  
-   URL: https://github.com/soumith/ganhacks
-
-4. **The GAN Zoo**  
-   DCGAN is listed in "The GAN Zoo", a community-maintained list of named GAN variants that tracks the proliferation of GANs that followed.  
-   URL: https://github.com/hindupuravinash/the-gan-zoo
-
-## Interview Q&A
+## Q&A (answers from the paper)
 
 **Q: What was the main motivation for DCGAN? Was it about generating better images, or something else?**  
 A: (From the paper, Section 1) The primary motivation was not just image generation quality, but *unsupervised representation learning*. The authors wanted to show that the discriminator's learned features could be repurposed for supervised tasks like CIFAR-10 and SVHN classification. GANs were notoriously unstable, and previous attempts to scale them with CNNs had failed. The architectural guidelines were the solution to that instability.
 
-**Q: Why did you use LeakyReLU instead of ReLU in the discriminator?**  
+**Q: Why does the discriminator use LeakyReLU instead of ReLU?**  
 A: (From the paper, Section 3) The authors found LeakyReLU worked well in the discriminator, "especially for higher resolution modeling." This is in contrast to the original GAN paper which used maxout activations. The leaky slope of 0.2 was empirically chosen. ReLU was reserved for the generator.
 
 **Q: What was the most surprising finding?**  
 A: (From the paper, Section 6.3.2) The vector arithmetic on face samples — analogous to word2vec's king-man+woman=queen — was particularly surprising. The authors found that averaging the Z vectors for three exemplar samples per concept produced stable, semantically meaningful arithmetic. Single samples were too unstable. This suggested the generator had learned a disentangled, linear representation of semantic concepts.
 
-**Q: Why did you reduce β₁ from 0.9 to 0.5 for Adam?**  
+**Q: Why was Adam's β₁ reduced from 0.9 to 0.5?**  
 A: (From the paper, Section 4) The default β₁ of 0.9 caused "training oscillation and instability." Reducing to 0.5 stabilized training. Combined with the lower learning rate (0.0002 instead of 0.001), this was critical for convergence.
 
 **Q: Why not apply BatchNorm to every layer?**  

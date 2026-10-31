@@ -13,5 +13,6 @@ num	short	banner	status	shorts_url	release_date
 007	He init	assets/banners/007.jpg	public	https://youtube.com/shorts/p2LGxyhIRKw	2026-10-27
 009	Highway Nets	assets/banners/009.jpg	public	https://youtube.com/shorts/s7nyHPKX-Fg	2026-10-28
 008	ResNet	assets/banners/008.jpg	public	https://youtube.com/shorts/HFxEYtTYozU	2026-10-29
-023	DCGAN	assets/banners/023.jpg	private	https://youtube.com/shorts/eBFMevtU7DM	2026-10-30
+023	DCGAN	assets/banners/023.jpg	public	https://youtube.com/shorts/eBFMevtU7DM	2026-10-30
 003	Adam	assets/banners/003.jpg	private	https://youtube.com/shorts/u73WBo61HhM	2026-10-31
+024	Conditional GAN	assets/banners/024.jpg	private		2026-11-01

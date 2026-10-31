@@ -10,7 +10,7 @@ permalink: "/023_dcgan-unsupervised-representation-learning/"
 - **Paper:** [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://arxiv.org/abs/1511.06434)
 - **Authors:** Alec Radford, Luke Metz, Soumith Chintala
 - **Lab, year:** indico Research & Facebook AI Research, 2015
-- **Video:** YouTube Short coming on 30 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/eBFMevtU7DM) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
@@ -46,6 +46,10 @@ The DCGAN paper said: "Here are the exact rules for how to build these competing
 - **Latent-space arithmetic:** averaging the `z` vectors of three samples per concept gives stable vector arithmetic, e.g. *smiling woman − neutral woman + neutral man ≈ smiling man*, and *man with glasses − man without glasses + woman without glasses ≈ woman with glasses*.
 - **Looking inside:** guided backpropagation shows discriminator features firing on beds and windows; dropping the generator's window-related feature maps makes it stop drawing windows and fill those regions with other objects.
 
+### What the Notebook Result Shows
+
+The notebook trains a DCGAN with the paper's guidelines and generator width (1024 channels at 4×4; 12.66M generator and 2.77M discriminator parameters) on CIFAR-10 resized to 64×64, for 15 epochs (5,850 iterations, about 30 to 38 minutes on a Tesla T4 across runs), far shorter than the paper's ~117K iterations on LSUN. The losses **oscillate and never converge**: the generator loss spikes to about 24 early, then swings mostly between 1 and 7, and in the last third of training the discriminator loss repeatedly drops close to 0. The run ends with the discriminator ahead (last-epoch averages **Loss_D 0.57, Loss_G 3.70**). The samples get CIFAR-like colours and layouts from about epoch 6 and stay varied (no mode collapse), but remain blurry with no clearly recognisable objects. The latent walk between two noise vectors changes gradually, with no sudden jumps. This toy does not attempt the paper's feature-extraction or face-arithmetic results.
+
 ## Influence
 
 DCGAN became one of the most cited papers in generative modeling. Its architectural guidelines became the de facto standard for convolutional GANs and were used as the starting point for nearly all subsequent GAN architectures (WGAN, Pix2Pix, CycleGAN, StyleGAN). The PyTorch and TensorFlow tutorials for GANs are built around the DCGAN architecture. The paper also popularized latent-space arithmetic as a tool for understanding generative models, a concept that later extended to StyleGAN and diffusion models.
@@ -60,4 +64,4 @@ DCGAN became one of the most cited papers in generative modeling. Its architectu
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/023_dcgan-unsupervised-representation-learning/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
