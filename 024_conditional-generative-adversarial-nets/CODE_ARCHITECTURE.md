@@ -12,26 +12,28 @@ The notebook implements a from-scratch Conditional GAN using PyTorch. Both the g
 ## Section-by-Section Breakdown
 
 ### 1. Setup & Imports
-- **Purpose**: Import PyTorch, torchvision, matplotlib, numpy. Set random seeds. Configure device (CUDA if available).
-- **Key detail**: Only pip-installable packages used (torch, torchvision, matplotlib, numpy).
+- **Purpose**: Import PyTorch, torchvision, matplotlib, numpy. Set random seeds (42). Configure device (CUDA if available).
+- **Figures**: shown as JPEG at 80 dpi so the saved notebook stays small.
+- **Kaggle**: on Kaggle, an `atexit` hook copies the executed notebook to `/kaggle/working/executed_solution.ipynb` so its outputs can be downloaded.
 
 ### 2. Hyperparameters
 - **Key values**:
-  - `latent_dim = 100` — noise vector dimension (uniform prior)
+  - `latent_dim = 100` — noise vector dimension (z drawn from a standard normal with `torch.randn`)
   - `num_classes = 10` — MNIST digit classes (0-9)
   - `img_dim = 784` — flattened 28×28 image
-  - `label_dim = 10` — one-hot label vector
-  - `hidden_dim = 256` — hidden layer size for both G and D
-  - `lr = 0.0002` — learning rate (Adam)
+  - `hidden_g = 256` — first hidden layer of the generator
+  - `hidden_d = 512` — first hidden layer of the discriminator
+  - `lr = 0.0002`, `beta1 = 0.5` — Adam settings
   - `batch_size = 64` — minibatch size
   - `num_epochs = 100` — training epochs
+  - `k_steps = 1` — discriminator updates per generator update (the loop does one of each)
 
 ### 3. Data Loading (MNIST)
-- **Purpose**: Load MNIST via torchvision. Images flattened to 784-dim, normalized to [0, 1]. Labels converted to one-hot vectors.
+- **Purpose**: Load MNIST via torchvision (download progress bars silenced). Images flattened to 784-dim and normalized to [-1, 1]. Labels converted to one-hot vectors.
 - **Shapes**: 
   - Images: `(batch_size, 1, 28, 28)` → `(batch_size, 784)`
   - Labels: `(batch_size,)` → `(batch_size, 10)` one-hot
-- **Custom Dataset**: A wrapper class returns (image_flat, one_hot_label) pairs so the DataLoader yields both simultaneously.
+- **Custom Dataset**: `MNISTConditional` returns `(image_flat, one_hot_label, label)` so the DataLoader yields all three together.
 
 ### 4. Generator Network (G)
 - **Purpose**: Maps noise + label to a 784-dim image.
@@ -39,9 +41,9 @@ The notebook implements a from-scratch Conditional GAN using PyTorch. Both the g
   - Input: `(batch_size, 100+10=110)` — concatenated noise z and one-hot label y
   - Hidden: `(batch_size, 256)` — LeakyReLU(0.2)
   - Hidden: `(batch_size, 512)` — LeakyReLU(0.2)
-  - Output: `(batch_size, 784)` — Sigmoid (output in [0, 1])
-- **Data flow**: `concat(z, y)` → linear → LeakyReLU → linear → LeakyReLU → linear → Sigmoid → fake image (784-dim)
-- **Simplification vs paper**: Paper used separate hidden layers for z and y before combining (200→1200 for z, mapped y to separate layer). We concatenate upfront for simplicity — same functional result.
+  - Output: `(batch_size, 784)` — Tanh (output in [-1, 1], matching the normalized data)
+- **Data flow**: `concat(z, y)` → linear → LeakyReLU → linear → LeakyReLU → linear → Tanh → fake image (784-dim)
+- **Simplification vs paper**: the paper maps z to a ReLU layer of 200 units and y to a ReLU layer of 1000 units, joins them in a ReLU layer of 1200 units, and ends in a sigmoid layer of 784 units. We concatenate z and y at the input instead.
 
 ### 5. Discriminator Network (D)
 - **Purpose**: Classifies image+label pair as real (1) or fake (0).
@@ -78,31 +80,35 @@ The notebook implements a from-scratch Conditional GAN using PyTorch. Both the g
 - **Label sampling for G**: Random labels are sampled for the generator — the generator must learn to produce *any* requested class.
 - **Tracking**: D_loss, G_loss logged per epoch. Fixed noise + fixed labels saved for visualizing progression.
 
-### 8. Visualization
-- **Class-conditioned grid**: Generate a 10×10 grid — 10 rows (one per digit class 0-9), 10 columns (different noise samples per class). This directly demonstrates conditional generation.
-- **Loss curves**: D_loss and G_loss over epochs.
-- **Training progression**: Show generated grids at epochs 1, 25, 50, 75, 100 to visualize improvement.
+### 8. Training Curves
+- **Loss curves**: per-epoch average D_loss and G_loss.
 
-### 9. Conditional Generation Demo
-- **Purpose**: After training, demonstrate on-demand generation of specific digits.
-- **Method**: Fix noise z, vary the label y from 0-9, show how the same noise produces different digit styles for each class.
-- **Also**: Fix label y, vary noise z, show different samples of the same digit class.
+### 9. Training Progression
+- **Grids**: the fixed noise and fixed labels from the training loop, generated at epochs 1, 25, 50, 75 and 100 (rows = digit class 0-9).
+
+### 10. Conditional Generation Grid
+- **Class-conditioned grid**: a 10×10 grid — 10 rows (one per digit class 0-9), 10 columns (fresh noise per sample). This directly demonstrates conditional generation.
+
+### 11. Same Noise, Different Classes
+- **Method**: fix one noise vector z and vary the label y from 0 to 9, to show that the label sets the digit while the noise sets the style.
+
+### 12. Summary
+- **Stats cell**: prints the final D and G losses, epochs, and parameter counts of both networks.
+- **What the run above shows**: the numbers and observations from the executed run, followed by the key takeaways.
 
 ## Key Functions/Classes Summary
 
 | Component | Type | Input Shape | Output Shape | Notes |
 |-----------|------|-------------|--------------|-------|
-| `Generator` | nn.Module | (B, 110) | (B, 784) | 3-layer MLP, concat(z,y), LeakyReLU, Sigmoid |
+| `MNISTConditional` | Dataset | index | (784,), (10,), int | Flattened image, one-hot label, integer label |
+| `Generator` | nn.Module | (B, 110) | (B, 784) | 3-layer MLP, concat(z,y), LeakyReLU, Tanh |
 | `Discriminator` | nn.Module | (B, 794) | (B, 1) | 3-layer MLP, concat(x,y), LeakyReLU, Dropout, Sigmoid |
 | `BCELoss` | Loss | (B, 1), (B, 1) | scalar | Binary cross-entropy |
-| `train()` | Function | — | — | Alternating D/G training loop |
-| `generate_grid()` | Function | (10, 100), (10, 10) | matplotlib figure | 10×10 grid of class-conditioned samples |
-| `one_hot()` | Function | (B,) | (B, 10) | Convert labels to one-hot vectors |
 
 ## Data Flow Diagram
 
 ```
-Noise z ~ Uniform(-1,1)     Label y (one-hot, dim 10)
+Noise z ~ N(0, I)          Label y (one-hot, dim 10)
         |                           |
         +-----------+---------------+
                     |
@@ -135,4 +141,5 @@ Noise z ~ Uniform(-1,1)     Label y (one-hot, dim 10)
 4. **Optimizer**: Adam (betas=0.5, 0.999) — paper used SGD with momentum and exponential LR decay
 5. **No Parzen window evaluation**: Paper's quantitative metric; we use visual inspection
 6. **No multi-modal experiment**: Paper's Flickr image-tagging experiment requires pre-trained CNN features + word embeddings; we focus on the MNIST conditional generation demo
-7. **Noise prior**: Uniform(-1, 1) — matching the paper's uniform distribution
+7. **Noise prior**: standard normal (`torch.randn`) — the paper draws z uniformly from the unit hypercube
+8. **Output range**: images scaled to [-1, 1] with a Tanh output — the paper uses a sigmoid output layer

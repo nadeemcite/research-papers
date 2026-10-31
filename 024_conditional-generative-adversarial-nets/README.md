@@ -6,15 +6,14 @@ permalink: "/024_conditional-generative-adversarial-nets/"
 # Conditional Generative Adversarial Nets (CGAN)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
 
-
-**Paper:** Mirza, M. & Osindero, S. (2014). *Conditional Generative Adversarial Nets.* arXiv:1411.1784.
-
-**arXiv:** https://arxiv.org/abs/1411.1784
-
+- **Paper:** [Conditional Generative Adversarial Nets](https://arxiv.org/abs/1411.1784) (arXiv:1411.1784)
+- **Authors:** Mehdi Mirza, Simon Osindero
+- **Lab, year:** Université de Montréal & Flickr / Yahoo, 2014
+- **Video:** YouTube Short coming on 1 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-Conditional Generative Adversarial Nets (CGANs) extend the original GAN framework by feeding auxiliary information — most commonly class labels — into both the generator and the discriminator. In a standard GAN, the generator maps random noise to data samples, but there is no way to control *which* kind of sample it produces. The conditional GAN fixes this: by concatenating a one-hot class label to both the noise vector (generator input) and the image (discriminator input), the model learns to generate samples conditioned on a specified class. The minimax objective becomes `min_G max_D V(D,G) = E[log D(x|y)] + E[log(1 - D(G(z|y)))]`, where y is the conditioning label. The paper demonstrates this on MNIST (generating specific digits on demand) and on the MIR Flickr 25,000 dataset for multi-modal image tagging. CGANs became the foundation for a vast lineage of conditional generation work: Pix2Pix (image-to-image translation), CycleGAN (unpaired translation), conditional image synthesis, text-to-image generation (StackGAN, AttnGAN), and ultimately contributed to conditional diffusion models (classifier-free guidance). With 3,000+ citations, this 4-page paper is one of the most influential short papers in generative AI.
+Conditional Generative Adversarial Nets (CGANs) extend the original GAN framework by feeding auxiliary information — most commonly class labels — into both the generator and the discriminator. In a standard GAN, the generator maps random noise to data samples, but there is no way to control *which* kind of sample it produces. The conditional GAN fixes this: by concatenating a one-hot class label to both the noise vector (generator input) and the image (discriminator input), the model learns to generate samples conditioned on a specified class. The minimax objective becomes `min_G max_D V(D,G) = E[log D(x\|y)] + E[log(1 - D(G(z\|y)))]`, where y is the conditioning label. The paper demonstrates this on MNIST (generating specific digits on demand) and on the MIR Flickr 25,000 dataset for multi-modal image tagging. CGANs became the foundation for a vast lineage of conditional generation work: Pix2Pix (image-to-image translation), CycleGAN (unpaired translation), conditional image synthesis, and text-to-image generation (StackGAN, AttnGAN); the same idea of feeding the condition into the model reappears in conditional diffusion models (classifier-free guidance).
 
 ## What Problem Does It Solve
 
@@ -24,7 +23,7 @@ Now imagine you want to order a specific meal at a restaurant. If the kitchen ju
 
 This simple idea — feeding the label into both networks — unlocked controlled generation across all of AI: generating specific faces, translating sketches to photos, turning text descriptions into images, and much more.
 
-## Core Idea & Key Method Details
+## Core Idea
 
 ### The Conditional Minimax Game
 
@@ -43,19 +42,24 @@ min_G  max_D  V(D, G) = E_{x~p_data}[log D(x|y)] + E_{z~p_z}[log(1 - D(G(z|y)))]
 - **Generator**: noise vector z (dim 100) and one-hot label y (dim 10 for MNIST) are concatenated and fed into a joint hidden layer. The generator must produce an image that both looks real AND matches the given label.
 - **Discriminator**: image x (dim 784) and one-hot label y (dim 10) are concatenated and fed into the discriminator. The discriminator must verify that the image is real AND that it matches the claimed label.
 
+## Key Method Details
+
 ### Architecture (from the paper)
 
-- **Generator**: z (100-dim, uniform) → ReLU(200) + y → ReLU(1200) → Sigmoid(784). Noise and label are mapped to separate hidden layers, then combined in a joint hidden layer.
+- **Generator**: noise z (100-dim, uniform on the unit hypercube) → ReLU layer of 200 units, and label y → ReLU layer of 1000 units. The two are joined in a combined ReLU layer of 1200 units, followed by a sigmoid output layer of 784 units (one per MNIST pixel).
 - **Discriminator**: x → Maxout(240, 5 pieces) + y → Maxout(50, 5 pieces) → joint Maxout(240, 4 pieces) → Sigmoid(1).
 - **Training**: SGD with momentum (0.5→0.7), exponential learning rate decay (0.1→0.000001), dropout 0.5, batch size 100.
 
 ### Our Implementation
 
-We simplify the architecture to standard MLPs with LeakyReLU (instead of maxout) and use Adam optimizer (instead of SGD with momentum) — both are now standard GAN practice. The core conditional mechanism (concatenating one-hot labels) remains exactly as described in the paper.
+We simplify the architecture to plain MLPs that concatenate z and y at the input (rather than separate per-input hidden layers): the generator is 110 → 256 → 512 → 784 with LeakyReLU and a Tanh output (images scaled to [-1, 1]), and the discriminator is 794 → 512 → 256 → 1 with LeakyReLU, dropout 0.3 and a sigmoid output. Noise is drawn from a standard normal, and training uses Adam (lr 0.0002, β₁ = 0.5, batch 64) instead of SGD with momentum. The conditioning mechanism (feeding the one-hot label to both networks) is the paper's.
+
+### What the Notebook Result Shows
+
+The notebook trains the simplified MLP CGAN on MNIST for 100 epochs on a Tesla T4 (generator 562,192 parameters, discriminator 538,625). The losses settle by about epoch 50 and end at **D 1.287 / G 0.857** (final-epoch averages), close to but not exactly at the balanced values of 1.386 and 0.693, so the discriminator keeps a small edge. The key result is the class grid: **every row shows the digit it was asked for**, with varied styles across the noise samples and only a few malformed samples (such as a 2 that looks closer to a 3). Fixing one noise vector and changing only the label gives ten recognisable digits 0 to 9, showing that the label controls the class and the noise controls the style. The paper reports a Parzen-window log-likelihood instead of sample grids; this notebook does not compute it.
 
 ## Influence
 
-- **Citations**: 3,000+ (Semantic Scholar), 5,000+ (Google Scholar) — one of the most cited GAN papers
 - **Direct descendants**: Pix2Pix (2016), CycleGAN (2017), StackGAN (2017), AttnGAN (2018), BigGAN (2019), conditional diffusion models (classifier-free guidance, 2022)
 - **Applications**: text-to-image generation, image-to-image translation, class-conditional image synthesis, data augmentation with specific class targets, controllable generation
 - **Key insight**: The conditioning principle — feeding labels into both generator and discriminator — became the universal mechanism for controlled generation across all generative frameworks, not just GANs
@@ -65,11 +69,9 @@ We simplify the architecture to standard MLPs with LeakyReLU (instead of maxout)
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/024_conditional-generative-adversarial-nets/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
