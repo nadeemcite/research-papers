@@ -13,7 +13,11 @@ permalink: "/024_conditional-generative-adversarial-nets/"
 
 ## Summary
 
-Conditional Generative Adversarial Nets (CGANs) extend the original GAN framework by feeding auxiliary information — most commonly class labels — into both the generator and the discriminator. In a standard GAN, the generator maps random noise to data samples, but there is no way to control *which* kind of sample it produces. The conditional GAN fixes this: by concatenating a one-hot class label to both the noise vector (generator input) and the image (discriminator input), the model learns to generate samples conditioned on a specified class. The minimax objective becomes `min_G max_D V(D,G) = E[log D(x\|y)] + E[log(1 - D(G(z\|y)))]`, where y is the conditioning label. The paper demonstrates this on MNIST (generating specific digits on demand) and on the MIR Flickr 25,000 dataset for multi-modal image tagging. CGANs became the foundation for a vast lineage of conditional generation work: Pix2Pix (image-to-image translation), CycleGAN (unpaired translation), conditional image synthesis, and text-to-image generation (StackGAN, AttnGAN); the same idea of feeding the condition into the model reappears in conditional diffusion models (classifier-free guidance).
+Conditional Generative Adversarial Nets (CGANs) extend the original GAN by giving extra information, most often a class label, to both the generator and the discriminator. In a standard GAN, the generator turns random noise into data samples, but there is no way to choose *which* kind of sample it makes.
+
+The conditional GAN fixes this. It joins (concatenates) a one-hot class label to the noise vector going into the generator, and to the image going into the discriminator. The model then learns to generate samples of the class you ask for. The minimax objective becomes `min_G max_D V(D,G) = E[log D(x\|y)] + E[log(1 - D(G(z\|y)))]`, where y is the conditioning label. The paper shows this on MNIST (making specific digits on demand) and on the MIR Flickr 25,000 dataset for multi-modal image tagging.
+
+CGANs became the base for a long line of conditional generation work: Pix2Pix (image-to-image translation), CycleGAN (unpaired translation), conditional image synthesis, and text-to-image generation (StackGAN, AttnGAN). The same idea of feeding the condition into the model shows up again in conditional diffusion models (classifier-free guidance).
 
 ## What Problem Does It Solve
 
@@ -56,7 +60,11 @@ We simplify the architecture to plain MLPs that concatenate z and y at the input
 
 ### What the Notebook Result Shows
 
-The notebook trains the simplified MLP CGAN on MNIST for 100 epochs on a Tesla T4 (generator 562,192 parameters, discriminator 538,625). The losses settle by about epoch 50 and end at **D 1.287 / G 0.857** (final-epoch averages), close to but not exactly at the balanced values of 1.386 and 0.693, so the discriminator keeps a small edge. The key result is the class grid: **every row shows the digit it was asked for**, with varied styles across the noise samples and only a few malformed samples (such as a 2 that looks closer to a 3). Fixing one noise vector and changing only the label gives ten recognisable digits 0 to 9, showing that the label controls the class and the noise controls the style. The paper reports a Parzen-window log-likelihood instead of sample grids; this notebook does not compute it.
+The notebook trains the simplified MLP CGAN on MNIST for 100 epochs on a Tesla T4. The generator has 562,192 parameters and the discriminator 538,625. The losses settle by about epoch 50 and end at **D 1.287 / G 0.857** (final-epoch averages). That is close to, but not exactly at, the balanced values of 1.386 and 0.693, so the discriminator keeps a small edge.
+
+The key result is the class grid: **every row shows the digit it was asked for**. Styles vary across the noise samples, and only a few samples are malformed (such as a 2 that looks closer to a 3). Fixing one noise vector and changing only the label gives ten recognisable digits 0 to 9. So the label controls the class, and the noise controls the style.
+
+The paper reports a Parzen-window log-likelihood (a way to score how likely real test images are under the generator) instead of sample grids. This notebook does not compute it.
 
 ## Influence
 

@@ -46,7 +46,7 @@ A: (From the paper, Section 3) While BatchNorm was critical for preventing the g
 - Goodfellow, I. et al. (2014). "Generative Adversarial Nets." NeurIPS. — The foundational GAN paper that DCGAN builds upon.
 - Springenberg, J. et al. (2014). "Striving for Simplicity: The All Convolutional Net." — Source of the "strided convolutions replace pooling" principle.
 - Ioffe, S. & Szegedy, C. (2015). "Batch Normalization." — The batchnorm technique DCGAN adopts for stability.
-- Radford, A., Metz, L., & Chintala, S. (2016). "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks." ICLR. — This paper.
+- Radford, A., Metz, L., & Chintala, S. (2015). "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks." [arXiv:1511.06434](https://arxiv.org/abs/1511.06434); published at ICLR 2016. — This paper.
 - Kingma, D. & Ba, J. (2014). "Adam: A Method for Stochastic Optimization." — The optimizer used with modified hyperparameters.
 - Maas, A. et al. (2013). "Rectifier Nonlinearities Improve Neural Network Acoustic Models." — Source of LeakyReLU.
 - Mikolov, T. et al. (2013). "Distributed Representations of Words and Phrases." — The word2vec vector arithmetic analogy the paper draws on.

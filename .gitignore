@@ -17,3 +17,6 @@ kernel-metadata.json
 
 # Local Python env (uv)
 .venv/
+
+# Local notebook runs (figures, results, datasets)
+outputs/

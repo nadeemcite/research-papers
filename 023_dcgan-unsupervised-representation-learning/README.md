@@ -48,7 +48,11 @@ The DCGAN paper said: "Here are the exact rules for how to build these competing
 
 ### What the Notebook Result Shows
 
-The notebook trains a DCGAN with the paper's guidelines and generator width (1024 channels at 4×4; 12.66M generator and 2.77M discriminator parameters) on CIFAR-10 resized to 64×64, for 15 epochs (5,850 iterations, about 30 to 38 minutes on a Tesla T4 across runs), far shorter than the paper's ~117K iterations on LSUN. The losses **oscillate and never converge**: the generator loss spikes to about 24 early, then swings mostly between 1 and 7, and in the last third of training the discriminator loss repeatedly drops close to 0. The run ends with the discriminator ahead (last-epoch averages **Loss_D 0.57, Loss_G 3.70**). The samples get CIFAR-like colours and layouts from about epoch 6 and stay varied (no mode collapse), but remain blurry with no clearly recognisable objects. The latent walk between two noise vectors changes gradually, with no sudden jumps. This toy does not attempt the paper's feature-extraction or face-arithmetic results.
+The notebook builds a DCGAN that follows the paper's rules and uses the paper's generator width (1024 channels at 4×4). The generator has 12.66M parameters and the discriminator 2.77M. It trains on CIFAR-10 images resized to 64×64 for 15 epochs: 5,850 iterations, about 30 to 38 minutes on a Tesla T4 across runs. That is far shorter than the paper's ~117K iterations on LSUN.
+
+The losses **oscillate and never converge**. The generator loss spikes to about 24 early, then swings mostly between 1 and 7. In the last third of training, the discriminator loss keeps dropping close to 0. The run ends with the discriminator ahead (last-epoch averages **Loss_D 0.57, Loss_G 3.70**).
+
+From about epoch 6, the samples have CIFAR-like colours and layouts. They stay varied, so there is no mode collapse (the generator does not get stuck making one image), but they are blurry and show no clearly recognisable objects. Walking between two noise vectors changes the image gradually, with no sudden jumps. This toy does not try the paper's feature-extraction or face-arithmetic results.
 
 ## Influence
 

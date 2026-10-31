@@ -15,7 +15,8 @@ This notebook implements the DCGAN architecture from Radford et al. (2015) follo
 - PyTorch, torchvision, matplotlib, numpy, plus `json`, `time` and a few standard-library helpers.
 - Seeds PyTorch and NumPy with 42, turns on deterministic cuDNN kernels so a re-run reproduces the quoted numbers, and picks CUDA when available (the Kaggle run used a Tesla T4).
 - Shows figures as JPEG at 80 dpi so the saved notebook stays small.
-- On Kaggle only, registers an exit hook that copies the executed notebook (with outputs) to `/kaggle/working/executed_solution.ipynb`, so it can be downloaded with `kaggle kernels output`.
+- Detects Kaggle from its `KAGGLE_KERNEL_RUN_TYPE` environment variable and sets `OUT_DIR`: the current folder on Kaggle (its output folder), `./outputs` anywhere else. Figures and `dcgan_results.json` are saved there.
+- On Kaggle only, registers an exit hook that copies the executed notebook (with outputs) to `executed_solution.ipynb` in the output folder, so it can be downloaded with `kaggle kernels output`.
 
 ### 2. Hyperparameters
 - `latent_dim = 100`: noise vector size (as in the paper).
@@ -28,7 +29,7 @@ This notebook implements the DCGAN architecture from Radford et al. (2015) follo
 - `leak_slope = 0.2`: LeakyReLU slope in the discriminator.
 
 ### 3. Data Loading
-- Loads the CIFAR-10 training set (50,000 images) from the attached Kaggle dataset `pankrzysiu/cifar10-python` at `/kaggle/input/cifar10-python` when present; elsewhere torchvision downloads it to `./data` with the progress bar silenced.
+- Loads the CIFAR-10 training set (50,000 images) from the attached Kaggle dataset `pankrzysiu/cifar10-python` at `../input/cifar10-python` (where Kaggle mounts attached datasets) when present; elsewhere torchvision downloads it to `./data` with the progress bar silenced.
 - `Resize(64)` → `ToTensor()` → `Normalize(0.5, 0.5)` per channel, scaling pixels to [-1, 1] to match the generator's Tanh.
 - `DataLoader` with `shuffle=True`, `drop_last=True`, `num_workers=2`: 390 batches per epoch.
 

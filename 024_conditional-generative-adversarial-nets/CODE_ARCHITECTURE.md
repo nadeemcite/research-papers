@@ -14,7 +14,8 @@ The notebook implements a from-scratch Conditional GAN using PyTorch. Both the g
 ### 1. Setup & Imports
 - **Purpose**: Import PyTorch, torchvision, matplotlib, numpy. Set random seeds (42). Configure device (CUDA if available).
 - **Figures**: shown as JPEG at 80 dpi so the saved notebook stays small.
-- **Kaggle**: on Kaggle, an `atexit` hook copies the executed notebook to `/kaggle/working/executed_solution.ipynb` so its outputs can be downloaded.
+- **Outputs**: detects Kaggle from its `KAGGLE_KERNEL_RUN_TYPE` environment variable and sets `OUT_DIR` to the current folder on Kaggle (its output folder) or `./outputs` anywhere else; every figure is saved there.
+- **Kaggle**: on Kaggle only, an `atexit` hook copies the executed notebook to `executed_solution.ipynb` in the output folder so its outputs can be downloaded.
 
 ### 2. Hyperparameters
 - **Key values**:
