@@ -12,26 +12,22 @@ nav_order: 2
 - **1-bit Adam paper** — Tang et al., "1-bit Adam: Communication Efficient Large-Scale Training with Adam's Convergence Speed" (2021), from the Microsoft DeepSpeed team, compresses Adam's communication for large-scale distributed training: https://arxiv.org/abs/2102.02888.
 - **Hugging Face paper page** for Adam includes a concise abstract and links: https://huggingface.co/papers/1412.6980.
 
-## Talks, interviews, or podcasts
+## Q&A (answers from the paper)
 
-No verifiable recorded talks specifically titled around the Adam paper were found in a general web search. Diederik Kingma has given many later talks on VAEs and generative modeling at conferences and universities; Jimmy Ba has spoken on optimization and deep learning in various academic settings. For Adam specifically, rely on the paper and the blog posts above rather than inventing a talk.
-
-## 3–5 likely interview questions with concise answers
-
-**Q1. What does "Adam" stand for and what are its two moment estimates?**  
-Adam = **ADAptive Moment estimation**. It maintains an exponential moving average of the gradient (first moment, `m_t`) and an exponential moving average of the squared gradient (second moment, `v_t`).
+**Q1. What does "Adam" stand for, and what are its two moment estimates?**  
+A (from the paper, Section 1 and Algorithm 1): The name comes from **adaptive moment estimation**. Adam keeps an exponential moving average of the gradient (the first moment, `m_t`) and of the elementwise squared gradient (the second moment, `v_t`), and uses them to give each parameter its own adaptive step size.
 
 **Q2. Why is the bias-correction term necessary?**  
-The moving averages `m_t` and `v_t` start at zero, so early estimates are biased toward zero. Dividing by `(1 − β^t)` rescales them so they are unbiased estimates of the true moments; the correction quickly converges to 1 as `t` grows.
+A (from the paper, Sections 2 and 3): `m_t` and `v_t` start at zero, so in the first steps they are biased toward zero, especially when the decay rates `β1`, `β2` are close to 1. Dividing by `(1 − β1^t)` and `(1 − β2^t)` removes this initialization bias; the correction goes to 1 as `t` grows.
 
 **Q3. How does Adam differ from RMSProp?**  
-RMSProp only keeps the second-moment estimate of squared gradients and divides the raw gradient by its scale. Adam adds momentum via the first-moment estimate and uses bias correction, giving smoother and better-initialized updates.
+A (from the paper, Section 5): RMSProp with momentum applies momentum to the rescaled gradient, while Adam builds its update directly from running averages of the first and second moments. RMSProp also has no bias correction, which matters most when `β2` is close to 1 (needed for sparse gradients): without it, steps can become very large and training often diverges (shown in Section 6.4).
 
-**Q4. What are the default hyperparameters and what do they mean?**  
-`α = 0.001` (step size), `β1 = 0.9` (decay for first moment), `β2 = 0.999` (decay for second moment), `ε = 10⁻⁸` (numerical stabilizer). They are widely reported as good defaults across many problems.
+**Q4. What are the default hyperparameters?**  
+A (from the paper, Algorithm 1): `α = 0.001` (step size), `β1 = 0.9` and `β2 = 0.999` (decay rates of the two moment estimates), and `ε = 10⁻⁸` (a small constant that avoids division by zero). The paper calls these good defaults "for the tested machine learning problems".
 
-**Q5. When might you prefer SGD with momentum over Adam?**  
-For some computer-vision tasks (especially image classification), carefully tuned SGD with momentum plus a learning-rate schedule can reach a slightly better final validation accuracy than Adam, even if it takes longer to tune.
+**Q5. How big is each Adam step?**  
+A (from the paper, Section 2.1): Roughly at most the step size `α`, whatever the scale of the gradient, because the update is the ratio `m̂_t / √v̂_t`. The paper describes this as a trust region around the current parameters. It makes the right scale of `α` fairly easy to guess, and the steps shrink automatically when the gradient is noisy (a low "signal-to-noise ratio").
 
 ## Common misconceptions or mistakes
 

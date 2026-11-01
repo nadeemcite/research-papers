@@ -14,7 +14,13 @@ permalink: "/003_adam-a-method-for-stochastic/"
 
 ## Summary
 
-Adam is a first-order gradient-based optimizer for stochastic objectives that combines two earlier ideas: **momentum**, which smooths the update direction with a running average of gradients, and **per-parameter adaptive step sizes** in the style of AdaGrad and RMSProp, which divide each update by a running estimate of the gradient's scale. It keeps exponential moving averages of the gradient (first moment) and the squared gradient (second moment), corrects both for their bias toward zero at initialization, and steps by their ratio. The result is an update whose size is roughly bounded by the learning rate, is invariant to rescaling the gradient, and needs little tuning. The paper also proves a regret bound in the online convex setting, introduces the infinity-norm variant **AdaMax**, and shows Adam matching or beating SGD with momentum, AdaGrad and RMSProp on logistic regression, multilayer networks and CNNs. It went on to become the default optimizer for most of deep learning.
+Adam is an optimizer: the rule that decides how a neural network's weights change after each batch of training data. It only needs first-order gradients (the slope of the loss), and it is built for *stochastic* objectives, where each batch gives a noisy estimate of that slope.
+
+It combines two earlier ideas. **Momentum** smooths the direction of each step with a running average of past gradients. **Per-parameter adaptive step sizes**, as in AdaGrad and RMSProp, divide each update by a running estimate of how large that parameter's gradients usually are.
+
+Adam keeps moving averages of the gradient (the first moment) and of the squared gradient (the second moment). It corrects both for their bias toward zero at the start, then steps by their ratio. Each step is then roughly no larger than the learning rate, does not change if the gradient is rescaled, and needs little tuning.
+
+The paper also proves a regret bound (a guarantee on total error) in the online convex setting and introduces **AdaMax**, a variant based on the infinity norm. In its experiments, Adam matches or beats SGD with momentum, AdaGrad and RMSProp on logistic regression, multilayer networks and CNNs. It went on to become the default optimizer for most of deep learning.
 
 ## What Problem Does It Solve
 
@@ -42,6 +48,20 @@ Recommended defaults: `α = 0.001`, `β1 = 0.9`, `β2 = 0.999`, `ε = 10⁻⁸`.
 
 Adam is invariant to diagonal rescaling of the gradients, works with sparse gradients, non-stationary objectives, and naturally anneals step sizes as `v_t` accumulates history.
 
+### What the Notebook Result Shows
+
+The notebook implements SGD, RMSProp and Adam from scratch in NumPy and runs each for 200 steps from the point (−2, 2) on a noise-free 2-D valley, `L(x, y) = (x − 1)² + 5(y − 0.5x)²`, whose minimum is at (1, 0.5). On this toy, **tuned plain SGD wins and Adam finishes last**:
+
+| Optimizer | Learning rate | Final loss after 200 steps | End point |
+|---|---|---|---|
+| SGD | 0.02 | 9.1e-6 | (0.997, 0.498) |
+| RMSProp | 0.05 | 6.7e-3 | (1.023, 0.477) |
+| Adam | 0.05 | 3.7e-2 | (0.813, 0.385) |
+
+SGD has an exact gradient and a learning rate that suits this bowl, so it slides straight to the minimum. RMSProp and Adam take steps of roughly the learning rate in size, so RMSProp keeps bouncing near the minimum, and Adam's momentum makes it overshoot and curve along the valley (visible in the contour plot and animation).
+
+This is not evidence against Adam. The paper's case for Adam is about noisy, stochastic gradients, sparse features and many parameters with very different scales; a two-parameter problem with exact gradients is the setting where one well-chosen learning rate is enough.
+
 ## Influence
 
 Adam became the default optimizer for a huge swath of deep learning — transformers, GANs, variational autoencoders, recommendation models — because it usually trains fast with little hyperparameter tuning. It also inspired later variants such as **AdamW** (which fixes weight-decay interaction) and **AMSGrad**. The Adam family, most often AdamW, remains the default optimizer for training large neural networks.
@@ -55,4 +75,4 @@ Adam became the default optimizer for a huge swath of deep learning — transfor
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/003_adam-a-method-for-stochastic/solution.ipynb) | From-scratch NumPy implementation of SGD, RMSProp and Adam on a 2-D toy loss, with a contour plot of the trajectories and an animated GIF of Adam's path |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
