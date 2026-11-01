@@ -5,93 +5,84 @@ nav_order: 1
 ---
 # Code Architecture — U-Net Notebook
 
+## Overview
+
+The notebook builds a U-Net from scratch in PyTorch, trains it on a small synthetic "cells" dataset (64×64 grayscale images of overlapping bright blobs), and compares it with the same network without skip connections. Everything runs in a few minutes on a Kaggle Tesla T4.
+
 ## Section-by-Section Breakdown
 
 ### 1. Setup & Imports
-- Import PyTorch, torchvision, numpy, matplotlib
-- Set device (CUDA if available)
-- Install any needed pip packages
+- PyTorch, numpy, matplotlib, plus `random`, `os`, `shutil`, `atexit` and `pathlib`.
+- Seeds Python, NumPy and PyTorch with 42 and turns on deterministic cuDNN kernels, so a re-run reproduces the numbers in the summary.
+- Shows figures as JPEG at 80 dpi so the saved notebook stays small.
+- Detects Kaggle from its `KAGGLE_KERNEL_RUN_TYPE` environment variable and sets `OUT_DIR`: the current folder on Kaggle (its output folder), `./outputs` anywhere else. Figures and the model checkpoint are saved there.
+- On Kaggle only, an exit hook copies the executed notebook to `executed_solution.ipynb` in the output folder so it can be downloaded with `kaggle kernels output`.
 
-### 2. Synthetic Dataset Generation
-Since the original paper uses proprietary biomedical EM data, we generate a **synthetic cell-like segmentation dataset**:
-- Create images with overlapping circular blobs (simulating cells) on noisy backgrounds
-- Generate corresponding binary masks (1 where cell, 0 background)
-- Include touching/overlapping cells to test boundary separation
-- Dataset size: ~200 training images, 50 validation
-- Image size: 128×128 (scaled down from 512×512 for Kaggle GPU feasibility)
+### 2. Synthetic Cell Segmentation Dataset
+- `generate_cell_image(size=64, max_cells=8, min_radius=5, max_radius=12)` draws 3 to 8 circles of random radius, adds 0.3 to 0.5 brightness inside each (overlaps get brighter), adds Gaussian noise (std 0.05) and clips to [0, 1].
+- The mask is 1 inside any circle and 0 elsewhere, so overlapping or touching blobs merge into one foreground region. The task is plain foreground/background segmentation; it does not test the paper's separation of touching cells.
+- `IMG_SIZE = 64`.
 
 ### 3. Data Augmentation
-- Random horizontal/vertical flips
-- Random rotations (90°, 180°, 270°)
-- Elastic deformations (simplified — using affine + grid deformation)
-- Custom PyTorch Dataset class with on-the-fly augmentation
+- `CellSegmentationDataset` pre-generates its images. Training items get random horizontal and vertical flips and a random multiple of 90° rotation; validation items are not augmented.
+- 100 training images and 25 validation images, batch size 16 (7 training batches per epoch).
+- The paper's elastic deformations, shifts and gray-value changes are not implemented.
 
 ### 4. U-Net Architecture (from scratch)
+- `DoubleConv`: (3×3 conv, padding 1 → BatchNorm → ReLU) × 2. Padded convolutions keep the size, unlike the paper's unpadded ones.
+- `DownBlock`: 2×2 max-pool, then `DoubleConv`.
+- `UpBlock`: 2×2 transposed convolution that halves the channels, pad to the skip's size if needed, concatenate with the skip, then `DoubleConv`.
+- `UNet(in_channels=1, num_classes=2, base_ch=32)`: channels 32 → 64 → 128 → 256 → 512 (half the paper's 64 → 1024), 7,765,442 parameters, and a final 1×1 convolution to 2 classes.
+
 ```
-Encoder (Contracting Path):
-  Block 1: Conv(1→64) → Conv(64→64) → ReLU → MaxPool   [128×128 → 64×64]
-  Block 2: Conv(64→128) → Conv(128→128) → ReLU → MaxPool [64×64 → 32×32]
-  Block 3: Conv(128→256) → Conv(256→256) → ReLU → MaxPool [32×32 → 16×16]
-  Block 4: Conv(256→512) → Conv(512→512) → ReLU → MaxPool [16×16 → 8×8]
-
-Bottleneck:
-  Conv(512→1024) → Conv(1024→1024) → ReLU                [8×8]
-
-Decoder (Expanding Path):
-  Up1: UpConv(1024→512) + skip(Block4) → Conv(1024→512) → Conv(512→512)  [8→16]
-  Up2: UpConv(512→256) + skip(Block3) → Conv(512→256) → Conv(256→256)    [16→32]
-  Up3: UpConv(256→128) + skip(Block2) → Conv(256→128) → Conv(128→128)    [32→64]
-  Up4: UpConv(128→64) + skip(Block1) → Conv(128→64) → Conv(64→64)        [64→128]
-
-Output: Conv(64→2) — 1×1 conv producing 2-class segmentation map
+Input:            [B, 1, 64, 64]
+  inc   (enc 1):  [B, 32, 64, 64]   (skip 1)
+  down1 (enc 2):  [B, 64, 32, 32]   (skip 2)
+  down2 (enc 3):  [B, 128, 16, 16]  (skip 3)
+  down3 (enc 4):  [B, 256, 8, 8]    (skip 4)
+  down4 (bottom): [B, 512, 4, 4]
+  up1 + skip 4:   [B, 256, 8, 8]
+  up2 + skip 3:   [B, 128, 16, 16]
+  up3 + skip 2:   [B, 64, 32, 32]
+  up4 + skip 1:   [B, 32, 64, 64]
+  outc (1×1):     [B, 2, 64, 64]    per-pixel class scores
 ```
 
-Key classes:
-- `DoubleConv(nn.Module)`: Two conv-batchnorm-ReLU blocks (batchnorm added vs original, which used only ReLU — a deliberate modernization)
-- `DownBlock(nn.Module)`: MaxPool + DoubleConv
-- `UpBlock(nn.Module)`: Upsample/UpConv + concatenate skip + DoubleConv
-- `UNet(nn.Module)`: Full encoder-decoder assembly
-
-### 5. Loss Function
-- **Weighted cross-entropy** with border-aware weights (simplified)
-- Alternative: Dice loss (common in segmentation, not in original paper but widely used with U-Net)
-- We implement both and compare
+### 5. Loss Functions
+- `DiceLoss`: 1 − soft Dice of the foreground probability (smoothing 1.0).
+- `CombinedLoss`: cross-entropy with class weights [1.0, 1.5] plus Dice. The paper instead uses cross-entropy weighted by a per-pixel border-weight map.
 
 ### 6. Training Loop
-- Optimizer: Adam, learning rate 1e-4
-- Epochs: 15 (reduced from original for Kaggle time limit)
-- Batch size: 8
-- Track training loss, validation loss, and IoU (Intersection over Union) per epoch
-- Learning rate scheduler: ReduceLROnPlateau
+- `calculate_iou` gives per-class IoU; the reported score is the foreground IoU averaged over the validation images.
+- `train_model` trains for `NUM_EPOCHS = 15` with Adam (lr 1e-3, weight decay 1e-5) and `ReduceLROnPlateau` (factor 0.5, patience 2) on the validation loss, prints the losses, IoU and learning rate each epoch, and saves the checkpoint with the best validation IoU to `OUT_DIR / 'best_unet_model.pth'`.
+- **This run:** validation IoU rises from 0.68 after epoch 1 to above 0.99 from epoch 9; the best checkpoint (epoch 13) scores IoU 0.9996, Dice 0.9998 and pixel accuracy 0.9999. The no-skip baseline reaches a best IoU of 0.8517 at epoch 15.
 
-### 7. Evaluation & Visualization
-- Plot training vs validation loss curves
-- Plot IoU improvement over epochs
-- Show input image / predicted mask / ground truth triplets for multiple samples
-- Visualize intermediate feature maps from encoder and decoder layers
+### 7. Results: Training Curves
+- Train and validation loss, validation IoU, and the validation − train loss gap per epoch.
 
-## Data Flow / Tensor Shapes
-```
-Input:  [B, 1, 128, 128]   (grayscale synthetic cell images)
-  → Encoder Block 1: [B, 64, 64, 64]    (skip saved)
-  → Encoder Block 2: [B, 128, 32, 32]   (skip saved)
-  → Encoder Block 3: [B, 256, 16, 16]   (skip saved)
-  → Encoder Block 4: [B, 512, 8, 8]     (skip saved)
-  → Bottleneck:      [B, 1024, 8, 8]
-  → Decoder Up 1:    [B, 512, 16, 16]   (concat with skip4)
-  → Decoder Up 2:    [B, 256, 32, 32]   (concat with skip3)
-  → Decoder Up 3:    [B, 128, 64, 64]   (concat with skip2)
-  → Decoder Up 4:    [B, 64, 128, 128]  (concat with skip1)
-  → Output conv:     [B, 2, 128, 128]   (per-pixel class scores)
-```
+### 8. Input / Prediction / Ground Truth Triplets
+- Reloads the best checkpoint and shows 6 validation images with their predicted and true masks.
+
+### 9. Intermediate Feature Maps
+- For one validation image, shows the first 8 channels and channel 0 of encoder levels 1 to 3, the bottleneck, and decoder levels 1 and 4.
+
+### 10. Quantitative Evaluation
+- Reloads the best checkpoint and reports mean foreground IoU, Dice and pixel accuracy on the 25 validation images, with histograms.
+
+### 11. Skip Connections vs No Skip Connections
+- `UNetNoSkip` has the same encoder, but each decoder step is a transposed convolution and a `DoubleConv` with no concatenation (6,982,082 parameters).
+- It is trained with the same data, loss, optimizer, scheduler and number of epochs (`NOSKIP_EPOCHS = NUM_EPOCHS`), and both validation IoU and loss curves are plotted against the U-Net's.
+
+### 12. Summary
+- "What the run above shows" with the run's numbers and caveats, then what was built.
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Image size:** 128×128 instead of 512×512 — faster training on Kaggle GPU
-2. **Synthetic data:** Generated blob shapes instead of real EM/light microscopy data (proprietary datasets)
-2. **BatchNorm added:** Original used plain conv+ReLU; we add BatchNorm for training stability (standard modern practice)
-3. **Epochs:** 15 instead of full training (original trained until convergence over many hours)
-4. **Border weight map simplified:** We use a simplified version of the border-aware weight computation
-5. **Dice loss added:** Not in original paper but now standard with U-Net — included for comparison
-6. **Overlap-tile strategy omitted:** Not needed with 128×128 images that fit in memory
-7. **No test-time augmentation:** Original paper used sliding window with overlap and test-time augmentation; omitted for simplicity
+1. **Data:** synthetic 64×64 blobs instead of the 512×512 EM images and light-microscopy data from the ISBI challenges.
+2. **Width:** base width 32 (32 → 512 channels) instead of 64 (64 → 1024).
+3. **Padded convolutions:** output size equals input size; the paper uses unpadded convolutions (572×572 input → 388×388 output) and an overlap-tile strategy.
+4. **BatchNorm added** after every convolution; the paper uses plain convolution + ReLU.
+5. **Loss:** cross-entropy with fixed class weights plus Dice, instead of the paper's border-weight map.
+6. **Augmentation:** flips and 90° rotations only; no elastic deformations.
+7. **Optimizer:** Adam with batch size 16 instead of SGD with momentum 0.99 and a batch of a single large tile.
+8. **Training length:** 15 epochs of 7 batches; the paper trained for about 10 hours on a GPU.
