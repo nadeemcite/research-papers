@@ -15,7 +15,7 @@ permalink: "/024_conditional-generative-adversarial-nets/"
 
 Conditional Generative Adversarial Nets (CGANs) extend the original GAN by giving extra information, most often a class label, to both the generator and the discriminator. In a standard GAN, the generator turns random noise into data samples, but there is no way to choose *which* kind of sample it makes.
 
-The conditional GAN fixes this. It joins (concatenates) a one-hot class label to the noise vector going into the generator, and to the image going into the discriminator. The model then learns to generate samples of the class you ask for. The minimax objective becomes `min_G max_D V(D,G) = E[log D(x\|y)] + E[log(1 - D(G(z\|y)))]`, where y is the conditioning label. The paper shows this on MNIST (making specific digits on demand) and on the MIR Flickr 25,000 dataset for multi-modal image tagging.
+The conditional GAN fixes this. It joins (concatenates) a one-hot class label to the noise vector going into the generator, and to the image going into the discriminator. The model then learns to generate samples of the class you ask for. The minimax objective becomes min<sub>G</sub> max<sub>D</sub> V(D, G) = E[log D(x\|y)] + E[log(1 − D(G(z\|y)))], where y is the conditioning label. The paper shows this on MNIST (making specific digits on demand) and on the MIR Flickr 25,000 dataset for multi-modal image tagging.
 
 CGANs became the base for a long line of conditional generation work: Pix2Pix (image-to-image translation), CycleGAN (unpaired translation), conditional image synthesis, and text-to-image generation (StackGAN, AttnGAN). The same idea of feeding the condition into the model shows up again in conditional diffusion models (classifier-free guidance).
 

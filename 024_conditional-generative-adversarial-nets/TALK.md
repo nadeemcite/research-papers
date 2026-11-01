@@ -47,4 +47,4 @@ A4 (from the paper, Table 1): The Parzen window log-likelihood estimate for cond
 
 4. Zhu, J., Park, T., Isola, P. & Efros, A. (2017). "Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks." ICCV 2017. — CycleGAN, extending CGAN to unpaired image translation.
 
-5. Ho, J. & Salimans, T. (2022). "Classifier-Free Diffusion Guidance." NeurIPS 2021 Workshop. — Applies the same conditioning principle (feeding labels into the generative model) to diffusion models, showing the CGAN idea transcends the GAN framework.
+5. Ho, J. & Salimans, T. (2022). "Classifier-Free Diffusion Guidance." [arXiv:2207.12598](https://arxiv.org/abs/2207.12598) (a short version appeared at the NeurIPS 2021 Workshop on Deep Generative Models and Downstream Applications). — Applies the same conditioning principle (feeding labels into the generative model) to diffusion models, showing the CGAN idea transcends the GAN framework.
