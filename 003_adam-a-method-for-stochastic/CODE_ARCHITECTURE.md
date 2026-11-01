@@ -14,7 +14,7 @@ A small, self-contained demo that implements the SGD, RMSProp and Adam update ru
 ### 1. Imports and reproducibility
 - `numpy`, `matplotlib`, `PIL.Image` and `pathlib`. Seeds NumPy with 42 (not strictly needed, since nothing is random).
 - Creates `/tmp/adam_frames` as scratch space for the plot and animation frames.
-- On Kaggle only, registers an exit hook that copies the executed notebook (with outputs) to `/kaggle/working/executed_solution.ipynb`, so it can be downloaded with `kaggle kernels output`.
+- On Kaggle only (detected from its `KAGGLE_KERNEL_RUN_TYPE` environment variable), registers an exit hook that copies the executed notebook (with outputs) to `executed_solution.ipynb` in Kaggle's output folder, so it can be downloaded with `kaggle kernels output`.
 
 ### 2. Toy 2-D loss surface and gradient
 - Loss: `L(x, y) = (x − 1)² + 5·(y − 0.5x)²`, a valley tilted along the line `y = 0.5x`, with its minimum `L = 0` at `(1, 0.5)`. The curvature across the valley is much larger than along it.
@@ -39,8 +39,8 @@ The update equations are written out in LaTeX, then implemented as one function 
 - Renders one Matplotlib frame per Adam step (201 PNGs), keeps every second frame (101 frames), and assembles them into `adam_trajectory.gif` with Pillow (`duration=80` ms, looping). The GIF is embedded inline with `IPython.display.Image`.
 
 ### 7. Summary
-- Prints the start point, end point and final loss for each optimizer.
-- A closing markdown cell, *What the run above shows*, tabulates the results and explains them: on this noise-free toy, tuned SGD wins, RMSProp bounces around the minimum, and Adam is still converging after 200 steps.
+- A code cell prints the start point, end point and final loss for each optimizer.
+- The next markdown cell opens with the *7. Summary* title and its *What the run above shows* subheading, then tabulates the results and explains them: on this noise-free toy, tuned SGD wins, RMSProp bounces around the minimum, and Adam is still converging after 200 steps.
 
 ## Data flow and shapes
 

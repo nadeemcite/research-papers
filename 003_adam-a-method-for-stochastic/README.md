@@ -10,7 +10,7 @@ permalink: "/003_adam-a-method-for-stochastic/"
 - **Paper:** [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980)
 - **Authors:** Diederik P. Kingma, Jimmy Ba
 - **Lab, year:** University of Amsterdam & University of Toronto, 2014
-- **Video:** YouTube Short coming on 31 Oct 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/u73WBo61HhM) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
