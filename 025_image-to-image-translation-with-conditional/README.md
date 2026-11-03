@@ -10,7 +10,7 @@ permalink: "/025_image-to-image-translation-with-conditional/"
 - **Paper:** [Image-to-Image Translation with Conditional Adversarial Networks](https://arxiv.org/abs/1611.07004)
 - **Authors:** Phillip Isola, Jun-Yan Zhu, Tinghui Zhou, Alexei A. Efros
 - **Lab, year:** Berkeley AI Research (BAIR), UC Berkeley, 2016 (CVPR 2017)
-- **Video:** YouTube Short coming on 3 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/OnbtZtj-K5c) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

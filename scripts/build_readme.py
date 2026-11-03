@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('1ILtCX1_khs', 'The AI That Traces Every Cell: U-Net', '035_u-net-biomedical-image-segmentation'),
+    shorts = [('OnbtZtj-K5c', 'Turn a Sketch Into a Photo: Pix2Pix', '025_image-to-image-translation-with-conditional'),
+              ('1ILtCX1_khs', 'The AI That Traces Every Cell: U-Net', '035_u-net-biomedical-image-segmentation'),
               ('QMZY4WpU4RA', 'Telling AI Exactly What to Draw: Conditional GANs', '024_conditional-generative-adversarial-nets'),
               ('u73WBo61HhM', 'How AI Decides How Big Each Learning Step Is: Adam', '003_adam-a-method-for-stochastic'),
               ('eBFMevtU7DM', 'How AI Learned to Dream Up Faces: DCGAN', '023_dcgan-unsupervised-representation-learning'),
@@ -270,7 +271,8 @@ def build_readme(papers):
               ('4iKss2ffzHI', 'The Paper That Changed AI Forever: Attention Is All You Need',
                '020_attention-is-all-you-need-transformer')]
     # Cards that show the paper's banner instead of the YouTube thumbnail
-    card_banners = {'1ILtCX1_khs': 'assets/banners/035.jpg', 'QMZY4WpU4RA': 'assets/banners/024.jpg'}
+    card_banners = {'OnbtZtj-K5c': 'assets/banners/025.jpg', '1ILtCX1_khs': 'assets/banners/035.jpg',
+                    'QMZY4WpU4RA': 'assets/banners/024.jpg'}
     for i, (vid, label, folder) in enumerate(shorts):
         if i % 2 == 0:
             L.append('<tr>')
