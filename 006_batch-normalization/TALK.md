@@ -7,49 +7,31 @@ nav_order: 2
 
 ## Verifiable press, blog, and community coverage
 
-- **Hacker News discussion of the paper** (13 Feb 2015, 134 points, 38 comments):  
-  https://news.ycombinator.com/item?id=9047786 — early community reaction to the arXiv preprint.
+- **Hacker News:** [discussion of the paper](https://news.ycombinator.com/item?id=9047786) (13 Feb 2015, 134 points) — early community reaction to the arXiv preprint.
+- **Paperspace blog:** [Busting the Myth About Batch Normalization](https://blog.paperspace.com/busting-the-myths-about-batch-normalization/) (Jul 2018) — discusses why the original internal-covariate-shift story is not the whole explanation.
+- **Gradient Science (MIT):** [How does Batch Normalization Help Optimization?](https://gradientscience.org/batchnorm/) (Mar 2019) — detailed analysis of BN's effect on the optimization landscape.
+- **Lei Mao's Log Book:** [Batch Normalization Explained](https://leimao.github.io/blog/Batch-Normalization/) (Aug 2019) — a tutorial deriving BN's forward and backward passes.
+- **Towards Data Science:** [Batch normalization in 3 levels of understanding](https://towardsdatascience.com/batch-normalization-in-3-levels-of-understanding-14c2da90a338) (2019) — beginner-to-advanced explanation.
+- **Machine Learning Mastery:** [A Gentle Introduction to Batch Normalization for Deep Neural Networks](https://machinelearningmastery.com/batch-normalization-for-training-of-deep-neural-networks/) — practical introduction for practitioners.
+- **Pinecone:** [Build Better Deep Learning Models with Batch and Layer Normalization](https://www.pinecone.io/learn/batch-layer-normalization/) (Jul 2022) — places BN in the broader normalization family.
+- **Google patent application:** [Batch normalization layers](https://patents.google.com/patent/US20160217368A1/en) (US20160217368A1, 2016).
 
-- **Google AI Blog**, “Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift” (Jul 2016):  
-  https://ai.googleblog.com/2016/07/batch-normalization-accelerating-deep.html — Google’s own research blog explaining the work.
-
-- **Paperspace blog**, “Busting the Myth About Batch Normalization” (Jul 2018):  
-  https://blog.paperspace.com/busting-the-myths-about-batch-normalization/ — discusses why the original internal-covariate-shift story is not the whole explanation.
-
-- **Gradient Science / MIT**, “How does Batch Normalization Help Optimization?” (Mar 2019):  
-  https://gradientscience.org/batchnorm/ — detailed analysis of BN’s effect on the optimization landscape.
-
-- **Lei Mao’s Log Book**, “Batch Normalization Explained” (Aug 2019):  
-  https://leimao.github.io/blog/Batch-Normalization/ — a widely read tutorial deriving BN forward and backward passes.
-
-- **Towards Data Science**, “Batch normalization in 3 levels of understanding” (2019):  
-  https://towardsdatascience.com/batch-normalization-in-3-levels-of-understanding-14c2da90a338 — beginner-to-advanced explanation.
-
-- **Machine Learning Mastery**, “A Gentle Introduction to Batch Normalization for Deep Neural Networks”:  
-  https://machinelearningmastery.com/batch-normalization-for-training-of-deep-neural-networks/ — practical introduction for practitioners.
-
-- **Pinecone**, “Build Better Deep Learning Models with Batch and Layer Normalization” (Jul 2022):  
-  https://www.pinecone.io/learn/batch-layer-normalization/ — places BN in the broader normalization family.
-
-- **Google patent application**, “Batch normalization layers” (US20160217368A1, 2016):  
-  https://patents.google.com/patent/US20160217368A1/en — shows industry interest in protecting the technique.
-
-## 3–5 interview Q&A
+## Q&A (answers from the paper)
 
 **Q1: What exactly is “internal covariate shift”?**  
-A: It is the change in the distribution of activations inside a network as the parameters of earlier layers are updated. Each downstream layer therefore has to keep adapting to a moving target. Batch Normalization reduces this by forcing each layer’s inputs to have zero mean and unit variance over every mini-batch.
+A (from the paper, Sections 1 and 2): It is the change in the distribution of activations inside a network as the parameters of earlier layers are updated. Each downstream layer therefore has to keep adapting to a moving target. Batch Normalization reduces this by normalizing each layer’s inputs to zero mean and unit variance over every mini-batch.
 
 **Q2: Why is BN inserted *before* the nonlinearity instead of after it?**  
-A: The paper argues that the pre-nonlinear inputs (`W·u + b`) are more likely to be symmetric and Gaussian-like, so matching their first two moments gives a stable distribution. Post-nonlinear outputs are often sparse and harder to normalize in a meaningful way.
+A (from the paper, Section 3.2): The paper argues that the pre-nonlinear inputs (`W·u + b`) are more likely to be symmetric and Gaussian-like, so matching their first two moments gives a stable distribution. Post-nonlinear outputs are often sparse and harder to normalize in a meaningful way.
 
 **Q3: Does BN really work because it reduces internal covariate shift?**  
-A: That was the original hypothesis. Later work — especially the 2018 NeurIPS paper “How Does Batch Normalization Help Optimization?” (Santurkar et al.) — showed that the benefit is more about smoothing the optimization landscape and making gradients better behaved, not necessarily about reducing covariate shift. The community now treats the original story as a useful intuition rather than the full mechanism.
+A (general background, not from the paper): That was the original hypothesis. Later work — especially the 2018 NeurIPS paper “How Does Batch Normalization Help Optimization?” (Santurkar et al.) — showed that the benefit is more about smoothing the optimization landscape and making gradients better behaved, not necessarily about reducing covariate shift. The community now treats the original story as a useful intuition rather than the full mechanism.
 
 **Q4: What happens at inference time?**  
-A: During training, normalization uses mini-batch statistics. At inference, the network uses population estimates collected as moving averages during training. These statistics are folded into the preceding linear layer so inference is a single deterministic affine transform with no extra cost.
+A (from the paper, Section 3.1): During training, normalization uses mini-batch statistics. At inference, the network uses population estimates, which can be collected as moving averages during training. Normalizing with them, then scaling by `γ` and shifting by `β`, gives a single deterministic linear transform.
 
 **Q5: Why is BN sometimes replaced by Layer Normalization in Transformers?**  
-A: Layer Normalization normalizes across the feature dimension of a *single* example, so it does not depend on batch size. That makes it more stable for small batches and for sequence models where batching is awkward. BN remains dominant in computer vision, while LayerNorm is dominant in NLP.
+A (general background, not from the paper): Layer Normalization normalizes across the feature dimension of a *single* example, so it does not depend on batch size. That makes it more stable for small batches and for sequence models where batching is awkward. BN remains dominant in computer vision, while LayerNorm is dominant in NLP.
 
 ## Common misconceptions
 

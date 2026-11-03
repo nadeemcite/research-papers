@@ -9,7 +9,7 @@ This document breaks down how `solution.ipynb` implements Batch Normalization (B
 
 ## 1. Data loading and preprocessing
 
-- **Dataset:** `make_moons` from scikit-learn, plus a small 2-D Gaussian-mixture toy dataset, generated inside the notebook.
+- **Dataset:** `make_moons` from scikit-learn (1,200 points, noise 0.25), generated inside the notebook.
 - **Preprocessing:** features are standardized once at the start so that the *input* distribution is well-behaved; the network then learns from this fixed input. Labels are one-hot encoded for binary classification.
 - **Train/validation split:** 80/20 split for monitoring generalization without needing large downloads.
 
@@ -20,15 +20,15 @@ This document breaks down how `solution.ipynb` implements Batch Normalization (B
 A fully vectorized forward/backward implementation for 2-D inputs of shape `(batch_size, features)`.
 
 **Attributes**
-- `gamma` — per-feature scale, shape `(features,)`, initialized to 1.
-- `beta` — per-feature shift, shape `(features,)`, initialized to 0.
-- `running_mean` — exponential moving average of batch means, shape `(features,)`.
-- `running_var` — exponential moving average of unbiased batch variances, shape `(features,)`.
+- `gamma` — per-feature scale, shape `(1, features)`, initialized to 1.
+- `beta` — per-feature shift, shape `(1, features)`, initialized to 0.
+- `running_mean` — exponential moving average of batch means, shape `(1, features)`.
+- `running_var` — exponential moving average of unbiased batch variances, shape `(1, features)`.
 - `eps` — small constant for numerical stability, default `1e-5`.
 - `momentum` — EMA momentum for running statistics, default `0.9` (training mode only).
 
 **Key methods**
-- `forward(x, training=True)`
+- `forward(x)` (the mode comes from `self.training`, set by `train()` and `eval()`)
   - Training: computes batch mean `mu_B` and variance `var_B`, normalizes `x_hat = (x - mu_B) / sqrt(var_B + eps)`, returns `y = gamma * x_hat + beta`. Stores intermediates for backward pass and updates `running_mean` / `running_var`.
   - Inference: normalizes with running statistics and applies the learned affine transform.
 - `backward(dy)`
@@ -56,10 +56,10 @@ Cross-entropy loss     scalar
 
 ### 3.1 `Linear` layer
 
-- Weights initialized with small Gaussian random values.
-- Bias is **optional and intentionally omitted** after the first linear layer when BN is used, because BN’s `beta` subsumes the bias term. A comparison branch keeps the bias for the non-BN network so the comparison is fair.
+- Weights initialized with small Gaussian random values (scale 0.1).
+- Bias is **omitted on all hidden linear layers** when BN is used, because BN’s `beta` subsumes the bias term. The output layer and the plain network keep their biases.
 - Forward: `out = x @ W + b`.
-- Backward: computes `dW`, `db`, and passes `dx` upstream.
+- Backward: computes `dW`, `db`, and passes `dx` upstream. The incoming `dout` is already averaged over the batch by the loss, so these are not divided by the batch size again.
 
 ### 3.2 `ReLU` and `Tanh` activations
 
@@ -81,10 +81,10 @@ A twin “plain” network is created with the same layer widths and initializat
 
 ## 4. Training loop
 
-- **Optimizer:** vanilla SGD with a fixed learning rate. A second run uses a 5× higher learning rate for the BN network to show that BN stabilizes large steps.
+- **Optimizer:** vanilla SGD with a fixed learning rate: 0.05 for the plain network and 0.25 (5×) for the BN network. Because the rates differ, the comparison is not like-for-like.
 - **Batch size:** 32.
-- **Epochs:** 100–200, enough to show the gap clearly on this toy problem.
-- **Logging:** every few epochs the notebook records training loss, validation loss, and validation accuracy for both networks.
+- **Epochs:** 150.
+- **Logging:** after epoch 1 and every 5 epochs the notebook records training loss, validation loss, and validation accuracy for both networks.
 - **No PyTorch/TensorFlow autograd:** all gradients are hand-derived and implemented in NumPy, matching the paper’s algorithmic spirit.
 
 ## 5. Visualization
@@ -98,18 +98,18 @@ A side-by-side plot of:
 
 ### 5.2 Activation distribution histograms
 
-Every 20 epochs the notebook samples activations entering the second hidden layer and overlays histograms for the BN and plain networks. This directly reproduces the intuition in Figure 1(b,c) of the paper: BN activations stay centered and stable, while plain-network activations drift.
+Two fresh networks are trained for 150 epochs, and every 30 epochs the notebook runs the validation set up to the first activation layer and overlays histograms of its inputs for the BN and plain networks. BN's inputs stay centred with a spread of about 1. The plain network's are narrower and also barely move, so this small network shows no visible drift.
 
-### 5.3 Layer-wise mean / variance tracking
+### 5.3 Tanh comparison
 
-A line plot showing the running mean and variance of one representative hidden unit across training for both networks. The BN line should stay flat near (0, 1), while the plain-network line wanders.
+The same plain vs BN (5× lr) comparison with Tanh activations, as a validation-accuracy plot. BN gets above 0.92 much sooner but is noisier, and both end near 0.925.
 
 ## 6. Inference sanity check
 
 After training, the notebook switches both networks to evaluation mode and prints:
-- final validation accuracy,
-- the learned `gamma` and `beta` values for one BN layer,
-- a check that the running statistics approximate the population statistics.
+- final validation loss and accuracy (plain 0.1744 / 0.9208, BN 0.1651 / 0.9250),
+- the learned `gamma` and `beta` values of the first BN layer,
+- that layer's running mean and variance (printed only, not compared with population statistics).
 
 ## 7. Deliberate simplifications vs. the full paper
 
@@ -122,4 +122,4 @@ After training, the notebook switches both networks to evaluation mode and print
 | Ensemble results and 4.9% ImageNet top-5 error | Not reproduced; focus is on the mechanics and qualitative speedup |
 | `m/(m-1)` unbiased variance correction | Applied in running-statistic update, not in per-batch variance |
 
-These simplifications keep the notebook Colab-runnable in under a minute while preserving the exact algorithm the paper proposes.
+These simplifications keep the notebook small and quick to run while keeping the algorithm the paper proposes.
