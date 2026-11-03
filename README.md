@@ -210,8 +210,8 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
-<td align="center" width="50%"><a href="https://www.youtube.com/shorts/1ILtCX1_khs"><img src="https://img.youtube.com/vi/1ILtCX1_khs/hqdefault.jpg" alt="The AI That Traces Every Cell: U-Net" width="320"></a><br><b>The AI That Traces Every Cell: U-Net</b><br><sub><a href="035_u-net-biomedical-image-segmentation/">notebook</a></sub></td>
-<td align="center" width="50%"><a href="https://www.youtube.com/shorts/QMZY4WpU4RA"><img src="https://img.youtube.com/vi/QMZY4WpU4RA/hqdefault.jpg" alt="Telling AI Exactly What to Draw: Conditional GANs" width="320"></a><br><b>Telling AI Exactly What to Draw: Conditional GANs</b><br><sub><a href="024_conditional-generative-adversarial-nets/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/1ILtCX1_khs"><img src="assets/banners/035.jpg" alt="The AI That Traces Every Cell: U-Net" width="320"></a><br><b>The AI That Traces Every Cell: U-Net</b><br><sub><a href="035_u-net-biomedical-image-segmentation/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/QMZY4WpU4RA"><img src="assets/banners/024.jpg" alt="Telling AI Exactly What to Draw: Conditional GANs" width="320"></a><br><b>Telling AI Exactly What to Draw: Conditional GANs</b><br><sub><a href="024_conditional-generative-adversarial-nets/">notebook</a></sub></td>
 </tr>
 <tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/u73WBo61HhM"><img src="https://img.youtube.com/vi/u73WBo61HhM/hqdefault.jpg" alt="How AI Decides How Big Each Learning Step Is: Adam" width="320"></a><br><b>How AI Decides How Big Each Learning Step Is: Adam</b><br><sub><a href="003_adam-a-method-for-stochastic/">notebook</a></sub></td>

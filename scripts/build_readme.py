@@ -269,11 +269,13 @@ def build_readme(papers):
               ('aGXecMt314w', 'Two AIs Fight Until Fakes Look Real: GANs Explained', '022_generative-adversarial-networks-gan'),
               ('4iKss2ffzHI', 'The Paper That Changed AI Forever: Attention Is All You Need',
                '020_attention-is-all-you-need-transformer')]
+    # Cards that show the paper's banner instead of the YouTube thumbnail
+    card_banners = {'1ILtCX1_khs': 'assets/banners/035.jpg', 'QMZY4WpU4RA': 'assets/banners/024.jpg'}
     for i, (vid, label, folder) in enumerate(shorts):
         if i % 2 == 0:
             L.append('<tr>')
         L.append(f'<td align="center" width="50%"><a href="https://www.youtube.com/shorts/{vid}">'
-                 f'<img src="https://img.youtube.com/vi/{vid}/hqdefault.jpg" alt="{label}" width="320"></a><br>'
+                 f'<img src="{card_banners.get(vid, f"https://img.youtube.com/vi/{vid}/hqdefault.jpg")}" alt="{label}" width="320"></a><br>'
                  f'<b>{label}</b><br><sub><a href="{folder}/">notebook</a></sub></td>')
         if i % 2 == 1 or i == len(shorts) - 1:
             L.append('</tr>')

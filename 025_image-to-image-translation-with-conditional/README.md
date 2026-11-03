@@ -4,6 +4,7 @@ nav_order: 26
 permalink: "/025_image-to-image-translation-with-conditional/"
 ---
 # Image-to-Image Translation with Conditional Adversarial Networks (Pix2Pix)
+![Pix2Pix banner](../assets/banners/025.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/pix2pix-image-to-image-translation)
 
 - **Paper:** [Image-to-Image Translation with Conditional Adversarial Networks](https://arxiv.org/abs/1611.07004)

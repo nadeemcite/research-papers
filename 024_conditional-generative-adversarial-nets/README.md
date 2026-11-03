@@ -4,6 +4,7 @@ nav_order: 25
 permalink: "/024_conditional-generative-adversarial-nets/"
 ---
 # Conditional Generative Adversarial Nets (CGAN)
+![Conditional GAN banner](../assets/banners/024.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/conditional-generative-adversarial-nets)
 
 - **Paper:** [Conditional Generative Adversarial Nets](https://arxiv.org/abs/1411.1784) (arXiv:1411.1784)
