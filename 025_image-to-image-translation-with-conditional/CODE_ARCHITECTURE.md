@@ -5,89 +5,81 @@ nav_order: 1
 ---
 # Code Architecture — Pix2Pix (Image-to-Image Translation with Conditional Adversarial Networks)
 
+## Overview
+
+The notebook builds a U-Net generator and a PatchGAN discriminator from scratch in PyTorch and trains them for 4 epochs on 200 edges→shoes pairs at 128×128, on a Kaggle Tesla T4. It is a short demonstration of the mechanics, so the outputs are far from the paper's quality.
+
 ## Notebook Structure
 
 ### 1. Setup & Imports
-- Install/import PyTorch, torchvision, matplotlib, numpy
-- Set device (CUDA if available, else CPU)
-- Define hyperparameters: image size (256×256), batch size, learning rate (0.0002), β1=0.5, λ_L1=100, epochs
+- PyTorch, numpy, matplotlib, PIL, plus standard-library helpers.
+- Seeds Python, NumPy and PyTorch with 42 and turns on deterministic cuDNN kernels, so a re-run reproduces the summary's numbers.
+- Shows figures as JPEG at 80 dpi so the saved notebook stays small.
+- Detects Kaggle from its `KAGGLE_KERNEL_RUN_TYPE` environment variable and sets `OUT_DIR`: the current folder on Kaggle (its output folder), `./outputs` anywhere else.
+- On Kaggle only, an exit hook copies the executed notebook to `executed_solution.ipynb` in the output folder so it can be downloaded with `kaggle kernels output`.
 
-### 2. Dataset Preparation
-- **Edges2Shoes dataset** (from the Berkeley pix2pix repository): paired edge maps → shoe photos
-- Download a small subset (~200 pairs) for demonstration
-- Custom Dataset class: loads paired images, splits input (edges) and target (shoes), applies transforms (resize, normalize to [-1, 1], random jitter/mirror for augmentation)
-- DataLoader with batch_size=1 (as in the paper for best results)
+### 2. Hyperparameters
+- `IMG_SIZE = 128`, `BATCH_SIZE = 4`, `LEARNING_RATE = 0.0002`, `BETA1 = 0.5`, `BETA2 = 0.999`, `LAMBDA_L1 = 100`, `EPOCHS = 4`, `NUM_WORKERS = 2`.
 
-### 3. Generator Architecture (U-Net)
-- **Encoder:** 8 downsampling blocks — each: Conv2d(stride=2) → BatchNorm2d → LeakyReLU(0.2)
-  - Channels: 3→64→128→256→512→512→512→512→512 (last block no BatchNorm)
-- **Decoder:** 8 upsampling blocks — each: ConvTranspose2d(stride=2) → BatchNorm2d → Dropout(0.5) → ReLU
-  - Channels: 512→512→512→512→256→128→64→3
-  - Skip connections: concatenate encoder layer i output with decoder layer n-i input
-  - Final layer: Tanh activation (output in [-1, 1] range)
-- Input: 3-channel edge image (256×256) → Output: 3-channel generated image (256×256)
+### 3. Dataset Preparation
+- Downloads `edges2shoes.tar.gz` (about 2 GB) over HTTPS from the Berkeley server with `curl -fsSL`, so a failed download stops the run, and extracts it into the system temp folder.
+- `Edge2ShoeDataset` splits each file into left (edges) and right (shoe), resizes both to 143×143 (1.12 × 128), then takes a random 128×128 crop and random mirror for training, or a centre crop for validation, and scales to [-1, 1].
+- `MAX_TRAIN = 200`, `MAX_VAL = 30`: only the first 200 of 49,825 training images and 30 of 200 validation images are used. 50 training batches per epoch.
 
-### 4. Discriminator Architecture (PatchGAN)
-- 70×70 PatchGAN: 4 convolutional layers
-  - Conv2d(3+3→64, kernel=4, stride=2) → LeakyReLU(0.2)  [no BatchNorm]
-  - Conv2d(64→128, kernel=4, stride=2) → BatchNorm → LeakyReLU(0.2)
-  - Conv2d(128→256, kernel=4, stride=2) → BatchNorm → LeakyReLU(0.2)
-  - Conv2d(256→512, kernel=4, stride=1) → BatchNorm → LeakyReLU(0.2)
-  - Conv2d(512→1, kernel=4, stride=1) → Sigmoid
-- Input: concatenation of input image + target (real) or input image + generated (fake)
-- Output: N×N probability map (each value = probability that patch is real), averaged to scalar
+### 4. Generator Architecture (U-Net)
+- `DownBlock`: 4×4 conv (stride 2) → optional BatchNorm → LeakyReLU(0.2).
+- `UpBlock`: 4×4 transposed conv (stride 2) → BatchNorm → ReLU → optional Dropout, then concatenate the skip.
+- `UNet`: 7 down blocks and 6 up blocks plus a final transposed conv with Tanh. `d1` and `d7` have no BatchNorm. Dropout 0.5 on `u1` and `u2`. 41,828,995 parameters.
 
-### 5. Loss Functions
-- **GAN Loss:** Binary Cross Entropy with Logits (BCEWithLogitsLoss)
-  - D real loss: D(real_pair) should be 1
-  - D fake loss: D(fake_pair) should be 0
-  - G adversarial loss: D(fake_pair) should be 1 (fool D)
-- **L1 Loss:** L1Loss between generated and target images, weighted by λ=100
+### 5. Discriminator Architecture (PatchGAN)
+- `PatchNet`: concatenates input and target or generated image (6 channels), then conv blocks 64 (no BatchNorm) → 128 → 256 → 512 (stride 1) → a final 1-channel conv. 2,768,641 parameters.
+- Outputs raw logits on a 14×14 grid, one per patch with a 70×70 receptive field. There is no Sigmoid: `BCEWithLogitsLoss` applies it.
 
-### 6. Training Loop
-- For each epoch, for each batch:
-  1. Forward pass: G(input) → fake_output
-  2. Train D: maximize log(D(real)) + log(1 - D(fake)), with .detach() on fake
-  3. Train G: minimize -log(D(fake)) + λ * L1(fake, target)
-  4. Use Adam optimizer for both G and D
-  5. Apply dropout in G during both train and test
-- Track losses for plotting
+### 6. Loss Functions & Optimizers
+- **Adversarial loss:** `BCEWithLogitsLoss` on the patch grid. **L1 loss:** `L1Loss`, weighted by λ = 100.
+- Adam for both networks (lr 0.0002, β1 0.5, β2 0.999).
 
-### 7. Visualization
-- Side-by-side grid: Input (edges) \| Generated \| Target (real shoes)
-- Loss curves for G and D over epochs
-- Save sample outputs at intervals
+### 7. Training Loop
+- Each batch: one D step on real and fake pairs (`.detach()` on the fake), with the loss halved as in the paper, then one G step on adversarial + λ·L1 loss.
+- Prints the epoch averages of D and G and the last batch's adversarial and L1 losses (final epoch: D 0.39, G 32.05, last-batch L1 0.23). After each epoch, `save_sample` shows one fixed validation example.
 
-## Key Functions/Classes
+### 8. Loss Curves
+- G and D average losses per epoch (epochs 1 to 4).
+
+### 9. Final Results
+- `generate_test_grid` shows 8 random validation examples: input edges, generated output, real target.
+
+### 10. Summary
+- "What the run above shows" with the run's numbers, then a table of what was built.
+
+## Key Classes and Functions
 
 | Component | Description |
 |-----------|-------------|
-| `UNetGenerator` | U-Net with 8 encoder + 8 decoder blocks, skip connections, dropout on first 3 decoder blocks |
-| `PatchGANDiscriminator` | 70×70 PatchGAN, 4 conv layers, outputs patch-level real/fake map |
-| `Edge2ShoeDataset` | Custom Dataset: loads paired images, splits, augments |
-| `train_epoch()` | One epoch: D step then G step, returns losses |
-| `visualize_results()` | Grid of input/generated/target triples |
+| `Edge2ShoeDataset` | Loads paired images, splits, augments |
+| `DownBlock`, `UpBlock` | Encoder and decoder building blocks |
+| `UNet` | Generator: 7 down + 7 up steps with skips, dropout on `u1` and `u2` |
+| `PatchNet` | Discriminator: 70×70 PatchGAN returning logits |
+| `save_sample()` | One input / output / target figure per epoch |
+| `generate_test_grid()` | Grid of 8 validation examples |
 
 ## Data Flow / Shapes
 
 ```
-Input: edges (B, 3, 256, 256)
-  → Generator (U-Net)
-    → Encoder: 256→128→64→32→16→8→4→2→1 (spatial), 64→128→256→512 channels
-    → Decoder: 1→2→4→8→16→32→64→128→256 (spatial) with skip concat
-    → Output: (B, 3, 256, 256) in [-1, 1]
-  
-Discriminator input: cat(input, target_or_fake) → (B, 6, 256, 256)
-  → 4 conv layers → (B, 1, 30, 30) patch map
-  → mean → scalar probability
+Input: edges (B, 3, 128, 128)
+  → UNet encoder: 128→64→32→16→8→4→2→1 (spatial), channels 64→128→256→512→512→512→512
+  → UNet decoder: 1→2→4→8→16→32→64→128 (spatial) with skip concatenation
+  → Output: (B, 3, 128, 128) in [-1, 1]
+
+PatchNet input: cat(input, target_or_fake) → (B, 6, 128, 128)
+  → 4 conv blocks + output conv → (B, 1, 14, 14) patch logits
 ```
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Dataset size:** Using ~200 paired images instead of the full edges2shoes dataset (~50k). Results will be lower quality but demonstrate the architecture.
-2. **Training duration:** 200 epochs (reduced for Kaggle time limits) vs the paper's ~200 epochs on full data. We use a smaller dataset so convergence is faster.
-3. **Noise injection:** Paper uses dropout at test time; we apply dropout during training only for simplicity and stability on a small dataset.
-4. **No FCN-score evaluation:** We skip the FCN-8s semantic segmentation metric and use visual inspection only.
-5. **No AMT perceptual study:** We don't run Amazon Mechanical Turk evaluations.
-6. **Single task:** We demonstrate on edges→shoes only, whereas the paper tests on 8+ tasks.
-7. **Image size:** 256×256 as in the paper — no change here.
+1. **Image size:** 128×128 instead of the paper's 256×256, so the generator has 7 down/up steps instead of 8.
+2. **Dataset size:** 200 pairs instead of the full edges2shoes training set (49,825 images here).
+3. **Training length:** 4 epochs at batch size 4 (200 steps). For edges→shoes the paper also uses batch size 4, but trains 15 epochs on about 50,000 images (Appendix 6.2).
+4. **Evaluation mode:** `save_sample` and `generate_test_grid` call `netG.eval()`, which turns dropout off and uses BatchNorm's running statistics. The paper keeps dropout on and uses batch statistics at test time.
+5. **No FCN-score evaluation or AMT study:** the notebook only shows samples.
+6. **Single task:** edges→shoes only, whereas the paper tests many tasks.
