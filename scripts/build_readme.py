@@ -250,7 +250,9 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('u73WBo61HhM', 'How AI Decides How Big Each Learning Step Is: Adam', '003_adam-a-method-for-stochastic'),
+    shorts = [('1ILtCX1_khs', 'The AI That Traces Every Cell: U-Net', '035_u-net-biomedical-image-segmentation'),
+              ('QMZY4WpU4RA', 'Telling AI Exactly What to Draw: Conditional GANs', '024_conditional-generative-adversarial-nets'),
+              ('u73WBo61HhM', 'How AI Decides How Big Each Learning Step Is: Adam', '003_adam-a-method-for-stochastic'),
               ('eBFMevtU7DM', 'How AI Learned to Dream Up Faces: DCGAN', '023_dcgan-unsupervised-representation-learning'),
               ('HFxEYtTYozU', 'The Shortcut That Let AI Go 152 Layers Deep: ResNet', '008_resnet-deep-residual-learning-for-image'),
               ('s7nyHPKX-Fg', 'The Express Lane That Let AI Go 100+ Layers Deep: Highway Networks', '009_highway-networks'),

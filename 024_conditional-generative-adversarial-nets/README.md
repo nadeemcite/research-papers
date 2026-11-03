@@ -9,7 +9,7 @@ permalink: "/024_conditional-generative-adversarial-nets/"
 - **Paper:** [Conditional Generative Adversarial Nets](https://arxiv.org/abs/1411.1784) (arXiv:1411.1784)
 - **Authors:** Mehdi Mirza, Simon Osindero
 - **Lab, year:** Université de Montréal & Flickr / Yahoo, 2014
-- **Video:** YouTube Short coming on 1 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/QMZY4WpU4RA) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

@@ -9,7 +9,7 @@ permalink: "/035_u-net-biomedical-image-segmentation/"
 - **Paper:** [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597) (arXiv:1505.04597, MICCAI 2015)
 - **Authors:** Olaf Ronneberger, Philipp Fischer, Thomas Brox
 - **Lab, year:** University of Freiburg (Computer Science Department and BIOSS Centre for Biological Signalling Studies), 2015
-- **Video:** YouTube Short coming on 2 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/1ILtCX1_khs) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
