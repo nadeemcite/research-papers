@@ -12,13 +12,13 @@ This notebook implements BERT from scratch in PyTorch, following the original pa
 1. **Pre-training** — Masked Language Model (MLM) + Next Sentence Prediction (NSP) on a toy corpus
 2. **Fine-tuning** — Binary text classification on a small sentiment task
 
-The model is intentionally small (2 Transformer layers, 128 hidden dim, 4 attention heads, ~2k vocabulary) to run within Kaggle's 30-minute GPU limit while demonstrating all core BERT mechanisms.
+The model is intentionally tiny (2 Transformer layers, 128 hidden dim, 4 attention heads, a 190-word vocabulary). It shows how BERT's parts connect, but it barely learns: see the notebook's Summary cell.
 
 ## Section-by-Section Breakdown
 
 ### 1. Imports & Configuration
 - Imports: `torch`, `torch.nn`, `torch.nn.functional`, `math`, `random`, `collections`
-- Hyperparameters: `d_model=128`, `n_heads=4`, `n_layers=2`, `vocab_size` (built from corpus), `max_len=64`, `batch_size=32`, `lr=1e-4`, `mlm_epochs=15`, `finetune_epochs=5`
+- Hyperparameters: `d_model=128`, `n_heads=4`, `n_layers=2`, `vocab_size` (built from corpus), `max_len=64`, `batch_size=32`, `lr=1e-4`, `mlm_epochs=15`, `finetune_epochs=10`
 
 ### 2. Toy Corpus Construction
 - A small collection of sentence pairs drawn from simple English sentences
@@ -30,7 +30,7 @@ The model is intentionally small (2 Transformer layers, 128 hidden dim, 4 attent
 - Build a vocabulary from all words in the toy corpus
 - Special tokens: `[PAD]=0`, `[UNK]=1`, `[CLS]=2`, `[SEP]=3`, `[MASK]=4`
 - Word-to-id and id-to-word mappings
-- ~200-500 tokens depending on corpus size
+- 190 tokens in the saved run
 
 ### 4. Data Preparation — Pre-training
 - **MLM masking function:** Given a token sequence, select 15% of positions. Of those: 80% → `[MASK]`, 10% → random token, 10% → unchanged. Return masked input, labels (original tokens at masked positions, -100 elsewhere for loss masking).
@@ -75,7 +75,7 @@ The model is intentionally small (2 Transformer layers, 128 hidden dim, 4 attent
 ### 7. Fine-tuning Task — Sentiment Classification
 - Small set of positive/negative sentences as the downstream task
 - Input: `[CLS] sentence [SEP]` with segment ID all 0
-- Classification head: take `[CLS]` output → Dense → Dropout → Linear(2)
+- Classification head (`BERTForClassification`): take `[CLS]` output → the existing pooler (Dense → Tanh) → Dropout → Linear(2)
 - Fine-tune ALL parameters (including pre-trained embeddings and encoder) for `finetune_epochs`
 - Print training accuracy and plot fine-tuning loss
 
@@ -84,7 +84,7 @@ The model is intentionally small (2 Transformer layers, 128 hidden dim, 4 attent
 - Report final NSP accuracy
 - Report fine-tuning classification accuracy
 - Loss curves for both pre-training and fine-tuning phases (matplotlib)
-- Print sample masked-token predictions to show the model has learned contextual representations
+- Print sample masked-token predictions (in the saved run they barely change with the sentence)
 
 ## Key Functions/Classes
 
@@ -95,7 +95,7 @@ The model is intentionally small (2 Transformer layers, 128 hidden dim, 4 attent
 | `TransformerEncoderLayer` | Module | One layer of BERT encoder (attn + FFN + residuals + LN) |
 | `BERTEmbedding` | Module | Token + segment + position embeddings |
 | `BERTModel` | Module | Full BERT: embeddings → encoder → MLM head + NSP head |
-| `create_mlm_data` | Function | Applies 80/10/10 masking to a token sequence |
+| `apply_mlm_mask` | Function | Applies 80/10/10 masking to a token sequence |
 | `PretrainDataset` | Dataset | Yields (input_ids, segment_ids, mask, mlm_labels, nsp_label) |
 | `FinetuneDataset` | Dataset | Yields (input_ids, segment_ids, mask, label) |
 | `train_pretraining` | Function | Pre-training loop (MLM + NSP) |
@@ -118,14 +118,14 @@ Input sentence pair → tokenize → [CLS] tok_A... [SEP] tok_B... [SEP]
 
 | Simplification | Original BERT | Our Version | Rationale |
 |---|---|---|---|
-| Vocabulary | 30k WordPiece | ~200-500 word-level | Simpler, no tokeniser dependency |
-| Model size | 12-24 layers, 768-1024 hidden | 2 layers, 128 hidden | Runs in <20 min on T4 GPU |
-| Pre-training data | BooksCorpus + Wikipedia (3.3B words) | ~50 sentence pairs | Demonstrate mechanism, not scale |
+| Vocabulary | 30k WordPiece | 190 word-level | Simpler, no tokeniser dependency |
+| Model size | 12-24 layers, 768-1024 hidden | 2 layers, 128 hidden | Small enough to run on a CPU |
+| Pre-training data | BooksCorpus + Wikipedia | 400 toy sentence pairs | Demonstrate mechanism, not scale |
 | Batch size | 256 | 32 | Smaller dataset needs smaller batch |
-| Training steps | 1M (BERT-Base) | ~500 (15 epochs) | Enough to show learning on toy data |
+| Training steps | Far more than here | About 190 (15 epochs) | Too few to learn much, as the Summary cell reports |
 | NSP task | Full binary classification | Same | Faithful to original |
 | Token masking | WordPiece sub-tokens | Word-level tokens | Conceptually identical |
-| Fine-tuning tasks | 11 benchmarks (GLUE, SQuAD, etc.) | One binary sentiment task | Demonstrates the fine-tuning paradigm |
+| Fine-tuning tasks | 11 tasks (GLUE, SQuAD, etc.) | One binary sentiment task | Demonstrates the fine-tuning paradigm |
 | Pooler activation | Tanh | Tanh | Faithful |
-| Optimizer | AdamW with LAMB | Adam | Simpler, adequate for toy scale |
+| Optimizer | Adam at `lr=1e-4`, with learning-rate warmup | Adam at `lr=1e-4`, no warmup | Simpler |
 | Position embeddings | Learned, max 512 | Learned, max 64 | Sufficient for short toy sequences |
