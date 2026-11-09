@@ -43,7 +43,7 @@ num	short	year	domain	title	folder	kaggle
 042	LayerNorm	2016	foundations	Layer Normalization	042_layer-normalization	layer-normalization
 043	GroupNorm	2018	foundations	Group Normalization	043_group-normalization	group-normalization
 044	Inception-v3	2015	cnn	Rethinking the Inception Architecture (Label Smoothing)	044_rethinking-inception-architecture-label	label-smoothing-regularization-inception
-045	Distillation	2015	foundations	Distilling the Knowledge in a Neural Network	045_distilling-knowledge-in-a-neural-network	distilling-knowledge-in-a-neural-network
+045	Distillation	2015	foundations	Distilling the Knowledge in a Neural Network	045_distilling-knowledge-in-a-neural-network	distilling-the-knowledge-in-a-neural-network
 046	Lottery Ticket	2018	foundations	The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks	046_lottery-ticket-hypothesis	lottery-ticket-hypothesis
 047	NAS	2016	cnn	Neural Architecture Search with Reinforcement Learning	047_neural-architecture-search-rl	neural-architecture-search-rl
 048	EfficientNet	2019	cnn	EfficientNet: Rethinking Model Scaling for CNNs	048_efficientnet-rethinking-model-scaling	efficientnet-rethinking-model-scaling-for-cnns
