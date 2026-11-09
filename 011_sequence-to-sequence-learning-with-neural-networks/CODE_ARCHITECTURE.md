@@ -22,8 +22,8 @@ This notebook builds a minimal but faithful seq2seq LSTM system from scratch in 
 **What it does:** Builds character-level vocabularies for source and target. Characters are used instead of words because the date task has a small alphabet and a character model directly mirrors the token-by-token generation in the paper.
 
 **Key mappings:**
-- `char2idx`: maps every character to an integer index.
-- `idx2char`: reverse mapping for decoding predictions.
+- `src2idx`, `tgt2idx`: map every character to an integer index (40 source tokens and 14 target tokens, special tokens included).
+- `idx2src`, `idx2tgt`: reverse mappings for decoding predictions.
 - Special tokens: `<PAD>`, `<SOS>`, `<EOS>`.
 
 ## Section 3 — Encoder
@@ -33,6 +33,7 @@ This notebook builds a minimal but faithful seq2seq LSTM system from scratch in 
 **Class:** `EncoderLSTM`
 - Input shape: `(batch_size, src_len)` after embedding becomes `(batch_size, src_len, emb_dim)`.
 - LSTM output: `outputs` of shape `(batch_size, src_len, hidden_dim)`; `hidden`, `cell` of shape `(num_layers, batch_size, hidden_dim)`.
+- **Padding:** the encoder packs its input with `pack_padded_sequence`, so the final state comes from each date's last real character. Without packing, the same model scored only 77.35% on free-running decoding, because short dates were trained with trailing padding and tested without it.
 - **Reversing:** the source string is reversed before encoding, matching the paper's famous trick. This brings the first source token closer to the first target token during decoding.
 
 ## Section 4 — Decoder
@@ -49,10 +50,10 @@ This notebook builds a minimal but faithful seq2seq LSTM system from scratch in 
 
 **Class:** `Seq2Seq`
 - Ties the encoder and decoder.
-- `forward(src, tgt, teacher_forcing_ratio=0.5)`: encodes source, then decodes target using teacher forcing with the given probability.
-- `translate(src, max_len)`: greedy inference, used for quick demos.
+- It has no `forward` method. The training loop calls `model.encoder` and `model.decoder` directly, always feeding the correct previous token (full teacher forcing).
+- `translate(src, max_len)`: greedy inference on one source sequence.
 
-**Deliberate simplification vs. full paper:** The paper used 4-layer LSTMs, 1000-dimensional hidden states, an 80k target vocabulary, and beam search decoding. We use 2 layers, a small hidden dimension, a character-level target vocabulary, and greedy decoding. The architecture shape is identical; only the scale is reduced so the notebook trains in minutes on a Kaggle GPU.
+**Deliberate simplification vs. full paper:** The paper used 4-layer LSTMs, 1000-dimensional hidden states, an 80k target vocabulary, and beam search decoding. We use 2 layers, 256 hidden units, 64-dimensional embeddings, a character-level vocabulary, and greedy decoding. The architecture shape is identical; only the scale is reduced so the notebook is quick to run on a Kaggle GPU.
 
 ## Section 6 — Training loop
 
@@ -60,21 +61,20 @@ This notebook builds a minimal but faithful seq2seq LSTM system from scratch in 
 - Shuffle paired (source, target) examples each epoch.
 - Pad sequences within a batch to the same length.
 - Compute cross-entropy loss and back-propagate through both encoder and decoder.
-- Track training loss and a few sample translations every few epochs.
+- Train for 20 epochs, printing losses each epoch and five sample translations every five epochs.
+- After training, measure exact-match accuracy with greedy decoding on all 2,000 validation dates.
 
 **Key functions:**
-- `train_step(model, batch)`
-- `evaluate(model, val_loader)`
+- `train_epoch(model, loader, optimizer, criterion)`
+- `evaluate(model, loader, criterion)`: reports loss and exact-match accuracy with teacher forcing, so its accuracy flatters the model. The free-running cell after the training loop is the fair measure.
 
 ## Section 7 — Visualization
 
 **What it does:** Visualizes how the encoder compresses the input.
 
-### 7a — Encoder hidden-state trajectories
-For a held-out source sequence we record the top two principal components of the encoder hidden states across time and plot the path, colored by position. The curve shows the model accumulating and re-encoding date information as it reads.
+For one held-out source sequence we take the encoder's output at every source position, project those vectors onto their top two principal components, and plot the path colored by position. The plot shows the state moving as characters are read. It does not by itself prove what the final vector stores.
 
-### 7b — Attention-style heatmap (optional extension)
-The original paper did not use attention; that came in Bahdanau et al. 2015. We therefore keep the core visualization focused on the fixed "thought vector" and its PCA trajectory, which is the most direct empirical illustration of the paper's claim that a single vector can carry the whole input meaning.
+The original paper did not use attention (that came in Bahdanau et al., 2015), so the notebook has no attention heatmap.
 
 ## Data flow summary
 
@@ -97,10 +97,10 @@ print / plot PCA trajectory
 | Paper | Notebook |
 |---|---|
 | WMT'14 English→French | Synthetic date normalization |
-| Word-level 160k/80k vocab | Character-level ~20 token vocab |
-| 4-layer LSTM, 1000 hidden | 2-layer LSTM, configurable hidden |
-| Beam search (B=12 reported) | Greedy decoding |
+| Word-level 160k/80k vocab | Character-level vocab (40 source, 14 target tokens) |
+| 4-layer LSTM, 1000 hidden | 2-layer LSTM, 256 hidden |
+| Beam search (sizes 1, 2 and 12 in Table 1) | Greedy decoding |
 | 12M sentence pairs | 20k synthetic pairs |
-| Dropout, gradient clipping | Minimal (optional) |
+| SGD at learning rate 0.7, 7.5 epochs, gradient norm clipped at 5 | Adam at 1e-3, 20 epochs, gradient norm clipped at 1, dropout 0.3 between LSTM layers |
 
 These reductions keep the code focused on the paper's architectural contribution without requiring large downloads or long training.

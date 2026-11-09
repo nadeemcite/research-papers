@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('q68WnzvntPM', 'The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis', '046_lottery-ticket-hypothesis'),
+    shorts = [('jcLW_NY0aOs', 'How AI Learned to Translate Whole Sentences: Seq2Seq', '011_sequence-to-sequence-learning-with-neural-networks'),
+              ('q68WnzvntPM', 'The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis', '046_lottery-ticket-hypothesis'),
               ('y9Fx6le21yo', 'The Quick Reset That Made AI Train 14x Faster: Batch Normalization', '006_batch-normalization'),
               ('OnbtZtj-K5c', 'Turn a Sketch Into a Photo: Pix2Pix', '025_image-to-image-translation-with-conditional'),
               ('1ILtCX1_khs', 'The AI That Traces Every Cell: U-Net', '035_u-net-biomedical-image-segmentation'),

@@ -6,47 +6,56 @@ permalink: "/011_sequence-to-sequence-learning-with-neural-networks/"
 # Sequence to Sequence Learning with Neural Networks
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
 
+- **Paper:** [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215)
+- **Authors:** Ilya Sutskever, Oriol Vinyals, Quoc V. Le
+- **Lab, year:** Google, 2014 (NIPS 2014, now NeurIPS)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/jcLW_NY0aOs) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
-**Paper:** Sequence to Sequence Learning with Neural Networks  
-**Authors:** Ilya Sutskever, Oriol Vinyals, Quoc V. Le  
-**Venue:** Advances in Neural Information Processing Systems (NeurIPS), 2014  
-**arXiv:** https://arxiv.org/abs/1409.3215
+## Summary
 
-## One-paragraph summary
+This paper introduced the sequence-to-sequence (seq2seq) recipe for learning to turn one variable-length sequence into another. One deep LSTM, a recurrent network with gated memory, reads the input and compresses it into a single fixed-size vector. A second deep LSTM starts from that vector and generates the output one token at a time.
 
-This paper introduced the now-standard "sequence-to-sequence" (seq2seq) recipe for end-to-end learning of variable-length input–output mappings. The idea is disarmingly simple: use one deep LSTM to read the input sequence left-to-right and compress it into a single fixed-size vector (the last hidden state), then use a second deep LSTM as a language model whose initial hidden state is that vector, generating the output sequence one token at a time. The whole system is trained with ordinary maximum-likelihood on paired sequences. On WMT'14 English→French translation the model reached a BLEU score of 34.8 (phrase-based SMT scored 33.3 on the same data), and it handled long sentences far better than expected. The paper also reported a famous practical trick: reversing the source sentence improved performance markedly, because it put related source and target words closer together in time and created easier short-term dependencies.
+On English to French translation from the WMT'14 benchmark, an ensemble of 5 deep LSTMs reached a BLEU score of 34.81, against 33.30 for a phrase-based system on the same data. BLEU measures overlap with human translations. The paper also reported a simple and surprising trick: feeding the source sentence in reverse improved results markedly.
 
-## Core idea
+## What Problem Does It Solve
 
-Most deep learning models of 2014 needed fixed-size inputs and outputs. Sutskever, Vinyals and Le showed that you can sidestep this limitation by chaining two recurrent models: an **encoder** that consumes the input and produces a compact representation, and a **decoder** that turns that representation back into a sequence. Nothing in the architecture is specific to translation—the same encoder/decoder template later powered summarization, image captioning, speech recognition and conversational agents.
+Imagine you want to turn "the cat sat on the mat" into French. Older neural networks were like a form with a fixed number of boxes: you could not give them six words today and eight tomorrow, and the output length had to be known in advance too.
 
-## Key method details relevant to the code
+This paper treats the sentence as a stream. One network reads the whole English stream and sums it up in a vector, and a second network unrolls that vector into French words until it decides it is done. It is like listening to a whole sentence, holding the meaning in your head, and only then speaking it in another language.
 
-- **Encoder:** a multilayer LSTM reads the token sequence `x1, x2, …, xT` and returns its final hidden state `v`.
-- **Decoder:** another multilayer LSTM (different parameters) starts from `v` and emits `y1, y2, …, yT'` with a softmax over the target vocabulary at every step.
-- **Objective:** maximize the log probability of the correct target given the source, i.e. maximize `Σ log p(T | S)` over the training pairs.
-- **Inference:** left-to-right beam search over the decoder. A beam size of 1 already worked well; size 2 captured most of the gain.
-- **Reversing trick:** the source sentence is read in reverse order while the target stays normal. This places the first source word close to the first target word and makes gradient flow easier.
-- **Deep LSTMs:** the paper used four-layer LSTMs in both encoder and decoder; deep stacks helped quality.
-- **End-of-sequence token:** a special `<EOS>` token lets the model decide when to stop generating, so output length is learned, not fixed.
+## Core Idea
+
+Most deep learning models of 2014 needed fixed-size inputs and outputs. Sutskever, Vinyals and Le sidestep that limit by chaining two recurrent models: an **encoder** that consumes the input and produces a compact representation, and a **decoder** that turns that representation back into a sequence.
+
+Nothing in the template is specific to translation. The same encoder/decoder shape later powered summarization, image captioning and speech recognition.
+
+## Key Method Details
+
+- **Encoder:** a multilayer LSTM reads the tokens `x1, x2, …, xT` and returns its final hidden state `v`.
+- **Decoder:** a second multilayer LSTM with separate parameters starts from `v` and emits `y1, y2, …, yT'`, with a softmax over the target vocabulary at each step.
+- **Objective:** maximize the average log probability of the correct translation T given the source S, written p(T \| S), over the training pairs.
+- **Inference:** left-to-right beam search over the decoder. The authors found a beam of size 1 already worked well and size 2 gave most of the benefit.
+- **Reversing trick:** the source is read backwards while the target stays in order. On the paper's data, BLEU rose from 25.9 to 30.6.
+- **Deep LSTMs:** four layers with 1000 cells each, in both encoder and decoder.
+- **End-of-sequence token:** a special `<EOS>` token lets the model decide when to stop, so the output length is learned.
+
+### What the Notebook Result Shows
+
+The notebook trains a 2-layer, 256-unit LSTM encoder and decoder on a synthetic task: converting dates such as "April 17 1949" into "1949-04-17", character by character. After 20 epochs on 18,000 examples, greedy decoding got all 2,000 held-out dates exactly right (100.00%).
+
+That confirms the encoder/decoder mechanics work, but the task is easy: dates follow a fixed rule and the vocabulary is tiny. It says nothing about real translation quality. The notebook always reverses the source, so it does not test whether reversing helps. It also uses greedy decoding instead of beam search.
 
 ## Influence
 
-The seq2seq architecture became the dominant neural approach to machine translation before attention and Transformers took over. Its direct descendants include Bahdanau attention (ICLR 2015), Google's Neural Machine Translation system deployed in Google Translate in 2016, and modern encoder/decoder Transformers such as T5 and BART. OpenAlex records more than 13,000 citations for the paper as of 2026, and the tf-seq2seq / PyTorch "NLP from Scratch" tutorials still teach the same pattern.
-
-## What problem does it solve
-
-Imagine you want to turn the English sentence "the cat sat on the mat" into French. Older neural networks were like a calculator that only accepts numbers of a fixed length: you could not feed them a sentence of, say, six words today and eight words tomorrow. This paper solves that mismatch by treating the sentence as a stream of tokens: one LSTM reads the whole English stream and summarizes it as a "thought vector"; a second LSTM unrolls that thought vector into French words, one at a time, until it decides it is done. A real-life everyday analogy is dictating a voice message to a friend in your language and getting a typed translation in theirs—the model has to understand a whole variable-length utterance and produce a different variable-length utterance, not just classify a fixed form.
+Seq2seq became a dominant neural approach to machine translation before attention and Transformers took over. Its descendants include Bahdanau attention (ICLR 2015), the neural system Google deployed in Google Translate in 2016, and encoder/decoder Transformers such as T5 and BART. [OpenAlex](https://openalex.org/works/W2130942839) records 18,335 citations as of 9 Nov 2026.
 
 ---
 
 ## Resources
-
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
 
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
 | [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/011_sequence-to-sequence-learning-with-neural-networks/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, blog posts, Q&A (answers from the paper), citations, and common misconceptions about the paper |
