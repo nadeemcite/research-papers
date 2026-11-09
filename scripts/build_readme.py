@@ -252,6 +252,7 @@ def build_readme(papers):
     L.append('<table>')
     shorts = [('jcLW_NY0aOs', 'How AI Learned to Translate Whole Sentences: Seq2Seq', '011_sequence-to-sequence-learning-with-neural-networks'),
               ('q68WnzvntPM', 'The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis', '046_lottery-ticket-hypothesis'),
+              ('eVLY-jkiFpw', 'Turning Horses Into Zebras Without Matching Photos: CycleGAN', '026_cyclegan-unpaired-image-translation'),
               ('y9Fx6le21yo', 'The Quick Reset That Made AI Train 14x Faster: Batch Normalization', '006_batch-normalization'),
               ('OnbtZtj-K5c', 'Turn a Sketch Into a Photo: Pix2Pix', '025_image-to-image-translation-with-conditional'),
               ('1ILtCX1_khs', 'The AI That Traces Every Cell: U-Net', '035_u-net-biomedical-image-segmentation'),
@@ -274,7 +275,7 @@ def build_readme(papers):
               ('4iKss2ffzHI', 'The Paper That Changed AI Forever: Attention Is All You Need',
                '020_attention-is-all-you-need-transformer')]
     # Cards that show the paper's banner instead of the YouTube thumbnail
-    card_banners = {'q68WnzvntPM': 'assets/banners/046.jpg', 'y9Fx6le21yo': 'assets/banners/006.jpg', 'OnbtZtj-K5c': 'assets/banners/025.jpg', '1ILtCX1_khs': 'assets/banners/035.jpg',
+    card_banners = {'eVLY-jkiFpw': 'assets/banners/026.jpg', 'q68WnzvntPM': 'assets/banners/046.jpg', 'y9Fx6le21yo': 'assets/banners/006.jpg', 'OnbtZtj-K5c': 'assets/banners/025.jpg', '1ILtCX1_khs': 'assets/banners/035.jpg',
                     'QMZY4WpU4RA': 'assets/banners/024.jpg'}
     for i, (vid, label, folder) in enumerate(shorts):
         if i % 2 == 0:
