@@ -10,7 +10,7 @@ permalink: "/006_batch-normalization/"
 - **Paper:** [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://arxiv.org/abs/1502.03167)
 - **Authors:** Sergey Ioffe, Christian Szegedy
 - **Lab, year:** Google, 2015 (ICML 2015)
-- **Video:** YouTube Short coming on 4 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/y9Fx6le21yo) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
