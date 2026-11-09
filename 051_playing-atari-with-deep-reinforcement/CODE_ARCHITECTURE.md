@@ -115,7 +115,7 @@ It also adds a target network (a periodically updated copy for stable targets) a
 - **Key detail**: This measures the agent's learned policy without exploration noise. In the saved run the average is 197.3 ± 7.2, so the main run does not solve CartPole-v1 (475).
 
 ### 13. Predicted Value vs. Actual Return
-- **Purpose**: Check the network's predictions against what really happens. One episode is run with the greedy policy; at every step the notebook records `max Q(s, a)` and the gap `|Q(left) - Q(right)|`.
+- **Purpose**: Check the network's predictions against what really happens. One episode is run with the greedy policy; at every step the notebook records `max Q(s, a)` and the gap `\|Q(left) - Q(right)\|`.
 - **Key detail**: The actual discounted return from each step is computed backwards from the rewards (`G_t = r_t + γ G_{t+1}`). With γ = 0.99 and +1 per step, surviving forever is worth 1 / (1 - γ) = 100. The prediction stays near 100 the whole episode while the real return falls to 0 at the end, so the agent does not see the failure coming.
 
 ### 14. Trained Agent Demonstration

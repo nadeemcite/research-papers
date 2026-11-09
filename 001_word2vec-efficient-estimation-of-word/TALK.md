@@ -15,7 +15,7 @@ nav_order: 2
 
 2. **"word2vec Explained" by Goldberg & Levy (2014)** — A widely-cited note that derives the negative-sampling objective step by step, clarifying the short original description: [arXiv:1402.3722](https://arxiv.org/abs/1402.3722)
 
-3. **gensim Library** — The open-source gensim library made Word2Vec easy to use and became a common tool for training custom embeddings: [gensim word2vec docs](https://radimrehurek.com/gensim/models/word2vec.html)
+3. **gensim Library** — The open-source gensim library made Word2Vec easy to use and became a common tool for training custom embeddings: [gensim on GitHub](https://github.com/piskvorky/gensim)
 
 ---
 

@@ -90,6 +90,12 @@ Both G and D are **multilayer perceptrons** (MLPs) in the original paper:
 - MNIST scaled to [-1, 1] with a **Tanh** generator output. With [0, 1] data and a Sigmoid output, this setup collapsed in the first epoch of the run we tried (every noise vector gave the same blob)
 - `BCEWithLogitsLoss` (D outputs a raw score), Adam (lr 0.0002, betas 0.5/0.999), batch 64, k = 1, **100 epochs**
 
+### What the Notebook Result Shows
+
+Epoch 1 ends with D_loss **0.73**, G_loss **1.85**, D(x) 0.80 and D(G(z)) 0.23, with grey blobs for samples. By epoch 100 the losses are D_loss **1.20** and G_loss **1.00**, with D(x) 0.59 and D(G(z)) 0.41.
+
+Most samples are recognizable digits and the grid covers many different digits, so there is no mode collapse in this run. They are still clearly rougher than real MNIST, and D does a little better than chance, so the game has not reached the paper's ideal equilibrium of D = 0.5.
+
 ## Influence
 
 - **Citations**: one of the most cited papers in AI

@@ -17,7 +17,7 @@ nav_order: 2
 
 5. **GAN Lab — interactive GAN in the browser (2018):** Minsuk Kahng, Nikhil Thorat, Polo Chau, Fernanda Viégas and Martin Wattenberg (Georgia Tech and Google) built a tool that trains a small GAN live in your browser, so you can watch the generator and discriminator compete step by step. It was published at IEEE VAST 2018. (URL: https://poloclub.github.io/ganlab/, paper: https://arxiv.org/abs/1809.01587)
 
-## Q&A
+## Q&A (answers from the paper and linked sources)
 
 **Q1: How did you come up with the idea for GANs?**
 A1 (as reported by MIT Technology Review, "The GANfather", 2018 — a retelling, not a direct quote): In 2014 Goodfellow was at Les 3 Brasseurs, a bar in Montreal, when friends asked for help with a project to generate images. While thinking it over, he hit on the idea of pitting two neural networks against each other. His friends doubted it would work, so he went home and coded it that same night, and according to the article it worked the first time.
