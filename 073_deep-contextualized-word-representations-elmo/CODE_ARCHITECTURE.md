@@ -13,13 +13,14 @@ This notebook implements a simplified ELMo (Embeddings from Language Models) fro
 
 ### 1. Setup & Imports
 - Imports: `torch`, `torch.nn`, `torch.optim`, `numpy`, `collections`, `itertools`, `matplotlib`.
-- Sets random seed for reproducibility.
+- Sets the random seed.
+- On Kaggle, registers an `atexit` hook that saves the executed notebook to the output folder.
 - Device auto-detection (GPU if available, else CPU).
 
 ### 2. Toy Corpus & Vocabulary
 - A small collection of sentences containing words with multiple senses (e.g., "bank" in financial vs. river contexts, "play" as verb vs. noun, "right" as direction vs. correctness).
 - `build_vocab()`: maps each unique word to an integer index. Creates `word2idx` and `idx2word` dictionaries.
-- Vocabulary size is intentionally small (~50-80 words) so the model trains in minutes.
+- The vocabulary has 124 words, small enough to train quickly on a CPU.
 
 ### 3. BiLM Architecture (`BiLM` class)
 - **Embedding layer** (`nn.Embedding`): maps word indices to dense vectors (dim=128). This is the "layer 0" (non-contextual) representation.
@@ -39,7 +40,7 @@ This notebook implements a simplified ELMo (Embeddings from Language Models) fro
   - Forward: predict token *t+1* given tokens *0..t* using the forward LSTM.
   - Backward: predict token *t-1* given tokens *t..N* using the backward LSTM.
 - Cross-entropy loss, Adam optimizer, lr=0.001.
-- Trains for ~50 epochs on the toy corpus.
+- Trains for 80 epochs on the toy corpus.
 - Prints loss every 10 epochs.
 
 ### 5. ELMo Embedding Extraction (`get_elmo_embeddings` function)
@@ -55,14 +56,14 @@ This notebook implements a simplified ELMo (Embeddings from Language Models) fro
 - For each target word, extracts ELMo embeddings from each sentence context.
 - Computes cosine similarity between:
   - **Layer 0 (static embedding):** same word in different contexts → high similarity (expected, since it's non-contextual)
-  - **Layer 1 (syntax-level):** moderate context sensitivity
-  - **Layer 2 (semantics-level):** lower similarity across different senses (expected, since higher layers capture meaning)
-- Plots a heatmap or bar chart showing how similarity decreases at higher layers for polysemous words, and stays high for the same word in similar contexts.
+  - **Layer 1:** the first contextual layer
+  - **Layer 2:** the second contextual layer
+- Prints the same-sense and different-sense averages for each word and layer, plots them as bars, and draws a sentence-by-sentence heatmap for "bank".
 
 ### 7. Learned Layer Weights Demo
-- Initializes learnable scalar weights `s_0, s_1, s_2` (softmax-normalized) and a scaling factor `gamma`.
-- Demonstrates a simple downstream task: given a small set of labeled sentences, fine-tune the layer weights to maximize classification accuracy.
-- Shows that different tasks prefer different layers (e.g., a POS-like task prefers lower layers, a sentiment-like task prefers higher layers).
+- `LayerWeightLearner` holds learnable scalar weights `s_0, s_1, s_2` (softmax-normalized) and a scaling factor `gamma`. Its classifier sees only `gamma * sum_j s_j * h_j`, so the weights receive gradients.
+- `stack_layers` gives the layers a common size and unit length: layer 0 (128 dimensions) is repeated four times to match the 512 dimensions of layers 1 and 2.
+- The task is sense classification of "bank" on 8 sentences, repeated for 5 random initializations of the learner. It is one task with no held-out data, so it cannot show that different tasks prefer different layers.
 
 ## Key Functions/Classes
 
@@ -73,14 +74,16 @@ This notebook implements a simplified ELMo (Embeddings from Language Models) fro
 | `train_bilm` | function | Pre-training loop: forward + backward LM loss |
 | `get_elmo_embeddings` | function | Extracts layer-wise contextual embeddings for a sentence |
 | `cosine_sim` | function | Computes cosine similarity between two embedding vectors |
-| `plot_context_comparison` | function | Visualizes how the same word's embedding changes across contexts |
-| `LayerWeightDemo` | class | Demonstrates learnable layer-weight combination for a toy task |
+| `get_word_embedding` | function | Returns the three layers for one word in one sentence |
+| `LayerWeightLearner` | class | Learns the softmax layer weights and `gamma` on a toy task |
+| `stack_layers` | function | Brings the three layers to one size and unit length |
+| `train_layer_weights` | function | Trains one `LayerWeightLearner` from a given seed |
 
 ## Deliberate Simplifications vs. Full Paper
 
 1. **Character-level CNN:** The original ELMo uses a character-level CNN (2048 char n-gram filters) for the token embedding layer to handle OOV words. We use a simple word-level `nn.Embedding` for clarity.
-2. **Corpus size:** Original uses 1B Word Benchmark (~800M tokens). We use ~30 hand-crafted sentences.
-3. **Model dimensions:** Original uses 4096 hidden units, 2 biLM layers. We use 256 hidden units, 2 layers.
+2. **Corpus size:** Original uses the 1B Word Benchmark. We use 30 hand-written sentences.
+3. **Model dimensions:** Original uses 2 biLM layers of 4096 units with 512-dimension projections. We use 2 layers of 256 units.
 4. **ELMo weighting:** Original learns layer weights via backprop during downstream fine-tuning with the biLM frozen. We demonstrate the same concept on a toy task.
 5. **Dropout:** Original applies dropout to LSTM layers. We omit it since our corpus is tiny and overfitting to it is acceptable for demonstration.
-6. **No downstream benchmark tasks:** The original evaluates on SQuAD, SNLI, SRL, etc. We only show context-sensitivity of embeddings.
+6. **No downstream benchmark tasks:** The original evaluates on SQuAD, SNLI, SRL, etc. We show context-sensitivity of embeddings and one toy classification task.

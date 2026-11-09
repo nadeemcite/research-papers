@@ -7,47 +7,34 @@ nav_order: 2
 
 ## Press / Blog Coverage
 
-1. **AllenNLP Blog — "ELMo: Deep Contextual Word Representations"**
-   The official announcement from the Allen Institute for AI, explaining ELMo's design and benchmark results.
-   URL: https://allennlp.org/elmo
+1. **The Gradient:** [NLP's ImageNet moment has arrived](https://thegradient.pub/nlp-imagenet/) (8 Jul 2018). An essay that names ELMo, ULMFiT and the OpenAI transformer as the pretrained language models changing NLP, by analogy with ImageNet-pretrained models in computer vision.
+2. **Jay Alammar:** [The Illustrated BERT, ELMo, and co.](https://jalammar.github.io/illustrated-bert/) An illustrated walkthrough of how ELMo builds a contextual embedding and how it led towards BERT.
+3. **NAACL HLT 2018 Chairs Blog:** [Outstanding Papers](https://naacl2018.wordpress.com/2018/04/11/outstanding-papers/) (11 Apr 2018). Lists this paper among the conference's four outstanding papers.
+4. **AllenNLP ELMo page:** [archived copy from Dec 2018](https://web.archive.org/web/20181230124950/https://allennlp.org/elmo). The project's own page for the model; the original URL no longer serves it.
+5. **Authors' code:** [allenai/bilm-tf](https://github.com/allenai/bilm-tf), the TensorFlow implementation of the biLM.
+6. **ACL Anthology:** [the published paper, N18-1202](https://aclanthology.org/N18-1202/).
 
-2. **Google AI Blog — "Improving Language Understanding with Contextual Word Representations"**
-   Sebastian Ruder's widely-shared overview contextualizing ELMo alongside ULMFiT and the broader pretraining trend.
-   URL: https://ai.googleblog.com/2018/04/
+## Q&A (answers from the paper)
 
-3. **Sebastian Ruder — "Universal Language Model Fine-tuning for NLP" (blog overview)**
-   Ruder's blog post placed ELMo within the broader trend of pretraining + fine-tuning that ULMFiT started.
-   URL: https://ruder.io/word-embeddings-2017/
+**Q1: What was the core intuition behind ELMo: why not just use better static embeddings?**
 
-4. **The Gradient — "NLP's ImageNet Moment Has Arrived"**
-   An influential essay arguing that ELMo, ULMFiT, and the imminent BERT marked the moment when pretrained representations became standard in NLP, analogous to ImageNet pretrained models in computer vision.
-   URL: https://thegradient.pub/nlp-imagenet/
+A (from the paper, Sections 1 and 3): A word's meaning depends on its context, and a single vector per word type cannot show that. ELMo uses the internal states of a pretrained bidirectional language model, so each occurrence of a word gets its own vector. The layers carry different information, so each task learns its own weighted mix of them.
 
-5. **ACL Anthology — NAACL 2018 Best Paper Award**
-   ELMo received the Best Paper Award at NAACL 2018.
-   URL: https://aclanthology.org/N18-1202/
+**Q2: How do the layers differ?**
 
-## Interview Q&A
+A (from the paper, Section 5.3, Tables 5 and 6): The top layer is better at word sense disambiguation (F1 69.0 against 67.4 for the first layer). The first layer is better at part-of-speech tagging (accuracy 97.3 against 96.8).
 
-**Q1: What was the core intuition behind ELMo — why not just use better static embeddings?**
+**Q3: Is the biLM frozen when ELMo is added to a task?**
 
-Matthew Peters (in various public talks and the paper): The key insight was that a word's meaning depends on its context, and a single static vector can't capture that. By using the internal states of a bidirectional language model — which has already learned how words combine — we get representations that naturally encode context. The deeper insight was that different layers of the biLM capture different linguistic phenomena, so exposing all layers lets each downstream task learn which aspects matter most.
+A (from the paper, Section 3.3): Yes. The authors freeze the biLM's weights and concatenate the ELMo vector with the task model's input. The layer weights and the scale γ are the parts trained with the task.
 
-**Q2: How does ELMo differ from ULMFiT, which was published around the same time?**
+**Q4: How large were the gains?**
 
-ELMo provides contextual *embeddings* that are concatenated to existing model inputs — the biLM is frozen and the downstream model learns how to weight the layers. ULMFiT (Howard & Ruder) proposes *fine-tuning* the entire language model on downstream tasks with discriminative learning rates and gradual unfreezing. ELMo is a "feature-based" approach; ULMFit is a "fine-tuning" approach. BERT later combined ideas from both.
+A (from the paper, Section 4, Table 1): The text reports relative error reductions of 6 to 20% over strong base models. Table 1 lists 5.8% for SNLI up to 24.9% for SQuAD, across six tasks.
 
-**Q3: Why bidirectional? Couldn't a forward-only LM capture context?**
+**Q5: Does mixing all layers beat using only the top one?**
 
-A forward LM only sees left context (tokens before the current position). A backward LM only sees right context. By using both, ELMo captures the full sentence context around each word. The paper showed that bidirectional representations consistently outperformed unidirectional ones, especially for tasks like coreference resolution and question answering where both past and future context matter.
-
-**Q4: Was ELMo quickly superseded by BERT?**
-
-Yes and no. BERT (October 2018) showed that fine-tuning the entire pre-trained model outperforms feature extraction. But ELMo's core idea — contextual representations from pre-trained language models — was validated by ELMo and became the foundation that BERT built upon. ELMo-style embeddings are still used in production systems where fine-tuning a large model is impractical, and the concept of layer-wise representations influenced analysis of BERT's own layers.
-
-**Q5: What surprised the authors most about the results?**
-
-The consistency of improvements across very different tasks was striking. Adding ELMo improved performance on everything from sentiment analysis to question answering to coreference resolution, with 4-25% relative error reduction, without changing the downstream architecture. The analysis showing that different layers encode different linguistic information (syntax vs. semantics) was also a key finding that influenced subsequent work on probing pretrained models.
+A (from the paper, Section 5.1, Table 2): Yes on the development sets of SQuAD, SNLI and SRL, where using all layers improved on using only the last layer. The strength of the weight regularization λ matters: a large λ such as 1 reduces the mix to a plain average of the layers.
 
 ## Common Misconceptions
 
@@ -68,4 +55,4 @@ The consistency of improvements across very different tasks was striking. Adding
 5. McCann, B., Bradbury, J., Xiong, C., & Socher, R. (2017). Learned in Translation: Contextualized Word Vectors. *NIPS 2017*.
 6. Tenney, I., Das, D., & Pavlick, E. (2019). BERT Rediscovers the Classical NLP Pipeline. *ACL 2019*. (Probing analysis inspired by ELMo's layer-wise findings.)
 
-**Semantic Scholar:** 12,312 citations, 1,485 influential citations (as of 2026).
+**OpenAlex:** [13,289 citations](https://openalex.org/works/W2787560479) (checked 9 Nov 2026).
