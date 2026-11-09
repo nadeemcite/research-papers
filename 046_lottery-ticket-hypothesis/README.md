@@ -4,47 +4,64 @@ nav_order: 47
 permalink: "/046_lottery-ticket-hypothesis/"
 ---
 # The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks
+![Lottery Ticket banner](../assets/banners/046.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
 
-
-**Paper:** [arXiv:1803.03635](https://arxiv.org/abs/1803.03635) \| **Authors:** Jonathan Frankle, Michael Carbin \| **Venue:** ICLR 2019 (Best Paper) \| **Year:** 2018
-
+- **Paper:** [The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks](https://arxiv.org/abs/1803.03635)
+- **Authors:** Jonathan Frankle, Michael Carbin
+- **Lab, year:** MIT CSAIL, 2018 (ICLR 2019)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/q68WnzvntPM) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-The Lottery Ticket Hypothesis reveals that within a dense, randomly-initialized neural network, there exist sparse subnetworks ("winning tickets") that—when trained in isolation from their original initialization—can match the full network's test accuracy in a similar number of iterations. The key insight is that it's not just the architecture that matters, but the specific *initial weights* of the surviving connections. These winning tickets "won the initialization lottery": their initial weights were already well-suited for effective training. The paper introduces **iterative magnitude pruning (IMP)**—train, prune the smallest-magnitude weights, reset remaining weights to their original initialization, and repeat—to discover these subnetworks, consistently finding tickets at 10–20% of the original network size that train faster and reach higher accuracy than the dense baseline.
+The Lottery Ticket Hypothesis says that a dense, randomly initialized neural network contains sparse subnetworks ("winning tickets") that, trained on their own, can reach test accuracy comparable to the original network in a similar number of iterations. What makes them special is not only their structure but also the *initial weights* of the surviving connections. The authors say these subnetworks "have won the initialization lottery".
 
-## What Problem Does It Solve?
+To find them, the paper uses **iterative magnitude pruning (IMP)**: train the network, remove the smallest-magnitude weights, reset the survivors to their original starting values, and repeat. The tickets it finds are consistently less than 10-20% of the size of several fully-connected and convolutional networks on MNIST and CIFAR10. Above that size, they learn faster than the original network and reach higher test accuracy.
 
-Imagine you have a giant box of 1,000 Lego pieces, but you only actually need about 150 of them to build your castle. The rest are just sitting there taking up space and making everything slower. But here's the catch: you don't know *which* 150 pieces are the right ones until you've already built the whole castle once.
+## What Problem Does It Solve
 
-That's the problem this paper solves. Before this research, people knew you could shrink a trained neural network by removing unimportant connections (pruning), making it smaller and faster. But if you tried to train that small network from scratch, it would fail badly—it couldn't learn at all. It was like giving someone the right 150 Lego pieces but with no instructions.
+Imagine you have a giant box of 1,000 Lego pieces, but you only need about 150 of them to build your castle. The rest take up space and slow you down. The catch is that you don't know *which* 150 are the right ones until you have built the whole castle once.
 
-The authors discovered something surprising: if you keep the *original starting weights* of those 150 important pieces (instead of giving them new random starting weights), the small network trains just as well as the big one! It's like those 150 pieces came with a head start—they were "lucky" from the beginning. They called these lucky small networks "winning lottery tickets."
+People already knew that a trained network could be shrunk by removing unimportant connections (pruning) without hurting accuracy. But if you trained that small network from fresh random starting values, it did worse.
 
-This matters because it means we can build AI systems that are much smaller, faster, and cheaper to run, without sacrificing performance—which is crucial for deploying AI on phones, in cars, or anywhere with limited computing power.
+The authors found that keeping the *original starting weights* of the surviving connections makes the small network train well. It is as if those 150 pieces came with a head start. They called these lucky small networks "winning tickets".
 
-## Core Idea & Key Method Details
+## Core Idea
 
-- **Iterative Magnitude Pruning (IMP):** The algorithm iteratively (1) trains the network to convergence, (2) prunes a fraction (e.g., 20%) of the weights with the smallest absolute magnitude, (3) resets the surviving weights to their *original* initialization values, and (4) repeats from step 1 on the pruned subnetwork.
-- **Winning Ticket:** A subnetwork (mask + original initialization) that, when trained in isolation, matches the full network's accuracy. The mask is the binary pruning pattern; the initialization is the original random weights at those positions.
-- **Key Finding—Initialization Matters:** If the same pruned architecture is re-initialized with *new* random weights (instead of the original ones), it trains poorly. This proves that the specific initial weight values, not just the architecture, are crucial.
-- **Pruning Rate:** Typically 20% per iteration (P=20%), repeated N times to reach target sparsity. The paper uses P=51% for iterative pruning on deeper networks.
-- **Early Stopping / Rewinding:** For deeper networks, weights are reset to their value at iteration *k* (not iteration 0) to handle optimization difficulties—a technique called "weight rewinding."
+- **The hypothesis:** a randomly initialized network contains a subnetwork that, trained in isolation, can match the full network's test accuracy in at most the same number of iterations.
+- **Winning ticket:** a mask (which connections to keep) plus the original initial values of those connections.
+- **Iterative magnitude pruning:** (1) train, (2) prune a percentage of the remaining weights with the smallest absolute value, (3) reset the survivors to their original values, (4) repeat on the smaller network.
+- **Initialization matters:** with the same mask but new random weights, networks learn more slowly and lose accuracy once they are heavily pruned.
+
+## Key Method Details
+
+- **Pruning rate:** 20% per round for the fully-connected MNIST model, with connections to the output layer pruned at half that rate. Conv-2, Conv-4 and Conv-6 prune their convolutional layers at 10-15% (Figure 2 of the paper).
+- **Lenet on MNIST:** with 21% of the weights left, the ticket reached minimum validation loss 2.51x faster than when reinitialized and was half a percentage point more accurate.
+- **Deeper networks:** on VGG-19 and Resnet-18 the method is sensitive to the learning rate and needs warmup at higher rates.
+
+### Simplifications in This Notebook
+
+The notebook prunes a `784 → 256 → 128 → 10` MLP on MNIST for 5 rounds at 20% per round, down to 67.2% of the weights removed. Pruning is global (the paper prunes Lenet layer by layer), it uses Adam at `lr=1e-3`, and it runs one seed rather than the paper's five trials.
+
+### What the Notebook Result Shows
+
+Pruning compounds as intended: 20.0%, 36.0%, 48.8%, 59.0%, then 67.2% of the weights removed, leaving 76,922 of 234,752. The 5-epoch rounds ended between 97.40% and 98.05% test accuracy, with no steady trend.
+
+After 15 more epochs at 67.2% sparsity: full model **97.89%**, winning ticket **98.03%**, random re-init **97.93%**. The ticket's 0.10-point lead is smaller than the swings between epochs, and this is one seed, so the run does not show the ticket ending up more accurate.
+
+The difference is in early training. After epoch 1 the ticket had 97.44% accuracy and 0.188 training loss, against 95.17% and 0.354 for re-init. It stayed ahead for the first 7 epochs, and then the two curves mixed. The paper's larger accuracy gap appears at heavier pruning than this notebook reaches.
 
 ## Influence
 
-With over 1,300 citations, this paper fundamentally changed how the community thinks about pruning and sparse networks. It launched an entire research direction into *when* and *why* sparse subnetworks exist, led to the discovery of lottery tickets in transformers (BERT), reinforcement learning, and even proved theoretical guarantees (Malach et al., 2019). It was awarded the ICLR 2019 Best Paper Award.
+The paper won one of the two Best Paper awards at ICLR 2019, as [MIT News reported](https://news.mit.edu/2019/smarter-training-neural-networks-0506). OpenAlex lists about 2,770 citations (checked November 2026). It led to follow-up work on why the hypothesis holds and where it breaks, including [Stabilizing the Lottery Ticket Hypothesis](https://arxiv.org/abs/1903.01611) and [Linear Mode Connectivity and the Lottery Ticket Hypothesis](https://arxiv.org/abs/1912.05671) by the same first author. [Rethinking the Value of Network Pruning](https://arxiv.org/abs/1810.05270) offered a contrasting view.
 
 ---
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/lottery-ticket-hypothesis)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/046_lottery-ticket-hypothesis/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/046_lottery-ticket-hypothesis/solution.ipynb) | From-scratch PyTorch implementation of iterative magnitude pruning on a small MLP, with the winning-ticket vs. random re-init comparison |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, Q&A (answers from the paper), citations, and common misconceptions about the paper |

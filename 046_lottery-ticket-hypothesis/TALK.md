@@ -7,53 +7,47 @@ nav_order: 2
 
 ## Press & Blog Coverage
 
-1. **MIT Technology Review** — "AI models can be 90% smaller without losing accuracy, thanks to the lottery ticket hypothesis" — covered the paper's findings about pruning and the lottery ticket metaphor.
+1. [**"Smarter training of neural networks"**](https://news.mit.edu/2019/smarter-training-neural-networks-0506), MIT News, 6 May 2019. MIT's own article on the paper. It says the project was named one of ICLR's two best papers, out of roughly 1,600 submissions.
 
-2. **Google AI Blog** — Discussed lottery tickets in the context of efficient ML, noting the importance of initialization in pruned subnetworks.
+2. [**"A new way to build tiny neural networks could create powerful AI on your phone"**](https://www.technologyreview.com/2019/05/10/135426/a-new-way-to-build-tiny-neural-networks-could-create-powerful-ai-on-your-phone/), MIT Technology Review, 10 May 2019. Explains the hypothesis with the bag-of-lottery-tickets image.
 
-3. **The Gradient (thegradient.pub)** — Featured the lottery ticket hypothesis as one of the most influential papers in neural network pruning and sparsity research.
+3. [**ICLR 2019 Awards**](https://iclr.cc/Conferences/2019/Awards). The conference's page listing the paper's Best Paper Award.
 
-4. **Analytics India Magazine** — Covered the paper's impact on model compression and efficient inference.
+## Q&A (answers from the paper)
 
-5. **ZDNet / TechRepublic** — Reported on the implications for deploying smaller AI models on edge devices.
-
-## Interview Q&A (Paraphrased from author talks and discussions)
-
-**Q1: What was the "aha" moment that led to the lottery ticket hypothesis?**
-A: Jonathan Frankle has described that the insight came from observing that pruned networks failed to train from scratch with new random initializations, but succeeded when reset to their original weights. The realization was that the initialization—not just the architecture—was doing the heavy lifting.
+**Q1: What problem did the authors start from?**
+A: The abstract says that pruning can cut a trained network's parameter count by over 90% without losing accuracy, but that the sparse architectures it produces are hard to train from the start. The paper asks why, and finds that the initial weights of the surviving connections matter (abstract, Section 1).
 
 **Q2: Why "lottery ticket"?**
-A: The metaphor comes from the idea that a large random network contains many possible subnetworks, like buying many lottery tickets. Most won't win, but with enough tickets (enough parameters), some subnetworks are initialized in a way that makes them train exceptionally well. Finding them is like finding the winning ticket.
+A: The abstract says the tickets found have won the initialization lottery, meaning their connections have initial weights that make training particularly effective. Section 1 states the hypothesis itself.
 
-**Q3: Does this mean we should always train huge networks and then prune?**
-A: Not necessarily. The hypothesis explains *why* pruning works and what makes subnetworks trainable. The practical goal is to find ways to identify winning tickets without training the full network first—an open problem the paper highlights as future work.
+**Q3: How do the authors find a winning ticket?**
+A: Train the network, prune p% of the weights, and reset the survivors to their original values. The authors focus on iterative pruning, which repeats this over several rounds and prunes a share of the weights that survived the previous round (Section 1).
 
-**Q4: What's the difference between this and regular pruning?**
-A: Regular pruning produces a small network that's good for inference, but that same small architecture can't be trained from scratch. The lottery ticket contribution is showing that if you keep the *original initialization* of the surviving weights, the small network trains fine—revealing that initialization is the key factor.
+**Q4: What happens if a winning ticket is randomly reinitialized?**
+A: For Lenet on MNIST, reinitialized networks learn increasingly slower than the original and lose test accuracy after little pruning. With 21% of the weights left, the winning ticket reached minimum validation loss 2.51x faster than when reinitialized and was half a percentage point more accurate (Section 2).
 
-**Q5: How does this relate to the broader field of sparse neural networks?**
-A: It shifted the focus from "how do we compress trained models" to "what makes sparse networks trainable," leading to work on sparse training, supermasks, and theoretical analyses of when subnetworks exist a priori.
+**Q5: Does the method work the same way on deeper networks?**
+A: Not without changes. On VGG-19 and Resnet-18 the authors report that finding winning tickets is sensitive to the learning rate and requires warmup at higher rates (Sections 1 and 4).
 
 ## Common Misconceptions
 
-1. **"The lottery ticket is the pruned architecture."** — No, the lottery ticket is the combination of the pruned architecture *and* the original initialization values. Same architecture with different initial weights performs much worse.
+1. **"The lottery ticket is the pruned architecture."** The ticket is the mask together with the original initial weights. In the paper's experiments the same structure, randomly reinitialized, learns more slowly and reaches lower accuracy once pruning is heavy (Section 2).
 
-2. **"This means small networks are always better."** — The finding is that specific small subnetworks (found by pruning a trained large network and resetting to original weights) train well. It doesn't mean any small network will train well.
+2. **"This means you can skip training the big network."** The paper's method finds tickets by training the full network first. The authors list finding tickets more efficiently as future work (Section 6).
 
-3. **"Iterative pruning is just for compression."** — While it does produce smaller models, the paper's contribution is conceptual: understanding *why* sparse subnetworks work, which has implications for initialization, optimization, and network design.
-
-4. **"The hypothesis has been proven in all cases."** — Later work showed that for very deep networks (ResNet-50 on ImageNet), strict reset-to-iteration-0 doesn't always work, requiring "weight rewinding" to a later iteration. The hypothesis holds but needs modifications for depth.
+3. **"Tickets always beat random re-initialization."** The gap depends on how heavily the network is pruned. In [this repo's notebook](solution.ipynb), at 67.2% sparsity on a small MLP, the ticket learned faster early on but ended only 0.10 points ahead on a single seed.
 
 ## Real Citations
 
-1. Frankle, J., & Carbin, M. (2019). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks.* ICLR 2019 Best Paper. [arXiv:1803.03635](https://arxiv.org/abs/1803.03635)
+1. Frankle, J., & Carbin, M. (2019). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks.* ICLR 2019. [arXiv:1803.03635](https://arxiv.org/abs/1803.03635)
 
-2. Liu, Z., Sun, M., Zhou, T., Huang, G., & Darrell, T. (2019). *Rethinking the Value of Network Pruning.* ICLR 2019. [arXiv:1810.05270](https://arxiv.org/abs/1810.05270) — Challenged LTH by showing re-initialized pruned architectures can match winning tickets for structured pruning.
+2. Liu, Z., Sun, M., Zhou, T., Huang, G., & Darrell, T. (2019). *Rethinking the Value of Network Pruning.* ICLR 2019. [arXiv:1810.05270](https://arxiv.org/abs/1810.05270)
 
-3. Malach, E., Yehudai, G., Shalev-Schwartz, S., & Shammir, O. (2020). *Proving the Lottery Ticket Hypothesis: Pruning is All You Need.* ICML 2020. — Theoretical proof that overparameterized networks contain approximating subnetworks without training.
+3. Frankle, J., Dziugaite, G. K., Roy, D. M., & Carbin, M. (2019). *Stabilizing the Lottery Ticket Hypothesis.* [arXiv:1903.01611](https://arxiv.org/abs/1903.01611)
 
-4. Frankle, J., Dziugaite, G. K., Roy, D. M., & Carbin, M. (2020). *Linear Mode Connectivity and the Lottery Ticket Hypothesis.* ICML 2020. — Explained why reset-to-zero fails for deep networks via gradient noise analysis.
+4. Frankle, J., Dziugaite, G. K., Roy, D. M., & Carbin, M. (2019). *Linear Mode Connectivity and the Lottery Ticket Hypothesis.* [arXiv:1912.05671](https://arxiv.org/abs/1912.05671)
 
-5. Chen, T., Frankle, J., Chang, S., Liu, S., Zhang, Y., Wang, Z., & Carbin, M. (2020). *The Lottery Ticket Hypothesis for Pre-trained BERT Networks.* NeurIPS 2020. — Found winning tickets in BERT at 40-70% sparsity.
+5. Malach, E., Yehudai, G., Shalev-Shwartz, S., & Shamir, O. (2020). *Proving the Lottery Ticket Hypothesis: Pruning is All You Need.* [arXiv:2002.00585](https://arxiv.org/abs/2002.00585)
 
-**Citation count (OpenAlex):** 1,301+ citations as of 2024.
+**Citation count:** about 2,770 ([OpenAlex](https://openalex.org/W2805003733), checked November 2026).
