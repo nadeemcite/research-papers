@@ -9,6 +9,7 @@ permalink: "/045_distilling-knowledge-in-a-neural-network/"
 - **Paper:** [Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531)
 - **Authors:** Geoffrey Hinton, Oriol Vinyals, Jeff Dean
 - **Lab, year:** Google, 2015 (NIPS 2014 Deep Learning Workshop, now NeurIPS)
+- **Video:** YouTube Short coming on 10 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

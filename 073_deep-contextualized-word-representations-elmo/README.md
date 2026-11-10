@@ -9,7 +9,7 @@ permalink: "/073_deep-contextualized-word-representations-elmo/"
 - **Paper:** [Deep Contextualized Word Representations](https://arxiv.org/abs/1802.05365)
 - **Authors:** Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer
 - **Lab, year:** Allen Institute for AI and University of Washington, 2018 (NAACL 2018)
-- **Video:** YouTube Short coming on 8 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/jkP0PTgfX_g) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

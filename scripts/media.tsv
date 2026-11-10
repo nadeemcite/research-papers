@@ -19,7 +19,9 @@ num	short	banner	status	shorts_url	release_date
 035	U-Net	assets/banners/035.jpg	public	https://youtube.com/shorts/1ILtCX1_khs	2026-11-02
 025	Pix2Pix	assets/banners/025.jpg	public	https://youtube.com/shorts/OnbtZtj-K5c	2026-11-03
 006	BatchNorm	assets/banners/006.jpg	public	https://youtube.com/shorts/y9Fx6le21yo	2026-11-04
-073	ELMo	assets/banners/073.jpg	private		2026-11-08
+073	ELMo	assets/banners/073.jpg	public	https://youtube.com/shorts/jkP0PTgfX_g	2026-11-09
 046	Lottery Ticket	assets/banners/046.jpg	public	https://youtube.com/shorts/q68WnzvntPM	2026-11-06
-011	Seq2Seq	assets/banners/011.jpg	public	https://youtube.com/shorts/jcLW_NY0aOs	2026-11-07
+011	Seq2Seq	assets/banners/011.jpg	public	https://youtube.com/shorts/jcLW_NY0aOs	2026-11-09
 026	CycleGAN	assets/banners/026.jpg	public	https://youtube.com/shorts/eVLY-jkiFpw	2026-11-05
+074	BERT	assets/banners/074.jpg	public	https://youtube.com/shorts/CMTHivcCTb0	2026-11-09
+045	Distillation	assets/banners/045.jpg	private		2026-11-10

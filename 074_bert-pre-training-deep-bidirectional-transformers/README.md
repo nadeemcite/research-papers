@@ -9,6 +9,7 @@ permalink: "/074_bert-pre-training-deep-bidirectional-transformers/"
 - **Paper:** [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 - **Authors:** Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
 - **Lab, year:** Google AI Language, 2018 (NAACL 2019)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/CMTHivcCTb0) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

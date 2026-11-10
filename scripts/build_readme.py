@@ -250,7 +250,9 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('jcLW_NY0aOs', 'How AI Learned to Translate Whole Sentences: Seq2Seq', '011_sequence-to-sequence-learning-with-neural-networks'),
+    shorts = [('CMTHivcCTb0', 'Words on Both Sides: BERT', '074_bert-pre-training-deep-bidirectional-transformers'),
+              ('jkP0PTgfX_g', 'How AI Learned That Words Change With Context: ELMo', '073_deep-contextualized-word-representations-elmo'),
+              ('jcLW_NY0aOs', 'How AI Learned to Translate Whole Sentences: Seq2Seq', '011_sequence-to-sequence-learning-with-neural-networks'),
               ('q68WnzvntPM', 'The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis', '046_lottery-ticket-hypothesis'),
               ('eVLY-jkiFpw', 'Turning Horses Into Zebras Without Matching Photos: CycleGAN', '026_cyclegan-unpaired-image-translation'),
               ('y9Fx6le21yo', 'The Quick Reset That Made AI Train 14x Faster: Batch Normalization', '006_batch-normalization'),

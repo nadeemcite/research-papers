@@ -210,6 +210,10 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/CMTHivcCTb0"><img src="https://img.youtube.com/vi/CMTHivcCTb0/hqdefault.jpg" alt="Words on Both Sides: BERT" width="320"></a><br><b>Words on Both Sides: BERT</b><br><sub><a href="074_bert-pre-training-deep-bidirectional-transformers/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/jkP0PTgfX_g"><img src="https://img.youtube.com/vi/jkP0PTgfX_g/hqdefault.jpg" alt="How AI Learned That Words Change With Context: ELMo" width="320"></a><br><b>How AI Learned That Words Change With Context: ELMo</b><br><sub><a href="073_deep-contextualized-word-representations-elmo/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/jcLW_NY0aOs"><img src="https://img.youtube.com/vi/jcLW_NY0aOs/hqdefault.jpg" alt="How AI Learned to Translate Whole Sentences: Seq2Seq" width="320"></a><br><b>How AI Learned to Translate Whole Sentences: Seq2Seq</b><br><sub><a href="011_sequence-to-sequence-learning-with-neural-networks/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/q68WnzvntPM"><img src="assets/banners/046.jpg" alt="The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis" width="320"></a><br><b>The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis</b><br><sub><a href="046_lottery-ticket-hypothesis/">notebook</a></sub></td>
 </tr>
