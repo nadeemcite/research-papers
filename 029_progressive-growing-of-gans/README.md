@@ -6,67 +6,63 @@ permalink: "/029_progressive-growing-of-gans/"
 # Progressive Growing of GANs for Improved Quality, Stability, and Variation
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
 
-
-**Paper:** [Progressive Growing of GANs for Improved Quality, Stability, and Variation](https://arxiv.org/abs/1710.10196)
-**Authors:** Tero Karras, Timo Aila, Samuli Laine, Jaakko Lehtinen (NVIDIA)
-**Year:** 2017 \| **Citations:** ~1,545 (OpenAlex)
-
+- **Paper:** [Progressive Growing of GANs for Improved Quality, Stability, and Variation](https://arxiv.org/abs/1710.10196)
+- **Authors:** Tero Karras, Timo Aila, Samuli Laine, Jaakko Lehtinen
+- **Lab, year:** NVIDIA, 2017 (ICLR 2018)
+- **Video:** YouTube Short coming on 11 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-Progressive Growing of GANs (ProGAN) introduced a training methodology where both the generator and discriminator start at a low resolution (4×4) and are progressively grown by adding new layers that model increasingly fine details as training advances. This approach both speeds up training and greatly stabilizes it, enabling the generation of high-quality images at resolutions up to 1024×1024 on the CelebA dataset. The paper also introduced several key implementation techniques: fade-in of new layers via smooth interpolation, equalized learning rate via weight scaling, pixelwise feature normalization in the generator, and minibatch standard deviation in the discriminator. Additionally, the authors proposed a new evaluation metric for GANs based on both image quality and variation, and achieved a record inception score of 8.80 on unsupervised CIFAR-10.
+A GAN (generative adversarial network) trains two networks against each other: a generator that makes images, and a discriminator that tries to tell them from real ones. Before this paper, GANs struggled to make large, sharp images.
 
-The core idea is elegantly simple: instead of immediately training a massive network to generate 1024×1024 images, start with a tiny 4×4 image where both networks can easily learn the basic structure, then incrementally add layers to double the resolution (8×8, 16×16, 32×32, …), with smooth fade-in transitions between stages. Each new layer introduces finer detail while the coarse structure learned at lower resolutions is preserved. This progressive approach dramatically stabilizes GAN training, which was notoriously unstable at high resolutions before this work.
+ProGAN starts both networks at a tiny 4×4 resolution and keeps adding layers that double it, up to 1024×1024. Each new layer is faded in gradually. The authors say this lets training first find the large-scale structure of the images, then move to finer detail.
 
-## What problem does it solve
+The paper also adds three simple tricks: equalized learning rate, pixelwise feature normalization and a minibatch standard deviation layer. It produced 1024×1024 faces from CelebA-HQ, a high-quality version of CelebA that the authors built, and a record inception score of 8.80 on unsupervised CIFAR10.
 
-Imagine you're learning to draw a face. You wouldn't start by trying to draw every single eyelash and pore — you'd start with a simple circle for the head, then add the eyes, nose, and mouth, and only later add fine details like hair texture and skin tone. That's exactly what Progressive Growing does for AI image generation. Before this paper, if you asked an AI to generate a high-resolution photo of a face (like 1024×1024 pixels), the training would often crash or produce garbage because the AI was overwhelmed trying to learn everything at once — the big picture and the tiny details all at the same time. It's like asking a child to paint a photorealistic portrait on their first day of art class. Progressive Growing solves this by starting the AI on tiny 4×4 images where it just learns "a face is roughly round with some darker spots for eyes," then gradually growing the image size so the AI can first master the big shapes before adding finer and finer details. This made it possible for the first time to generate 1024×1024 photorealistic celebrity faces that look real to humans.
+## What Problem Does It Solve
+
+Imagine learning to draw a face. You would not start with every eyelash. You would sketch the head's shape, then place the eyes and mouth, and only add fine detail at the end.
+
+Earlier GANs tried to learn everything at once, the overall shape and the tiny details together. At high resolutions this was hard and often unstable.
+
+ProGAN trains the way you would draw. The networks first learn rough 4×4 images, then sharper and sharper ones, building on what they already know at each step.
+
+## Core Idea
+
+- **Progressive growing:** the generator and discriminator mirror each other and grow together, one resolution step at a time. All existing layers stay trainable.
+- **Fade-in:** when a new resolution is added, its output is blended with an upsampled copy of the old output, with the weight α rising from 0 to 1. This avoids sudden shocks to the layers that were already trained.
+- **Minibatch standard deviation:** near the end of the discriminator, one extra feature map holds the average standard deviation across the batch. It helps the discriminator notice when generated images lack variety.
 
 ## Key Method Details
 
-### Progressive Growth
-- Both generator and discriminator start at 4×4 resolution
-- New layers are added to double the resolution progressively (8×8 → 16×16 → 32×32 → …)
-- All layers remain trainable throughout the entire training process
+- **Equalized learning rate:** weights start from N(0, 1) and are scaled at runtime by He's per-layer constant, so every weight learns at the same speed under Adam (Section 4.1).
+- **Pixelwise normalization:** after each 3×3 convolution in the generator, each pixel's feature vector is scaled to unit length (Section 4.2).
+- **Loss:** WGAN-GP, with the generator and discriminator updated alternately and a small drift term (weight 0.001) that keeps the discriminator output near zero (Appendix A.1).
+- **Training:** Adam with learning rate 0.001, β1 = 0 and β2 = 0.99. Each fade-in and each stable phase lasts 800k real images. Upsampling is nearest-neighbor, and downsampling is average pooling.
 
-### Fade-in
-- When new layers are added, they are smoothly faded in using an alpha parameter (α)
-- During fade-in, the output is a weighted blend: `(1 - α) * upscaled_prev_output + α * new_layer_output`
-- This prevents sudden shocks to the network when new layers are introduced
+### Simplifications in This Notebook
 
-### Equalized Learning Rate
-- Weights are initialized from N(0, 1) and scaled at runtime by a constant derived from He's initializer
-- This ensures all layers have approximately equal learning rates regardless of their size
-- The scaling constant `c = √(2 / fan_in)` is applied as a per-layer weight multiplier
+The notebook grows a small ProGAN from 4×4 to 64×64 on MNIST digits, with 500 iterations per stage (200 fade-in, 300 stable). It uses the non-saturating GAN loss instead of WGAN-GP, a 128-dimensional latent instead of 512, and no running average of generator weights.
 
-### Pixelwise Feature Normalization
-- After each convolutional layer in the generator, features are normalized per-pixel
-- For each pixel, the feature vector is divided by its L2 norm: `x = x / sqrt(mean(x²) + ε)`
-- Prevents signal magnitudes from escalating during training
+### What the Notebook Result Shows
 
-### Minibatch Standard Deviation
-- A small statistical layer is added to the end of the discriminator
-- Computes the standard deviation across the minibatch for each feature/spatial location
-- Appends a single feature map containing the average stddev — helps the discriminator detect mode collapse
+Both networks grew from 4×4 to 64×64 with a fade-in at each step, and the samples improve with resolution. At 4×4 they are colored blocks, and at 8×8 grey blobs. Thin strokes appear at 16×16, and at 32×32 and 64×64 the samples are white digit-like strokes. A few look like a 0, 1, 7 or 9, but many are malformed.
 
-### Loss Function
-- Uses the standard non-saturating GAN loss (Wasserstein distance is not used here)
-- The discriminator loss: `−E[log(D(x_real))] − E[log(1 − D(G(z)))]`
-- The generator loss: `−E[log(D(G(z)))]`
+The discriminator dominated early on. Over the last 100 stable iterations of the 4×4 stage, mean D loss was **0.051** and mean G loss **4.573**. By 64×64 the two were closer, at **0.772** and **1.998**. The generator loss spiked after each growth step, reaching **37.6** during the 8×8 stage.
+
+The run measures no image-quality score and uses MNIST at 64×64, so it shows the mechanics of progressive growing, not the paper's face results.
 
 ## Influence
 
-Progressive Growing of GANs was a landmark paper in generative modeling. It directly led to NVIDIA's StyleGAN series (StyleGAN, StyleGAN2, StyleGAN3), which built upon the progressive growing infrastructure with style-based generator architectures. The fade-in technique and the progressive training paradigm influenced numerous subsequent works in high-resolution image synthesis. The paper's training stabilization techniques (equalized learning rate, pixelwise normalization, minibatch stddev) became standard building blocks in GAN implementations. The work demonstrated that GANs could reliably produce photorealistic images at megapixel resolution, a feat that was extremely difficult before. ProGAN was also notable for its ICLR 2018 acceptance and its open-source release by NVIDIA, which made high-quality GAN training accessible to the broader research community.
+OpenAlex lists about 7,000 citations (7,024 when checked on 10 November 2026). The authors' [official code](https://github.com/tkarras/progressive_growing_of_gans) was released with the paper. NVIDIA's [StyleGAN](https://arxiv.org/abs/1812.04948) built on this work, and [StyleGAN2](https://arxiv.org/abs/1912.04958) later revisited progressive growing and replaced it with a design that does without it.
 
 ---
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/029_progressive-growing-of-gans/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/029_progressive-growing-of-gans/solution.ipynb) | From-scratch PyTorch implementation of a small progressive GAN on MNIST, with sample grids and loss curves |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, Q&A (answers from the paper), citations, and common misconceptions about the paper |

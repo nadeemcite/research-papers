@@ -7,101 +7,92 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements a simplified Progressive Growing GAN (ProGAN) in PyTorch, following the key architectural and training innovations from Karras et al. (2017). The implementation grows both generator and discriminator from 4×4 to 64×64 resolution, with smooth fade-in transitions between resolution stages.
+The notebook implements a small Progressive Growing GAN (ProGAN) in PyTorch, following Karras et al. (2017). Both networks grow from 4×4 to 64×64 with fade-in transitions, and use equalized learning rate, pixelwise normalization and minibatch standard deviation. It trains on MNIST digits for 500 iterations per stage, so it shows the mechanics rather than the paper's image quality.
 
 ## Section-by-Section Breakdown
 
-### 1. Configuration & Hyperparameters
-- **Latent dimension:** 128 (input noise vector size)
-- **Channel progression:** 512 → 512 → 256 → 128 → 64 (decreasing as resolution increases)
-- **Resolutions:** 4×4 → 8×8 → 16×16 → 32×32 → 64×64
-- **Fade-in iterations:** 200 per stage transition
-- **Stabilization iterations:** 300 per stage (after fade-in completes)
-- **Batch sizes:** vary by resolution (larger at low res, smaller at high res)
-- **LeakyReLU slope:** 0.2 (as per paper)
+### 1. Imports and Setup
+- PyTorch, torchvision, NumPy, matplotlib; seeds 42; deterministic cuDNN settings
+- Figures shown as JPEG at 80 dpi to keep the notebook small
+- On Kaggle, an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
-### 2. Equalized Learning Rate Convolution (`EqualizedConv2d`, `EqualizedConvTranspose2d`)
-- Custom wrapper around `nn.Conv2d` / `nn.ConvTranspose2d`
-- Weights initialized from N(0, 1), then scaled at runtime by `c = √(2 / fan_in)`
-- The `fan_in` accounts for kernel size, input channels, and spatial receptive field
-- Deliberate simplification: the paper uses a slightly different gain calculation; here we use the standard He variance scaling for simplicity
+### 2. Configuration
+- `LATENT_DIM = 128`
+- `CHANNELS = [512, 512, 256, 128, 64]` for resolutions `[4, 8, 16, 32, 64]`
+- `FADE_ITERATIONS = 200`, `STABLE_ITERATIONS = 300` (500 per stage; the 4×4 stage has no fade-in)
+- `LR = 0.001`, `BETA1 = 0.0`, `BETA2 = 0.99` (the paper's Adam settings), `LRELU_SLOPE = 0.2`
+- `BATCH_SIZES = {4: 64, 8: 64, 16: 32, 32: 16, 64: 8}`
 
-### 3. Pixelwise Feature Normalization (`PixelNorm`)
-- Applied after each conv layer in the generator (not the discriminator)
-- Formula: `x = x / sqrt(mean(x², dim=1, keepdim=True) + ε)` where ε = 1e-8
-- Normalizes per-pixel across the channel dimension
+### 3. Equalized Learning Rate (`EqualizedConv2d`, `EqualizedLinear`)
+- Weights start from N(0, 1) and are multiplied at every forward pass by `√(2 / fan_in)`, He's constant
+- This follows Section 4.1 of the paper
 
-### 4. Minibatch Standard Deviation (`MinibatchStdDev`)
-- Appended as the first layer of the discriminator's final block
-- Computes per-spatial-location stddev across the batch, averages it, and appends as one extra channel
-- Implementation: compute std → reduce to mean → expand as (B, 1, H, W) → concat with input
+### 4. Normalization Layers
+- `PixelNorm`: `x / sqrt(mean(x², over channels) + 1e-8)`, used after each convolution in the generator (Section 4.2)
+- `MinibatchStdDev`: the standard deviation of each feature at each location over the batch, averaged to one value and appended as an extra channel (Section 3)
 
-### 5. Generator Architecture (`Generator`)
-- **Initial block:** Linear(latent_dim, 4×4×512) → reshape → LReLU → toRGB(1×1 conv)
-- **Growth blocks:** each adds an Upsample(2×) → Conv3×3 → LReLU → Conv3×3 → LReLU
-- **toRGB:** 1×1 conv to 3 channels at each resolution (shared per stage)
-- **Fade-in:** during transition, the output is blended:
-  `output = (1 - α) * upsample(toRGB(prev_features)) + α * toRGB(new_features)`
-- α linearly goes from 0 → 1 during fade-in iterations
+### 5. Generator (`GeneratorBlock`, `Generator`)
+- Initial block: `EqualizedLinear(128 → 512×4×4)` → reshape → 3×3 conv → PixelNorm → LeakyReLU
+- Each growth block: nearest-neighbor upsampling ×2 → (3×3 conv → PixelNorm → LeakyReLU) twice
+- `to_rgb`: one 1×1 conv per resolution
+- Fade-in: `(1 - α) · upsample(toRGB(old features)) + α · toRGB(new features)`
 
-### 6. Discriminator Architecture (`Discriminator`)
-- **fromRGB:** 1×1 conv from 3 channels at each resolution
-- **Growth blocks (mirror):** Conv3×3 → LReLU → Conv3×3 → LReLU → AvgPool(2×) (downsampling)
-- **Final block at 4×4:** MinibatchStdDev → Conv3×3 → LReLU → Flatten → Linear → 1
-- **Fade-in:** during transition:
-  `input = (1 - α) * AvgPool(real_image) + α * fromRGB(downsampled_new_features)`
+### 6. Discriminator (`DiscriminatorBlock`, `Discriminator`)
+- `from_rgb`: one 1×1 conv per resolution
+- Each block: (3×3 conv → LeakyReLU) twice → average pooling ×2
+- Final block at 4×4: MinibatchStdDev → 3×3 conv → 4×4 conv → linear → one logit
+- Fade-in: blends `fromRGB(avgpool(image))` on the old path with `block(fromRGB(image))` on the new path
 
-### 7. Training Loop
-- **Resolution schedule:** for each resolution stage, run fade-in iterations then stabilization iterations
-- **n_critic:** discriminator is updated once per generator update (1:1 ratio, as in the paper)
-- **Loss:** non-saturating GAN loss (BCE with logits)
-- **Optimizer:** Adam with lr=0.001, beta1=0.0, beta2=0.99 (as per paper)
-- **Data:** MNIST images upscaled to current resolution (simplification — paper uses CelebA)
-- **Visualization:** saves generated samples at the end of each resolution stage
+### 7. Data Loading (`MultiResolutionMNIST`)
+- MNIST resized to the current resolution, scaled to [-1, 1] and repeated to 3 channels
+- Downloaded quietly to a temp folder (needs Kaggle internet on)
 
-### 8. Visualization
-- Grid of generated samples at each resolution (4×4, 8×8, 16×16, 32×32, 64×64)
-- Uses torchvision utils `make_grid` for clean image grids
-- Final plot shows the progression of image quality across resolution stages
+### 8. Training Functions (`get_dataloader`, `train_step`)
+- One discriminator update, then one generator update, per batch
+- Loss: non-saturating GAN loss, i.e. binary cross-entropy on the logits. The paper uses WGAN-GP with a drift term instead
+
+### 9. Progressive Training
+- For each stage: grow both networks, recreate the Adam optimizers, run the fade-in (α from 0 to 1), then the stable phase
+- Prints the losses every 50 fade-in and 100 stable iterations, and keeps 16 samples per resolution
+
+### 10–11. Visualization
+- A grid of 16 samples for each resolution, then raw and smoothed loss curves with stage boundaries
+
+### 12. Summary
+- What the saved run shows, with its real numbers, plus the simplifications
 
 ## Key Functions/Classes
 
 | Class/Function | Purpose |
 |---|---|
-| `EqualizedConv2d` | Conv layer with runtime weight scaling for equalized learning rate |
-| `EqualizedConvTranspose2d` | Transpose conv with equalized learning rate (for generator upsampling) |
-| `PixelNorm` | Per-pixel L2 normalization across channels |
-| `MinibatchStdDev` | Minibatch stddev layer for mode-collapse detection |
-| `GeneratorBlock` | Single generator growth block (upsample + 2 convs + toRGB) |
-| `DiscriminatorBlock` | Single discriminator growth block (2 convs + downsample + fromRGB) |
-| `Generator` | Full progressive generator with grow() and forward(alpha) methods |
-| `Discriminator` | Full progressive discriminator with grow() and forward(alpha) methods |
-| `train_step` | Single D + G update step at a given resolution and alpha |
-| `grow_and_train` | Outer loop: for each resolution, fade-in then stabilize |
+| `EqualizedConv2d`, `EqualizedLinear` | Layers with runtime weight scaling |
+| `PixelNorm` | Per-pixel normalization across channels |
+| `MinibatchStdDev` | Appends the batch's average standard deviation as a feature map |
+| `GeneratorBlock` | Upsample + two 3×3 convs |
+| `DiscriminatorBlock` | Two 3×3 convs + downsample |
+| `Generator`, `Discriminator` | Progressive networks with `grow()` and `forward(x, alpha)` |
+| `MultiResolutionMNIST` | MNIST at a chosen resolution |
+| `get_dataloader`, `train_step` | Data loader per stage; one D + G update |
 
 ## Data Flow / Shapes
 
 ```
-Latent z (B, 128) 
-  → Linear → (B, 512, 4, 4) 
-  → [Growth: Upsample ×2 → Conv → LReLU → Conv → LReLU]
-  → 8×8 → 16×16 → 32×32 → 64×64
+Latent z (B, 128)
+  → Linear → (B, 512, 4, 4)
+  → [Upsample ×2 → Conv → Conv] per stage: 8×8 → 16×16 → 32×32 → 64×64
   → toRGB (1×1 conv) → (B, 3, H, W)
 
-Real image (B, 3, H, W)
+Image (B, 3, H, W)
   → fromRGB (1×1 conv)
-  → [Growth: Conv → LReLU → Conv → LReLU → AvgPool ×2]
-  → 32×32 → 16×16 → 8×8 → 4×4
-  → MinibatchStdDev → Conv3×3 → LReLU → Flatten → Linear → (B, 1)
+  → [Conv → Conv → AvgPool ×2] per stage: … → 4×4
+  → MinibatchStdDev → Conv3×3 → Conv4×4 → Linear → (B, 1)
 ```
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Dataset:** Uses MNIST (upscaled) instead of CelebA/HQ. The paper trains on CelebA HQ at 1024×1024; this notebook uses MNIST at up to 64×64 for time efficiency on Kaggle.
-2. **Max resolution:** 64×64 instead of 1024×1024. Each doubling requires significantly more compute.
-3. **Equalized learning rate:** Uses He-based scaling `√(2/fan_in)` rather than the exact formula from the paper which uses `√(2) * √(1/fan_in)` — functionally equivalent.
-4. **Upsampling:** Uses `nn.Upsample` (nearest neighbor) + conv instead of transposed convolutions. Both are valid; the paper uses transposed conv but nearest + conv is more stable.
-5. **EMA (Exponential Moving Average):** The paper uses EMA of generator weights for final sample generation. Omitted here for simplicity.
-6. **Truncation trick:** Not implemented (a post-training inference trick from the paper).
-7. **Loss:** Standard non-saturating GAN loss. The paper uses the same, but also experiments with WGAN-GP loss.
-8. **Iteration counts:** Greatly reduced from the paper's millions of iterations to ~500 per stage for practical runtime on Kaggle.
+1. **Dataset:** MNIST digits instead of CelebA-HQ faces (the paper also uses CelebA, LSUN and CIFAR-10).
+2. **Resolution:** 64×64 instead of 1024×1024.
+3. **Training length:** 500 iterations per stage, against the paper's 800k real images per fade-in or stable phase.
+4. **Loss:** non-saturating GAN loss instead of WGAN-GP with a drift term.
+5. **Latent size:** 128 instead of 512, and the latent vectors are not normalized onto a hypersphere.
+6. **No running average of generator weights:** the paper uses one, with decay 0.999, for the images it shows.

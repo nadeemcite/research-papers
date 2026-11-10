@@ -5,61 +5,47 @@ nav_order: 2
 ---
 # TALK — Progressive Growing of GANs
 
-## Press / Blog Coverage
+## Press & Blog Coverage
 
-1. **Machine Learning Mastery** — "How to Implement Progressive Growing GAN Models in Keras"
-   - Step-by-step tutorial implementing ProGAN with fade-in, toRGB/fromRGB layers, and composite models for training.
-   - URL: https://machinelearningmastery.com/how-to-implement-progressive-growing-gan-models-in-keras/
+1. [**Progressive Growing of GANs for Improved Quality, Stability, and Variation**](https://research.nvidia.com/publication/2017-10_Progressive-Growing-of), NVIDIA Research. The lab's publication page for the paper.
 
-2. **Papers With Code** — Paper page with method summary and results comparison
-   - Lists ProGAN under "Image Generation" methods, tracks benchmark results.
-   - URL: https://paperswithcode.com/paper/progressive-growing-of-gans-for-improved
+2. [**tkarras/progressive_growing_of_gans**](https://github.com/tkarras/progressive_growing_of_gans), GitHub. The authors' official TensorFlow implementation. Its README says the original Theano version produced the paper's results.
 
-3. **NVIDIA Research** — Official NVIDIA research publication page
-   - Originally published as an NVIDIA research paper; the official TensorFlow implementation was open-sourced.
-   - URL: https://research.nvidia.com/publication/2017-10_Progressive-Growing-of
+3. [**"How to Implement Progressive Growing GAN Models in Keras"**](https://machinelearningmastery.com/how-to-implement-progressive-growing-gan-models-in-keras/), Machine Learning Mastery. A step-by-step tutorial covering fade-in and the toRGB/fromRGB layers.
 
-4. **Google AI Blog** — Referenced in discussions of high-quality image generation
-   - The paper was widely discussed in the ML community for achieving photorealistic 1024×1024 face generation.
+## Q&A (answers from the paper)
 
-5. **Reddit r/MachineLearning** — Significant community discussion upon release
-   - The generated celebrity faces were frequently shared and discussed, with many commenters noting the "uncanny valley" quality of the faces.
+**Q1: What is the main idea?**
+A: Start with low-resolution images and add layers to both networks as training goes on. The authors say this lets training first discover the large-scale structure of the image distribution, and then shift attention to finer detail, instead of learning all scales at once (Section 2).
 
-## Citations (verifiable)
+**Q2: Why fade new layers in?**
+A: New layers are blended in smoothly while the resolution doubles. The authors say this avoids sudden shocks to the already well-trained, smaller-resolution layers (Section 2 and Figure 2).
 
-- **OpenAlex citation count:** ~1,545 (as of 2026)
-- **arXiv ID:** 1710.10196
-- Published at ICLR 2018
-- Key citing works include:
-  - StyleGAN (Karras et al., 2019) — arXiv:1812.04948
-  - BigGAN (Brock et al., 2019) — arXiv:1809.11096
-  - StyleGAN2 (Karras et al., 2020) — arXiv:1912.04458
+**Q3: What loss did the authors train with?**
+A: The WGAN-GP loss, with the generator and discriminator updated alternately on each minibatch. They also add a small term that keeps the discriminator output from drifting too far from zero, with weight 0.001 (Appendix A.1). Section 2 adds that the method also trains with LSGAN loss, though Appendix B says they prefer WGAN-GP.
 
-## Interview Q&A
+**Q4: How does minibatch standard deviation work?**
+A: The layer computes the standard deviation of each feature at each spatial location over the minibatch, averages them into one value, and appends it as an extra constant feature map. It has no learnable parameters, and the authors insert it near the end of the discriminator (Section 3).
 
-**Q: What was the main motivation for progressive growing?**
-A: The main motivation was training instability. High-resolution GANs were notoriously difficult to train — they would often collapse or produce artifacts. By starting at low resolution and progressively growing, both networks first learn the large-scale structure (which is easier) before tackling fine detail. This naturally curriculum-learns the problem from easy to hard.
-
-**Q: Why is the fade-in mechanism important?**
-A: Without fade-in, adding new layers to a trained network causes a sudden shock — the new layers are randomly initialized and can disrupt the learned representations. The fade-in smoothly transitions from the old output to the new output over many training iterations, giving the network time to adapt to the new capacity without forgetting what it already learned.
-
-**Q: How does equalized learning rate differ from standard He initialization?**
-A: Standard He initialization sets the weights once at initialization. Equalized learning rate instead initializes weights from a standard normal and dynamically scales them by a constant at every forward pass. This ensures the dynamic range of the weights stays consistent throughout training, preventing some layers from learning much faster than others purely due to their scale.
-
-**Q: What is minibatch standard deviation and why does it help?**
-A: It's a small layer added to the discriminator that computes the standard deviation across all samples in the minibatch for each feature. If the generator is mode-collapsing (producing very similar outputs), the minibatch stddev will be near zero, and the discriminator can easily detect this. This pushes the generator toward producing more diverse outputs.
-
-**Q: How does ProGAN compare to StyleGAN?**
-A: StyleGAN (2019) is the direct successor. It keeps the progressive growing training methodology but replaces the sequential latent input with an AdaIN-based style injection mechanism at each layer. This gives much finer control over the generated images (coarse styles at low resolution, fine styles at high resolution) and generally produces higher-quality results.
+**Q5: Why scale weights at runtime instead of initializing them carefully?**
+A: Weights start from N(0, 1) and are scaled by the per-layer constant from He's initializer at every forward pass. Optimizers like Adam normalize updates by their scale, so this keeps the learning speed the same for all weights (Section 4.1).
 
 ## Common Misconceptions
 
-1. **"Progressive Growing requires transposed convolutions."** — False. The original NVIDIA implementation used transposed convolutions (fractionally-strided convolutions), but nearest-neighbor upsampling followed by a regular convolution is equally valid and often more stable. Many modern implementations use upsampling + conv.
+1. **"ProGAN uses transposed convolutions to upsample."** The paper doubles the resolution with nearest-neighbor filtering, and Appendix A.1 describes upsampling as 2×2 element replication, each followed by convolutions. This notebook does the same.
 
-2. **"ProGAN uses Wasserstein loss."** — False. ProGAN uses the standard non-saturating GAN loss. The WGAN and WGAN-GP papers are separate works. Some ProGAN reimplementations experiment with WGAN-GP loss, but the original paper uses the standard GAN objective.
+2. **"ProGAN uses the standard non-saturating GAN loss."** The paper trains with WGAN-GP loss (Appendix A.1). This notebook uses the non-saturating loss as a simplification.
 
-3. **"Progressive Growing is obsolete."** — Not exactly. While diffusion models have largely surpassed GANs for image generation, the progressive growing principle (curriculum from simple to complex) remains influential. StyleGAN2-ADA and StyleGAN3 still use variants of the progressive training approach, and the technique is used in other domains like video generation.
+3. **"The 1024×1024 faces come from CelebA."** They come from CelebA-HQ, a higher-quality version of CelebA that the authors built for the paper (Section 6.3).
 
-4. **"The fade-in is just a learning rate schedule."** — No, it's an architectural blend. The alpha parameter blends between the old resolution output (upsampled) and the new resolution output at the pixel level, not at the parameter level.
+4. **"Later NVIDIA GANs all kept progressive growing."** [StyleGAN2](https://arxiv.org/abs/1912.04958) revisited it and reports a design that produces high-quality images without progressive growing (Section 4 of that paper).
 
-5. **"ProGAN can only generate faces."** — No. The paper demonstrates results on CelebA, CelebA-HQ, CIFAR-10, and LSUN. The progressive growing technique is domain-agnostic, though it is most famous for the face generation results.
+## Real Citations
+
+- Karras, T., Aila, T., Laine, S., & Lehtinen, J. (2018). *Progressive Growing of GANs for Improved Quality, Stability, and Variation.* ICLR 2018. [arXiv:1710.10196](https://arxiv.org/abs/1710.10196)
+- Gulrajani, I., et al. (2017). *Improved Training of Wasserstein GANs.* [arXiv:1704.00028](https://arxiv.org/abs/1704.00028) (the WGAN-GP loss used in the paper)
+- Karras, T., Laine, S., & Aila, T. (2019). *A Style-Based Generator Architecture for Generative Adversarial Networks.* [arXiv:1812.04948](https://arxiv.org/abs/1812.04948)
+- Karras, T., et al. (2020). *Analyzing and Improving the Image Quality of StyleGAN.* [arXiv:1912.04958](https://arxiv.org/abs/1912.04958)
+- Brock, A., Donahue, J., & Simonyan, K. (2019). *Large Scale GAN Training for High Fidelity Natural Image Synthesis.* [arXiv:1809.11096](https://arxiv.org/abs/1809.11096)
+
+**Citation count:** about 7,000 ([OpenAlex](https://openalex.org/W2766527293), 7,024 when checked on 10 November 2026).
