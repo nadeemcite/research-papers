@@ -210,6 +210,10 @@ Short videos on the same 100 papers: *learn AI the way models learn, one step at
 
 <table>
 <tr>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/ds6J-BW-xqQ"><img src="https://img.youtube.com/vi/ds6J-BW-xqQ/hqdefault.jpg" alt="Big Shapes Before Tiny Details: Progressive GAN" width="320"></a><br><b>Big Shapes Before Tiny Details: Progressive GAN</b><br><sub><a href="029_progressive-growing-of-gans/">notebook</a></sub></td>
+<td align="center" width="50%"><a href="https://www.youtube.com/shorts/bBQI1dACDI0"><img src="https://img.youtube.com/vi/bBQI1dACDI0/hqdefault.jpg" alt="A Smaller AI Learns From a Larger One: Knowledge Distillation" width="320"></a><br><b>A Smaller AI Learns From a Larger One: Knowledge Distillation</b><br><sub><a href="045_distilling-knowledge-in-a-neural-network/">notebook</a></sub></td>
+</tr>
+<tr>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/CMTHivcCTb0"><img src="https://img.youtube.com/vi/CMTHivcCTb0/hqdefault.jpg" alt="Words on Both Sides: BERT" width="320"></a><br><b>Words on Both Sides: BERT</b><br><sub><a href="074_bert-pre-training-deep-bidirectional-transformers/">notebook</a></sub></td>
 <td align="center" width="50%"><a href="https://www.youtube.com/shorts/jkP0PTgfX_g"><img src="https://img.youtube.com/vi/jkP0PTgfX_g/hqdefault.jpg" alt="How AI Learned That Words Change With Context: ELMo" width="320"></a><br><b>How AI Learned That Words Change With Context: ELMo</b><br><sub><a href="073_deep-contextualized-word-representations-elmo/">notebook</a></sub></td>
 </tr>

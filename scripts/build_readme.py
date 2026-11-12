@@ -250,7 +250,9 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('CMTHivcCTb0', 'Words on Both Sides: BERT', '074_bert-pre-training-deep-bidirectional-transformers'),
+    shorts = [('ds6J-BW-xqQ', 'Big Shapes Before Tiny Details: Progressive GAN', '029_progressive-growing-of-gans'),
+              ('bBQI1dACDI0', 'A Smaller AI Learns From a Larger One: Knowledge Distillation', '045_distilling-knowledge-in-a-neural-network'),
+              ('CMTHivcCTb0', 'Words on Both Sides: BERT', '074_bert-pre-training-deep-bidirectional-transformers'),
               ('jkP0PTgfX_g', 'How AI Learned That Words Change With Context: ELMo', '073_deep-contextualized-word-representations-elmo'),
               ('jcLW_NY0aOs', 'How AI Learned to Translate Whole Sentences: Seq2Seq', '011_sequence-to-sequence-learning-with-neural-networks'),
               ('q68WnzvntPM', 'The Tiny Winner Hidden Inside Big AI: Lottery Ticket Hypothesis', '046_lottery-ticket-hypothesis'),

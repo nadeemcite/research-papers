@@ -9,7 +9,7 @@ permalink: "/029_progressive-growing-of-gans/"
 - **Paper:** [Progressive Growing of GANs for Improved Quality, Stability, and Variation](https://arxiv.org/abs/1710.10196)
 - **Authors:** Tero Karras, Timo Aila, Samuli Laine, Jaakko Lehtinen
 - **Lab, year:** NVIDIA, 2017 (ICLR 2018)
-- **Video:** YouTube Short coming on 11 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/ds6J-BW-xqQ) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
