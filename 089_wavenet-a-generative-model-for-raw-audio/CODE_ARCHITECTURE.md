@@ -51,7 +51,7 @@ The notebook implements a simplified WaveNet from scratch in PyTorch, training o
 - **Loss**: Cross-entropy loss over 256 categories, comparing predicted distribution at timestep t to ground truth at timestep t+1 (shifted by one)
 - **Optimizer**: Adam with learning rate 0.001
 - **Teacher forcing**: All timesteps predicted in parallel — input is the full sequence, target is the sequence shifted left by 1
-- **Epochs**: 20-30 on toy data (reduced from paper's full training for time constraints)
+- **Steps**: `STEPS = 3000`, each one batch of 4 random 4,096-sample windows from the 5-second training signal
 - **Batch**: Single long sequence, or batched windows
 
 ### Section 8: Generation (Autoregressive Sampling)
@@ -99,7 +99,7 @@ Audio (T,) float
 1. **Toy audio data**: We use synthetic sine wave mixtures instead of real speech (e.g., VCTK corpus). The paper trained on 20+ hours of multi-speaker audio.
 2. **Reduced scale**: 10 layers, 1 stack, 32 channels (paper used 30 layers, 3 stacks, 128-512 channels). Receptive field = 1024 vs paper's larger.
 3. **No conditional generation**: We implement unconditional WaveNet only (paper includes speaker-conditioned and text-conditioned variants).
-4. **Fewer epochs**: 20-30 epochs vs paper's extensive training.
+4. **Short training**: 3,000 steps on one synthetic signal vs the paper's training on real speech and music datasets.
 5. **8 kHz sample rate**: Paper uses 16 kHz; we use 8 kHz to reduce sequence length.
 6. **No context stacks**: The paper uses multi-resolution context stacks; we use a single stack.
 7. **Simpler generation**: We use basic categorical sampling without temperature annealing.
