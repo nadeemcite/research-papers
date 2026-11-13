@@ -42,7 +42,7 @@ By using a clever trick called "dilated convolutions" (think of it as looking at
 
 ## Key Method Details
 
-- **Receptive field**: With L layers and max dilation 2^(L-1), the receptive field is 2^L. The paper uses stacks of dilations [1, 2, 4, ..., 512] repeated 3 times = 30 layers, receptive field = 1024.
+- **Receptive field**: With L layers and max dilation 2^(L-1), the receptive field is 2^L. The paper doubles the dilation up to a limit and then repeats it, giving as an example 1, 2, 4, ..., 512 repeated three times; each 1, 2, 4, ..., 512 block has a receptive field of 1,024 samples (Section 2.1).
 - **Training**: All timesteps predicted in parallel (teacher forcing) — no sequential generation needed during training, making it efficient.
 - **Generation (inference)**: Sequential — each predicted sample is fed back as input for the next prediction.
 - **Loss**: Cross-entropy over 256 categories per timestep.

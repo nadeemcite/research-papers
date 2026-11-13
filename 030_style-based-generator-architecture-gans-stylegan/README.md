@@ -9,7 +9,7 @@ permalink: "/030_style-based-generator-architecture-gans-stylegan/"
 - **Paper:** [A Style-Based Generator Architecture for Generative Adversarial Networks](https://arxiv.org/abs/1812.04948)
 - **Authors:** Tero Karras, Samuli Laine, Timo Aila
 - **Lab, year:** NVIDIA, 2018 (CVPR 2019)
-- **Video:** YouTube Short coming on 12 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/csCLPNexOqI) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
