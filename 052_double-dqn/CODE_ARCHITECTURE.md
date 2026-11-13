@@ -7,7 +7,7 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements both **vanilla DQN** and **Double DQN** from scratch in PyTorch, trains both on CartPole-v1, and directly compares Q-value overestimation and learning performance. The key algorithmic difference is one line in the target computation: vanilla DQN uses the target network for both selecting and evaluating the best next action, while Double DQN uses the online network for selection and the target network for evaluation. All other components (experience replay, target network, ε-greedy) are identical. The notebook tracks Q-value estimates during training to demonstrate that Double DQN produces less biased (lower) Q-values than vanilla DQN.
+The notebook implements both **vanilla DQN** and **Double DQN** from scratch in PyTorch, trains both on CartPole-v1, and directly compares Q-value overestimation and learning performance. The key algorithmic difference is one line in the target computation: vanilla DQN uses the target network for both selecting and evaluating the best next action, while Double DQN uses the online network for selection and the target network for evaluation. All other components (experience replay, target network, ε-greedy) are identical. The notebook tracks Q-value estimates during training and compares predicted values with actual returns, to test the paper's claim that Double DQN overestimates less. The Summary cell reports what this run actually showed.
 
 ## Section-by-Section Breakdown
 
@@ -27,7 +27,7 @@ The notebook implements both **vanilla DQN** and **Double DQN** from scratch in 
   - `hidden_dim = 128` — hidden layer size
   - `lr = 1e-3` — learning rate
   - `gamma = 0.99` — discount factor
-  - `buffer_size = 10,000` — replay buffer capacity
+  - `buffer_size = 10000` — replay buffer capacity
   - `batch_size = 64` — minibatch size
   - `target_update_freq = 10` — steps between target network hard updates (in episodes)
   - `epsilon_start = 1.0`, `epsilon_end = 0.05`, `epsilon_decay = 0.995`
@@ -94,20 +94,20 @@ The notebook implements both **vanilla DQN** and **Double DQN** from scratch in 
 
 ### 11. Comparison Plots
 - **Reward curves**: Both agents' episode rewards over training, with rolling mean smoothing
-- **Q-value estimates**: Mean Q-value of sampled states per episode — Double DQN should show lower (less overestimated) Q-values
+- **Q-value estimates**: Mean Q-value of the sampled training batches per episode; the paper predicts lower values for Double DQN
 - **Overestimation metric**: Difference between estimated Q-values and actual returns
 
 ### 12. Evaluation: Greedy Policy
 - **Purpose**: Run both trained agents with ε=0 for 10 episodes, compare average rewards.
 - **Method**: Pure greedy action selection, no exploration noise
 
-### 13. Q-Value Overestimation Analysis
+### 13. Predicted Q-Values vs Actual Returns
 - **Purpose**: Directly measure overestimation by comparing predicted Q-values to actual observed returns.
 - **Method**: For a set of states, compute Q(s, greedy_action) for both agents, then run episodes from those states and measure actual discounted returns.
-- **Expected result**: Vanilla DQN Q-values exceed actual returns (overestimation); Double DQN Q-values are closer to actual returns.
+- **Reading the result**: Q above the actual return is overestimation and Q below is underestimation. The printout reports `Q minus return` for each agent.
 
 ### 14. Summary
-- Recap of what was built and the key finding: Double DQN reduces overestimation with a one-line change.
+- `### What the run above shows`: the real rewards, Q-value gap and Q-minus-return numbers from the saved run.
 
 ## Key Functions/Classes
 
@@ -141,6 +141,6 @@ Batch:
 2. **Network**: MLP instead of CNN. No frame stacking.
 3. **Buffer size**: 10,000 instead of 1,000,000. Sufficient for CartPole.
 4. **Target update**: Every 10 episodes (hard copy) instead of every 10,000 steps (hard copy). Faster adaptation for small environment.
-5. **Episodes**: 300 instead of millions of frames. Enough to see learning and overestimation effects.
+5. **Episodes**: 300 instead of millions of frames. Enough to see learning, but too short for the agents' value estimates to settle.
 6. **No Atari preprocessing**: No frame skipping, grayscale conversion, or reward clipping.
 7. **Both agents trained with same seed**: For controlled comparison (the paper averaged over multiple seeds and games).
