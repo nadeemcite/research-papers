@@ -20,7 +20,7 @@ The notebook implements a simplified WaveNet from scratch in PyTorch, training o
 - **Shapes**: Input: (T,) float64 → Output: (T,) int64 in [0, 255]
 
 ### Section 3: Toy Audio Dataset
-- Generate a synthetic audio signal: sum of sine waves at different frequencies (e.g., 220 Hz + 330 Hz at 8000 Hz sample rate)
+- Generate a synthetic audio signal at 8,000 Hz: a 220 Hz tone plus harmonics at 440, 660 and 880 Hz, with a slow 5 Hz amplitude wobble
 - This replaces real speech data — the goal is to demonstrate the architecture, not produce natural speech
 - Convert to mu-law quantized categories
 - Create training samples by sliding a window over the signal
@@ -96,10 +96,10 @@ Audio (T,) float
 
 ## Deliberate Simplifications vs. Full Paper
 
-1. **Toy audio data**: We use synthetic sine wave mixtures instead of real speech (e.g., VCTK corpus). The paper trained on 20+ hours of multi-speaker audio.
-2. **Reduced scale**: 10 layers, 1 stack, 32 channels (paper used 30 layers, 3 stacks, 128-512 channels). Receptive field = 1024 vs paper's larger.
+1. **Toy audio data**: We use one synthetic tone instead of real speech. For multi-speaker generation the paper used 44 hours of VCTK speech from 109 speakers (Section 3.1).
+2. **Reduced scale**: 10 layers, 1 stack, 32 channels, a receptive field of 1,024 samples. The paper's example stacks the 1, 2, 4, ..., 512 block three times (Section 2.1).
 3. **No conditional generation**: We implement unconditional WaveNet only (paper includes speaker-conditioned and text-conditioned variants).
 4. **Short training**: 3,000 steps on one synthetic signal vs the paper's training on real speech and music datasets.
 5. **8 kHz sample rate**: Paper uses 16 kHz; we use 8 kHz to reduce sequence length.
-6. **No context stacks**: The paper uses multi-resolution context stacks; we use a single stack.
+6. **No context stacks**: The paper describes context stacks as a way to widen the receptive field (Section 2.6); this notebook does not use them.
 7. **Simpler generation**: We use basic categorical sampling without temperature annealing.

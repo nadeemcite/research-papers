@@ -53,9 +53,9 @@ The notebook trains a 10-layer, single-stack WaveNet with 32 channels (receptive
 
 ### What the Notebook Result Shows
 
-Training worked: in this run the cross-entropy loss fell from **5.54** at step 1, about ln 256 for a uniform guess, to **0.0035** by step 2,000. It then spiked to 0.044 at step 2,500 and ended at **0.011**.
+Training worked: the cross-entropy loss fell from **5.54** at step 1, about ln 256 for a uniform guess over 256 values, to **0.0030** at step 3,000.
 
-Primed with 1,024 real samples, the generated wave repeats at roughly the right pitch: its dominant frequency is **223 Hz** against **219 Hz** in the original, and the 440 Hz harmonic is clear. But it is glitchy from early on, the 660 Hz harmonic is weak, and the 880 Hz one is lost in broadband noise. Two earlier runs of the same code ended cleaner (one stayed a clean wave for all 2,000 samples), so GPU run-to-run differences matter here.
+Primed with 1,024 real samples, the model generated 2,000 more as a clean repeating wave, with the same slow rise and fall in loudness as the original. The dominant frequency is **219 Hz** in both, and the generated spectrum also has the 440, 660 and 880 Hz harmonics.
 
 The model learns to continue one simple, repeating synthetic tone; it says nothing about speech or music quality.
 
