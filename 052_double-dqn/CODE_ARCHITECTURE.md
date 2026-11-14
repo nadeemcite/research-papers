@@ -29,7 +29,7 @@ The notebook implements both **vanilla DQN** and **Double DQN** from scratch in 
   - `gamma = 0.99` — discount factor
   - `buffer_size = 10000` — replay buffer capacity
   - `batch_size = 64` — minibatch size
-  - `target_update_freq = 10` — steps between target network hard updates (in episodes)
+  - `target_update_freq = 10` — episodes between target-network hard updates
   - `epsilon_start = 1.0`, `epsilon_end = 0.05`, `epsilon_decay = 0.995`
   - `num_episodes = 300` — training episodes (reduced for CPU tractability)
   - `max_steps = 500` — max steps per CartPole-v1 episode
@@ -92,21 +92,25 @@ The notebook implements both **vanilla DQN** and **Double DQN** from scratch in 
   ```
 - **Tracked metrics**: `episode_rewards`, `episode_losses`, `mean_q_values` — for both agents
 
-### 11. Comparison Plots
-- **Reward curves**: Both agents' episode rewards over training, with rolling mean smoothing
-- **Q-value estimates**: Mean Q-value of the sampled training batches per episode; the paper predicts lower values for Double DQN
-- **Overestimation metric**: Difference between estimated Q-values and actual returns
+### 11. Reward Curve Comparison
+- Both agents' episode rewards over training, raw and as a 20-episode rolling mean
 
-### 12. Evaluation: Greedy Policy
+### 12. Q-Value Estimates During Training
+- Mean Q-value of the sampled training batches per episode; the paper predicts lower values for Double DQN
+
+### 13. Loss Curve Comparison
+- Huber (smooth L1) loss per episode for both agents
+
+### 14. Evaluation: Greedy Policy
 - **Purpose**: Run both trained agents with ε=0 for 10 episodes, compare average rewards.
 - **Method**: Pure greedy action selection, no exploration noise
 
-### 13. Predicted Q-Values vs Actual Returns
+### 15. Predicted Q-Values vs Actual Returns
 - **Purpose**: Directly measure overestimation by comparing predicted Q-values to actual observed returns.
-- **Method**: For a set of states, compute Q(s, greedy_action) for both agents, then run episodes from those states and measure actual discounted returns.
+- **Method**: For 50 start states, compute Q(s, greedy_action) for both agents, then follow the greedy policy and measure the actual discounted return.
 - **Reading the result**: Q above the actual return is overestimation and Q below is underestimation. The printout reports `Q minus return` for each agent.
 
-### 14. Summary
+### 16. Summary
 - `### What the run above shows`: the real rewards, Q-value gap and Q-minus-return numbers from the saved run.
 
 ## Key Functions/Classes

@@ -45,11 +45,11 @@ The notebook trains DQN and Double DQN on CartPole-v1 instead of Atari, with a s
 
 ### What the Notebook Result Shows
 
-On this short run neither agent is clearly better. Over the last 30 training episodes Double DQN averaged **120.3** against DQN's **102.2**, but in the 10-episode greedy evaluation DQN scored **183.8** against **152.7**. An earlier run of the same notebook went the other way on training reward (60.2 vs 91.6), so the comparison is not stable.
+Double DQN did not beat DQN in the saved run. Over the last 30 training episodes DQN averaged **139.2** against Double DQN's **90.6**, and in the 10-episode greedy evaluation DQN reached the 500-step cap every time while Double DQN averaged **110.3**. Two earlier runs gave different outcomes, so the comparison is not stable.
 
-The Q-value gap is small: DQN's mean Q-value ended **1.43** higher than Double DQN's (5.6%). Both agents **underestimate**: their predicted values were **58.9** (DQN) and **51.6** (Double DQN) below the discounted returns they actually got. Both curves were still rising at episode 300.
+The Q-value gap is small: DQN's mean Q-value ended **2.15** higher (8.6%). Both agents **underestimate**: their predicted values were **71.7** (DQN) and **40.2** (Double DQN) below the discounted returns they actually got, and both curves were still rising at episode 300.
 
-So the notebook shows how the Double DQN target differs from DQN's, but it does not reproduce the paper's overestimation result. That would need longer training and several seeds.
+So the notebook shows how the Double DQN target differs from DQN's, but it does not reproduce the paper's overestimation result. That would need longer training and many seeds.
 
 ## Influence
 
