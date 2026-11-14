@@ -9,7 +9,7 @@ permalink: "/089_wavenet-a-generative-model-for-raw-audio/"
 - **Paper:** [WaveNet: A Generative Model for Raw Audio](https://arxiv.org/abs/1609.03499)
 - **Authors:** Aaron van den Oord, Sander Dieleman, Heiga Zen, Karen Simonyan, Oriol Vinyals, Alex Graves, Nal Kalchbrenner, Andrew Senior, Koray Kavukcuoglu
 - **Lab, year:** Google DeepMind, 2016
-- **Video:** YouTube Short coming on 13 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/ecB_wDzUHQ8) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

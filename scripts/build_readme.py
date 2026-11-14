@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('csCLPNexOqI', 'Style Controls for AI Images: StyleGAN', '030_style-based-generator-architecture-gans-stylegan'),
+    shorts = [('ecB_wDzUHQ8', 'Sound One Sample at a Time: WaveNet', '089_wavenet-a-generative-model-for-raw-audio'),
+              ('csCLPNexOqI', 'Style Controls for AI Images: StyleGAN', '030_style-based-generator-architecture-gans-stylegan'),
               ('ds6J-BW-xqQ', 'Big Shapes Before Tiny Details: Progressive GAN', '029_progressive-growing-of-gans'),
               ('bBQI1dACDI0', 'A Smaller AI Learns From a Larger One: Knowledge Distillation', '045_distilling-knowledge-in-a-neural-network'),
               ('CMTHivcCTb0', 'Words on Both Sides: BERT', '074_bert-pre-training-deep-bidirectional-transformers'),
