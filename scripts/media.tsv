@@ -29,3 +29,4 @@ num	short	banner	status	shorts_url	release_date
 030	StyleGAN	assets/banners/030.jpg	public	https://youtube.com/shorts/csCLPNexOqI	2026-11-12
 089	WaveNet	assets/banners/089.jpg	public	https://youtube.com/shorts/ecB_wDzUHQ8	2026-11-13
 052	Double DQN	assets/banners/052.jpg	private		2026-11-14
+053	Dueling DQN	assets/banners/053.jpg	private		2026-11-15
