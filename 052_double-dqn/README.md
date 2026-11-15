@@ -9,7 +9,7 @@ permalink: "/052_double-dqn/"
 - **Paper:** [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461)
 - **Authors:** Hado van Hasselt, Arthur Guez, David Silver
 - **Lab, year:** Google DeepMind, 2015 (AAAI 2016)
-- **Video:** YouTube Short coming on 14 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/SqcGEVblqEI) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
