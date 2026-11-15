@@ -12,12 +12,13 @@ The notebook implements a **Variational Auto-Encoder** from scratch in PyTorch, 
 ## Notebook Structure
 
 ### Section 1: Setup & Imports
-- Installs/imports torch, torchvision, numpy, matplotlib.
-- Sets random seed for reproducibility.
+- Imports torch, torchvision, numpy and matplotlib; seeds `random`, NumPy and PyTorch with 42.
+- Deterministic cuDNN/cuBLAS settings, so a re-run on the same hardware reproduces the saved numbers.
+- Figures shown as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`.
 - Device selection (`cuda` if available, else `cpu`).
 
 ### Section 2: Data Loading — MNIST
-- Loads MNIST via `torchvision.datasets.MNIST`.
+- Loads MNIST via `torchvision.datasets.MNIST`, downloaded quietly to a temp folder.
 - Applies standard preprocessing: flatten to 784-dim vector, normalize to [0, 1].
 - Creates `DataLoader` with minibatch size M=128 (paper used 100; 128 is a standard GPU-friendly batch size).
 - **Data flow:** Each image is a 28x28 grayscale image → flattened to a 784-dim tensor.
@@ -66,7 +67,7 @@ The notebook implements a **Variational Auto-Encoder** from scratch in PyTorch, 
 
 ### Section 8: Training Loop
 - Optimizer: Adam (lr=1e-3), following common VAE training practice (paper used Adagrad).
-- Epochs: 50 (sufficient for convergence on MNIST; paper trained on millions of samples).
+- Epochs: 50 for each model (the 2D and the 20D VAE), batch size 128.
 - Per-epoch: iterate over minibatches, forward pass, compute loss, backward, optimizer step.
 - Tracks and prints: total loss, reconstruction loss, KL divergence per epoch.
 - Saves loss curves for visualization.
