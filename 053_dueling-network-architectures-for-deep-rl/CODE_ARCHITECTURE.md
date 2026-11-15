@@ -101,4 +101,4 @@ Q(s,a) = V(s) + A(s,a) - mean(A)  → Q-values (2,) → argmax → action
 4. **Target update**: every 10 episodes instead of every 10,000 steps.
 5. **Training length**: 300 episodes, one seed.
 6. **No Double DQN, prioritized replay or gradient clipping**: the paper's Atari agents combine dueling with Double DQN and gradient clipping, and its best agent adds prioritized replay. This notebook compares the two networks with the same plain DQN update.
-7. **No matched baseline**: the paper retrains a single-stream baseline with 1,024 hidden units so both networks have roughly the same number of parameters. Here the two networks differ by 129 parameters.
+7. **Sizes not deliberately matched**: the paper retrains a single-stream baseline with 1,024 hidden units so both networks have roughly the same number of parameters. Here the sizes simply happen to be close: 17,410 for the standard DQN and 17,539 for the dueling network.

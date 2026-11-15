@@ -61,7 +61,7 @@ The model learns to continue one simple, repeating synthetic tone; it says nothi
 
 ## Influence
 
-WaveNet revolutionized audio generation and directly influenced subsequent architectures including SampleRNN, Parallel WaveNet (distillation-based parallel sampling), WaveGlow, and the entire lineage of neural vocoders. Its dilated convolution pattern was adopted in domains beyond audio (e.g., time series forecasting). OpenAlex lists about 8,150 citations (8,151 when checked on 12 November 2026). The core idea of autoregressive generation over discretized samples also connects to later work in image generation (PixelCNN lineage) and video prediction.
+WaveNet was a turning point for neural audio generation. [Parallel WaveNet](https://arxiv.org/abs/1711.10433) trains a parallel feed-forward network from a trained WaveNet to generate speech much faster, and [WaveGlow](https://arxiv.org/abs/1811.00002) combines ideas from Glow and WaveNet to synthesize audio without autoregression. [SampleRNN](https://arxiv.org/abs/1612.07837), published a few months later, is related work on raw audio generation that uses recurrent networks instead. WaveNet itself builds on the PixelCNN architecture for images (Section 1). OpenAlex lists about 8,150 citations (8,151 when checked on 12 November 2026).
 
 ---
 
