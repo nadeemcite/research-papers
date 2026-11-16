@@ -3,182 +3,91 @@ title: "Prioritized Replay: Code architecture"
 parent: "054 Prioritized Replay"
 nav_order: 1
 ---
-# Code Architecture — Prioritized Experience Replay Notebook
+# Code Architecture — Prioritized Experience Replay
+
+## Overview
+
+The notebook implements prioritized experience replay from scratch in NumPy: a sum-tree, a proportional prioritized buffer with importance-sampling weights, a uniform buffer for comparison, a small Q-network with hand-written backpropagation and a DQN agent. Two agents, identical except for the buffer, train on a 6-cell gridworld, and the notebook compares their learning curves, TD errors and buffer priorities.
 
 ## Section-by-Section Breakdown
 
 ### 1. Setup & Imports
-- Import `numpy`, `matplotlib`, `collections.deque`, `random`, `math`.
-- Set random seeds for reproducibility.
-- No external RL library needed -- everything is built from scratch.
+- NumPy, `random`, matplotlib; one BLAS thread so results do not depend on the machine's core count
+- Seeds `random` and NumPy with `SEED = 42`
+- Figures as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
-### 2. Sum-Tree Data Structure
-The core data structure for proportional prioritization. A binary tree where:
-- Leaf nodes (at the bottom level) store priorities p_i.
-- Internal nodes store the sum of their children's priorities.
-- The root stores the total sum of all priorities.
+### 2. Sum-Tree (`SumTree`)
+- Array of `2 * capacity - 1` nodes: leaves hold priorities, internal nodes hold the sum of their children
+- `add(priority, data)` writes into a circular buffer of leaves; `update(leaf, priority)` propagates the change up to the root
+- `get(value)` walks down from the root to the leaf whose cumulative range contains `value`
+- O(log N) updates and sampling
 
-```
-SumTree(capacity=N)
-  tree: array of size 2*N - 1  (0-indexed, root at 0)
-  data: array of size N (stores transitions)
-  write_ptr: cycles 0 -> N-1 -> 0 (overwrites oldest)
+### 3. Prioritized Replay Buffer (`PrioritizedReplayBuffer`)
+- New transitions get the current maximum priority, so each is replayed at least once
+- `sample(batch_size)`: splits the total priority into `batch_size` equal segments and samples one value from each (stratified sampling)
+- Importance-sampling weights `(N * P(i)) ** -beta`, divided by their maximum; β is annealed linearly from 0.4 to 1.0 over `beta_anneal_steps` samples
+- `update_priorities(indices, td_errors)`: priority `(\|δ\| + 1e-6) ** alpha`, capped at 1e4
 
-Operations:
-  update(idx, priority):
-    # Set leaf priority, propagate up to root
-    tree[idx] = priority
-    while idx != 0:
-      idx = (idx-1) // 2
-      tree[idx] = tree[2*idx+1] + tree[2*idx+2]
+### 4. Uniform Replay Buffer (`UniformReplayBuffer`)
+- A `deque` with uniform random sampling and all weights equal to 1
 
-  get_leaf(value):
-    # Traverse from root to leaf following the value
-    idx = 0
-    while idx < N-1:  # not a leaf
-      left = 2*idx + 1
-      if value <= tree[left]:
-        idx = left
-      else:
-        value -= tree[left]
-        idx = left + 1
-    return (leaf_idx, tree[leaf_idx])
-```
+### 5. Toy Environment (`SimpleGridworld`)
+- 6 cells in a line; the agent starts at cell 0 and the goal is cell 5
+- State: one-hot vector of length 6; actions: left (0) or right (1)
+- Reward +1 at the goal, −0.01 for every other step; the episode ends at the goal or after 30 steps
 
-Key properties:
-- `total()` = tree[0] (root sum) -- O(1)
-- `update()` -- O(log N)
-- `get_leaf(s)` -- O(log N), samples a leaf whose cumulative priority range contains s
+### 6. Q-Network (`QNetwork`, NumPy)
+- MLP 6 → 64 → 64 → 2 with ReLU and He initialization
+- `forward(states)` caches activations; `backward(td_errors, actions, weights)` applies the gradient of the weighted squared TD error, `-2 · w · δ`, to the taken action only, clips gradients to [−10, 10] and takes an SGD step
+- `copy_from(other)` copies weights into the target network
 
-### 3. Prioritized Replay Buffer
-Wraps the SumTree with the PER logic:
+### 7. DQN Agent (`DQNAgent`)
+- ε-greedy action selection (ε from 1.0, ×0.998 per learning step, floor 0.1)
+- `learn()`: samples a batch, computes targets `r + γ · max_a' Q_target(s', a')`, clips TD errors to [−100, 100], runs backprop with the importance-sampling weights, updates priorities, and copies the target network every 100 steps
 
-```
-PrioritizedReplayBuffer(capacity, alpha, beta, beta_increment)
-  tree = SumTree(capacity)
-  alpha: prioritization exponent (0=uniform, 1=full)
-  beta: IS correction exponent (0=no correction, 1=full)
-  epsilon: small constant to avoid zero priority (1e-6)
+### 8. Training Loop (`train_agent`)
+- Reseeds, builds the environment and agent (learning rate 0.01, γ = 0.95, buffer 5,000, batch 32, α = 0.6, β from 0.4 over 5,000 steps), and trains for 500 episodes with one learning step per environment step
+- Records episode rewards, the last mean \|TD error\| of each episode, β and the number of successes; prints a summary every 100 episodes
 
-  add(state, action, reward, next_state, done):
-    # New transitions get max priority
-    max_p = max(tree priorities) or 1.0
-    tree.add(transition, max_p^alpha)
+### 9. Visualization
+- Smoothed learning curves, mean \|TD error\| per episode, and β over episodes
 
-  sample(batch_size):
-    # Divide [0, total] into batch_size segments
-    segment = total / batch_size
-    for each segment:
-      s = uniform(segment_start, segment_end)
-      leaf_idx, priority = tree.get_leaf(s)
-      P(i) = priority / total
-      IS_weight = (N * P(i))^(-beta) / max_weight
-    return (transitions, indices, IS_weights)
+### 10. Sample Efficiency Comparison
+- Episodes until the 30-episode average reward first reaches 0.5, total successes and the final 50-episode average
 
-  update_priorities(indices, td_errors):
-    for each (idx, td_error):
-      priority = (|td_error| + epsilon)^alpha
-      tree.update(idx, priority)
-```
+### 11. Buffer Priority Distribution
+- Histogram of the final priorities and the sorted sampling probabilities in the prioritized buffer
 
-### 4. Uniform Replay Buffer (Baseline)
-A simple FIFO buffer with uniform random sampling -- the standard DQN replay.
-- `add(transition)`: append, overwrite oldest if full.
-- `sample(batch_size)`: random.choice without replacement.
-- No priorities, no IS weights.
+### 12. Summary
+- `### What the run above shows`: the saved run's real numbers, the paper's Atari results for context, and a note on the gradient-sign bug fixed in this version
 
-### 5. Q-Network (Small MLP)
-A simple feedforward network for the toy environment:
-```
-QNetwork(state_dim, action_dim):
-  Linear(state_dim, 64) -> ReLU -> Linear(64, 64) -> ReLU -> Linear(64, action_dim)
-```
-Two instances: online network and target network (synced periodically).
+## Key Functions/Classes
 
-### 6. Toy Environment: CartPole-like Gridworld
-A simple gridworld or CartPole-v1 (via gym) where:
-- State: 4-dimensional (position, velocity, angle, angular velocity) or grid position.
-- Actions: 2 (left/right).
-- Reward: +1 per step alive, or based on reaching goal.
-- Episode terminates on failure or max steps.
-
-For pure-from-scratch (no gym dependency): a simple 1D gridworld with a goal state, sparse reward.
-
-### 7. DQN Agent with PER
-```
-DQNAgent(state_dim, action_dim, lr, gamma, epsilon, target_update_freq,
-         buffer_type="prioritized", alpha=0.6, beta=0.4):
-  online_net = QNetwork(...)
-  target_net = QNetwork(...)  # copy of online_net
-  buffer = PrioritizedReplayBuffer(...) or UniformReplayBuffer(...)
-
-  act(state): epsilon-greedy
-  learn(batch):
-    states, actions, rewards, next_states, dones, indices, weights = buffer.sample(batch_size)
-    q_values = online_net(states).gather(actions)
-    next_q = target_net(next_states).max()
-    td_errors = rewards + gamma * next_q * (1-dones) - q_values
-    loss = (weights * td_errors^2).mean()  # weighted MSE
-    optimizer.zero_grad(); loss.backward(); optimizer.step()
-    buffer.update_priorities(indices, td_errors.detach())
-    buffer.anneal_beta()
-  update_target(): target_net.load_state_dict(online_net.state_dict())
-```
-
-### 8. Training Loop
-```
-for episode in range(num_episodes):
-    state = env.reset()
-    for step in range(max_steps):
-        action = agent.act(state)
-        next_state, reward, done = env.step(action)
-        agent.buffer.add(state, action, reward, next_state, done)
-        if len(buffer) > batch_size:
-            agent.learn(batch_size)
-        if step % target_update_freq == 0:
-            agent.update_target()
-        state = next_state
-        if done: break
-    # Log episode reward
-    # Anneal beta
-```
-
-### 9. Comparison Experiment
-Run two agents side by side:
-- DQN + Uniform Replay
-- DQN + Prioritized Replay (proportional, alpha=0.6, beta annealed 0.4->1)
-
-Plot:
-- Episode reward over training (smoothed) for both agents
-- Average TD error in the buffer over time (shows how PER focuses on high-error transitions)
-- Distribution of sampled priorities (histogram at different training stages)
-- Sample efficiency: episodes-to-threshold for both agents
-
-### 10. Visualization
-- Reward curves (uniform vs prioritized) on same plot
-- TD error distribution histogram at episode 0, 50, 100, 200
-- IS weight distribution over training
-- Buffer priority distribution (how priorities spread out as learning progresses)
-
-## Data Flow / Tensor Shapes
-
-| Stage | Shape (batch=32, state_dim=4) |
+| Name | Purpose |
 |---|---|
-| state / next_state | (32, 4) |
-| action | (32, 1) |
-| reward / done | (32, 1) |
-| q_values | (32, 1) |
-| next_q (target) | (32, 1) |
-| td_errors | (32, 1) |
-| IS weights | (32, 1) |
-| loss | scalar |
+| `SumTree` | Priority sums for O(log N) sampling and updates |
+| `PrioritizedReplayBuffer` | Proportional prioritized sampling with importance-sampling weights |
+| `UniformReplayBuffer` | Baseline with uniform sampling |
+| `SimpleGridworld` | 6-cell 1D environment |
+| `QNetwork` | NumPy MLP with manual forward and backward passes |
+| `DQNAgent` | ε-greedy DQN with a target network and a configurable buffer |
+| `train_agent` | Trains one agent and returns its training history |
 
-## Deliberate Simplifications vs Full Paper
+## Data Flow / Shapes
 
-1. **Small MLP** instead of a deep CNN (no Atari frames, no convolutional layers).
-2. **Toy environment** (CartPole or simple gridworld) instead of 57 Atari games.
-3. **Proportional variant only** (rank-based omitted for simplicity; both perform similarly).
-4. **Smaller buffer** (10,000 instead of 1,000,000 transitions).
-5. **Fewer episodes** (200-500 instead of 200 million frames).
-6. **No reward/TD-error clipping** (not needed in the toy environment).
-7. **No Double DQN** (though the paper combines PER with Double DQN; we isolate PER's effect by comparing against uniform-replay DQN with the same architecture).
+```
+state (6,) one-hot → QNetwork → Q-values (2,) → ε-greedy action
+(s, a, r, s', done) → buffer.add
+buffer.sample(32) → states (32, 6), actions (32,), rewards (32,), next_states (32, 6), dones (32,), weights (32,)
+targets = r + 0.95 · max Q_target(s') · (1 − done)
+δ = targets − Q(s, a)  → backward(δ, actions, weights) → update_priorities(indices, δ)
+```
+
+## Deliberate Simplifications vs. the Paper
+
+1. **Environment:** a 6-cell gridworld instead of Atari games.
+2. **Network:** a NumPy MLP with plain SGD instead of the DQN convolutional network.
+3. **Algorithm:** plain DQN targets, not Double DQN; rewards are not clipped to [−1, 1] as in the paper, and TD errors are clipped at ±100 rather than ±1.
+4. **Variant:** only proportional prioritization; no rank-based variant.
+5. **Scale:** a buffer of 5,000 instead of 1,000,000, and 500 short episodes.
+6. **Step size:** the same learning rate for both agents; the paper reduced the step size by a factor of 4 for prioritized replay.
