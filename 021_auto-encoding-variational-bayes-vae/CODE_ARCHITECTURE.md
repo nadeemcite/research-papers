@@ -73,28 +73,34 @@ The notebook implements a **Variational Auto-Encoder** from scratch in PyTorch, 
 - Saves loss curves for visualization.
 - **Data flow:** `(x, _) → model(x) → (x_recon, mu, logvar) → loss → backward → step`
 
-### Section 9: Visualization — Original vs. Reconstructed
-- Selects a batch of test images, runs through the VAE, and displays original vs. reconstruction side by side using matplotlib.
-- Shows how well the decoder reconstructs images from the learned latent codes.
+### Section 9: Training Loss Curves
+- Plots the total loss (negative ELBO), the reconstruction term (BCE) and the KL term per epoch for the 2D model.
 
-### Section 10: Visualization — 2D Latent Space Scatter
-- With latent_dim=2, encodes all test-set images to (mu_1, mu_2) coordinates.
-- Scatter plot colored by digit class (0-9), showing how the VAE clusters digits in the 2D latent space.
-- Demonstrates that the VAE learns a structured, continuous latent representation where similar digits cluster together.
+### Section 10: Visualization — Original vs. Reconstructed
+- Shows 10 test images and the 2D model's reconstructions side by side.
 
-### Section 11: Visualization — Latent Space Interpolation
-- Samples a grid of points in the 2D latent space (linearly spaced coordinates).
-- Passes each point through the decoder to generate an image.
-- Displays a 2D grid of generated images showing smooth transitions between digit shapes.
-- Also performs linear interpolation between two encoded test images, showing morphing from one digit to another.
+### Section 11: Visualization — 2D Latent Space Scatter
+- Encodes all 10,000 test images to their means (mu_1, mu_2) and plots them colored by digit class.
 
-### Section 12: Random Sampling from Prior
-- Samples z ~ N(0, I) from the prior and decodes to generate novel images.
-- Demonstrates the generative capability: the VAE can produce new images never seen in training.
+### Section 12: Visualization — Latent Space Interpolation
+- Decodes a 20 × 20 grid of points from −2 to 2 in each latent dimension, showing the learned 2D manifold.
+
+### Section 13: Visualization — Linear Interpolation Between Digits
+- Encodes a test 7 and a test 1, linearly interpolates between their latent means and decodes 10 steps.
+
+### Section 14: Random Sampling from the Prior
+- Samples 64 points from N(0, I) and decodes them with the 2D model.
+
+### Section 15: Higher-Dimensional Latent Space (20D)
+- Trains a second VAE with a 20-dimensional latent space, same architecture and settings, for 50 epochs.
+- Compares 2D and 20D reconstructions of the same 10 test images, and decodes 64 samples from the 20D prior.
+
+### Section 16: Summary
+- `### What the run above shows`: the saved run's loss numbers and what the plots show.
 
 ## Deliberate Simplifications vs. Full Paper
 
-1. **Single hidden layer MLPs:** The paper uses MLPs with one hidden layer for encoder and decoder. We follow the same architecture (512 hidden units) but use ReLU instead of the paper's (unspecified) softplus/ReLU. This matches the paper's simplicity.
+1. **Single hidden layer MLPs:** We follow the same one-hidden-layer design (512 units instead of 500) but use ReLU where the paper uses tanh (Appendix C).
 
 2. **Bernoulli likelihood only:** We use Bernoulli (BCE) for MNIST as the paper does. The paper also tested Gaussian likelihood on the Frey Face dataset; we omit this for simplicity.
 
