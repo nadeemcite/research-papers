@@ -9,7 +9,7 @@ permalink: "/053_dueling-network-architectures-for-deep-rl/"
 - **Paper:** [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581)
 - **Authors:** Ziyu Wang, Tom Schaul, Matteo Hessel, Hado van Hasselt, Marc Lanctot, Nando de Freitas
 - **Lab, year:** Google DeepMind, 2015 (ICML 2016)
-- **Video:** YouTube Short coming on 15 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/gEKa_e-zREg) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

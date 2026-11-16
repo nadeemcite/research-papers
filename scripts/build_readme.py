@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('SqcGEVblqEI', 'Two Estimates for Better Decisions: Double DQN', '052_double-dqn'),
+    shorts = [('gEKa_e-zREg', 'Value and Advantage: Dueling DQN', '053_dueling-network-architectures-for-deep-rl'),
+              ('SqcGEVblqEI', 'Two Estimates for Better Decisions: Double DQN', '052_double-dqn'),
               ('ecB_wDzUHQ8', 'Sound One Sample at a Time: WaveNet', '089_wavenet-a-generative-model-for-raw-audio'),
               ('csCLPNexOqI', 'Style Controls for AI Images: StyleGAN', '030_style-based-generator-architecture-gans-stylegan'),
               ('ds6J-BW-xqQ', 'Big Shapes Before Tiny Details: Progressive GAN', '029_progressive-growing-of-gans'),
