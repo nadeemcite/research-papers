@@ -9,7 +9,7 @@ permalink: "/021_auto-encoding-variational-bayes-vae/"
 - **Paper:** [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
 - **Authors:** Diederik P. Kingma, Max Welling
 - **Lab, year:** University of Amsterdam, 2013 (ICLR 2014)
-- **Video:** YouTube Short coming on 16 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/Cl8dEIv-56c) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

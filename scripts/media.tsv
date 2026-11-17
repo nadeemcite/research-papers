@@ -30,5 +30,5 @@ num	short	banner	status	shorts_url	release_date
 089	WaveNet	assets/banners/089.jpg	public	https://youtube.com/shorts/ecB_wDzUHQ8	2026-11-13
 052	Double DQN	assets/banners/052.jpg	public	https://youtube.com/shorts/SqcGEVblqEI	2026-11-14
 053	Dueling DQN	assets/banners/053.jpg	public	https://youtube.com/shorts/gEKa_e-zREg	2026-11-15
-021	VAE	assets/banners/021.jpg	private		2026-11-16
+021	VAE	assets/banners/021.jpg	public	https://youtube.com/shorts/Cl8dEIv-56c	2026-11-16
 054	Prioritized Replay	assets/banners/054.jpg	private		2026-11-17
