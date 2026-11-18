@@ -46,8 +46,8 @@ A: Added to DQN, prioritized replay substantially improved the score on 41 of 49
 
 3. van Hasselt, H., Guez, A., & Silver, D. (2016). *Deep Reinforcement Learning with Double Q-learning.* AAAI 2016. [arXiv:1509.06461](https://arxiv.org/abs/1509.06461)
 
-4. Lin, L.-J. (1992). *Self-improving reactive agents based on reinforcement learning, planning and teaching.* Machine Learning, 8, 293–321. [DOI:10.1007/BF00992699](https://doi.org/10.1007/BF00992699)
+4. Lin, L.-J. (1992). *Self-improving reactive agents based on reinforcement learning, planning and teaching.* Machine Learning, 8, 293–321. [DOI:10.1007/BF00992699](https://link.springer.com/article/10.1007/BF00992699)
 
-5. Moore, A. W., & Atkeson, C. G. (1993). *Prioritized sweeping: Reinforcement learning with less data and less time.* Machine Learning, 13, 103–130. [DOI:10.1007/BF00993104](https://doi.org/10.1007/BF00993104)
+5. Moore, A. W., & Atkeson, C. G. (1993). *Prioritized sweeping: Reinforcement learning with less data and less time.* Machine Learning, 13, 103–130. [DOI:10.1007/BF00993104](https://link.springer.com/article/10.1007/BF00993104)
 
 **Citation count:** about 4,540 ([OpenAlex](https://openalex.org/W2201581102), 4,541 when checked on 16 November 2026).

@@ -9,7 +9,7 @@ permalink: "/054_prioritized-experience-replay/"
 - **Paper:** [Prioritized Experience Replay](https://arxiv.org/abs/1511.05952)
 - **Authors:** Tom Schaul, John Quan, Ioannis Antonoglou, David Silver
 - **Lab, year:** Google DeepMind, 2015 (ICLR 2016)
-- **Video:** YouTube Short coming on 17 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/UXlMmgVosbU) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

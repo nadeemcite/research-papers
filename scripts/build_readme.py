@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('Cl8dEIv-56c', 'Learning a Space of Possibilities: VAE', '021_auto-encoding-variational-bayes-vae'),
+    shorts = [('UXlMmgVosbU', 'Remembering Useful Experiences: Prioritized Replay', '054_prioritized-experience-replay'),
+              ('Cl8dEIv-56c', 'Learning a Space of Possibilities: VAE', '021_auto-encoding-variational-bayes-vae'),
               ('gEKa_e-zREg', 'Value and Advantage: Dueling DQN', '053_dueling-network-architectures-for-deep-rl'),
               ('SqcGEVblqEI', 'Two Estimates for Better Decisions: Double DQN', '052_double-dqn'),
               ('ecB_wDzUHQ8', 'Sound One Sample at a Time: WaveNet', '089_wavenet-a-generative-model-for-raw-audio'),
