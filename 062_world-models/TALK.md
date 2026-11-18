@@ -3,56 +3,58 @@ title: "World Models: Talk & Q&A"
 parent: "062 World Models"
 nav_order: 2
 ---
-# World Models — Press Coverage, Interviews, Misconceptions, Citations
+# TALK.md — World Models
 
-## Verifiable Press & Blog Coverage
+## Press & Blog Coverage
 
-1. **The New York Times — "An AI That Learns to Act in Its Dreams" style coverage via David Ha's blog**  
-   David Ha's interactive paper site (worldmodels.github.io) went viral in the ML community, with coverage and discussion on Hacker News, Reddit r/MachineLearning, and prominent ML blogs.
+1. [**Key Papers in Deep RL**](https://spinningup.openai.com/en/latest/spinningup/keypapers.html), OpenAI Spinning Up. Lists the NeurIPS 2018 version, "Recurrent World Models Facilitate Policy Evolution" (Ha and Schmidhuber, 2018), in its model-based RL section.
 
-2. **Google AI Blog / Research at Google — "Recurrent World Models Facilitate Policy Evolution" (2018)**  
-   Google Research highlighted World Models as a novel approach to model-based RL, emphasizing the dream-based training paradigm.
-   - https://research.google/blog/recurrent-world-models-facilitate-policy-evolution/
+2. [**"Recurrent World Models Facilitate Policy Evolution"**](https://papers.nips.cc/paper/2018/hash/2de5d16682c3c35007e4e92982f1a2ba-Abstract.html), NeurIPS 2018 proceedings. The conference version of this work, published as a separate paper.
 
-3. **Towards Data Science — "World Models: Learning to Dream" (2019)**  
-   An in-depth explainer of the paper's three-module architecture and the dream-training concept.
-   - https://towardsdatascience.com/world-models-learning-to-dream-fd0113077d5e
+## Q&A (answers from the paper)
 
-4. **Sung Kim's Blog / YouTube — "World Models Explained" (2018)**  
-   A widely-cited tutorial-style walkthrough of the VAE + MDN-RNN + Controller pipeline.
-   - https://www.youtube.com/watch?v=yvW1Vc3QqKU
+**Q1: What are the three parts of the agent?**
+A: A vision model V, a variational autoencoder that compresses each frame into a small latent vector z; a memory model M, an MDN-RNN that predicts the distribution of the next z; and a controller C, a simple linear map from [z_t, h_t] to the action (Section 2).
 
-5. **NIPS 2018 — Oral Presentation**  
-   World Models was accepted as an oral at NIPS 2018 (now NeurIPS), one of the most selective venues in ML.
+**Q2: Why is the controller so small?**
+A: The authors deliberately put most of the model's complexity and parameters in V and M, and keep C tiny. That makes it possible to train C with evolution strategies, specifically CMA-ES, which works well for up to a few thousand parameters (Sections 2.3 and 2.4). The CarRacing controller has 867 parameters (Section 3.2).
 
-## Interview Q&A
+**Q3: How well did it do on CarRacing?**
+A: The full world model scored 906 ± 21 over 100 random trials, which the authors call the first known solution of the task. A controller that sees only z scored 632 ± 251; adding a hidden layer gave 788 ± 141 (Section 3.3, Table 1). Here C was trained in the real environment.
 
-**Q: Why train the controller inside the dream instead of the real environment?**  
-A: The paper argues that the real environment is slow, noisy, and high-dimensional. If the world model is accurate, you can generate unlimited training data for the controller at high speed inside the dream. The controller is tiny (a few hundred parameters), so it benefits enormously from the compressed, denoised representation. Ha & Schmidhuber show that a controller evolved entirely in the dream transfers to the real CarRacing-v0 environment.
+**Q4: Where did the agent actually train inside its dream?**
+A: In VizDoom: Take Cover. M was extended to also predict whether the agent dies, which makes it a full environment; C was trained entirely inside it and then deployed in the real game (Sections 4.1–4.4). With temperature τ = 1.15 the transferred policy survived 1092 ± 556 time steps, against 210 ± 108 for a random policy (Table 2).
 
-**Q: What is the MDN-RNN's role?**  
-A: It predicts the distribution of the next latent state z_{t+1} as a mixture of Gaussians (mixture-density network) conditioned on the current latent z_t, the action a_t, and the LSTM hidden state h_t. The mixture representation captures multi-modal futures — e.g., "the car might go left OR right" — which a single Gaussian cannot.
+**Q5: What can go wrong when training inside the dream?**
+A: The controller can find adversarial policies that exploit M's mistakes. In early experiments the agent learned to move so that the dream's monsters never fired, or so that fireballs disappeared. Raising the temperature τ makes the dream more uncertain and harder to exploit, but too much makes it too hard to learn anything (Section 4.5, Table 2).
 
-**Q: Why use CMA-ES instead of policy gradients for the controller?**  
-A: The controller is a tiny linear map (~800 parameters). CMA-ES — a derivative-free evolutionary strategy — excels in low-dimensional parameter spaces, is robust to the non-smooth, noisy reward landscape of RL, and avoids the need to backpropagate through the (non-differentiable) environment simulator. The paper shows it converges in far fewer episodes than policy-gradient methods for this scale.
-
-**Q: Can this approach handle environments with multi-modal futures?**  
-A: Yes — that is the whole reason for the mixture-density network. A deterministic RNN would collapse to an average of futures. The MDN can place probability mass on several distinct outcomes, which is critical for stochastic or branching environments.
+**Q6: What if a random policy cannot explore the environment?**
+A: The authors propose an iterative procedure: collect rollouts, train M and C, then collect new rollouts with the improved agent and repeat. For this, M would also predict rewards and actions (Section 5).
 
 ## Common Misconceptions
 
-1. **"World Models only works on CarRacing."** — False. The architecture (VAE + MDN-RNN + controller) is environment-agnostic. The paper demonstrates on CarRacing-v0 for concrete evaluation but the framework is general. Later work (Dreamer, DreamerV3) applied it to Atari, DMC, and beyond.
+1. **"The CarRacing agent learned inside its dream."** Its controller was trained in the real environment using the world model's features. Training fully inside the dream and transferring back was the VizDoom experiment (Sections 3 and 4).
 
-2. **"The VAE must perfectly reconstruct frames."** — Not true. The VAE only needs to produce a good enough latent representation for the controller and MDN-RNN. Some reconstruction blurriness is acceptable because the controller operates on latents, not pixels.
+2. **"A controller that scores well in the dream will score well in reality."** Not necessarily. At τ = 0.1 the agent scored 2086 ± 140 in the dream but only 193 ± 58 in the real game, below a random policy (Table 2).
 
-3. **"The agent learns in the real environment during dream training."** — No. During dream training, the controller never interacts with the real simulator. All rollouts happen inside the VAE-decoder + MDN-RNN hallucination. Only after training is the controller transferred back.
+3. **"World Models was a NeurIPS paper."** The arXiv paper is separate from the NeurIPS 2018 paper "Recurrent World Models Facilitate Policy Evolution" by the same authors.
 
-4. **"CMA-ES is essential to World Models."** — The paper uses CMA-ES for the controller, but the core contribution is the world-model architecture. Subsequent work (Dreamer) replaced CMA-ES with policy gradients, achieving similar or better results. CMA-ES was a pragmatic choice for the tiny controller.
+4. **"The approach only applies to CarRacing."** The paper covers two tasks, CarRacing-v0 and VizDoom: Take Cover (Sections 3 and 4).
+
+5. **"A world model automatically gives a good controller."** In [this repo's notebook](solution.ipynb), trained on only 50 random rollouts, the controller's predicted return improves inside the dream, but in the real toy task it scores −133.5 against −101.6 for random actions, because V's latents barely encode where the agent and target are.
 
 ## Real Citations
 
-- Ha, D. & Schmidhuber, J. (2018). *World Models*. arXiv:1803.10122. NIPS 2018.
-- Hafner, D. et al. (2019). *Dream to Control: Learning Behaviors by Latent Imagination* (Dreamer). arXiv:1912.01603. — Direct successor that replaces CMA-ES with actor-critic.
-- Hafner, D. et al. (2023). *Mastering Diverse Domains through World Models* (DreamerV3). arXiv:2301.04104. — Latest in the world-model lineage.
-- Schmidhuber, J. (2015). *On Learning to Think: Decoupling Neural Net Modules*. arXiv:1511.09249. — Earlier theoretical basis for the V+M+C separation.
-- Eslami, S.M. et al. (2018). *Neural Scene Representation and Rendering*. Science. — Related work on learning spatial scene representations.
+1. Ha, D., & Schmidhuber, J. (2018). *World Models.* [arXiv:1803.10122](https://arxiv.org/abs/1803.10122)
+
+2. Ha, D., & Schmidhuber, J. (2018). *Recurrent World Models Facilitate Policy Evolution.* NeurIPS 2018. [Proceedings](https://papers.nips.cc/paper/2018/hash/2de5d16682c3c35007e4e92982f1a2ba-Abstract.html)
+
+3. Kingma, D. P., & Welling, M. (2014). *Auto-Encoding Variational Bayes.* ICLR 2014. [arXiv:1312.6114](https://arxiv.org/abs/1312.6114)
+
+4. Schmidhuber, J. (2015). *On Learning to Think: Algorithmic Information Theory for Novel Combinations of Reinforcement Learning Controllers and Recurrent Neural World Models.* [arXiv:1511.09249](https://arxiv.org/abs/1511.09249)
+
+5. Hafner, D., Lillicrap, T., Ba, J., & Norouzi, M. (2020). *Dream to Control: Learning Behaviors by Latent Imagination.* ICLR 2020. [arXiv:1912.01603](https://arxiv.org/abs/1912.01603)
+
+6. Hafner, D., Pasukonis, J., Ba, J., & Lillicrap, T. (2023). *Mastering Diverse Domains through World Models.* [arXiv:2301.04104](https://arxiv.org/abs/2301.04104)
+
+**Citation count:** about 2,300 for the arXiv paper ([OpenAlex](https://openalex.org/W2795843265), 2,315 when checked on 18 November 2026), and about 1,180 for the NeurIPS 2018 paper ([OpenAlex](https://openalex.org/W2890208753), 1,177 when checked on 18 November 2026).
