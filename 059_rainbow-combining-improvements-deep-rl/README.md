@@ -9,7 +9,7 @@ permalink: "/059_rainbow-combining-improvements-deep-rl/"
 - **Paper:** [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://arxiv.org/abs/1710.02298)
 - **Authors:** Matteo Hessel, Joseph Modayil, Hado van Hasselt, Tom Schaul, Georg Ostrovski, Will Dabney, Dan Horgan, Bilal Piot, Mohammad Azar, David Silver
 - **Lab, year:** DeepMind, 2017 (AAAI 2018)
-- **Video:** YouTube Short coming on 18 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/lpdiA9qWcVw) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 

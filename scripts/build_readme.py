@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('UXlMmgVosbU', 'Remembering Useful Experiences: Prioritized Replay', '054_prioritized-experience-replay'),
+    shorts = [('lpdiA9qWcVw', 'Combining Deep RL Improvements: Rainbow', '059_rainbow-combining-improvements-deep-rl'),
+              ('UXlMmgVosbU', 'Remembering Useful Experiences: Prioritized Replay', '054_prioritized-experience-replay'),
               ('Cl8dEIv-56c', 'Learning a Space of Possibilities: VAE', '021_auto-encoding-variational-bayes-vae'),
               ('gEKa_e-zREg', 'Value and Advantage: Dueling DQN', '053_dueling-network-architectures-for-deep-rl'),
               ('SqcGEVblqEI', 'Two Estimates for Better Decisions: Double DQN', '052_double-dqn'),
