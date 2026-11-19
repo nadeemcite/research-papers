@@ -3,58 +3,62 @@ title: "DDPM: Talk & Q&A"
 parent: "084 DDPM"
 nav_order: 2
 ---
-# TALK.md — DDPM Press Coverage, Interviews, and Citations
+# TALK.md — Denoising Diffusion Probabilistic Models
 
-## Verifiable Press/Blog Coverage
+## Press & Blog Coverage
 
-1. **HuggingFace Blog — "Annotated Diffusion Models"** (https://huggingface.co/blog/annotated-diffusion)
-   - Step-by-step implementation of DDPM in PyTorch, based on Ho et al. 2020. One of the most widely read diffusion model tutorials.
+1. [**"The Annotated Diffusion Model"**](https://huggingface.co/blog/annotated-diffusion), Hugging Face blog. Goes through the DDPM paper step by step and implements it in PyTorch.
 
-2. **Lilian Weng — "What are Diffusion Models?"** (https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
-   - Comprehensive technical overview covering DDPM, DDIM, score-based models, and subsequent developments. Widely cited in the ML community.
+2. [**"What are Diffusion Models?"**](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/), Lilian Weng's blog. A technical overview of diffusion models that covers DDPM (Ho et al. 2020) alongside score-based models.
 
-3. **Yang Song — "Generative Modeling by Estimating Gradients of the Data Distribution"** (https://yang-song.net/blog/2021/score/)
-   - Blog post by Yang Song (Stanford) connecting score-based models with DDPM, providing the unified perspective on diffusion models.
+3. [**"Generative Modeling by Estimating Gradients of the Data Distribution"**](https://yang-song.net/blog/2021/score/), Yang Song's blog. Explains score-based generative models and says that in 2020 Jonathan Ho and colleagues significantly improved the empirical performance of diffusion probabilistic models.
 
-4. **AssemblyAI — "Diffusion Models: Making Sense of the Guided Diffusion Paper"** (https://www.assemblyai.com/blog/diffusion-models/)
-   - Accessible explanation of diffusion models starting from DDPM.
+4. [**"Introduction to Diffusion Models for Machine Learning"**](https://www.assemblyai.com/blog/diffusion-models-for-machine-learning-introduction), AssemblyAI blog. A beginner-friendly explanation of diffusion models that lists the DDPM paper among its references.
 
-5. **Google Research Blog** — Multiple posts referencing diffusion models for image generation, including Imagen which builds on DDPM foundations.
+## Q&A (answers from the paper)
 
-## Interview Q&A
+**Q1: What does the network actually predict?**
+A: The noise ε that was added to the image. The authors reparameterize the reverse-process mean so that the network ε_θ(x_t, t) predicts the noise, and the mean becomes (1/√α_t)(x_t − β_t/√(1 − ᾱ_t) · ε_θ(x_t, t)). They show this makes sampling resemble Langevin dynamics and makes the training objective resemble denoising score matching (Section 3.2).
 
-**Q1: What made diffusion models suddenly competitive with GANs, when they had been around since 2015?**
-A (Jonathan Ho): The key insight was simplifying the training objective. Sohl-Dickstein et al. (2015) introduced the framework but the training was complex. We showed that by parameterizing the model to predict noise (not the mean directly) and using a simple MSE loss, the model could be trained stably and produce high-quality samples. The connection to denoising score matching (Song & Ermon, 2019) also provided theoretical grounding.
+**Q2: Is the reverse-process variance learned?**
+A: No. The authors set it to untrained, time-dependent constants σ_t². Both σ_t² = β_t and σ_t² = β̃_t (the posterior variance) gave similar results (Section 3.2). In their ablation, learning a diagonal variance led to unstable training and poorer samples (Section 4.2, Table 2).
 
-**Q2: Why is the U-Net architecture used as the denoiser?**
-A: U-Net's encoder-decoder structure with skip connections is ideal for image-to-image tasks where the output has the same spatial dimensions as the input. The multi-scale processing captures both local detail and global context, which is essential for predicting noise at different spatial scales. We also condition the network on the timestep via sinusoidal embeddings.
+**Q3: What is the "simplified" objective?**
+A: L_simple drops the weighting of the true variational bound and just takes the mean squared error between the real and predicted noise at a random timestep. Compared with the bound, it down-weights the easy denoising tasks at small t, which the authors found leads to better sample quality (Section 3.4). Training on the true bound gave better codelengths, but L_simple gave the best samples (Section 4.1).
 
-**Q3: How does DDPM compare to GANs in terms of training stability?**
-A: Diffusion models are significantly more stable to train than GANs. GANs require careful balancing of generator and discriminator, are prone to mode collapse, and need various regularization tricks. DDPM uses a straightforward MSE loss with no adversarial dynamics — it's essentially regression. The trade-off is slower sampling (1000 steps vs. 1 for GANs), which subsequent work (DDIM, DPM-Solver) addressed.
+**Q4: Which noise schedule did they use?**
+A: T = 1000 steps, with β_t rising linearly from β_1 = 10⁻⁴ to β_T = 0.02, chosen to be small relative to data scaled to [−1, 1] (Section 4).
 
-**Q4: What was the role of the variance schedule?**
-A: The linear schedule from β_1=1e-4 to β_T=0.02 controls how much noise is added at each step. We found that a constant or poorly tuned schedule leads to either too much information destruction early on (making learning hard) or too little noise late in the process (making the reverse steps trivial). The linear schedule was a simple choice that worked well; later work (cosine schedule, learned variance) improved on this.
+**Q5: How good were the samples?**
+A: On unconditional CIFAR10 the model reached an Inception score of 9.46 and an FID of 3.17, better than most models in the literature, including class-conditional ones (Section 4.1, Table 1). In the ablation, predicting ε with L_simple was clearly the best combination (Section 4.2, Table 2).
 
-**Q5: Why predict noise instead of predicting the clean image directly?**
-A: We explored both parameterizations. Predicting noise (the ε-parameterization) leads to more stable training and better sample quality, especially at high noise levels. When the noise is large (high t), predicting the clean image x_0 from heavily noised x_t is nearly impossible, but predicting the direction of noise is still meaningful. This connects to the Langevin dynamics / score matching perspective.
+**Q6: How large was the model?**
+A: A U-Net based on PixelCNN++ with group normalization and self-attention at the 16×16 resolution; the CIFAR10 model has 35.7 million parameters (Section 4 and Appendix B).
 
 ## Common Misconceptions
 
-1. **"Diffusion models are a completely new idea."** — No. The framework was introduced by Sohl-Dickstein et al. in 2015. Ho et al. (2020) made it practical with a simplified objective and demonstrated competitive results. Song & Ermon (2019) independently developed score-based generative models that are mathematically equivalent.
+1. **"Diffusion models were invented in this paper."** Diffusion probabilistic models come from Sohl-Dickstein et al. (2015), which this paper builds on (Section 2). Its contributions are the ε-prediction parameterization, the simplified objective and the high-quality results. The paper also shows a connection to denoising score matching (Section 3.2), the idea behind Song & Ermon's (2019) score-based models.
 
-2. **"DDPM needs 1000 steps to generate an image — it's too slow to be useful."** — While the original DDPM uses T=1000, DDIM (Song et al., 2020) showed that the same trained model can sample in as few as 10-50 steps with minor quality loss. Modern solvers (DPM-Solver, DPM++) reduce this to 10-20 steps. Latent diffusion (Stable Diffusion) further speeds things up by working in a compressed latent space.
+2. **"DDPM needs 1000 steps forever."** The paper samples with all T = 1000 steps. Later work, such as [DDIM](https://arxiv.org/abs/2010.02502), showed that faster sampling is possible.
 
-3. **"Diffusion models are just VAEs."** — While both are latent variable models, DDPM's latent space is a fixed noising process (not learned), the encoder is trivial (add noise), and the decoder is a deep network trained to reverse the process. The variational bound simplifies to a noise-prediction MSE, unlike VAEs which learn both encoder and decoder.
+3. **"The network learns both the mean and the variance."** The paper keeps the variance fixed; learning it was unstable in its ablation (Section 4.2, Table 2).
 
-4. **"You need a huge model to make diffusion work."** — The core algorithm works with any U-Net. The paper used a moderate-sized model. Scale (as in Stable Diffusion) improves quality but is not a prerequisite for demonstrating the method.
+4. **"You need a huge model."** The paper's CIFAR10 model has 35.7M parameters (Section 4). In [this repo's notebook](solution.ipynb), a much smaller U-Net trained briefly on FashionMNIST shows the method at toy scale; see its Summary for the actual result.
 
 ## Real Citations
 
-- Ho, J., Jain, A., & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models.* NeurIPS 2020. arXiv:2006.11239
-- Sohl-Dickstein, J., Weiss, E., Maheswaranathan, N., & Ganguli, S. (2015). *Deep Unsupervised Learning using Nonequilibrium Thermodynamics.* ICML 2015. arXiv:1503.03585
-- Song, Y. & Ermon, S. (2019). *Generative Modeling by Estimating Gradients of the Data Distribution.* NeurIPS 2019. arXiv:1907.05600
-- Song, J., Meng, C., & Ermon, S. (2020). *Denoising Diffusion Implicit Models.* arXiv:2010.02502
-- Dhariwal, P. & Nichol, A. (2021). *Diffusion Models Beat GANs on Image Synthesis.* arXiv:2105.05233
-- Rombach, R., et al. (2022). *High-Resolution Image Synthesis with Latent Diffusion Models.* CVPR 2022. arXiv:2112.10752
+1. Ho, J., Jain, A., & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models.* NeurIPS 2020. [arXiv:2006.11239](https://arxiv.org/abs/2006.11239)
 
-Citation count (Google Scholar, as of 2024): 10,000+
+2. Sohl-Dickstein, J., Weiss, E. A., Maheswaranathan, N., & Ganguli, S. (2015). *Deep Unsupervised Learning using Nonequilibrium Thermodynamics.* ICML 2015. [arXiv:1503.03585](https://arxiv.org/abs/1503.03585)
+
+3. Song, Y., & Ermon, S. (2019). *Generative Modeling by Estimating Gradients of the Data Distribution.* NeurIPS 2019. [arXiv:1907.05600](https://arxiv.org/abs/1907.05600)
+
+4. Song, J., Meng, C., & Ermon, S. (2021). *Denoising Diffusion Implicit Models.* ICLR 2021. [arXiv:2010.02502](https://arxiv.org/abs/2010.02502)
+
+5. Dhariwal, P., & Nichol, A. (2021). *Diffusion Models Beat GANs on Image Synthesis.* NeurIPS 2021. [arXiv:2105.05233](https://arxiv.org/abs/2105.05233)
+
+6. Rombach, R., Blattmann, A., Lorenz, D., Esser, P., & Ommer, B. (2022). *High-Resolution Image Synthesis with Latent Diffusion Models.* CVPR 2022. [arXiv:2112.10752](https://arxiv.org/abs/2112.10752)
+
+7. Ramesh, A., Dhariwal, P., Nichol, A., Chu, C., & Chen, M. (2022). *Hierarchical Text-Conditional Image Generation with CLIP Latents.* [arXiv:2204.06125](https://arxiv.org/abs/2204.06125)
+
+**Citation count:** about 20,800 ([OpenAlex](https://openalex.org/W3036167779), 20,776 when checked on 19 November 2026).
