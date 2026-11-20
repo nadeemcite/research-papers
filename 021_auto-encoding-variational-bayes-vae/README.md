@@ -4,6 +4,7 @@ nav_order: 22
 permalink: "/021_auto-encoding-variational-bayes-vae/"
 ---
 # Auto-Encoding Variational Bayes (VAE)
+![VAE banner](../assets/banners/021.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/auto-encoding-variational-bayes-vae)
 
 - **Paper:** [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)

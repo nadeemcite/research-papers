@@ -4,6 +4,7 @@ nav_order: 30
 permalink: "/029_progressive-growing-of-gans/"
 ---
 # Progressive Growing of GANs for Improved Quality, Stability, and Variation
+![ProGAN banner](../assets/banners/029.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/progressive-growing-of-gans)
 
 - **Paper:** [Progressive Growing of GANs for Improved Quality, Stability, and Variation](https://arxiv.org/abs/1710.10196)

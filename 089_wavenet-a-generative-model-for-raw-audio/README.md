@@ -4,6 +4,7 @@ nav_order: 90
 permalink: "/089_wavenet-a-generative-model-for-raw-audio/"
 ---
 # WaveNet: A Generative Model for Raw Audio
+![WaveNet banner](../assets/banners/089.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/wavenet-a-generative-model-for-raw-audio)
 
 - **Paper:** [WaveNet: A Generative Model for Raw Audio](https://arxiv.org/abs/1609.03499)

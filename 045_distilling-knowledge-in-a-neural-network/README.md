@@ -4,6 +4,7 @@ nav_order: 46
 permalink: "/045_distilling-knowledge-in-a-neural-network/"
 ---
 # Distilling the Knowledge in a Neural Network
+![Distillation banner](../assets/banners/045.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/distilling-the-knowledge-in-a-neural-network)
 
 - **Paper:** [Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531)

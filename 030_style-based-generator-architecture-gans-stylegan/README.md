@@ -4,6 +4,7 @@ nav_order: 31
 permalink: "/030_style-based-generator-architecture-gans-stylegan/"
 ---
 # StyleGAN — A Style-Based Generator Architecture for Generative Adversarial Networks
+![StyleGAN banner](../assets/banners/030.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/stylegan)
 
 - **Paper:** [A Style-Based Generator Architecture for Generative Adversarial Networks](https://arxiv.org/abs/1812.04948)

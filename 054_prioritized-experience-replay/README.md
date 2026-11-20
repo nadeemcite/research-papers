@@ -4,6 +4,7 @@ nav_order: 55
 permalink: "/054_prioritized-experience-replay/"
 ---
 # Prioritized Experience Replay
+![Prioritized Replay banner](../assets/banners/054.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/prioritized-experience-replay)
 
 - **Paper:** [Prioritized Experience Replay](https://arxiv.org/abs/1511.05952)

@@ -4,6 +4,7 @@ nav_order: 12
 permalink: "/011_sequence-to-sequence-learning-with-neural-networks/"
 ---
 # Sequence to Sequence Learning with Neural Networks
+![Seq2Seq banner](../assets/banners/011.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/sequence-to-sequence-learning-with-neural-networks)
 
 - **Paper:** [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215)

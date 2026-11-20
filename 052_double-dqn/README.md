@@ -4,6 +4,7 @@ nav_order: 53
 permalink: "/052_double-dqn/"
 ---
 # Deep Reinforcement Learning with Double Q-learning
+![Double DQN banner](../assets/banners/052.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/double-dqn-deep-reinforcement-learning)
 
 - **Paper:** [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461)

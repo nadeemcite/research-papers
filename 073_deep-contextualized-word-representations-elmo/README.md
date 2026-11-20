@@ -4,6 +4,7 @@ nav_order: 74
 permalink: "/073_deep-contextualized-word-representations-elmo/"
 ---
 # Deep Contextualized Word Representations (ELMo)
+![ELMo banner](../assets/banners/073.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/deep-contextualized-word-representations-elmo)
 
 - **Paper:** [Deep Contextualized Word Representations](https://arxiv.org/abs/1802.05365)

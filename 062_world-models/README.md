@@ -4,6 +4,7 @@ nav_order: 63
 permalink: "/062_world-models/"
 ---
 # World Models
+![World Models banner](../assets/banners/062.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/world-models)
 
 - **Paper:** [World Models](https://arxiv.org/abs/1803.10122)

@@ -4,6 +4,7 @@ nav_order: 60
 permalink: "/059_rainbow-combining-improvements-deep-rl/"
 ---
 # Rainbow: Combining Improvements in Deep Reinforcement Learning
+![Rainbow banner](../assets/banners/059.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/rainbow-combining-improvements-deep-rl)
 
 - **Paper:** [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://arxiv.org/abs/1710.02298)

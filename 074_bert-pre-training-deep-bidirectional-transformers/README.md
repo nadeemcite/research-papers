@@ -4,6 +4,7 @@ nav_order: 75
 permalink: "/074_bert-pre-training-deep-bidirectional-transformers/"
 ---
 # BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+![BERT banner](../assets/banners/074.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/bert-pre-training-deep-bidirectional-transformers)
 
 - **Paper:** [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
