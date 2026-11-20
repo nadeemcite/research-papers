@@ -49,7 +49,7 @@ The notebook implements DDPM from scratch in PyTorch on FashionMNIST, resized to
 
 Training worked: the noise-prediction loss fell from **0.0849** in the first epoch to **0.0257** in the last. Most of the 64 samples are clearly recognisable clothing: shirts, trousers, dresses, sneakers, sandals, boots and bags. Some are blurry or distorted.
 
-Simple pixel statistics match the real images (mean −0.466 vs −0.425, 52.3% vs 50.4% background pixels), but we did not measure FID. An earlier version of this notebook produced pure noise because of an attention bug, a 3-epoch run on 5,000 images, and T = 100.
+Simple pixel statistics match the real images (mean −0.466 vs −0.425, 52.3% vs 50.4% background pixels), but we did not measure FID. An earlier version of this notebook produced pure noise because of an attention bug; it also trained for only 3 epochs on 5,000 images with T = 100.
 
 ## Influence
 

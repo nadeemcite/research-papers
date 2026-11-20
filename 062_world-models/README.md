@@ -9,7 +9,7 @@ permalink: "/062_world-models/"
 - **Paper:** [World Models](https://arxiv.org/abs/1803.10122)
 - **Authors:** David Ha, Jürgen Schmidhuber
 - **Lab, year:** Google Brain / NNAISENSE, 2018
-- **Video:** YouTube Short coming on 19 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/fVALpy8HLAs) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
