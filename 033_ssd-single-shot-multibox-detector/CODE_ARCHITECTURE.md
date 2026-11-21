@@ -13,6 +13,7 @@ The notebook builds an SSD-style single-shot detector from scratch in PyTorch an
 
 ### 1. Imports & Configuration
 - Seeds, device, and all hyperparameters in one place.
+- Figures are shown as JPEG at 72 dpi to keep the saved notebook small; deterministic GPU settings (`CUBLAS_WORKSPACE_CONFIG`, `cudnn.deterministic`, `torch.use_deterministic_algorithms(True, warn_only=True)`); on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`.
 - `FMAP_SIZES = [32, 16, 8, 4, 2, 1]` are the 6 source maps, like SSD300's 38/19/10/5/3/1.
 - `ASPECT_RATIOS = [[2], [2,3], [2,3], [2,3], [2], [2]]` gives 4 or 6 boxes per location, the same pattern as SSD300.
 - `S_FIRST=0.1, S_MIN=0.2, S_MAX=0.9` are the scales. The first map uses 0.1, as SSD300 does for `conv4_3`.
@@ -76,6 +77,7 @@ The notebook builds an SSD-style single-shot detector from scratch in PyTorch an
 
 ### 11. Summary
 - Prints the configuration, final losses, per-class AP, mAP and recall by size.
+- `### What the run above shows`: the saved run's real numbers, including the validation confidence loss rising late in training.
 
 ## Key Functions/Classes
 
