@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('fVALpy8HLAs', 'Learning a World Inside an AI: World Models', '062_world-models'),
+    shorts = [('evsPMOWw4ec', 'Learning to Remove Noise: DDPM', '084_denoising-diffusion-probabilistic-models'),
+              ('fVALpy8HLAs', 'Learning a World Inside an AI: World Models', '062_world-models'),
               ('lpdiA9qWcVw', 'Combining Deep RL Improvements: Rainbow', '059_rainbow-combining-improvements-deep-rl'),
               ('UXlMmgVosbU', 'Remembering Useful Experiences: Prioritized Replay', '054_prioritized-experience-replay'),
               ('Cl8dEIv-56c', 'Learning a Space of Possibilities: VAE', '021_auto-encoding-variational-bayes-vae'),

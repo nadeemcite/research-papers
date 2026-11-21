@@ -10,7 +10,7 @@ permalink: "/084_denoising-diffusion-probabilistic-models/"
 - **Paper:** [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239)
 - **Authors:** Jonathan Ho, Ajay Jain, Pieter Abbeel
 - **Lab, year:** UC Berkeley, 2020 (NeurIPS 2020)
-- **Video:** YouTube Short coming on 20 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/evsPMOWw4ec) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
