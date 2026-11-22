@@ -7,118 +7,82 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements Layer Normalization from scratch in NumPy and PyTorch, plugs it into an RNN/Transformer block, and compares training stability against BatchNorm on sequence data. All computation is CPU-friendly (no GPU required).
+The notebook implements Layer Normalization from scratch in NumPy (with a finite-difference gradient check) and in PyTorch (checked against `nn.LayerNorm`). It then compares an RNN with no normalization, with a from-scratch BatchNorm and with LayerNorm on a toy sequence classification task, trains a small pre-norm Transformer block with LayerNorm on the same task, and repeats the RNN comparison with batch size 1. Everything runs on the CPU.
 
 ## Section-by-Section Breakdown
 
 ### 1. Imports & Setup
-- `torch`, `torch.nn`, `numpy`, `matplotlib` for visualization
-- Random seed fixing for reproducibility
+- `torch`, `numpy`, `matplotlib`; seeds 42; one CPU thread and `torch.use_deterministic_algorithms(True)` so reruns give the same numbers
+- Figures as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
 ### 2. LayerNorm from Scratch in NumPy
-- **Function `layer_norm_numpy(x, gain, bias, eps=1e-5)`**
-  - Input: `x` is a 1D array of H elements (the summed inputs to a layer for one sample)
-  - Compute mean μ = mean(x) across all H elements
-  - Compute variance σ² = var(x) across all H elements
-  - Normalize: x_norm = (x - μ) / sqrt(σ² + eps)
-  - Scale and shift: out = gain * x_norm + bias
-  - Returns normalized output
-- **Gradient verification**: numerical gradient check against analytic gradients
-  - Verify dL/dx, dL/dgain, dL/dbias via finite differences
-  - Assert relative error < 1e-5
+- `layer_norm_numpy(x, gain, bias, eps=1e-5)`: μ and σ² over the H elements of one sample, `(x − μ)/√(σ² + eps)`, then gain and bias
+- Checks that the output has mean 0 and standard deviation 1 for H = 64
+- `layer_norm_backward_numpy`: analytic gradients for x, gain and bias (loss = sum of outputs), compared with central finite differences; asserts relative error < 1e-5
 
 ### 3. LayerNorm as a PyTorch Module
-- **Class `LayerNorm(nn.Module)`**
-  - `__init__(features, eps=1e-5)`: initializes `self.gamma = nn.Parameter(torch.ones(features))` and `self.beta = nn.Parameter(torch.zeros(features))`
-  - `forward(x)`: x has shape (batch, seq_len, features) or (batch, features)
-    - Compute mean and variance over the **last dimension** (features)
-    - Normalize and apply gain/bias
-  - Key shapes:
-    - Input: (B, H) → mean/var over dim=-1, keepdim=True
-    - Input: (B, T, H) → mean/var over dim=-1, keepdim=True
-    - Output: same shape as input
+- `LayerNorm(features, eps=1e-5)`: parameters `gamma` (ones) and `beta` (zeros); mean and biased variance over the last dimension
+- Compared with `nn.LayerNorm` on (32, 64) and (16, 20, 64) inputs; asserts a maximum difference < 1e-6
 
 ### 4. BatchNorm for Comparison
-- **Class `BatchNorm1d(nn.Module)`** — simplified from-scratch version
-  - Normalizes over the batch dimension (dim=0)
-  - Maintains running mean/var for inference
-  - `forward(x)`: during training, use batch statistics and update running stats; during eval, use running stats
+- `BatchNorm1d(features, eps=1e-5, momentum=0.1)`: normalizes each feature over the batch (dim 0) in training and updates running mean and variance; uses the running statistics in evaluation
 
 ### 5. Toy Sequence Classification Task
-- Generate a synthetic sequence dataset:
-  - Each sample is a sequence of T=20 timesteps with H=64 features
-  - Two classes: "increasing trend + noise" vs "decreasing trend + noise"
-  - 1000 train samples, 200 test samples
-  - Data shapes: X_train (1000, 20, 64), y_train (1000,)
+- `generate_sequence_data(n_samples, seq_len=20, n_features=64, seed)`: class 0 adds a linear trend rising from 0 to 2 over the 20 steps to Gaussian noise, class 1 a falling trend
+- 1,000 training sequences (seed 42) and 200 test sequences (seed 123); X shape (N, 20, 64)
+- A figure shows 5 features of one sequence from each class
 
-### 6. Simple RNN with Normalization
-- **Class `RNNCellWithNorm(nn.Module)`**
-  - Computes: a_t = W_hh @ h_{t-1} + W_xh @ x_t
-  - Applies normalization (LayerNorm or BatchNorm or None) to a_t
-  - Applies non-linearity: h_t = tanh(a_t_normalized)
-  - Parameters: W_hh (H, H), W_xh (H, H), plus norm module
-- **Class `SimpleRNN(nn.Module)`**
-  - Wraps the RNN cell, unrolls over T timesteps
-  - Final hidden state → linear classifier → class logits
-  - Forward: iterates over timesteps, applies cell, returns logits from final h
+### 6. Simple RNN with Pluggable Normalization
+- `RNNCellWithNorm(input_size, hidden_size, norm_type)`: `a_t = W_xh x_t + W_hh h_{t−1}` (no biases), then LayerNorm, BatchNorm, or a plain bias for `'none'`, then `h_t = tanh(a_t)`; Xavier init for `W_xh`, orthogonal for `W_hh`
+- The BatchNorm variant shares one set of statistics across all time steps
+- `SimpleRNN`: unrolls the cell over the 20 steps from `h_0 = 0` and classifies the final hidden state with `Linear(64, 2)`
 
 ### 7. Training Loop
-- Three models: NoNorm, BatchNorm, LayerNorm — identical architecture except normalization
-- Optimizer: Adam, lr=0.001
-- Loss: CrossEntropyLoss
-- Epochs: 50
-- Record training loss, test accuracy per epoch
-- Key data flow:
-  ```
-  X (B,T,H) → RNN unroll → h_T (B,H) → Linear(H, 2) → logits (B,2) → CrossEntropy
-  ```
+- `train_and_evaluate(norm_type, ..., epochs=50, lr=0.001, batch_size=64, hidden_size=64)`: Adam, cross-entropy, gradient-norm clipping at 5; records the average loss and train/test accuracy each epoch and prints every 10 epochs
+- Trains the three RNNs and prints their final test accuracies
 
 ### 8. Transformer Block with LayerNorm
-- **Class `TransformerBlock(nn.Module)`**
-  - Self-attention (simplified, single-head) + LayerNorm + feedforward + LayerNorm
-  - Pre-norm style: LayerNorm before attention and before FFN
-  - Demonstrates where LayerNorm sits in a transformer block
-  - Apply to the same sequence classification task
+- `SimpleSelfAttention`: single-head scaled dot-product attention
+- `TransformerBlock(embed_dim, ff_dim)`: pre-norm, `x + attn(LN(x))`, then `x + FFN(LN(x))` with a GELU feed-forward network (64 → 128 → 64)
+- `TransformerClassifier`: `Linear(64, 64)` input projection plus a learned positional embedding (1, 20, 64), one block, a final LayerNorm, mean pooling over time, `Linear(64, 2)`
+- Trained for 50 epochs with the same optimizer settings as the RNNs
 
 ### 9. Visualization & Comparison
-- Plot 1: Training loss curves (NoNorm vs BatchNorm vs LayerNorm)
-- Plot 2: Test accuracy curves over epochs
-- Plot 3: Hidden state magnitude over timesteps (showing LayerNorm stabilizes dynamics)
-- Plot 4: Gradient flow comparison (gradient norm per layer over training)
+- Training loss and test accuracy curves for the three RNNs (plus the Transformer's test accuracy)
+- `get_hidden_states`: average \|h_t\| over the 20 steps of one test sequence for the NoNorm and LayerNorm RNNs
+- Prints the first and last hidden-state magnitudes, and for each RNN the first epoch with test accuracy ≥ 0.99 and the loss after epoch 1
 
-### 10. Analysis
-- Print final accuracies for all three normalization schemes
-- Discuss: LayerNorm converges faster, stabilizes hidden state, doesn't depend on batch size
-- Show that BatchNorm with batch_size=1 degrades (online learning scenario) while LayerNorm doesn't
+### 10. Batch Size Sensitivity Test
+- Retrains the three RNNs for 20 epochs with `batch_size=1` and plots their test accuracy
+
+### 11. Summary
+- A printed table of the final test accuracies of all experiments, then `### What the run above shows` with the saved run's real numbers
 
 ## Key Functions/Classes
+
 | Component | Purpose |
 |---|---|
-| `layer_norm_numpy()` | Pure NumPy implementation for gradient verification |
-| `LayerNorm(nn.Module)` | Reusable PyTorch LayerNorm module |
-| `BatchNorm1d(nn.Module)` | From-scratch BatchNorm for comparison |
-| `RNNCellWithNorm` | RNN cell with pluggable normalization |
-| `SimpleRNN` | Full RNN model for sequence classification |
-| `TransformerBlock` | Simplified transformer block with LayerNorm |
+| `layer_norm_numpy`, `layer_norm_backward_numpy` | NumPy LayerNorm and its gradient check |
+| `LayerNorm` | From-scratch PyTorch LayerNorm |
+| `BatchNorm1d` | From-scratch BatchNorm for comparison |
+| `generate_sequence_data` | Rising vs falling trend sequences |
+| `RNNCellWithNorm`, `SimpleRNN` | RNN with pluggable normalization |
+| `train_and_evaluate` | Trains one RNN and records its history |
+| `SimpleSelfAttention`, `TransformerBlock`, `TransformerClassifier` | Pre-norm Transformer classifier with positional embedding |
+| `get_hidden_states` | Hidden-state magnitude over time |
 
-## Data Flow & Shapes
+## Data Flow / Shapes
+
 ```
-Input: (B=64, T=20, H=64)
-  ↓ RNN unroll (t=1..20)
-  h_t: (64, 64) at each step
-  ↓ final h_T
-  h_T: (64, 64)
-  ↓ Linear(64, 2)
-  logits: (64, 2)
-  ↓ CrossEntropy
-  loss: scalar
+RNN:          X (B, 20, 64) → for t in 1..20: h_t = tanh(norm(W_xh x_t + W_hh h_{t−1}))  (B, 64)
+              → Linear(64, 2) → logits (B, 2) → cross-entropy
+Transformer:  X (B, 20, 64) → Linear + positional embedding (B, 20, 64)
+              → x + Attn(LN(x)) → x + FFN(LN(x)) → LN → mean over time (B, 64) → Linear(64, 2)
 ```
 
-## Deliberate Simplifications vs Full Paper
-1. **Toy dataset** — synthetic trend classification instead of real NLP tasks (MNIST, COCO, CNN corpus)
-2. **Small model** — 64 hidden units, 20 timesteps (paper used 2400-dim encoders)
-3. **No convolutional experiments** — paper has a ConvNet section; we focus on RNN/Transformer which is where LayerNorm shines
-4. **Single-head attention** — simplified transformer block instead of multi-head
-5. **No skip-thought / order-embedding experiments** — these require large datasets and multi-day training
-6. **Gradient analysis is empirical** — paper's Riemannian geometry analysis is theoretical; we show practical gradient flow instead
-7. **Batch size sensitivity** — demonstrated empirically rather than through the paper's invariance proofs
+## Deliberate Simplifications vs. the Paper
+
+1. **Tasks:** one synthetic sequence task instead of the paper's experiments (image–sentence ranking, question answering, skip-thought vectors, DRAW on binarized MNIST, handwriting generation, permutation-invariant MNIST).
+2. **Model:** a plain tanh RNN with 64 hidden units instead of LSTMs and GRUs.
+3. **BatchNorm baseline:** one set of statistics shared across time steps; the paper's recurrent BatchNorm comparison follows Cooijmans et al., who keep separate statistics per time step.
+4. **Transformer:** the Transformer came after this paper; the block here only shows where LayerNorm sits in it.

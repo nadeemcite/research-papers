@@ -4,55 +4,62 @@ nav_order: 43
 permalink: "/042_layer-normalization/"
 ---
 # Layer Normalization
+![LayerNorm banner](../assets/banners/042.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/layer-normalization)
 
-
-**Paper:** Ba, Kiros, Hinton (2016). *Layer Normalization.* arXiv:1607.06450
-**Link:** https://arxiv.org/abs/1607.06450
-
+- **Paper:** [Layer Normalization](https://arxiv.org/abs/1607.06450)
+- **Authors:** Jimmy Lei Ba, Jamie Ryan Kiros, Geoffrey E. Hinton
+- **Lab, year:** University of Toronto, 2016
+- **Video:** YouTube Short coming on 23 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-Layer Normalization (LayerNorm) is a normalization technique that computes the mean and variance used for normalization from **all the summed inputs to the neurons in a layer on a single training case**, rather than across a mini-batch of training cases as in Batch Normalization. This transposition of the normalization axis means LayerNorm is independent of batch size, works identically at training and test time, and can be applied straightforwardly to recurrent neural networks (RNNs) — computing normalization statistics separately at each time step. Like BatchNorm, each neuron gets its own adaptive bias and gain applied after normalization but before the non-linearity. The paper demonstrates that LayerNorm substantially reduces training time and stabilizes hidden-state dynamics in recurrent networks across six tasks: image-sentence ranking, question answering, language modelling, generative modelling, handwriting generation, and MNIST classification. LayerNorm became a foundational component of the Transformer architecture and nearly all modern large language models.
+Neural networks train faster when the numbers flowing into each layer stay in a steady range. Batch normalization did this by averaging over a batch of examples, but that is awkward for recurrent networks and impossible with one example at a time.
 
-**Core idea:** Instead of normalizing across the batch dimension (BatchNorm), normalize across the feature dimension within each layer for each individual sample. This makes normalization independent of other samples in the batch.
+Layer normalization takes the mean and spread over all the units of one layer for a single example, then rescales that layer's inputs with them. It needs no batch, does the same thing in training and testing, and fits naturally into recurrent networks at every time step.
 
-**Key method details:**
-- For a layer with H hidden units, compute μ = (1/H)Σ aᵢ and σ = √((1/H)Σ(aᵢ - μ)²) over all H summed inputs in the layer
-- Normalize: āᵢ = (gᵢ/σ)(aᵢ - μ) + bᵢ, where g and b are learnable gain and bias
-- Same computation at train and test time (no running averages needed)
-- For RNNs: normalization statistics computed at each time step independently
-- Invariant to re-scaling of the entire weight matrix and re-centering of all incoming weights
-- Invariant to re-scaling of individual training cases
+The paper tests it on six tasks with a focus on recurrent networks: image–sentence ranking, question answering, skip-thought sentence vectors ("contextual language modelling"), generating binarized MNIST digits with DRAW, handwriting generation, and classifying MNIST digits with a fully connected network that ignores the image layout ("permutation-invariant" MNIST). It often trained faster, and in several tasks it also generalized better.
 
-**Influence:** LayerNorm is a core component of the Transformer (Vaswani et al., 2017) and is used in virtually every modern transformer-based architecture including BERT, GPT, T5, and all contemporary large language models. It is one of the most cited normalization techniques in deep learning.
+## What Problem Does It Solve
 
-## What problem does it solve?
+Imagine a choir where some singers suddenly get much louder or quieter, and the rest of the song falls apart. A sound engineer could fix each singer's volume by comparing them with the same singer in many other recordings: that is batch normalization. It works well when there are many recordings at once, but not for a single live song, or for songs of different lengths.
 
-Imagine you're cooking a meal with many ingredients. If one ingredient is way too salty or way too bland, the whole dish tastes wrong — even if everything else is perfect. The same thing happens inside a neural network: some "neurons" (think of them as ingredients) might produce values that are way too big or way too small, and this throws off the rest of the network's calculations.
+Layer normalization balances the volume within one song: it looks at all the singers at that moment and evens them out. It works for one song at a time and at every moment of a long song, which is exactly what recurrent networks reading sentences need.
 
-Before this paper, a popular fix called "Batch Normalization" solved this by comparing each ingredient to the same ingredient across many dishes (a batch of examples). But this only works well when you're cooking many dishes at once, and it's really hard to use when the "recipe" changes length — like translating sentences of different lengths.
+## Core Idea
 
-Layer Normalization fixes this by checking all the ingredients **within a single dish** (one example) and making sure none of them is too extreme. This means:
-- You can cook one dish at a time (batch size doesn't matter)
-- The dish tastes the same whether you're practicing or serving to guests (same computation at train and test time)
-- It works great even when recipes vary in length (perfect for language and sequence tasks)
+- **Normalize across the layer, not the batch:** for a layer with H units and summed inputs a, compute μ = (1/H) Σ aᵢ and σ = √((1/H) Σ (aᵢ − μ)²), then use (aᵢ − μ)/σ (Section 3).
+- **Learnable gain and bias:** each unit gets its own gain g and bias b, applied after normalization and before the non-linearity.
+- **Same in training and testing:** the statistics come from the current example, so no running averages are needed, and it works with batch size 1 (Section 3).
 
-This simple change made neural networks train faster and more stably, especially for text and language tasks, and became a standard ingredient in almost every AI model built today.
+## Key Method Details
 
-## Kaggle
+- **In RNNs:** at every time step, the summed inputs a_t = W_hh h_{t−1} + W_xh x_t are normalized with their own μ_t and σ_t, with one gain and bias shared over all time steps. Test sequences can be longer than any training sequence (Section 3.1).
+- **Invariances:** it is invariant to scaling the whole weight matrix and to shifting all incoming weights, and to re-scaling a single training case, but not to scaling one neuron's weight vector (Section 5.1, Table 1).
+- **Results:** in image–sentence ranking it reached its best validation model in 60% of the baseline's time and generalized better (Section 6.1, Table 2); in question answering it trained faster and beat recurrent batch normalization (Section 6.2).
+- **Limits:** in preliminary ConvNet experiments batch normalization did better, because units near the image boundary are rarely active and have very different statistics (Section 6.7).
 
-[Open in Kaggle](https://www.kaggle.com/code/nadymsazad/layer-normalization)
+### Simplifications in This Notebook
+
+The notebook implements layer normalization from scratch in NumPy (with a gradient check) and PyTorch (checked against `nn.LayerNorm`). It compares a small tanh RNN without normalization, with a from-scratch BatchNorm and with LayerNorm on a synthetic task: 64 noisy features whose mean rises or falls over 20 time steps. It also trains a small pre-norm Transformer block with LayerNorm and a positional embedding, and repeats the RNN comparison with batch size 1.
+
+### What the Notebook Result Shows
+
+The from-scratch LayerNorm is correct: it matches PyTorch's `nn.LayerNorm` to 4.77e-07, and its gradients pass the finite-difference check. But **the toy task is too easy to separate the methods**: all three RNNs reach 100% test accuracy, BatchNorm actually got there first (after 1 epoch, the others after 3), and their final losses are almost the same. So this run does not show LayerNorm training faster.
+
+The LayerNorm RNN's hidden-state size grows less over the 20 steps than without normalization (0.576 → 0.728 vs 0.610 → 0.978), but it still grows. The Transformer block reaches 100% test accuracy. With batch size 1, BatchNorm learns nothing (its loss stays at 0.693, the level of random guessing) and its test accuracy is close to chance, while both LayerNorm and no normalization reach 100%; that shows BatchNorm breaking, not LayerNorm winning.
+
+## Influence
+
+OpenAlex lists about 14,900 citations ([14,907 when checked on 22 November 2026](https://openalex.org/W3037932933)). A year later the [Transformer](https://arxiv.org/abs/1706.03762) used layer normalization after each of its sub-layers, citing this paper, and it is available as a built-in layer in PyTorch ([`torch.nn.LayerNorm`](https://docs.pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html)).
 
 ---
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/layer-normalization)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/042_layer-normalization/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/042_layer-normalization/solution.ipynb) | From-scratch LayerNorm in NumPy and PyTorch, compared with BatchNorm and no normalization in an RNN, plus a pre-norm Transformer block and a batch-size-1 test |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, Q&A (answers from the paper), citations, and common misconceptions about the paper |
