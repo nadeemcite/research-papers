@@ -10,7 +10,7 @@ permalink: "/031_faster-r-cnn-towards-real-time-object/"
 - **Paper:** [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497)
 - **Authors:** Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun
 - **Lab, year:** Microsoft Research, 2015 (NIPS 2015)
-- **Video:** YouTube Short coming on 21 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/aGTLoRxegGI) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
