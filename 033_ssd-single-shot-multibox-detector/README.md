@@ -39,11 +39,11 @@ SSD looks once, but through several grids at the same time. A fine grid of small
 - **Backbone:** ImageNet-pretrained VGG-16 with `fc6`/`fc7` turned into conv layers (an atrous, or dilated, `fc6`). The early `conv4_3` map is L2-normalized with a learned scale starting at 20 (Section 3.1).
 - **Data augmentation:** random crops with minimum IoU {0.1, 0.3, 0.5, 0.7, 0.9}, random patches and horizontal flips. This sampling improved mAP by 8.8% (Section 3.2, Table 2). A later "zoom out" expansion added 2–3% mAP and helped small objects (Section 3.6).
 - **Inference:** confidence threshold 0.01, per-class NMS at IoU 0.45, top 200 detections per image (Section 3.7).
-- **Results:** SSD300 74.3% and SSD512 76.9% mAP on VOC2007 test; on COCO test-dev, SSD512 reached 26.8 AP (46.5 AP at IoU 0.5) (Tables 1 and 5).
+- **Results:** SSD300 74.3% and SSD512 76.8% mAP on VOC2007 test (Table 1; the abstract rounds SSD512 to 76.9%); on COCO test-dev, SSD512 reached 26.8 AP (46.5 AP at IoU 0.5) (Table 5).
 
 ### Simplifications in This Notebook
 
-- A synthetic dataset of circles, rectangles and triangles (4,000 training and 500 validation images, 256×256). Object sizes are log-uniform from 16 to 170 px, so several scales are needed.
+- A synthetic dataset of circles, rectangles and triangles (4,000 training and 500 validation images, 256×256). Object sizes are log-uniform from 16 to 170 px (rectangles get a random aspect ratio, so they reach up to about 254 px on their long side), so several scales are needed.
 - A small VGG-style backbone with BatchNorm, trained from scratch, with 6 source maps (32, 16, 8, 4, 2, 1) and 6,132 default boxes. The 32×32 map is L2-normalized, as in the paper.
 - From-scratch default boxes with the paper's `s_k` formula, the two-step matching, box encoding, the MultiBox loss with 3:1 hard negative mining, per-class NMS and VOC-style mAP@0.5.
 - AdamW with a one-cycle schedule and mixed precision for 50 epochs, and horizontal flips only (no random crops or zoom-out).

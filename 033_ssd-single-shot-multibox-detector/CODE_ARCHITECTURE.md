@@ -21,7 +21,7 @@ The notebook builds an SSD-style single-shot detector from scratch in PyTorch an
 
 ### 2. Synthetic Multi-Scale Shapes Dataset
 - `make_sample(rng)` draws a noisy background, random distractor lines, and 1–6 non-overlapping shapes. Classes are 1 = circle, 2 = rectangle (random aspect ratio) and 3 = triangle, with random colors that don't depend on class.
-- Object size is log-uniform from 16 to 170 px, so each feature-map scale has work to do.
+- Object size is log-uniform from 16 to 170 px, and rectangles get a random aspect ratio, so they reach up to about 254 px on their long side. Each feature-map scale has work to do.
 - `build_split(n, seed)` returns a `uint8` tensor of shape `(n, 3, 256, 256)` plus per-image lists of normalized `xyxy` boxes and labels. 4,000 train and 500 val images are generated in memory.
 
 ### 3. Multi-Scale Default Boxes
