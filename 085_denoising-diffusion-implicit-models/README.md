@@ -4,45 +4,63 @@ nav_order: 86
 permalink: "/085_denoising-diffusion-implicit-models/"
 ---
 # Denoising Diffusion Implicit Models (DDIM)
+![DDIM banner](../assets/banners/085.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models)
 
+- **Paper:** [Denoising Diffusion Implicit Models](https://arxiv.org/abs/2010.02502)
+- **Authors:** Jiaming Song, Chenlin Meng, Stefano Ermon
+- **Lab, year:** Stanford University, 2020 (ICLR 2021)
+- **Video:** YouTube Short coming on 24 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
-**Paper:** Song, Meng, & Ermon (2021) — [arXiv:2010.02502](https://arxiv.org/abs/2010.02502) \| ICLR 2021
+## Summary
 
-Denoising Diffusion Implicit Models (DDIM) accelerate sampling from diffusion models by constructing a family of non-Markovian forward processes that share the same training objective as DDPMs but admit much faster reverse generative processes. The key insight is that while DDPMs require iterating through all T diffusion steps (often 1000), DDIM defines a deterministic, non-Markovian reverse process that can use an arbitrary subsequence of timesteps — typically 10–50 steps instead of 1000 — producing samples of comparable quality 10× to 50× faster. Crucially, the same trained noise-prediction network is reused; no retraining is needed. DDIM also enables semantically meaningful latent-space interpolation and near-perfect reconstruction of training images, capabilities absent in stochastic DDPM sampling.
+Diffusion models such as DDPM make an image by removing noise step by step, often 1000 steps for a single picture. That makes them slow.
 
+DDIM keeps the same trained network but changes how it samples. It can skip most of the steps, and with its setting η = 0 it removes no noise at random, so the same starting noise always gives the same image.
 
-## What problem does it solve?
+The paper reports high-quality samples 10× to 50× faster in wall-clock time than DDPM. Because sampling is deterministic, the starting noise also works like a code for the image: you can interpolate between two codes, or encode a real image into a code and decode it back.
 
-Imagine you're baking a cake from a recipe, but the recipe has 1000 tiny steps — add a grain of sugar, stir once, add a grain of flour, stir once, repeat. That's how DDPM (the original diffusion model) makes pictures: it removes a tiny bit of noise 1000 times to turn pure static into a clear image. It works great, but it's incredibly slow — like spending hours stirring one grain at a time. DDIM is like discovering that you can skip most of those steps and instead do just 20 big scoops and stirs, and the cake still comes out almost exactly the same. The magic is that you don't need a new recipe — you use the exact same ingredients and instructions, just skip steps smartly. This makes generating images 10 to 50 times faster, which is the difference between waiting hours and waiting minutes.
+## What Problem Does It Solve
+
+Imagine a recipe with 1000 tiny steps: add a pinch, stir once, add another pinch. The cake turns out great, but it takes forever. DDPM is like that: to make one picture it must take all 1000 small denoising steps, in order.
+
+DDIM shows that you can follow the same recipe in big jumps, maybe 50 steps instead of 1000, without retraining the cook. Each jump first guesses what the finished cake looks like, then moves the batter part of the way there. You get nearly the same cake in a fraction of the time, and the same ingredients always give the same cake.
 
 ## Core Idea
 
-1. **Non-Markovian forward process:** DDPMs define a Markov chain that progressively adds noise. DDIM generalizes this to a non-Markovian process where the forward posterior q(x_{t-1}\|x_t, x_0) depends on x_0, not just x_t. This doesn't change the marginal q(x_t\|x_0), so the training objective (noise prediction MSE) stays identical.
+- **Same training, new sampler:** the DDPM objective only depends on the noise level at each step, q(x_t \| x_0). DDIM builds non-Markovian forward processes with the same marginals, so a model trained as a DDPM can be used as it is (Sections 3 and 4.1).
+- **Predict, then step:** each step predicts the clean image x̂_0 from the noise estimate, then moves to the next noise level along the "direction pointing to x_t", with an optional random term σ_t (Eq. 12).
+- **η controls randomness:** σ_t is set by a parameter η; η = 1 gives DDPM and η = 0 gives DDIM, a deterministic process (Eq. 16).
+- **Skip steps:** the process can run on a short sub-sequence of the timesteps, for example 50 of 1000 (Section 4.2).
 
-2. **Deterministic reverse process:** By setting σ_t = 0 (no stochastic noise injection during sampling), the reverse process becomes fully deterministic given the initial noise x_T. This is the key to DDIM's consistency property — the same x_T always produces the same image.
+## Key Method Details
 
-3. **Accelerated sampling via subsequence:** Instead of stepping through all T timesteps, DDIM selects a subsequence τ = [τ_1, ..., τ_S] of S steps (e.g., S=20 out of T=100). The update rule jumps directly between these timesteps:
-   - x_{τ_{i-1}} = sqrt(α_{τ_{i-1}}) · predicted_x0 + sqrt(1 - α_{τ_{i-1}}) · direction_pointing_to_x_t
-   - where predicted_x0 = (x_t - sqrt(1-α_t) · ε_θ(x_t,t)) / sqrt(α_t)
+- **Accelerated sampling:** samples are drawn along a sub-sequence τ of length S; the paper uses the same trained models with T = 1000 and only changes τ and η (Sections 4.2 and 5).
+- **Results:** on CIFAR10, DDIM (η = 0) reached FID 13.36 with 10 steps, 4.67 with 50 and 4.04 with 1000; DDPM (η = 1) got 41.07 with 10 steps and 8.01 with 50 (Section 5.1, Table 1).
+- **Consistency:** with η = 0, samples from the same x_T with different numbers of steps share most high-level features (Section 5.2).
+- **ODE view and encoding:** the DDIM update is like an Euler step of an ODE, so it can be run in reverse to encode x_0 into x_T (Section 4.3). On CIFAR-10 the reconstruction error fell from 0.014 with 10 steps to 0.0001 with 500 steps (Section 5.4, Table 2).
 
-4. **Latent interpolation:** Because DDIM sampling is deterministic, the initial noise x_T acts as a meaningful latent code. Interpolating between two x_T vectors produces semantically meaningful image interpolations.
+### Simplifications in This Notebook
 
-5. **ODE connection:** The deterministic DDIM sampler corresponds to the Euler discretization of a probability-flow ODE, linking diffusion models to neural ODEs.
+The notebook trains a small U-Net (2.0M parameters, attention at 16×16) with the DDPM objective on all 60,000 FashionMNIST images resized to 32×32, with T = 1000, for 20 epochs, keeping an EMA copy of the weights. It then compares DDIM with 50 steps against DDPM with all 1000 steps, and tests consistency, interpolation, the effect of η, and DDIM encoding and decoding of real images. Quality is judged from sample grids and simple statistics, not FID.
+
+### What the Notebook Result Shows
+
+Training worked: the loss fell from **0.0696** to **0.0250**, and both samplers produce recognisable clothing. DDIM with 50 steps took **1.54 s** against **31.13 s** for DDPM with 1000 steps, a measured **20.2× speed-up**.
+
+DDIM's consistency shows clearly: the same x_T decoded with 10 to 1000 steps gives the same item, with a mean squared difference to the 1000-step image of 0.0015 at 10 steps and under 0.0001 at 100 steps. Encoding real images with DDIM and decoding them back gave a reconstruction error of **0.0037** with 50 steps and **0.0003** with 200 steps (pixels in [0, 1]). An earlier version of this notebook trained for only 3 epochs with T = 100 and a broken attention layer, and its samples were pure noise.
 
 ## Influence
 
-DDIM became the default fast sampler for diffusion models and is a foundational component of Stable Diffusion, DALL-E 2, and virtually all modern diffusion-based image generators. The ODE interpretation directly inspired subsequent work on DPM-Solvers, consistency models, and rectified flow. With over 3,000 citations, it is one of the most impactful papers in generative AI.
+OpenAlex lists about 11,200 citations ([11,182 when checked on 23 November 2026](https://openalex.org/W3092442149)). Later work kept using and analysing its sampler: [DPM-Solver](https://arxiv.org/abs/2206.00927) shows that the DDIM update is the first-order case of its ODE solver (its Section 4.1, "DDIM as DPM-Solver-1"), [EDM](https://arxiv.org/abs/2206.00364) compares against DDIM, and [Latent Diffusion](https://arxiv.org/abs/2112.10752) generates its samples with the DDIM sampler.
 
 ---
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/denoising-diffusion-implicit-models)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/085_denoising-diffusion-implicit-models/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/085_denoising-diffusion-implicit-models/solution.ipynb) | From-scratch PyTorch DDIM: a DDPM-trained U-Net on FashionMNIST, 50-step DDIM vs 1000-step DDPM, consistency, interpolation, η and encoding |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, Q&A (answers from the paper), citations, and common misconceptions about the paper |
