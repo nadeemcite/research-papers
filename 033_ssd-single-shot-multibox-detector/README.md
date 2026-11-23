@@ -10,7 +10,7 @@ permalink: "/033_ssd-single-shot-multibox-detector/"
 - **Paper:** [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325)
 - **Authors:** Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang Fu, Alexander C. Berg
 - **Lab, year:** UNC Chapel Hill, Zoox, Google and University of Michigan, 2016 (ECCV 2016)
-- **Video:** YouTube Short coming on 22 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/-m14L38AggA) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
