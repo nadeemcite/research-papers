@@ -37,5 +37,5 @@ num	short	banner	status	shorts_url	release_date
 084	DDPM	assets/banners/084.jpg	public	https://youtube.com/shorts/evsPMOWw4ec	2026-11-20
 031	Faster R-CNN	assets/banners/031.jpg	public	https://youtube.com/shorts/aGTLoRxegGI	2026-11-21
 033	SSD	assets/banners/033.jpg	public	https://youtube.com/shorts/-m14L38AggA	2026-11-22
-042	LayerNorm	assets/banners/042.jpg	private		2026-11-23
+042	LayerNorm	assets/banners/042.jpg	public	https://youtube.com/shorts/JpsGMD9E-g4	2026-11-23
 085	DDIM	assets/banners/085.jpg	private		2026-11-24

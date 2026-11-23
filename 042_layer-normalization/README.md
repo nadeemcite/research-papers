@@ -10,7 +10,7 @@ permalink: "/042_layer-normalization/"
 - **Paper:** [Layer Normalization](https://arxiv.org/abs/1607.06450)
 - **Authors:** Jimmy Lei Ba, Jamie Ryan Kiros, Geoffrey E. Hinton
 - **Lab, year:** University of Toronto, 2016
-- **Video:** YouTube Short coming on 23 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/JpsGMD9E-g4) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
