@@ -5,131 +5,84 @@ nav_order: 1
 ---
 # Code Architecture — Learning Phrase Representations using RNN Encoder–Decoder (GRU)
 
-This notebook implements a **GRU cell from scratch** using raw matrix operations (no `nn.GRU`), builds both a GRU-based and a vanilla-RNN-based recurrent network, trains both on a sequence-memorisation task, and compares them by plotting gradient norms over time steps — directly demonstrating the GRU's advantage in preserving information over long sequences.
+## Overview
 
-## Section 1 — Setup and imports
+The notebook implements the paper's gated hidden unit (the GRU) from scratch with raw `nn.Linear` layers (no `nn.GRU`) and compares it with a plain tanh RNN on a delayed-recall task: show 3 random vectors, wait D blank steps, then output the 3 vectors. Both networks are trained for delays of 5, 10, 20 and 40 steps, evaluated on new test sequences, and analysed through the gradient of the recall loss with respect to each hidden state and the GRU's gate activations. Everything runs on the CPU.
 
-**What it does:** Installs and imports PyTorch, matplotlib, numpy. Seeds all RNGs for reproducibility.
+## Section-by-Section Breakdown
 
-**Key packages:** `torch`, `torch.nn`, `matplotlib`, `numpy`
+### Setup
+- PyTorch, NumPy, matplotlib; nothing is installed
+- Seeds 42; one CPU thread and `torch.use_deterministic_algorithms(True)` so reruns give the same numbers
+- Figures as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
-## Section 2 — GRU cell from scratch
+### 1. GRU Cell from Scratch
+- `GRUCellScratch(input_dim, hidden_dim)` with separate `W_r, U_r`, `W_z, U_z`, `W, U` layers
+- Reset gate `r = σ(W_r x + U_r h_{t−1})` (Eq. 5), update gate `z = σ(W_z x + U_z h_{t−1})` (Eq. 6), candidate `h̃ = tanh(W x + U (r ⊙ h_{t−1}))` (Eq. 8), new state `h_t = z ⊙ h_{t−1} + (1 − z) ⊙ h̃` (Eq. 7)
+- As in the paper, z close to 1 keeps the previous state
 
-**What it does:** Implements the exact GRU equations from the paper (Eqs. 5–8) using raw `nn.Linear` layers and element-wise operations — no `nn.GRU` or `nn.GRUCell`.
+### 2. Plain RNN Cell from Scratch
+- `VanillaRNNCell`: `h_t = tanh(W x_t + U h_{t−1})`
 
-**Class:** `GRUCellScratch(nn.Module)`
-- **Reset gate:** `r = σ(W_r·x + U_r·h_{t-1})` — `nn.Linear` for input projection (`W_r`) and hidden projection (`U_r`), then sigmoid.
-- **Update gate:** `z = σ(W_z·x + U_z·h_{t-1})` — same structure, separate parameters.
-- **Candidate:** `h̃ = tanh(W·x + U·(r ⊙ h_{t-1}))` — the reset gate gates the previous hidden state before the candidate is computed.
-- **New state:** `h = z·h_{t-1} + (1−z)·h̃` — linear interpolation.
+### 3. Full Recurrent Network Wrapper
+- `RecurrentNetwork(cell, input_dim, hidden_dim, output_dim)`: unrolls the cell from `h_0 = 0`, applies `Linear(64, 8)` at every step, and returns all outputs and all hidden states (for the gradient analysis)
 
-**Shapes:**
-- Input `x`: `(batch, input_dim)`
-- Hidden `h`: `(batch, hidden_dim)`
-- All weight matrices: `(hidden_dim, input_dim)` or `(hidden_dim, hidden_dim)`
-- Output `h`: `(batch, hidden_dim)`
+### 4. Delayed-Recall Task
+- `K = 3`, `DATA_DIM = 8`, `INPUT_DIM = 9` (8 data channels + 1 recall cue), `HIDDEN_DIM = 64`, `OUTPUT_DIM = 8`
+- `BATCH_SIZE = 128`, `NUM_EPOCHS = 300`, `LR = 0.002`, `N_TRAIN = 1000`, `N_TEST = 500`, `DELAYS = [5, 10, 20, 40]`
+- `generate_recall_data(n, delay, generator)`: sequences of length T = 3 + delay + 3; the first 3 steps carry random N(0, 1) vectors, the last 3 steps have the recall cue set and the 3 vectors as targets; returns inputs, targets and a mask of the recall steps
+- `recall_mse(outputs, y, mask)`: mean squared error on the recall steps only (about 1.0 for a model that outputs zeros)
 
-This is a faithful reproduction of Equations 5–8 from the paper, with the paper's convention that the update gate `z` keeps the old state (i.e. `h = z·h_old + (1−z)·h_new`). Note: some frameworks (e.g. PyTorch's `nn.GRU`) use the opposite convention; we follow the paper exactly.
+### 5. Training Loop
+- `build_model(cell_type)` and `train_model(cell_type, delay)`: Adam, gradient-norm clipping at 5, 300 epochs on 1,000 training sequences; prints the training recall MSE every 100 epochs and returns the model, the loss history and the recall MSE on 500 test sequences
+- Trains a GRU and a plain RNN for each delay (8 models)
 
-## Section 3 — Vanilla RNN cell from scratch
+### 6. Training Loss Comparison
+- Training recall MSE per epoch for both models at each delay (log scale)
 
-**What it does:** Implements a plain tanh RNN cell for comparison.
+### 7. Gradient Norm Analysis
+- `compute_gradient_norms(model, delay)`: on 64 new sequences, the L2 norm of ∂L/∂h_t for every step t, where L is the recall loss; prints the norm at t = 1 and t = T and their ratio
 
-**Class:** `VanillaRNNCell(nn.Module)`
-- `h = tanh(W·x + U·h_{t-1} + b)` — the simplest possible recurrent unit with no gating.
+### 8. Gradient Norm Plots
+- ‖∂L/∂h_t‖ against t (log scale) for both models at each delay, with the recall steps shaded
 
-## Section 4 — Full RNN wrapper
+### 9. Test Recall MSE by Delay
+- Bar chart of the test recall MSE for both models at each delay
 
-**What it does:** Wraps a cell (GRU or vanilla) into a full sequence-processing network that unrolls over time steps.
+### 10. Summary Table
+- Test MSE, gradient at t = 1, gradient at t = T and their ratio for all 8 models
 
-**Class:** `RecurrentNetwork(nn.Module)`
-- Takes a cell and processes a sequence of length T, maintaining a running hidden state.
-- Input: `(batch, seq_len, input_dim)` → Output: `(batch, seq_len, hidden_dim)`
-- At each time step t: `h_t = cell(x_t, h_{t-1})`
-- Stores all intermediate hidden states for gradient analysis.
+### 11. GRU Gate Activations
+- `extract_gate_activations(model, delay)`: reset and update gates of the delay-40 GRU over one test sequence; prints their mean over the show, blank and recall steps and plots them as heatmaps
 
-## Section 5 — Sequence memorisation task
+### 12. Summary
+- `### What the run above shows` with the saved run's real numbers
 
-**What it does:** Creates a synthetic task where the model must reproduce a sequence of random values after reading it — a pure memorisation task that stresses long-range memory.
+## Key Functions/Classes
 
-**Task design:**
-- Input: a sequence of T random vectors (each a one-hot or continuous vector).
-- Target: the same sequence (copy task) — the model must output x_t at position t after reading the full sequence.
-- This task directly tests whether the recurrent unit can preserve information across T time steps.
-
-**Key function:** `generate_memorisation_data(n_samples, seq_len, input_dim)`
-
-## Section 6 — Training loop
-
-**What it does:** Trains both the GRU-based and vanilla-RNN-based networks on the memorisation task with the same hyperparameters, using MSE loss and Adam optimiser.
-
-**Key variables:**
-- `SEQ_LEN`: sequence length (varied: 5, 10, 20, 40)
-- `HIDDEN_DIM`: 64
-- `INPUT_DIM`: 16
-- `LR`: 0.01
-- `NUM_EPOCHS`: 200
-
-**Key function:** `train_model(cell_type, seq_len, epochs)`
-
-## Section 7 — Gradient norm analysis
-
-**What it does:** After training, runs a forward pass and backpropagates loss to the first time step. Measures the gradient norm of the loss with respect to the hidden state at each time step — this is the classic vanishing/exploding gradient diagnostic.
-
-**Why this matters:** The paper's motivation for the GRU was precisely to combat the vanishing gradient problem in plain RNNs. By plotting ‖∂L/∂h_t‖ vs. time step t for both architectures, we see that:
-- **Vanilla RNN:** gradients shrink exponentially with time step (vanishing gradient).
-- **GRU:** gradients remain much more stable across time steps thanks to the update gate's linear interpolation (gradient highway).
-
-**Key function:** `compute_gradient_norms(model, seq_len)`
-
-## Section 8 — Comparison plots
-
-### 8a — Loss convergence
-Plots training loss vs. epoch for GRU and vanilla RNN at different sequence lengths, showing the GRU converges faster and to lower loss especially for longer sequences.
-
-### 8b — Gradient norm vs. time step
-Plots ‖∂L/∂h_t‖ for each time step t, on a log scale, for both architectures. This is the key figure demonstrating the GRU's resistance to vanishing gradients.
-
-### 8c — Accuracy by sequence length
-Bar chart comparing final memorisation accuracy for GRU vs. vanilla RNN at sequence lengths 5, 10, 20, 40.
-
-## Data flow summary
-
-```
-random sequence (batch, seq_len, input_dim)
-         ↓
-  ┌──────┴──────┐
-  │ GRU cell    │  vs.  │ Vanilla RNN cell │
-  │ unrolled T  │       │ unrolled T        │
-  │ times       │       │ times             │
-  └──────┬──────┘       └───────┬───────────┘
-         ↓                       ↓
-  hidden states h_1...h_T   hidden states h_1...h_T
-         ↓                       ↓
-  output projection         output projection
-         ↓                       ↓
-  MSE loss vs. target       MSE loss vs. target
-         ↓                       ↓
-  backprop → gradient       backprop → gradient
-  norms per time step       norms per time step
-         ↓                       ↓
-  ┌──────┴──────┐
-  │  Plot:      │
-  │  loss curve │
-  │  grad norms │
-  │  accuracy   │
-  └─────────────┘
-```
-
-## Deliberate simplifications vs. full paper
-
-| Paper | Notebook |
+| Name | Purpose |
 |---|---|
-| English→French SMT, 348M words, 15k vocab | Synthetic sequence memorisation task |
-| 1000 hidden units, rank-100 embeddings | 64 hidden units, 16-dim inputs |
-| Encoder–Decoder for phrase-pair scoring | Standalone GRU vs. vanilla RNN comparison |
-| Adadelta optimizer | Adam optimizer |
-| BLEU evaluation on WMT'14 | MSE loss + gradient norm analysis |
-| Trained for days on GPU | ~3 minutes on Kaggle GPU |
+| `GRUCellScratch` | The paper's gated unit, Eqs. 5–8 |
+| `VanillaRNNCell` | Plain tanh RNN baseline |
+| `RecurrentNetwork` | Unrolls a cell and keeps all hidden states |
+| `generate_recall_data`, `recall_mse` | Delayed-recall data and loss on recall steps only |
+| `train_model` | Trains one model and returns its test recall MSE |
+| `compute_gradient_norms` | ‖∂L/∂h_t‖ for every time step |
+| `extract_gate_activations` | Reset and update gate values over a sequence |
 
-The notebook isolates the paper's core architectural contribution (the GRU cell with reset/update gates) and demonstrates its advantage over a vanilla RNN through gradient analysis — the exact motivation given in Section 2.3 of the paper. The full encoder–decoder and SMT integration are abstracted away to keep the notebook self-contained and fast.
+## Data Flow / Shapes
+
+```
+x (batch, T, 9) with T = 3 + delay + 3: [3 data steps | delay blank steps | 3 recall-cue steps]
+→ cell unrolled T times → h_t (batch, 64) for t = 1..T → Linear(64, 8) → outputs (batch, T, 8)
+→ recall MSE on the last 3 steps vs the 3 data vectors
+→ backprop: ∂L/∂h_t for every t (gradient analysis)
+```
+
+## Deliberate Simplifications vs. the Paper
+
+1. **Task:** a synthetic delayed-recall task instead of English→French phrase scoring on WMT'14.
+2. **Model:** a single recurrent network, not the paper's encoder–decoder; it isolates the gated hidden unit.
+3. **Size:** 64 hidden units and 8-dimensional inputs instead of 1,000 hidden units and 100-dimensional word embeddings.
+4. **Training:** Adam on 1,000 sequences for 300 epochs instead of Adadelta for about three days.
+5. **Evaluation:** recall MSE and gradient norms instead of BLEU.

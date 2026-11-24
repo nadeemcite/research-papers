@@ -40,7 +40,7 @@ A: Yes. The DDIM update is like an Euler step for an ODE (Section 4.3), so it ca
 
 3. **"DDIM matches DDPM at any number of steps."** Quality still improves with more steps: on CIFAR10, DDIM's FID was 13.36 with 10 steps and 4.04 with 1000 (Table 1).
 
-4. **"Fewer steps always means proportionally less time."** In [this repo's notebook](solution.ipynb) the measured speed-up of 50-step DDIM over 1000-step DDPM is printed by the run; see its Summary for that number and for how the small model's samples look.
+4. **"DDIM is faster because it uses a cheaper network."** It uses the same trained network as DDPM; it is faster because it calls that network fewer times, on a short sub-sequence of the timesteps (Section 4.2). In [this repo's notebook](solution.ipynb), 50 DDIM steps instead of 1000 DDPM steps (20× fewer calls) gave a measured speed-up of about 20× (19.8× in the saved run).
 
 ## Real Citations
 
