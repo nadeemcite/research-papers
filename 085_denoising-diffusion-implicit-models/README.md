@@ -10,7 +10,7 @@ permalink: "/085_denoising-diffusion-implicit-models/"
 - **Paper:** [Denoising Diffusion Implicit Models](https://arxiv.org/abs/2010.02502)
 - **Authors:** Jiaming Song, Chenlin Meng, Stefano Ermon
 - **Lab, year:** Stanford University, 2020 (ICLR 2021)
-- **Video:** YouTube Short coming on 24 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/d6eC8fEv1yM) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
