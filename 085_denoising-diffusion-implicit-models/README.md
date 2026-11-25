@@ -46,7 +46,7 @@ The notebook trains a small U-Net (2.0M parameters, attention at 16×16) with th
 
 ### What the Notebook Result Shows
 
-Training worked: the loss fell from **0.0696** to **0.0250**, and both samplers produce recognisable clothing. In the saved run, DDIM with 50 steps took **1.53 s** against **30.37 s** for DDPM with 1000 steps, a measured **19.8× speed-up** (20.2× and 19.9× in two earlier runs).
+Training worked: the loss fell from **0.0696** to **0.0250**, and both samplers produce recognisable clothing. In the saved run, DDIM with 50 steps took **1.53 s** against **30.37 s** for DDPM with 1000 steps, a measured **19.8× speed-up**.
 
 DDIM's consistency shows clearly: the same x_T decoded with 10 to 1000 steps gives the same item, with a mean squared difference to the 1000-step image of 0.0015 at 10 steps and under 0.0001 at 100 steps. Encoding real images with DDIM and decoding them back gave a reconstruction error of **0.0037** with 50 steps and **0.0003** with 200 steps (pixels in [0, 1]). An earlier version of this notebook trained for only 3 epochs with T = 100 and a broken attention layer, and its samples were pure noise.
 

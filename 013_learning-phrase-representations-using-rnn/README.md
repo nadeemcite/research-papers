@@ -48,7 +48,7 @@ The notebook builds the gated unit from scratch with raw `nn.Linear` layers (no 
 
 ### What the Notebook Result Shows
 
-With 5 blank steps both networks recall the vectors almost perfectly (test MSE **0.0063** for the GRU, **0.0029** for the plain RNN). With 10 and 20 blank steps the GRU still does (**0.0040** and **0.0076**) while the plain RNN largely fails (**0.2557** and **0.6915**, where 1.0 means no recall). With 40 blank steps both fail (about **1.01**), and the gradient reaching the first step shrinks to about 1e-10 for both.
+With 5 blank steps both networks recall the vectors almost perfectly (test MSE **0.0063** for the GRU, **0.0029** for the plain RNN). With 10 and 20 blank steps the GRU still does (**0.0040** and **0.0076**) while the plain RNN largely fails (**0.2557** and **0.6915**, where 1.0 means no recall). With 40 blank steps both fail (about **1.01**), and the gradient reaching the first step shrinks to about 1e-10 (GRU) and 6e-10 (plain RNN).
 
 So the gates extend how long this small network can remember, but not without limit. An earlier version of this notebook used a task that needed no memory, and its claims that the GRU won were not supported by its outputs.
 
