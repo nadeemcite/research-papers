@@ -40,3 +40,4 @@ num	short	banner	status	shorts_url	release_date
 042	LayerNorm	assets/banners/042.jpg	public	https://youtube.com/shorts/JpsGMD9E-g4	2026-11-23
 085	DDIM	assets/banners/085.jpg	public	https://youtube.com/shorts/d6eC8fEv1yM	2026-11-24
 013	GRU	assets/banners/013.jpg	private		2026-11-25
+034	Mask R-CNN	assets/banners/034.jpg	private		2026-11-26
