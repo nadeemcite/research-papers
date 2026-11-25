@@ -10,7 +10,7 @@ permalink: "/013_learning-phrase-representations-using-rnn/"
 - **Paper:** [Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation](https://arxiv.org/abs/1406.1078)
 - **Authors:** Kyunghyun Cho, Bart van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, Yoshua Bengio
 - **Lab, year:** Université de Montréal / Jacobs University / Université du Maine (Le Mans), 2014 (EMNLP 2014)
-- **Video:** YouTube Short coming on 25 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/TvN1vgwQ0Y0) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
