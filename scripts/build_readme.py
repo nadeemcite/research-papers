@@ -250,7 +250,8 @@ def build_readme(papers):
     L.append('Short videos on the same 100 papers: *learn AI the way models learn, one step at a time.* '
              'They\'re made by an automated pipeline that writes the script, narrates it, generates the visuals and renders the video.\n')
     L.append('<table>')
-    shorts = [('d6eC8fEv1yM', 'Bigger Steps to Make an Image: DDIM', '085_denoising-diffusion-implicit-models'),
+    shorts = [('TvN1vgwQ0Y0', 'Learning When to Keep or Update Memory: GRU Encoder-Decoder', '013_learning-phrase-representations-using-rnn'),
+              ('d6eC8fEv1yM', 'Bigger Steps to Make an Image: DDIM', '085_denoising-diffusion-implicit-models'),
               ('JpsGMD9E-g4', 'Each Example Rescales Its Own Numbers: LayerNorm', '042_layer-normalization'),
               ('-m14L38AggA', 'Finding Big and Small Objects in One Look: SSD', '033_ssd-single-shot-multibox-detector'),
               ('aGTLoRxegGI', 'The Same Network Suggests Where to Look: Faster R-CNN', '031_faster-r-cnn-towards-real-time-object'),

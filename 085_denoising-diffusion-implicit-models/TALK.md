@@ -18,7 +18,7 @@ nav_order: 2
 ## Q&A (answers from the paper)
 
 **Q1: Why doesn't DDIM need a new training run?**
-A: The DDPM training objective only depends on the marginals q(x_t \| x_0). The authors build a family of non-Markovian forward processes with exactly the same marginals, so they share the same training objective, and a model trained as a DDPM can be sampled with any of them (Sections 3 and 4.2).
+A: The DDPM training objective only depends on the marginals q(x_t \| x_0). The authors build a family of non-Markovian forward processes with exactly the same marginals, so they share the same training objective, and a model trained as a DDPM can be sampled with any of them (Sections 3 and 4).
 
 **Q2: What does the η parameter control?**
 A: The amount of randomness in each sampling step. With σ_t set by Eq. (16), η = 1 gives the original DDPM generative process and η = 0 gives DDIM, where the step has no random noise and x_0 depends only on x_T (Sections 4.1 and 5).

@@ -28,7 +28,7 @@ DDIM shows that you can follow the same recipe in big jumps, maybe 50 steps inst
 
 ## Core Idea
 
-- **Same training, new sampler:** the DDPM objective only depends on the noise level at each step, q(x_t \| x_0). DDIM builds non-Markovian forward processes with the same marginals, so a model trained as a DDPM can be used as it is (Sections 3 and 4.1).
+- **Same training, new sampler:** the DDPM objective only depends on the noise level at each step, q(x_t \| x_0). DDIM builds non-Markovian forward processes with the same marginals, so a model trained as a DDPM can be used as it is (Sections 3 and 4).
 - **Predict, then step:** each step predicts the clean image x̂_0 from the noise estimate, then moves to the next noise level along the "direction pointing to x_t", with an optional random term σ_t (Eq. 12).
 - **η controls randomness:** σ_t is set by a parameter η; η = 1 gives DDPM and η = 0 gives DDIM, a deterministic process (Eq. 16).
 - **Skip steps:** the process can run on a short sub-sequence of the timesteps, for example 50 of 1000 (Section 4.2).

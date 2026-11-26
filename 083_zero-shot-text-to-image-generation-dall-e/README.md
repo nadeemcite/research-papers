@@ -4,65 +4,71 @@ nav_order: 84
 permalink: "/083_zero-shot-text-to-image-generation-dall-e/"
 ---
 # Zero-Shot Text-to-Image Generation (DALL-E)
+![DALL-E banner](../assets/banners/083.jpg)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
 
-
-**arXiv:** https://arxiv.org/abs/2102.12092
-
-**Authors:** Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray, Chelsea Voss, Alec Radford, Mark Chen, Ilya Sutskever (OpenAI)
-
-**Year:** 2021
+- **Paper:** [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092)
+- **Authors:** Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray, Chelsea Voss, Alec Radford, Mark Chen, Ilya Sutskever
+- **Lab, year:** OpenAI, 2021 (ICML 2021)
+- **Video:** YouTube Short coming on 27 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
-DALL-E introduces a simple yet powerful approach to text-to-image generation: a single autoregressive Transformer that models both text and image tokens as one continuous stream. The method has two stages. First, a discrete Variational Autoencoder (dVAE) compresses each 256×256 image into a 32×32 grid of image tokens from a learned codebook of 8192 entries — turning images into a sequence of discrete symbols. Second, a 12-billion-parameter decoder-only Transformer (similar to GPT-3) is trained autoregressively on the concatenation of BPE-tokenized text captions (up to 256 tokens) and the dVAE image tokens (1024 tokens). At inference time, the model receives a text prompt, generates image tokens one by one, and the dVAE decoder converts those tokens back into pixels. A separately trained CLIP model reranks generated candidates to select the best match. Trained on 250 million text-image pairs, DALL-E demonstrates zero-shot generation: it can produce images for text descriptions never seen during training, exhibiting compositional reasoning like combining objects in novel ways, applying styles, and performing image-to-image edits.
+DALL-E makes a picture from a sentence. It treats this as next-token prediction: one transformer reads the caption's text tokens and then writes the image's tokens, one after another, as a single stream.
 
-## Core Idea
+To make an image short enough for this, a discrete VAE (dVAE) first turns each 256×256 image into a 32×32 grid of 1024 image tokens, each one of 8192 codes. The transformer has 12 billion parameters and was trained on 250 million text-image pairs from the internet.
 
-The key insight is that text-to-image generation can be cast as a **single sequence modeling problem**. Instead of designing specialized architectures with auxiliary losses, DALL-E treats image generation as language modeling — the same paradigm that powered GPT-3, but extended to a joint vocabulary of text and image tokens.
-
-**Discrete VAE (dVAE):** Images cannot be fed directly into a Transformer, so DALL-E first trains a dVAE that encodes a 256×256 RGB image into a 32×32 grid of discrete tokens (codebook size 8192). The dVAE uses an encoder-decoder architecture with a vector quantization bottleneck (similar to VQ-VAE), trained with a reconstruction loss combined with a commitment loss and straight-through gradient estimation. This reduces the image to a sequence of 1024 tokens — small enough for a Transformer to model autoregressively.
-
-**Autoregressive Transformer:** The Transformer receives `[BOS] + text_tokens + [SEP] + image_tokens + [EOS]` and is trained to predict the next token. Text tokens come from BPE (vocabulary 16384), and image tokens from the dVAE codebook (vocabulary 8192). The combined vocabulary is 16384 + 8192 = 24576 tokens. The model uses a decoder-only architecture with attention masks ensuring each position only attends to previous positions.
-
-**Sampling:** Given a text prompt, the Transformer generates image tokens autoregressively (using top-k or nucleus sampling). The dVAE decoder then converts the 1024 image tokens back into a 256×256 image. Multiple candidates are generated and reranked by CLIP to pick the best.
-
-## Key Method Details Relevant to the Code
-
-1. **dVAE with vector quantization** — encoder maps image patches to a continuous latent, which is quantized to the nearest codebook entry via nearest-neighbor lookup; gradients flow through via straight-through estimator
-2. **Joint vocabulary** — text and image tokens share a single vocabulary space, with image tokens offset by the text vocabulary size
-3. **Autoregressive training** — standard next-token prediction (cross-entropy) over the concatenated text+image token sequence
-4. **Causal attention** — the Transformer uses a causal mask so image tokens can attend to all preceding text and image tokens, but not future ones
-5. **Two-stage training** — dVAE is trained first (to establish the token space), then the Transformer is trained on frozen dVAE tokens
-6. **CLIP reranking** — at inference, multiple samples are generated and CLIP selects the best text-image match
+Without being trained on MS-COCO captions, its samples were preferred by human judges over those of DF-GAN, a model trained on MS-COCO, 90% of the time for realism and 93% of the time for matching the caption.
 
 ## What Problem Does It Solve
 
-Imagine you tell your friend: "Draw me a picture of a snail wearing a tiny hat made of cheese." Your friend can imagine it and draw it because they understand what snails, hats, and cheese look like, and they can *combine* those ideas. But before DALL-E, computers couldn't do this — they could only draw things they were specifically trained to draw, like cats or dogs, with lots of labeled examples.
+Imagine teaching a child to draw by showing them millions of pictures, each with a short description underneath. After a while you can say "a hedgehog in a Christmas sweater" and they draw it, even though no picture they saw had exactly that.
 
-DALL-E taught computers to do what your friend does: **understand words and turn them into pictures**, even for weird combinations the computer had never seen before. It learned by looking at millions of pictures with captions, figuring out that the word "snail" looks like a certain shape, "hat" looks like another shape, and "cheese" has a certain color. Then it could mix and match those shapes to draw something brand new — like a snail with a cheese hat — just from the words you typed. This was a huge deal because it meant you didn't need to show the computer every possible picture; you just needed to describe it in words.
+Before DALL-E, most text-to-image models were trained on one fixed dataset, such as birds or everyday scenes, with special architectures and extra losses. DALL-E asks whether a simple, general method works if it is big enough and sees enough data. Words and pictures both become tokens, and the model just learns to continue the stream. Tested "zero-shot", on captions from datasets it was never trained on, it was competitive with the specialised models.
+
+## Core Idea
+
+- **Two stages:** first learn a visual codebook (the dVAE), then learn a prior over text and image tokens (the transformer). Together they maximise a lower bound on the likelihood of images and captions (Section 2, Eq. 1).
+- **Stage 1, the dVAE:** the encoder outputs 8192 logits for each of the 32×32 grid positions. Instead of the straight-through estimator used by VQ-VAE, it is trained with the **gumbel-softmax relaxation**, with the temperature annealed to 1/16 and a KL term towards a uniform prior over the codes (Section 2.1).
+- **Stage 2, the transformer:** up to 256 BPE text tokens (vocabulary 16,384) are followed by the 1024 image tokens (vocabulary 8192) and modelled autoregressively by a 12-billion-parameter sparse transformer. Each image token can attend to all text tokens (Section 2.2).
+- **Generation and reranking:** many images are sampled for a caption, and a pretrained contrastive model (CLIP) ranks them by how well they match it (Section 2.6).
+
+## Key Method Details
+
+- **dVAE training:** the KL weight β rises from 0 to 6.6, which the authors found gives better codebook use and a lower final reconstruction error. The encoder ends, and the decoder starts, with 1×1 convolutions. The pixels use a logit-Laplace likelihood (Section 2.1, Appendix A).
+- **Image tokens for stage 2:** the argmax of the dVAE encoder's logits, with no gumbel noise (Section 2.2).
+- **Attention:** a standard causal mask for text-to-text attention, and row, column or convolutional masks for image-to-image attention, over 64 self-attention layers (Section 2.2).
+- **Loss weights:** the text and image cross-entropies are each averaged, then weighted 1/8 and 7/8, because image modelling is the main goal (Section 2.2).
+- **Data:** 250 million text-image pairs, including Conceptual Captions and a filtered subset of YFCC100M (Section 2.3).
+- **Training at scale:** 16-bit mixed precision with per-resblock gradient scaling, and PowerSGD gradient compression for distributed training (Sections 2.4 and 2.5).
+- **Results:** on MS-COCO, human judges preferred its samples to DF-GAN's 93% of the time for matching the caption and 90% for realism. Its FID was within 2 points of the best prior method, and about 6 points better after a slight blur. On the specialised CUB birds dataset it was much worse, with a gap of nearly 40 FID points (Section 3.1).
+- **Qualitative findings:** it can combine unusual concepts ("a tapir made of accordion"), render text, and do simple image-to-image translation guided by a caption, but only with limited reliability (Section 3.3).
+
+### Simplifications in This Notebook
+
+The notebook builds both stages from scratch in PyTorch on synthetic 32×32 images of one coloured shape each, with captions like "a red circle" (6 colours × 3 shapes). The dVAE turns an image into 8×8 = 64 tokens from 128 codes and is trained with the gumbel-softmax relaxation, τ annealed to 1/16 and a KL term to a uniform prior.
+
+A 3.2M-parameter transformer models a 4-token caption plus the 64 image tokens, with text and image losses weighted 1/8 and 7/8. Three combinations (red square, blue triangle, green circle) are left out of all training, so their captions are a real zero-shot test. A colour rule and a small shape classifier score the generated images. There is no BPE, no sparse attention and no CLIP reranking.
+
+### What the Notebook Result Shows
+
+The dVAE used 123 of its 128 codes and reconstructed test images with an error of **0.0051** per pixel. The shapes and colours stay recognisable, with soft edges. In test runs with a much weaker KL weight, every grid cell collapsed onto a single code, which fits the paper's remark that a large KL weight helps codebook use.
+
+For captions seen in training, **92.1%** of generated images had the right colour and shape. For the three held-out captions it was **53.1%**, far above the 5.6% expected by chance but well below the seen captions. Green circles worked best (68.8%). Red squares often came out as red circles, and blue triangles as purple triangles. The checker itself reads only 87.5% of reconstructions of held-out images correctly, so part of the gap may be blur rather than the transformer.
+
+An earlier version of this notebook used a VQ-VAE-style model whose loss rose during training, so its images were noise. Its "zero-shot" captions had all been in the training data.
 
 ## Influence
 
-DALL-E was a landmark paper that kicked off the text-to-image generation revolution:
-- **Direct successor — DALL-E 2 (2022):** Replaced the autoregressive Transformer with a diffusion model conditioned on CLIP embeddings, achieving photorealistic results
-- **Stable Diffusion (2022):** Adopted the latent space concept (compressing images before generation) that DALL-E pioneered with the dVAE
-- **Midjourney, Imagen (Google), Parti (Google):** All followed in DALL-E's footsteps, exploring different generation backbones but retaining the text-conditioned generation paradigm
-- **Compositional reasoning benchmark:** DALL-E's ability to combine concepts in novel ways (e.g., "an armchair in the shape of an avocado") became a standard test for generative models
-- **Mainstream AI art movement:** DALL-E's release in January 2021 (alongside CLIP) is widely considered the beginning of the AI-generated art era
-- **Architecture influence:** The idea of tokenizing images and modeling them autoregressively influenced subsequent work like Parti, CM3leon, and unified multimodal models
-
-**Kaggle:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
+OpenAlex lists about 6,700 citations ([6,685 when checked on 26 November 2026](https://openalex.org/W3129576130)). OpenAI released the [dVAE code](https://github.com/openai/DALL-E) used in the paper, and announced the model together with [CLIP](https://openai.com/index/clip/), the contrastive model used for reranking. OpenAI's follow-up [DALL·E 2](https://arxiv.org/abs/2204.06125) (Ramesh et al., 2022) generates images from CLIP image embeddings and compares its MS-COCO FID with DALL-E's, and Google's [Parti](https://arxiv.org/abs/2206.10789) (Yu et al., 2022) is, like DALL-E, a two-stage model that generates image tokens and reranks its samples with a contrastive model.
 
 ---
 
 ## Resources
 
-**Kaggle Notebook:** [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/nadymsazad/zero-shot-text-to-image-generation-dall-e)
-
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This overview — a 5-minute read covering the paper's summary, core idea, key method details, influence, and a plain-English explanation of the problem it solves |
-| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/083_zero-shot-text-to-image-generation-dall-e/solution.ipynb) | Complete from-scratch PyTorch implementation of the paper's architecture, with training loops, visualizations, and worked examples |
+| [solution.ipynb](https://nbviewer.org/github/nadeemcite/research-papers/blob/main/083_zero-shot-text-to-image-generation-dall-e/solution.ipynb) | A tiny from-scratch DALL-E in PyTorch: a gumbel-softmax dVAE and a text-image transformer on synthetic coloured shapes, with a zero-shot test on held-out colour-shape combinations |
 | [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) | Section-by-section breakdown of the notebook — what each cell does, data flow, tensor shapes, and key design decisions |
-| [TALK.md](TALK.md) | Press coverage, blog posts, interview Q&A, citations, and common misconceptions about the paper |
+| [TALK.md](TALK.md) | Press coverage, Q&A (answers from the paper), citations, and common misconceptions about the paper |
