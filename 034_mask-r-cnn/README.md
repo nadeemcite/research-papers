@@ -10,7 +10,7 @@ permalink: "/034_mask-r-cnn/"
 - **Paper:** [Mask R-CNN](https://arxiv.org/abs/1703.06870)
 - **Authors:** Kaiming He, Georgia Gkioxari, Piotr Dollár, Ross Girshick
 - **Lab, year:** Facebook AI Research (FAIR), 2017 (ICCV 2017)
-- **Video:** YouTube Short coming on 26 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/DMkWruiDzek) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
