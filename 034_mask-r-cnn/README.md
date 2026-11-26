@@ -57,7 +57,7 @@ The models run at about 200 ms per frame on a GPU, and Mask R-CNN outperformed t
 
 ### Simplifications in This Notebook
 
-The notebook builds a small Mask R-CNN in PyTorch and trains it on synthetic 128×128 images of rectangles, circles and triangles (400 for training, 100 for testing). It has a 4-block CNN backbone (stride 16, no FPN), an RPN with 9 anchors per cell, RoIAlign, and parallel box and mask branches with per-class sigmoid masks. RoIAlign is written from scratch for illustration, but training uses torchvision's `roi_align` for speed. It trains with Adam for 6 epochs on one CPU thread and reports mask AP at IoU 0.5.
+The notebook builds a small Mask R-CNN in PyTorch and trains it on synthetic 128×128 images of rectangles, circles and triangles (400 for training, 100 for testing). It has a 4-block CNN backbone (stride 16, no FPN), an RPN with 9 anchors per cell, RoIAlign, and parallel box and mask branches with per-class sigmoid masks. RoIAlign is written from scratch for illustration, but training uses torchvision's `roi_align` for speed. It trains with Adam for 6 epochs on the CPU and reports mask AP at IoU 0.5.
 
 ### What the Notebook Result Shows
 

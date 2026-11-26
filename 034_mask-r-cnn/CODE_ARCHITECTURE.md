@@ -13,7 +13,7 @@ The notebook builds a small Mask R-CNN in PyTorch: a 4-block CNN backbone, a Reg
 
 ### Setup
 - PyTorch, torchvision, NumPy, matplotlib, PIL; nothing is installed
-- Seeds 42; one CPU thread and `torch.use_deterministic_algorithms(True)` so reruns give the same numbers
+- Seeds 42; runs on the CPU (default PyTorch threads)
 - Figures as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
 ### 1–2. Synthetic Shape Dataset
