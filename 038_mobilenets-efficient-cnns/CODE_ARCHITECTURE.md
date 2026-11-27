@@ -7,92 +7,88 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements depthwise separable convolutions from scratch in PyTorch, builds a small MobileNet-style CNN and a standard-convolution equivalent, trains both on CIFAR-10, and benchmarks parameter count, FLOPs, and inference speed.
+The notebook implements depthwise separable convolutions from scratch in PyTorch. It builds a small MobileNet-style CNN and a standard-convolution network with the same layout, both at width multiplier α = 1.0. It counts their parameters and multiply-adds, times a forward pass, and trains both for 4 epochs on 10,000 CIFAR-10 training images. It runs on a GPU if there is one (the saved run used a Tesla T4).
 
 ## Section-by-Section Breakdown
 
 ### 1. Imports & Setup
-- PyTorch, torch.nn, torchvision (CIFAR-10), time, functools
-- Device selection (GPU if available)
-- Reproducibility seed
+- PyTorch, torchvision (CIFAR-10), matplotlib; nothing is installed
+- Seed 42; `CUBLAS_WORKSPACE_CONFIG` set before importing torch, cuDNN deterministic, `torch.use_deterministic_algorithms(True, warn_only=True)`
+- `ALPHA = 1.0`: one width multiplier for every comparison
+- Figures as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
 ### 2. Depthwise Separable Convolution (from scratch)
-- **`DepthwiseSeparableConv`** module: two sub-layers
-  - `nn.Conv2d(in_ch, in_ch, kernel_size, padding, groups=in_ch)` — depthwise (one filter per channel, `groups=in_ch`)
-  - `nn.BatchNorm2d(in_ch)` + `nn.ReLU6` — BN+activation after depthwise
-  - `nn.Conv2d(in_ch, out_ch, kernel_size=1)` — pointwise (1×1 conv to combine channels)
-  - `nn.BatchNorm2d(out_ch)` + `nn.ReLU6` — BN+activation after pointwise
-- Key point: `groups=in_ch` in PyTorch is the mechanism for depthwise convolution — each input channel gets its own filter
+- **`DepthwiseSeparableConv`**:
+  - `nn.Conv2d(in_ch, in_ch, 3, groups=in_ch)`: depthwise, one filter per channel
+  - `nn.BatchNorm2d(in_ch)` + `nn.ReLU`
+  - `nn.Conv2d(in_ch, out_ch, 1)`: pointwise, combines the channels
+  - `nn.BatchNorm2d(out_ch)` + `nn.ReLU`
+- `groups=in_ch` is what makes the convolution depthwise in PyTorch
 
 ### 3. Standard Convolution Block (for comparison)
-- **`StandardConv`** module: single `nn.Conv2d(in_ch, out_ch, kernel_size, padding)` + BatchNorm + ReLU
-- This is the "un-factorized" equivalent — same input/output channels and kernel size
+- **`StandardConv`**: one `nn.Conv2d(in_ch, out_ch, 3)` + BatchNorm + ReLU, with the same input and output channels
 
 ### 4. Small MobileNet Architecture
-- **`SmallMobileNet`**: a scaled-down MobileNet for CIFAR-10 (32×32 images)
-  - First layer: standard 3×3 conv, stride 1, 3→32 channels (mirrors paper's first full conv layer)
-  - 4 depthwise separable blocks with channel progression 32→64→128→256, stride-2 on blocks 2 and 4 for downsampling
-  - Global average pooling → FC layer → 10 output classes
-  - Width multiplier α applied to all channel counts
+- **`SmallMobileNet(alpha)`**: a standard 3×3 conv (3→32 channels, stride 1, as the paper's first layer is a full convolution), then 4 depthwise separable blocks (32→64→128→256→256, stride 2 in blocks 2 and 4), global average pooling and a linear layer to 10 classes
+- Every channel count is multiplied by α (at least 8 channels)
 
 ### 5. Standard Convolution Equivalent
-- **`SmallStandardNet`**: same channel progression and spatial downsampling, but every depthwise separable block replaced by a standard 3×3 convolution
-  - Same depth, same channel widths, same pooling/FC head
-  - This is the apples-to-apples comparison the paper makes in Table 4
+- **`SmallStandardNet(alpha)`**: the same layout with every depthwise separable block replaced by `StandardConv`; the small-scale version of the paper's Table 4 comparison
 
-### 6. Parameter & FLOP Counting
-- **`count_parameters(model)`**: sums all trainable parameters
-- **Manual FLOP estimation**: for each conv layer, compute D_K²·M·N·D_F² (standard) or D_K²·M·D_F² + M·N·D_F² (depthwise separable)
-- Print comparison table showing the ~8–9× reduction
+### 6. Parameter & FLOP Comparison
+- **`count_parameters(model)`**: trainable parameters
+- **`estimate_macs(model)`**: forward hooks on every `nn.Conv2d` add up kernel_h·kernel_w·(C_in/groups)·C_out·H_out·W_out for one 32×32 image (convolutions only)
+- Prints both networks at α = 1.0 and the MobileNet at α = 1, 0.75, 0.5 and 0.25
 
 ### 7. Inference Speed Benchmark
-- **`benchmark_inference(model, input_shape, n_runs=100)`**: warm-up + timed runs
-- Measures wall-clock time per forward pass for both models
-- Reports speedup ratio
+- **`benchmark_inference(model, input_shape=(1, 3, 32, 32), n_warmup=10, n_runs=100)`**: warm-up, then the mean time of 100 forward passes of one image, with CUDA synchronisation
+- Prints both times and StandardNet time / MobileNet time (above 1 means the MobileNet is faster)
 
 ### 8. Training on CIFAR-10
-- Load CIFAR-10 with standard transforms (normalize, random crop, horizontal flip)
-- Train both SmallMobileNet and SmallStandardNet for a modest number of epochs (10–15)
-- Same optimizer (Adam), same learning rate schedule, same batch size
-- Track training loss and test accuracy per epoch
+- Random crop (padding 4) and horizontal flip for training, normalisation for both; the dataset is downloaded quietly
+- Only the first 10,000 of the 50,000 training images; all 10,000 test images
+- **`train_model`**: Adam (learning rate 1e-3) with cosine decay, batch size 128, **4 epochs**; test accuracy after each epoch; returns the history and the best test accuracy
+- 8.1 trains `SmallMobileNet(alpha=ALPHA)` and 8.2 trains `SmallStandardNet(alpha=ALPHA)`, each from seed 42
 
 ### 9. Results Comparison
-- Plot: parameter count bar chart (MobileNet vs Standard)
-- Plot: inference speed bar chart
-- Plot: training accuracy curves overlaid
-- Print final accuracy comparison table — demonstrates MobileNet achieves comparable accuracy with far fewer parameters
+- One figure with three panels for the two trained models: parameter count, the inference times measured in Section 7 (lower is faster), and test accuracy per epoch
+
+### 10. Final Numbers
+- A table for both networks at α = 1.0: parameters, estimated MACs, best test accuracy, inference time and the ratios, plus the accuracy difference
+
+### 11. Summary
+- `### What the run above shows` with the saved run's numbers
 
 ## Key Functions/Classes
 
 | Class/Function | Purpose |
 |---|---|
-| `DepthwiseSeparableConv` | From-scratch depthwise + pointwise conv block with BN+ReLU |
-| `StandardConv` | Equivalent standard conv block for comparison |
-| `SmallMobileNet` | Scaled-down MobileNet for CIFAR-10 |
-| `SmallStandardNet` | Standard-conv equivalent with same topology |
+| `DepthwiseSeparableConv` | From-scratch depthwise + pointwise block with BN and ReLU |
+| `StandardConv` | Standard 3×3 conv block for comparison |
+| `SmallMobileNet` | Small MobileNet for CIFAR-10, with width multiplier |
+| `SmallStandardNet` | Standard-conv network with the same layout |
 | `count_parameters()` | Counts trainable parameters |
-| `estimate_macs()` | Manually estimates multiply-adds for conv layers |
-| `benchmark_inference()` | Times forward passes for speed comparison |
-| `train_model()` | Training loop with loss/accuracy tracking |
+| `estimate_macs()` | Estimates multiply-adds of the conv layers with forward hooks |
+| `benchmark_inference()` | Times forward passes |
+| `train_model()` | Training loop with loss and test accuracy per epoch |
 
-## Data Flow / Shapes (CIFAR-10, 32×32×3)
+## Data Flow / Shapes (CIFAR-10, α = 1.0)
 
 ```
 Input:  [B, 3, 32, 32]
-→ Conv 3×3, stride 1:  [B, 32, 32, 32]
+→ Conv 3×3, stride 1:   [B, 32, 32, 32]
 → DW-Sep block 1 (s=1): [B, 64, 32, 32]
 → DW-Sep block 2 (s=2): [B, 128, 16, 16]
 → DW-Sep block 3 (s=1): [B, 256, 16, 16]
 → DW-Sep block 4 (s=2): [B, 256, 8, 8]
-→ Global Avg Pool:     [B, 256, 1, 1]
-→ Flatten + FC:         [B, 10]
+→ Global avg pool:      [B, 256, 1, 1]
+→ Flatten + linear:     [B, 10]
 ```
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Scale:** Full MobileNet uses 28 layers, 1024 final channels, and 224×224 ImageNet images. We use a 9-layer, 256-channel version on 32×32 CIFAR-10 to keep training under 30 minutes on Kaggle GPU.
-2. **Width/resolution multipliers:** We implement the core depthwise separable convolution and demonstrate the parameter/FLOP reduction. We include a width multiplier demonstration but do not sweep all 16 α×ρ combinations from the paper.
-3. **Dataset:** CIFAR-10 (10 classes, 32×32) instead of ImageNet (1000 classes, 224×224). The architectural principles are identical.
-4. **Training setup:** Adam optimizer instead of RMSprop with async gradient descent (paper used TensorFlow distributed training). No weight decay tuning for depthwise filters.
-5. **ReLU6:** We use ReLU6 as in the original MobileNet (useful for quantization), though standard ReLU would also work for this scale.
-6. **No distillation, detection, or geolocalization experiments** — those are application case studies in the paper, not core architectural contributions.
+1. **Scale:** a first convolution plus 4 depthwise separable blocks (up to 256 channels) on 32×32 images, instead of 13 blocks (up to 1024 channels) on 224×224 ImageNet images.
+2. **Training:** Adam for 4 epochs on 10,000 CIFAR-10 images, instead of RMSprop with asynchronous gradient descent on ImageNet; no special weight-decay setting for the depthwise filters. Both networks end at about 50–55% test accuracy, far from fully trained.
+3. **Multipliers:** the width multiplier is shown with parameter and MAC counts only; there is no resolution multiplier and no sweep over the paper's 16 α×ρ combinations.
+4. **Speed:** timed on a GPU with one image per batch, which is not the mobile hardware the paper targets.
+5. **No applications:** no fine-grained recognition, geolocalization, face attributes, detection or face embeddings.
