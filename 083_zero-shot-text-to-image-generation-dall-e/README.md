@@ -10,7 +10,7 @@ permalink: "/083_zero-shot-text-to-image-generation-dall-e/"
 - **Paper:** [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092)
 - **Authors:** Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray, Chelsea Voss, Alec Radford, Mark Chen, Ilya Sutskever
 - **Lab, year:** OpenAI, 2021 (ICML 2021)
-- **Video:** YouTube Short coming on 27 Nov 2026 on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
+- **Video:** [Watch the YouTube Short](https://youtube.com/shorts/PsMeO2OtE6A) on [Backprop Daily](https://www.youtube.com/@BackpropDaily)
 
 ## Summary
 
