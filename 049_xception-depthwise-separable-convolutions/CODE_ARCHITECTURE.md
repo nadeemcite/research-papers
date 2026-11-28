@@ -7,102 +7,94 @@ nav_order: 1
 
 ## Overview
 
-The notebook implements the Xception module (depthwise separable convolutions with residual connections) from scratch in PyTorch, builds a small Xception-style network for CIFAR-10, and compares its accuracy and parameter count against an Inception-style block network of similar depth.
+The notebook implements the Xception module (depthwise separable convolutions with a residual connection) from scratch in PyTorch. It builds a small Xception-style network for CIFAR-10 and an Inception-style network with the same layout and channel counts. The Inception-style network has about 3.7 times as many parameters (363,720 vs 97,422), so the two are not matched in size. Both are trained the same way for 3 epochs on CIFAR-10. It runs on a GPU if there is one (the saved run used a Tesla T4).
 
 ## Section-by-Section Breakdown
 
 ### 1. Imports & Setup
-- PyTorch, torch.nn, torchvision (CIFAR-10), matplotlib, time
-- Device selection (GPU if available)
-- Reproducibility seed
+- PyTorch, torchvision (CIFAR-10), NumPy, matplotlib; nothing is installed
+- Seed 42; `CUBLAS_WORKSPACE_CONFIG` set before importing torch, cuDNN deterministic, `torch.use_deterministic_algorithms(True, warn_only=True)`
+- Figures as JPEG at 80 dpi; on Kaggle an `atexit` hook copies the executed notebook to `executed_solution.ipynb`
 
 ### 2. Separable Convolution Block (from scratch)
-- **`SeparableConv`** module — the Xception building block:
-  - `nn.Conv2d(in_ch, in_ch, kernel_size=3, padding=1, groups=in_ch)` — depthwise (spatial filtering per channel, `groups=in_ch`)
-  - `nn.BatchNorm2d(in_ch)` — BatchNorm after depthwise (paper specifies all conv layers followed by BN)
-  - **No activation between depthwise and pointwise** — this is the key Xception finding
-  - `nn.Conv2d(in_ch, out_ch, kernel_size=1)` — pointwise (1×1 conv to combine channels)
-  - `nn.BatchNorm2d(out_ch)` — BatchNorm after pointwise
-  - `nn.ReLU()` — activation only after the full separable conv block (not between depthwise/pointwise)
-- Key design choice: the paper shows that omitting the intermediate non-linearity between depthwise and pointwise operations yields faster convergence and better final performance
+- **`SeparableConv(in_channels, out_channels)`**:
+  - `nn.Conv2d(in, in, 3, padding=1, groups=in, bias=False)`: depthwise, one 3×3 filter per channel
+  - `nn.BatchNorm2d(in)`, then **no activation** (the paper's Section 4.7 finding)
+  - `nn.Conv2d(in, out, 1, bias=False)`: pointwise, mixes the channels
+  - `nn.BatchNorm2d(out)` + `nn.ReLU`
 
-### 3. Xception Module (with residual connections)
-- **`XceptionModule`** module — wraps SeparableConv blocks with a linear residual skip:
-  - Two sequential `SeparableConv` blocks (depthwise separable → BN → ReLU × 2)
-  - Residual connection: if input/output channels match, identity skip; if channel count changes, 1×1 conv projection
-  - No intermediate activation between the two separable convs (just BN)
+### 3. Xception Module (with residual connection)
+- **`XceptionModule(in_channels, out_channels, stride=1)`**: `SeparableConv(in→out)`, then 2×2 max pooling if `stride=2`, then `SeparableConv(out→out)`
+- Residual: identity if the shape is unchanged, otherwise a strided 1×1 convolution + BatchNorm; added to the output
+- Every module has a residual connection, including the last (the paper leaves it out of the first and last modules)
 
 ### 4. Inception-Style Block (for comparison)
-- **`InceptionBlock`** module — a simplified Inception module:
-  - 1×1 conv to reduce channels to 3 sub-spaces (each 1/3 of output channels)
-  - Three parallel branches: 1×1 conv, 3×3 conv, 5×5 conv (with padding)
-  - Concatenate outputs along channel dimension
-  - Followed by BatchNorm + ReLU
-  - Residual connection with 1×1 projection if needed
-- This is the "intermediate point on the spectrum" — channels partitioned into a few segments, not fully decoupled
+- **`InceptionBlock(in_channels, out_channels, stride=1)`**: three parallel branches over all input channels, a 1×1, a 3×3 and a 5×5 convolution, each producing about a third of the output channels
+- Concatenate → BatchNorm → ReLU → 2×2 max pooling if `stride=2`, plus the same kind of residual connection
+- The 3×3 and 5×5 branches are full convolutions, which is why this network is larger
 
 ### 5. Small Xception Architecture
-- **`SmallXception`** — scaled-down Xception for CIFAR-10 (32×32 images):
-  - Entry flow: standard 3×3 conv (3→32 channels) → 2 XceptionModules (32→64, 64→128, stride-2 downsampling)
-  - Middle flow: 3 XceptionModules (128→128, repeated)
-  - Exit flow: 2 XceptionModules (128→256, 256→10) → global average pooling → FC
-  - Matches the paper's entry/middle/exit structure at a fraction of the scale
+- **`SmallXception(num_classes=10)`**:
+  - Entry flow: 3×3 conv (3→32) + BN + ReLU, then `XceptionModule(32, 48, stride=2)` and `XceptionModule(48, 96, stride=2)`
+  - Middle flow: one `XceptionModule(96, 96)` (the paper repeats its middle flow 8 times)
+  - Exit flow: `XceptionModule(96, 128, stride=2)`, then `XceptionModule(128, 10)`
+  - Global average pooling of the 10 channels gives the class scores; there is no fully connected layer
 
 ### 6. Small Inception-Style Architecture
-- **`SmallInceptionNet`** — same depth, same channel progression, same spatial downsampling
-  - InceptionBlocks instead of XceptionModules
-  - Same FC head and global average pooling
-  - This is the apples-to-apples comparison: same parameter budget, different module type
+- **`SmallInceptionNet(num_classes=10)`**: the same layout with `InceptionBlock` in place of every `XceptionModule`
 
 ### 7. Parameter Counting
-- **`count_parameters(model)`**: sums all trainable parameters
-- Manual comparison showing Xception's depthwise separable approach vs Inception's multi-branch approach at equal depth
-- Print table: model, total params, params per layer type
+- **`count_parameters(model)`**: trainable parameters. SmallXception 97,422, SmallInceptionNet 363,720 (3.73×)
+- **`param_breakdown(model, name)`**: convolution, BatchNorm and other parameters by name
 
-### 8. Training on CIFAR-10
-- Load CIFAR-10 with standard transforms (normalize, random crop, horizontal flip)
-- Train both SmallXception and SmallInceptionNet for 15 epochs
-- Same optimizer (SGD with momentum 0.9), same learning rate schedule, same batch size
-- Track training loss and test accuracy per epoch
+### 8. Data Loading (CIFAR-10)
+- Random crop (padding 4) and horizontal flip for training, normalisation for both; the dataset is downloaded quietly
+- All 50,000 training and 10,000 test images; batch size 128, seeded shuffling
 
-### 9. Results Comparison
-- Plot: parameter count bar chart (Xception vs Inception-style)
-- Plot: training/test accuracy curves overlaid for both models
-- Plot: training loss curves
-- Print final accuracy comparison table — demonstrates Xception achieves comparable or better accuracy with similar or fewer parameters
+### 9. Training
+- **`train_model(model, trainloader, testloader, epochs=3, lr=0.01, name)`**: SGD (momentum 0.9, weight decay 5e-4), cosine annealing, cross-entropy; prints loss, training accuracy and test accuracy after each epoch and returns the history
+- Trains SmallXception, then SmallInceptionNet, both for **3 epochs**
+
+### 10. Results Comparison
+- One figure with three panels: parameter count, test accuracy per epoch, training loss per epoch
+- A table with parameters and final training and test accuracy, the test-accuracy difference (SmallXception minus SmallInceptionNet) and the parameter difference
+
+### 11. What the Paper Found
+- The paper's findings with section, figure and table references, labelled as not reproduced here
+
+### 12. Summary
+- `### What the run above shows` with the saved run's numbers
 
 ## Key Functions/Classes
 
 | Class/Function | Purpose |
 |---|---|
-| `SeparableConv` | Depthwise conv (groups=in_ch) → BN → pointwise 1×1 conv → BN → ReLU. No intermediate activation. |
-| `XceptionModule` | Two SeparableConv blocks + residual skip (identity or 1×1 projection). |
-| `InceptionBlock` | 1×1 reduction → parallel 1×1/3×3/5×5 → concat → BN → ReLU + residual. |
-| `SmallXception` | Entry/middle/exit flow with XceptionModules, global avg pool, FC. |
-| `SmallInceptionNet` | Same structure with InceptionBlocks for comparison. |
-| `count_parameters` | Sum trainable parameters. |
-| `train_model` | Training loop with SGD, LR scheduling, loss/accuracy tracking. |
-| `plot_comparison` | Accuracy curves, loss curves, parameter count bar charts. |
+| `SeparableConv` | Depthwise 3×3 → BN → pointwise 1×1 → BN → ReLU; no activation in between |
+| `XceptionModule` | Two `SeparableConv` blocks, optional max pooling, residual (identity or 1×1 projection) |
+| `InceptionBlock` | Parallel 1×1 / 3×3 / 5×5 convolutions → concat → BN → ReLU, plus residual |
+| `SmallXception` | Entry / middle / exit flow of `XceptionModule`s, global average pooling |
+| `SmallInceptionNet` | The same layout with `InceptionBlock`s |
+| `count_parameters()` | Counts trainable parameters |
+| `param_breakdown()` | Splits parameters into convolution, BatchNorm and other |
+| `train_model()` | Training loop with loss and accuracy per epoch |
 
-## Data Flow / Shapes (CIFAR-10, batch=128)
+## Data Flow / Shapes (CIFAR-10, batch B)
 
 ```
-Input: [128, 3, 32, 32]
-  → Conv 3→32: [128, 32, 32, 32]
-  → XceptionModule 32→64, stride 2: [128, 64, 16, 16]
-  → XceptionModule 64→128, stride 2: [128, 128, 8, 8]
-  → 3× XceptionModule 128→128: [128, 128, 8, 8]
-  → XceptionModule 128→256, stride 2: [128, 256, 4, 4]
-  → XceptionModule 256→10: [128, 10, 4, 4]
-  → Global avg pool: [128, 10]
-  → Output: [128, 10]
+Input:                          [B, 3, 32, 32]
+→ Conv 3×3 + BN + ReLU:         [B, 32, 32, 32]
+→ XceptionModule 32→48, s=2:    [B, 48, 16, 16]
+→ XceptionModule 48→96, s=2:    [B, 96, 8, 8]
+→ XceptionModule 96→96:         [B, 96, 8, 8]
+→ XceptionModule 96→128, s=2:   [B, 128, 4, 4]
+→ XceptionModule 128→10:        [B, 10, 4, 4]
+→ Global avg pool + flatten:    [B, 10]
 ```
 
 ## Deliberate Simplifications vs Full Paper
 
-1. **Scale:** Full Xception has 36 conv layers (14 modules, 8 middle-flow repeats); our SmallXception has ~18 conv layers (7 modules, 3 middle-flow repeats) — scaled for CIFAR-10's 32×32 images and Kaggle GPU time limits.
-2. **Dataset:** Full paper uses ImageNet (1.28M images, 1000 classes) and JFT (350M images, 17K classes); we use CIFAR-10 (50K images, 10 classes).
-3. **Optimizer:** Paper uses SGD with carefully tuned LR (0.045, decay 0.94/2 epochs) + Polyak averaging; we use SGD with cosine annealing, no Polyak averaging.
-4. **No intermediate activation experiment:** The paper separately tests ReLU/ELU between depthwise/pointwise (Figure 10); our notebook implements the "no activation" version (the paper's best-performing configuration) as the default.
-5. **Weight decay:** Paper uses 1e-5; we use 5e-4 (standard for CIFAR-10 with small models).
-6. **Entry/exit flow:** Simplified channel progressions (32→64→128→256 vs 32→128→256→728→1024→2048→4096 in the full paper).
+1. **Scale:** a first convolution and 5 modules with up to 128 channels on 32×32 images, instead of 14 modules and 36 convolutional layers on ImageNet-size images (Section 3, Figure 5).
+2. **Baseline:** a small Inception-style network with the same layout, not Inception V3, and about 3.7 times larger than the small Xception; the paper compares two networks of nearly the same size (Table 3).
+3. **Data and training:** CIFAR-10 for 3 epochs with SGD, learning rate 0.01, cosine annealing and weight decay 5e-4, instead of ImageNet and JFT with the paper's settings (Sections 4.2 and 4.3); no dropout and no Polyak averaging. Both networks are far from fully trained.
+4. **Residuals:** every module has a residual connection; the paper's first and last modules do not.
+5. **No ablations:** no runs without residual connections (Figure 9) or with an intermediate ReLU or ELU (Figure 10); the notebook only builds the paper's best setting, with no intermediate activation.
